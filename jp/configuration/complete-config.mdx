@@ -1,19 +1,19 @@
+﻿---
+title: "完全な設定"
+description: "デフォルト値、コマンドキー、動作メモを含む MineClawd 設定の完全リファレンス。"
 ---
-title: "Complete configuration"
-description: "Full MineClawd configuration reference with defaults, command keys, and behavior notes."
----
 
-## Purpose
+## 目的
 
-This page gives you the full MineClawd configuration model, including file settings, command keys, and restart behavior.
+このページでは、ファイル設定、コマンドキー、再起動時の挙動を含む MineClawd の完全な設定モデルを説明します。
 
-## Where settings live
+## 設定の保存場所
 
-- Global config file: `config/mineclawd.json5`
-- Per-player chat visibility: `mineclawd/player-settings.json`
-- Soul files and active soul state: `mineclawd/souls/` and `mineclawd/souls/.active/`
+- グローバル設定ファイル: `config/mineclawd.json5`
+- プレイヤーごとのチャット可視性: `mineclawd/player-settings.json`
+- Soul ファイルとアクティブ soul 状態: `mineclawd/souls/` と `mineclawd/souls/.active/`
 
-## Complete `mineclawd.json5` template
+## 完全版 `mineclawd.json5` テンプレート
 
 ```json5
 {
@@ -37,52 +37,52 @@ This page gives you the full MineClawd configuration model, including file setti
 ```
 
 <Info>
-In file form, enum values are uppercase (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`).
+ファイル形式では列挙値は大文字です（`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`）。
 
-In command form, values are lowercase (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
+コマンド形式では値は小文字です（`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`）。
 </Info>
 
-## Key reference
+## キーリファレンス
 
-| File key | Command key | Type | Default | Notes |
+| ファイルキー | コマンドキー | 型 | デフォルト | メモ |
 | --- | --- | --- | --- | --- |
-| `provider` | `provider` | enum | `OPENAI` | Provider selection: OpenAI-compatible or Vertex AI. |
-| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-compatible base URL, no trailing slash required. |
-| `apiKey` | `api-key` | string | empty | OpenAI API key. |
-| `model` | `model` | string | `gpt-4o-mini` | OpenAI chat model. |
-| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI model for first-turn session title generation. |
-| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API base URL. |
-| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API key. |
-| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex model path or model name. |
-| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex summarize model for session titles. |
-| `debugMode` | `debug-mode` | boolean | `false` | Logs detailed request and tool activity. |
-| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Enables per-request tool-loop cap. |
-| `toolCallLimit` | `tool-call-limit` | integer | `16` | Allowed range is `1` to `20`. |
-| `systemPrompt` | `system-prompt` | string | empty | Empty means built-in system prompt. Use value `default` in command mode to reset. |
-| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Controls dynamic placeholder runtime mode. Restart required after change. |
+| `provider` | `provider` | enum | `OPENAI` | プロバイダー選択: OpenAI 互換または Vertex AI。 |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI 互換のベース URL。末尾スラッシュは不要です。 |
+| `apiKey` | `api-key` | string | empty | OpenAI API キー。 |
+| `model` | `model` | string | `gpt-4o-mini` | OpenAI チャットモデル。 |
+| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | 初回ターンのセッションタイトル生成に使う OpenAI モデル。 |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API ベース URL。 |
+| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API キー。 |
+| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex モデルパスまたはモデル名。 |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | セッションタイトル用の Vertex 要約モデル。 |
+| `debugMode` | `debug-mode` | boolean | `false` | 詳細なリクエストとツール動作をログ出力します。 |
+| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | リクエスト単位のツールループ上限を有効化します。 |
+| `toolCallLimit` | `tool-call-limit` | integer | `16` | 許容範囲は `1` から `20` です。 |
+| `systemPrompt` | `system-prompt` | string | empty | 空文字は内蔵システムプロンプトを意味します。コマンドモードで `default` を指定するとリセットします。 |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | 動的プレースホルダー実行モードを制御します。変更後は再起動が必要です。 |
 
-## Per-player setting
+## プレイヤーごとの設定
 
-`broadcast-requests-to` is command-only and per-player.
+`broadcast-requests-to` はコマンド専用で、プレイヤーごとに保持されます。
 
-- Command key: `broadcast-requests-to`
-- Allowed values: `self`, `all`, `ops`
-- Stored in: `mineclawd/player-settings.json`
-- Purpose: controls who sees prompt echo and task start or finish lines.
+- コマンドキー: `broadcast-requests-to`
+- 許可値: `self`, `all`, `ops`
+- 保存先: `mineclawd/player-settings.json`
+- 目的: プロンプトのエコーとタスク開始/終了行を誰が見られるかを制御します。
 
-## Dynamic registry mode behavior
+## Dynamic registry mode の挙動
 
-- `AUTO`: enabled in client runtime (single-player), disabled on dedicated servers.
-- `ENABLED`: force enabled in all runtimes.
-- `DISABLED`: fully disabled.
+- `AUTO`: クライアント実行時（シングルプレイ）では有効、専用サーバーでは無効。
+- `ENABLED`: すべての実行環境で強制有効。
+- `DISABLED`: 完全に無効。
 
 <Warning>
-If you force `ENABLED` on a dedicated server, joining clients must have MineClawd installed.
+専用サーバーで `ENABLED` を強制した場合、参加クライアントにも MineClawd の導入が必要です。
 </Warning>
 
-## Recommended baselines
+## 推奨ベースライン
 
-### Baseline for first-time OpenAI setup
+### 初回 OpenAI セットアップ向けベースライン
 
 ```bash
 /mineclawd config provider openai
@@ -92,7 +92,7 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config summarize-model gpt-4o-mini
 ```
 
-### Baseline for first-time Vertex setup
+### 初回 Vertex セットアップ向けベースライン
 
 ```bash
 /mineclawd config provider vertex-ai
@@ -102,9 +102,9 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
 ```
 
-## GUI path
+## GUI パス
 
-- In game: **Mod Menu** -> **MineClawd** -> **Configure**
-- Command fallback: `/mineclawd config ...`
+- ゲーム内: **Mod Menu** -> **MineClawd** -> **Configure**
+- コマンド代替: `/mineclawd config ...`
 
-If client GUI open fails, configure through command keys.
+クライアントで GUI オープンに失敗する場合は、コマンドキー経由で設定してください。

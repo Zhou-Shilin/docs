@@ -1,51 +1,51 @@
 ---
-title: "Getting started"
-description: "Absolute beginner path: from vanilla launcher to your first MineClawd chat."
+title: "Primeros pasos"
+description: "Ruta para principiantes absolutos: del launcher vanilla a tu primer chat con MineClawd."
 ---
 
-## Goal
+## Objetivo
 
-Follow this page step by step, and you will get one successful reply from MineClawd.
+Sigue esta página paso a paso y obtendrás una respuesta correcta de MineClawd.
 
-## Tiny glossary
+## Glosario rápido
 
 <CardGroup cols={2}>
   <Card title="Minecraft Java Edition">
-    The PC version of Minecraft from the official Minecraft Launcher.
+    La versión para PC de Minecraft desde el Minecraft Launcher oficial.
   </Card>
   <Card title="Fabric">
-    A small loader that lets Minecraft run mods.
+    Un cargador ligero que permite ejecutar mods en Minecraft.
   </Card>
   <Card title="Mod">
-    A `.jar` file that adds features to Minecraft.
+    Un archivo `.jar` que añade funciones a Minecraft.
   </Card>
-  <Card title="API key">
-    A secret key that lets MineClawd talk to an online AI service.
+  <Card title="Clave API">
+    Una clave secreta que permite que MineClawd se conecte con un servicio de IA en línea.
   </Card>
 </CardGroup>
 
-## Step 1: install Fabric for Minecraft 1.20.1
+## Paso 1: instala Fabric para Minecraft 1.20.1
 
-1. Download Fabric Installer from: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
-2. Run the installer.
-3. Choose:
-   - Install type: **Client**
-   - Minecraft version: **1.20.1**
-4. Click **Install**.
-5. Open Minecraft Launcher and run **Fabric Loader 1.20.1** once, then close the game.
+1. Descarga Fabric Installer desde: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
+2. Ejecuta el instalador.
+3. Elige:
+   - Tipo de instalación: **Client**
+   - Versión de Minecraft: **1.20.1**
+4. Haz clic en **Install**.
+5. Abre Minecraft Launcher y ejecuta **Fabric Loader 1.20.1** una vez, luego cierra el juego.
 
 <Note>
-On Windows with the official launcher, this is usually a one-click installer flow.
+En Windows con el launcher oficial, esto suele ser un flujo de instalación de un solo clic.
 </Note>
 
-## Step 2: download required mods (Fabric + 1.20.1 versions)
+## Paso 2: descarga los mods requeridos (versiones Fabric + 1.20.1)
 
-Download these files from Modrinth. On each page, choose a file that matches:
+Descarga estos archivos desde Modrinth. En cada página, elige un archivo que coincida con:
 
-- Minecraft version: `1.20.1`
+- Versión de Minecraft: `1.20.1`
 - Loader: `Fabric`
 
-| Mod | Download link |
+| Mod | Enlace de descarga |
 | --- | --- |
 | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
 | Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
@@ -53,50 +53,50 @@ Download these files from Modrinth. On each page, choose a file that matches:
 | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
 | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
 | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
-| Mod Menu (for GUI config) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+| Mod Menu (para configuración GUI) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
 
-## Step 3: put mod files into your `mods` folder
+## Paso 3: coloca los archivos del mod en tu carpeta `mods`
 
-1. Open your Minecraft folder.
-2. Open `mods` folder. If it does not exist, create it.
-3. Move all downloaded `.jar` files into `mods`.
-4. Do not unzip `.jar` files.
+1. Abre tu carpeta de Minecraft.
+2. Abre la carpeta `mods`. Si no existe, créala.
+3. Mueve todos los archivos `.jar` descargados a `mods`.
+4. No descomprimas los archivos `.jar`.
 
-## Step 4: launch game and open MineClawd GUI
+## Paso 4: inicia el juego y abre la GUI de MineClawd
 
-1. Start Minecraft with **Fabric Loader 1.20.1** profile.
-2. Create or open a single-player world.
-3. Turn **Allow Cheats** ON for that world.
-4. Open **Mod Menu** -> **MineClawd** -> **Configure**.
+1. Inicia Minecraft con el perfil **Fabric Loader 1.20.1**.
+2. Crea o abre un mundo de un solo jugador.
+3. Activa **Allow Cheats** en ese mundo.
+4. Abre **Mod Menu** -> **MineClawd** -> **Configure**.
 
-## Step 5: connect an AI service
+## Paso 5: conecta un servicio de IA
 
-If you do not have an AI account yet, use OpenRouter and pick a free model.
+Si todavía no tienes una cuenta de IA, usa OpenRouter y elige un modelo gratuito.
 
-1. Create account: [openrouter.ai](https://openrouter.ai/)
-2. Create API key: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
-3. In MineClawd GUI, set:
+1. Crea una cuenta: [openrouter.ai](https://openrouter.ai/)
+2. Crea una clave API: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
+3. En la GUI de MineClawd, configura:
    - **Provider**: `OpenAI`
    - **Endpoint**: `https://openrouter.ai/api/v1`
-   - **API Key**: paste your OpenRouter key
-   - **Model**: pick one model id from [openrouter.ai/models](https://openrouter.ai/models) (free models often include `:free`)
-   - **Summarize Model**: use the same model id for now
-4. Save config.
+   - **API Key**: pega tu clave de OpenRouter
+   - **Model**: elige un id de modelo de [openrouter.ai/models](https://openrouter.ai/models) (los modelos gratis suelen incluir `:free`)
+   - **Summarize Model**: usa por ahora el mismo id de modelo
+4. Guarda la configuración.
 
 <Info>
-Free models and limits change over time. If one model fails, pick another model id from the same models page.
+Los modelos gratuitos y sus límites cambian con el tiempo. Si falla un modelo, elige otro id de modelo de la misma página.
 </Info>
 
-## Step 6: send your first message
+## Paso 6: envía tu primer mensaje
 
-Open chat in your world and run:
+Abre el chat en tu mundo y ejecuta:
 
 ```bash
-/mclawd hello
+/mclawd hola
 ```
 
-If setup is correct, MineClawd replies in chat.
+Si la configuración es correcta, MineClawd responderá en el chat.
 
-## If it does not work
+## Si no funciona
 
-Go to [/resources/troubleshooting](/resources/troubleshooting) and follow the matching symptom.
+Ve a [/resources/troubleshooting](/resources/troubleshooting) y sigue el síntoma correspondiente.

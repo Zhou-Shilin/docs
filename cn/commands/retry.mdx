@@ -1,30 +1,30 @@
 ---
 title: "retry"
-description: "Retry the last failed request using a retry token."
+description: "使用重试 token 重新执行最近一次失败请求。"
 ---
 
-## Purpose
+## 用途
 
-Replay a failed request without retyping the prompt.
+无需重新输入 prompt，即可重放一次失败请求。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd retry <token>
 ```
 
-## Where the token comes from
+## token 的来源
 
-When a request fails, MineClawd can show clickable `[Retry]` and `[Adjust Prompt]` actions. Use the token behind `[Retry]`.
+当请求失败时，MineClawd 会显示可点击的 `[Retry]` 和 `[Adjust Prompt]` 操作。使用 `[Retry]` 背后的 token。
 
-## Behavior and limits
+## 行为和限制
 
-- Retry tokens expire after 30 minutes.
-- Retry only works when your active session still matches the original failed session.
-- If retry starts successfully, MineClawd clears the stored failed token.
+- 重试 token 会在 30 分钟后过期。
+- 只有当前活动会话仍与原失败会话一致时，重试才会成功。
+- 如果重试成功启动，MineClawd 会清除已保存的失败 token。
 
-## Common failures
+## 常见失败
 
-- `retry token is invalid or expired`: request failed too long ago or token is wrong.
-- `active session changed`: resume the original session or resend manually.
-- `another request is still running for this session`: wait for completion.
+- `retry token is invalid or expired`：请求失败时间过久，或 token 不正确。
+- `active session changed`：请恢复到原会话，或手动重新发送。
+- `another request is still running for this session`：请等待当前请求完成。

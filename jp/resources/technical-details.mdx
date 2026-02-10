@@ -1,33 +1,33 @@
+﻿---
+title: "技術詳細"
+description: "MineClawd のアーキテクチャ、ストレージ、制限値、実行時内部仕様。"
 ---
-title: "Technical details"
-description: "Architecture, storage, limits, and runtime internals for MineClawd."
----
 
-## Request lifecycle
+## リクエストライフサイクル
 
-1. You run `/mclawd ...` or `/mineclawd prompt ...`.
-2. MineClawd validates provider config and OP access.
-3. MineClawd loads or creates active session state.
-4. MineClawd sends request to OpenAI-compatible or Vertex endpoint.
-5. Model responses can trigger tool calls.
-6. Tool results are fed back into the model loop.
-7. Final assistant output is rendered to chat and session history is saved.
+1. `/mclawd ...` または `/mineclawd prompt ...` を実行します。
+2. MineClawd がプロバイダー設定と OP 権限を検証します。
+3. MineClawd がアクティブセッション状態を読み込むか新規作成します。
+4. MineClawd が OpenAI 互換または Vertex エンドポイントへリクエストを送信します。
+5. モデル応答によってツール呼び出しが発生することがあります。
+6. ツール結果はモデルループへ戻されます。
+7. 最終アシスタント出力がチャットに表示され、セッション履歴が保存されます。
 
-## Runtime tool families
+## 実行時ツールファミリー
 
-- Command and script execution:
+- コマンドとスクリプト実行:
   - `execute-command`
   - `apply-instant-server-script`
-- Persistent script files:
+- 永続スクリプトファイル:
   - `list-server-scripts`
   - `read-server-script`
   - `write-server-script`
   - `delete-server-script`
   - `reload-game`
   - `sync-command-tree`
-- Clarification:
+- 確認質問:
   - `ask-user-question`
-- Dynamic placeholders (only when enabled):
+- 動的プレースホルダー（有効時のみ）:
   - `list-dynamic-content`
   - `register-dynamic-item`
   - `register-dynamic-block`
@@ -37,7 +37,7 @@ description: "Architecture, storage, limits, and runtime internals for MineClawd
   - `update-dynamic-fluid`
   - `unregister-dynamic-content`
 
-## Storage layout
+## ストレージ構成
 
 ```text
 gameDir/
@@ -61,35 +61,35 @@ gameDir/
         ...
 ```
 
-## Session internals
+## セッション内部仕様
 
-- Session id is a 4-character lowercase token.
-- Command token format is `<id>-<title-slug>`.
-- Session file stores OpenAI and Vertex histories separately.
-- Active session pointer is stored in `active.json` per owner.
-- Session title is generated after first successful round using summarize model.
+- セッション ID は 4 文字の小文字トークンです。
+- コマンド token 形式は `<id>-<title-slug>` です。
+- セッションファイルは OpenAI と Vertex の履歴を別々に保存します。
+- アクティブセッションポインタは owner ごとの `active.json` に保存されます。
+- セッションタイトルは最初の正常ラウンド後に要約モデルで生成されます。
 
-## LLM transport details
+## LLM 転送詳細
 
-- OpenAI-compatible request path: `<endpoint>/chat/completions`
-- Vertex request path: `<endpoint>/<model>:generateContent?key=<api_key>`
-- Both paths use 60-second request timeout.
-- Both paths support function-style tool calling.
+- OpenAI 互換リクエストパス: `<endpoint>/chat/completions`
+- Vertex リクエストパス: `<endpoint>/<model>:generateContent?key=<api_key>`
+- 両パスともリクエストタイムアウトは 60 秒です。
+- 両パスとも function 形式のツール呼び出しをサポートします。
 
-## Dynamic placeholder internals
+## 動的プレースホルダー内部仕様
 
-- Capacity: `30` item slots, `30` block slots, `30` fluid slots.
-- Fixed ids include:
+- 容量: item スロット `30`、block スロット `30`、fluid スロット `30`。
+- 固定 id の例:
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- State sync uses `sync_dynamic_content` network payload.
-- State persistence uses world `PersistentState` id `mineclawd_dynamic_content`.
-- `AUTO` mode enables runtime placeholders in client runtime and disables them on dedicated servers.
+- 状態同期は `sync_dynamic_content` ネットワークペイロードを使います。
+- 状態永続化はワールド `PersistentState` id `mineclawd_dynamic_content` を使います。
+- `AUTO` モードはクライアント実行環境で実行時プレースホルダーを有効化し、専用サーバーでは無効化します。
 
-## Networking channels
+## ネットワークチャンネル
 
-MineClawd defines these packet identifiers:
+MineClawd は次のパケット識別子を定義します:
 
 - `mineclawd:open_config`
 - `mineclawd:sync_broadcast_target`
@@ -98,23 +98,23 @@ MineClawd defines these packet identifiers:
 - `mineclawd:question_response`
 - `mineclawd:open_history_book`
 
-## Limits and timers
+## 制限値とタイマー
 
-| Setting or behavior | Value |
+| 設定または動作 | 値 |
 | --- | --- |
-| Tool call limit range | `1` to `20` |
-| Default tool call limit value | `16` |
-| Tool call limit default state | disabled |
-| Ask-user max options | `5` |
-| Ask-user timeout | `60` seconds |
-| Failed-request retry token TTL | `30` minutes |
-| Rate-limit retry count | `2` retries |
-| Rate-limit retry backoff | `1500ms * retry_index` |
-| History max entries for book build | `300` |
+| `tool-call-limit` の範囲 | `1` から `20` |
+| `tool-call-limit` のデフォルト値 | `16` |
+| `tool-call-limit` のデフォルト状態 | 無効 |
+| `ask-user-question` の最大選択肢数 | `5` |
+| `ask-user-question` のタイムアウト | `60` 秒 |
+| 失敗リクエスト retry token TTL | `30` 分 |
+| レート制限時のリトライ回数 | `2` 回 |
+| レート制限時のバックオフ | `1500ms * retry_index` |
+| 本 UI 生成時の履歴最大件数 | `300` |
 
-## Security model
+## セキュリティモデル
 
-- Every command path is OP-gated.
-- KubeJS execution is real server execution, not simulation.
-- API keys must be treated as secrets.
-- Use trusted environments only.
+- すべてのコマンド経路は OP で保護されます。
+- KubeJS 実行はシミュレーションではなく実サーバー実行です。
+- API キーは秘密情報として扱う必要があります。
+- 信頼できる環境でのみ使用してください。

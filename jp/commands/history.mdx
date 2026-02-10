@@ -1,31 +1,31 @@
----
+﻿---
 title: "history"
-description: "Open a readable in-game book view of current session history."
+description: "現在のセッション履歴をゲーム内の本 UI で読みやすく表示します。"
 ---
 
-## Purpose
+## 目的
 
-View your active session conversation in a written book UI.
+アクティブセッションの会話を本 UI で確認します。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd history
 ```
 
-## When to use it
+## 使う場面
 
-Use this to review context before continuing a long task.
+長い作業を続ける前に、コンテキストを確認したいときに使います。
 
-## Behavior and limits
+## 動作と制限
 
-- This command must be executed by a player, not console.
-- Client support is required for the direct history book UI packet.
-- If there is no active session, MineClawd asks you to create one first.
-- Very long history is truncated to book limits.
+- このコマンドはコンソールではなくプレイヤーとして実行する必要があります。
+- 本 UI パケットを直接開くにはクライアント側サポートが必要です。
+- アクティブセッションがない場合、MineClawd は先に作成するよう案内します。
+- 履歴が長すぎる場合は本 UI の上限に合わせて切り詰められます。
 
-## Common failures
+## よくある失敗
 
-- `this command must be executed by a player`: run in player chat.
-- `Client mod is required for /mineclawd history book UI`: install MineClawd on your client.
-- `No active session`: run `/mineclawd sessions new` first.
+- `this command must be executed by a player`: プレイヤーチャットで実行してください。
+- `Client mod is required for /mineclawd history book UI`: クライアントに MineClawd をインストールしてください。
+- `No active session`: 先に `/mineclawd sessions new` を実行してください。

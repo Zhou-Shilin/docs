@@ -1,11 +1,11 @@
 ---
 title: "sessions remove"
-description: "Delete a saved session by id or token."
+description: "Eine gespeicherte Session per ID oder Token löschen."
 ---
 
-## Purpose
+## Zweck
 
-Remove sessions you no longer need.
+Entferne Sessions, die du nicht mehr brauchst.
 
 ## Syntax
 
@@ -13,20 +13,20 @@ Remove sessions you no longer need.
 /mineclawd sessions remove <session>
 ```
 
-## Examples
+## Beispiele
 
 ```bash
 /mineclawd sessions remove 1a2b
 /mineclawd sessions remove 1a2b-my-project-title
 ```
 
-## Behavior and limits
+## Verhalten und Grenzen
 
-- Deletion is permanent.
-- If you remove the active session, MineClawd switches active pointer to the most recently updated remaining session.
-- If no sessions remain, there is no active session.
+- Das Löschen ist dauerhaft.
+- Wenn du die aktive Session entfernst, setzt MineClawd den aktiven Zeiger auf die zuletzt aktualisierte verbleibende Session.
+- Wenn keine Sessions übrig bleiben, gibt es keine aktive Session.
 
-## Common failures
+## Häufige Fehler
 
-- `session not found`: check id or token with `/mineclawd sessions list`.
-- `cannot remove sessions while a request is running`: wait for completion.
+- `session not found`: ID oder Token mit `/mineclawd sessions list` prüfen.
+- `cannot remove sessions while a request is running`: auf Abschluss warten.

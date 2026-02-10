@@ -1,79 +1,79 @@
 ---
-title: "Managing sessions"
-description: "Advanced session workflow, history review, storage layout, and recovery playbook."
+title: "Gestionar sesiones"
+description: "Flujo avanzado de sesiones, revisión de historial, estructura de almacenamiento y guía de recuperación."
 ---
 
-## Why session discipline matters
+## Por qué importa la disciplina de sesiones
 
-Sessions are MineClawd's long-term memory. A clean session workflow gives you better answers, fewer context mistakes, and faster recovery when something breaks.
+Las sesiones son la memoria a largo plazo de MineClawd. Un flujo limpio de sesiones te da mejores respuestas, menos errores de contexto y recuperación más rápida cuando algo falla.
 
-## How sessions are scoped
+## Cómo se delimitan las sesiones
 
-- Sessions are isolated by owner key.
-- Player commands use the player UUID as owner key.
-- Console commands use the command source name as owner key.
-- Each owner has one active session pointer.
-- All session commands require OP permission level `2`.
+- Las sesiones están aisladas por clave de propietario.
+- Los comandos de jugador usan el UUID del jugador como clave de propietario.
+- Los comandos de consola usan el nombre del origen del comando como clave de propietario.
+- Cada propietario tiene un puntero de sesión activa.
+- Todos los comandos de sesión requieren nivel de permiso OP `2`.
 
-## Daily command workflow
+## Flujo diario de comandos
 
-| Goal | Command |
+| Objetivo | Comando |
 | --- | --- |
-| Start a clean context | `/mineclawd sessions new` |
-| See all saved sessions | `/mineclawd sessions list` |
-| Switch active context | `/mineclawd sessions resume <session>` |
-| Remove stale context | `/mineclawd sessions remove <session>` |
-| Read current chat history | `/mineclawd history` |
-| Repair malformed Vertex turns | `/mineclawd sessions repair [session]` |
+| Empezar con contexto limpio | `/mineclawd sessions new` |
+| Ver todas las sesiones guardadas | `/mineclawd sessions list` |
+| Cambiar el contexto activo | `/mineclawd sessions resume <session>` |
+| Eliminar contexto obsoleto | `/mineclawd sessions remove <session>` |
+| Leer el historial actual del chat | `/mineclawd history` |
+| Reparar turnos de Vertex mal formados | `/mineclawd sessions repair [session]` |
 
-`<session>` accepts either a short id like `1a2b` or a token like `1a2b-my-build-plan`.
+`<session>` acepta un id corto como `1a2b` o un token como `1a2b-my-build-plan`.
 
 <Tip>
-Prefer the short session id for notes, scripts, and runbooks. The id is stable. The token title part can change after MineClawd generates a better title.
+Prefiere el id corto de sesión para notas, scripts y runbooks. El id es estable. La parte de título del token puede cambiar cuando MineClawd genera un título mejor.
 </Tip>
 
-## Best practices for long tasks
+## Mejores prácticas para tareas largas
 
-1. Use one session per objective, not one session for everything.
-2. Rename context by starting fresh sessions instead of dragging old history forever.
-3. Run `/mineclawd sessions list` before `resume`, `remove`, or `repair`.
-4. Avoid session mutations while a request is still running.
-5. Review context with `/mineclawd history` before destructive tasks.
+1. Usa una sesión por objetivo, no una sesión para todo.
+2. Renueva el contexto iniciando sesiones nuevas en lugar de arrastrar historial viejo para siempre.
+3. Ejecuta `/mineclawd sessions list` antes de `resume`, `remove` o `repair`.
+4. Evita modificar sesiones mientras una solicitud sigue en ejecución.
+5. Revisa el contexto con `/mineclawd history` antes de tareas destructivas.
 
-## Using `/mineclawd history` well
+## Cómo usar bien `/mineclawd history`
 
-- The history book shows session token, update time, and visible chat turns.
-- The command only works for players, not console.
-- The history book UI requires MineClawd on the client.
-- Very long history is truncated to Minecraft book page limits.
+- El libro de historial muestra token de sesión, hora de actualización y turnos visibles de chat.
+- El comando solo funciona para jugadores, no para consola.
+- La interfaz de libro de historial requiere MineClawd en el cliente.
+- El historial muy largo se recorta a los límites de páginas del libro de Minecraft.
 
-If your client does not have MineClawd installed, use `sessions list` plus recent chat logs as your fallback context check.
+Si tu cliente no tiene MineClawd instalado, usa `sessions list` junto con logs recientes de chat como verificación de contexto alternativa.
 
-## Recovery playbook
+## Guía de recuperación
 
-### Request failed but context should stay
+### La solicitud falló pero el contexto debe mantenerse
 
-Use `/mineclawd retry <token>` from the latest failure message. Retry tokens expire after 30 minutes.
+Usa `/mineclawd retry <token>` desde el último mensaje de fallo. Los tokens de reintento vencen después de 30 minutos.
 
-### Vertex function-call mismatch errors
+### Errores de desajuste en function-call de Vertex
 
-Run:
+Ejecuta:
 
 ```bash
 /mineclawd sessions repair
 ```
 
-Or target a specific session:
+O apunta a una sesión específica:
 
 ```bash
 /mineclawd sessions repair <session>
 ```
 
-`repair` normalizes malformed Vertex function-call turns and saves the fixed session.
+`repair` normaliza turnos de function-call de Vertex mal formados y guarda la sesión corregida.
 
-## Session file locations
+## Ubicación de archivos de sesión
 
-MineClawd stores sessions under your game directory:
+MineClawd guarda las sesiones dentro de tu directorio de juego:
 
 ```text
 mineclawd/
@@ -83,18 +83,18 @@ mineclawd/
       <id>.json
 ```
 
-- `active.json` stores the active session id.
-- `<id>.json` stores metadata and both provider histories (`openAiHistory`, `vertexHistory`).
-- If you remove the active session, MineClawd auto-selects the most recently updated remaining session. If none remain, active session is cleared.
+- `active.json` guarda el id de sesión activa.
+- `<id>.json` guarda metadatos y ambos historiales de proveedor (`openAiHistory`, `vertexHistory`).
+- Si eliminas la sesión activa, MineClawd selecciona automáticamente la sesión restante más recientemente actualizada. Si no queda ninguna, se limpia la sesión activa.
 
-## Backup and cleanup strategy
+## Estrategia de respaldo y limpieza
 
-1. Back up `mineclawd/sessions/` before mass cleanup.
-2. Remove stale sessions with `/mineclawd sessions remove <session>`.
-3. Keep one known-good session per operator for rapid rollback.
-4. Use `/resources/technical-details` when you need to inspect storage internals.
+1. Haz respaldo de `mineclawd/sessions/` antes de una limpieza masiva.
+2. Elimina sesiones obsoletas con `/mineclawd sessions remove <session>`.
+3. Conserva una sesión conocida como estable por operador para rollback rápido.
+4. Usa `/resources/technical-details` cuando necesites inspeccionar internals de almacenamiento.
 
-## Related pages
+## Páginas relacionadas
 
 - [/commands/sessions-list](/commands/sessions-list)
 - [/commands/sessions-resume](/commands/sessions-resume)

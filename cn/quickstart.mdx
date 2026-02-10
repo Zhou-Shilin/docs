@@ -1,51 +1,51 @@
 ---
-title: "Getting started"
-description: "Absolute beginner path: from vanilla launcher to your first MineClawd chat."
+title: "快速开始"
+description: "面向零基础用户：从原版启动器到发出第一条 MineClawd 聊天消息。"
 ---
 
-## Goal
+## 目标
 
-Follow this page step by step, and you will get one successful reply from MineClawd.
+按本页步骤操作后，你将获得一次 MineClawd 的成功回复。
 
-## Tiny glossary
+## 术语速览
 
 <CardGroup cols={2}>
   <Card title="Minecraft Java Edition">
-    The PC version of Minecraft from the official Minecraft Launcher.
+    通过官方 Minecraft Launcher 启动的 PC 版 Minecraft。
   </Card>
   <Card title="Fabric">
-    A small loader that lets Minecraft run mods.
+    让 Minecraft 运行模组的轻量加载器。
   </Card>
-  <Card title="Mod">
-    A `.jar` file that adds features to Minecraft.
+  <Card title="模组">
+    一个为 Minecraft 增加功能的 `.jar` 文件。
   </Card>
-  <Card title="API key">
-    A secret key that lets MineClawd talk to an online AI service.
+  <Card title="API Key">
+    让 MineClawd 连接在线 AI 服务的密钥。
   </Card>
 </CardGroup>
 
-## Step 1: install Fabric for Minecraft 1.20.1
+## 第 1 步：为 Minecraft 1.20.1 安装 Fabric
 
-1. Download Fabric Installer from: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
-2. Run the installer.
-3. Choose:
-   - Install type: **Client**
-   - Minecraft version: **1.20.1**
-4. Click **Install**.
-5. Open Minecraft Launcher and run **Fabric Loader 1.20.1** once, then close the game.
+1. 从这里下载 Fabric Installer：[fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
+2. 运行安装程序。
+3. 选择：
+   - 安装类型：**Client**
+   - Minecraft 版本：**1.20.1**
+4. 点击 **Install**。
+5. 打开 Minecraft Launcher，先运行一次 **Fabric Loader 1.20.1**，然后关闭游戏。
 
 <Note>
-On Windows with the official launcher, this is usually a one-click installer flow.
+在 Windows 和官方启动器环境下，这通常是一次点击即可完成的安装流程。
 </Note>
 
-## Step 2: download required mods (Fabric + 1.20.1 versions)
+## 第 2 步：下载必需模组（Fabric + 1.20.1 版本）
 
-Download these files from Modrinth. On each page, choose a file that matches:
+从 Modrinth 下载以下文件。每个页面都要选择满足这些条件的版本：
 
-- Minecraft version: `1.20.1`
-- Loader: `Fabric`
+- Minecraft 版本：`1.20.1`
+- 加载器：`Fabric`
 
-| Mod | Download link |
+| 模组 | 下载链接 |
 | --- | --- |
 | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
 | Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
@@ -55,48 +55,48 @@ Download these files from Modrinth. On each page, choose a file that matches:
 | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
 | Mod Menu (for GUI config) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
 
-## Step 3: put mod files into your `mods` folder
+## 第 3 步：把模组文件放进 `mods` 文件夹
 
-1. Open your Minecraft folder.
-2. Open `mods` folder. If it does not exist, create it.
-3. Move all downloaded `.jar` files into `mods`.
-4. Do not unzip `.jar` files.
+1. 打开你的 Minecraft 文件夹。
+2. 打开 `mods` 文件夹。如果不存在就新建。
+3. 把所有下载的 `.jar` 文件移动到 `mods` 中。
+4. 不要解压 `.jar` 文件。
 
-## Step 4: launch game and open MineClawd GUI
+## 第 4 步：启动游戏并打开 MineClawd GUI
 
-1. Start Minecraft with **Fabric Loader 1.20.1** profile.
-2. Create or open a single-player world.
-3. Turn **Allow Cheats** ON for that world.
-4. Open **Mod Menu** -> **MineClawd** -> **Configure**.
+1. 使用 **Fabric Loader 1.20.1** 配置启动 Minecraft。
+2. 创建或打开一个单人世界。
+3. 为该世界开启 **Allow Cheats**。
+4. 打开 **Mod Menu** -> **MineClawd** -> **Configure**。
 
-## Step 5: connect an AI service
+## 第 5 步：连接 AI 服务
 
-If you do not have an AI account yet, use OpenRouter and pick a free model.
+如果你还没有 AI 账号，可以先用 OpenRouter 并选择免费模型。
 
-1. Create account: [openrouter.ai](https://openrouter.ai/)
-2. Create API key: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
-3. In MineClawd GUI, set:
+1. 创建账号：[openrouter.ai](https://openrouter.ai/)
+2. 创建 API Key：[openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
+3. 在 MineClawd GUI 中设置：
    - **Provider**: `OpenAI`
    - **Endpoint**: `https://openrouter.ai/api/v1`
-   - **API Key**: paste your OpenRouter key
-   - **Model**: pick one model id from [openrouter.ai/models](https://openrouter.ai/models) (free models often include `:free`)
-   - **Summarize Model**: use the same model id for now
-4. Save config.
+   - **API Key**：粘贴你的 OpenRouter key
+   - **Model**：从 [openrouter.ai/models](https://openrouter.ai/models) 选择一个 model id（免费模型通常带 `:free`）
+   - **Summarize Model**：先使用相同的 model id
+4. 保存配置。
 
 <Info>
-Free models and limits change over time. If one model fails, pick another model id from the same models page.
+免费模型和限制会随时间变化。如果某个模型失败，请在同一模型页面选择另一个 model id。
 </Info>
 
-## Step 6: send your first message
+## 第 6 步：发送第一条消息
 
-Open chat in your world and run:
+在你的世界里打开聊天并运行：
 
 ```bash
-/mclawd hello
+/mclawd 你好
 ```
 
-If setup is correct, MineClawd replies in chat.
+如果配置正确，MineClawd 会在聊天栏回复。
 
-## If it does not work
+## 如果没有成功
 
-Go to [/resources/troubleshooting](/resources/troubleshooting) and follow the matching symptom.
+前往 [/resources/troubleshooting](/resources/troubleshooting)，按对应症状排查。

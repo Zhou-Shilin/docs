@@ -1,41 +1,41 @@
 ---
 title: "sessions list"
-description: "List saved MineClawd sessions for the current owner."
+description: "Lista las sesiones de MineClawd guardadas para el propietario actual."
 ---
 
-## Purpose
+## Propósito
 
-Show your saved sessions so you can resume, remove, or repair them.
+Muestra tus sesiones guardadas para que puedas reanudarlas, eliminarlas o repararlas.
 
-## Syntax
+## Sintaxis
 
 ```bash
 /mineclawd sessions
 /mineclawd sessions list
 ```
 
-## What you get
+## Qué obtienes
 
-The list includes:
+La lista incluye:
 
-- session id
-- session title
-- session token
-- last updated time
-- active marker
+- id de sesión
+- título de la sesión
+- token de la sesión
+- hora de última actualización
+- marcador de activa
 
-## Examples
+## Ejemplos
 
 ```bash
 /mineclawd sessions list
 ```
 
-## Behavior and limits
+## Comportamiento y límites
 
-- Sessions are scoped by owner key.
-- Player executions use player UUID as owner key.
-- Console executions use `server` as owner key.
+- Las sesiones se delimitan por clave de propietario.
+- Las ejecuciones de jugador usan el UUID del jugador como clave de propietario.
+- Las ejecuciones en consola usan `server` como clave de propietario.
 
-## Common failures
+## Errores comunes
 
-- If you see no sessions, create one with `/mineclawd sessions new`.
+- Si no ves sesiones, crea una con `/mineclawd sessions new`.

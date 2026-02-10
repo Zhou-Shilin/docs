@@ -1,19 +1,19 @@
 ---
-title: "Complete configuration"
-description: "Full MineClawd configuration reference with defaults, command keys, and behavior notes."
+title: "完整配置"
+description: "MineClawd 完整配置参考，包含默认值、命令 key 和行为说明。"
 ---
 
-## Purpose
+## 用途
 
-This page gives you the full MineClawd configuration model, including file settings, command keys, and restart behavior.
+本页提供 MineClawd 的完整配置模型，包括文件设置、命令 key 和重启行为。
 
-## Where settings live
+## 设置存放位置
 
-- Global config file: `config/mineclawd.json5`
-- Per-player chat visibility: `mineclawd/player-settings.json`
-- Soul files and active soul state: `mineclawd/souls/` and `mineclawd/souls/.active/`
+- 全局配置文件：`config/mineclawd.json5`
+- 按玩家的聊天可见性：`mineclawd/player-settings.json`
+- Soul 文件和激活 soul 状态：`mineclawd/souls/` 与 `mineclawd/souls/.active/`
 
-## Complete `mineclawd.json5` template
+## 完整 `mineclawd.json5` 模板
 
 ```json5
 {
@@ -37,52 +37,52 @@ This page gives you the full MineClawd configuration model, including file setti
 ```
 
 <Info>
-In file form, enum values are uppercase (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`).
+在文件配置中，枚举值使用大写（`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`）。
 
-In command form, values are lowercase (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
+在命令配置中，值使用小写（`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`）。
 </Info>
 
-## Key reference
+## Key 参考
 
-| File key | Command key | Type | Default | Notes |
+| 文件 key | 命令 key | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- | --- |
-| `provider` | `provider` | enum | `OPENAI` | Provider selection: OpenAI-compatible or Vertex AI. |
-| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-compatible base URL, no trailing slash required. |
-| `apiKey` | `api-key` | string | empty | OpenAI API key. |
-| `model` | `model` | string | `gpt-4o-mini` | OpenAI chat model. |
-| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI model for first-turn session title generation. |
-| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API base URL. |
-| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API key. |
-| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex model path or model name. |
-| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex summarize model for session titles. |
-| `debugMode` | `debug-mode` | boolean | `false` | Logs detailed request and tool activity. |
-| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Enables per-request tool-loop cap. |
-| `toolCallLimit` | `tool-call-limit` | integer | `16` | Allowed range is `1` to `20`. |
-| `systemPrompt` | `system-prompt` | string | empty | Empty means built-in system prompt. Use value `default` in command mode to reset. |
-| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Controls dynamic placeholder runtime mode. Restart required after change. |
+| `provider` | `provider` | enum | `OPENAI` | Provider 选择：OpenAI 兼容接口或 Vertex AI。 |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI 兼容基础 URL，不要求结尾斜杠。 |
+| `apiKey` | `api-key` | string | empty | OpenAI API Key。 |
+| `model` | `model` | string | `gpt-4o-mini` | OpenAI 聊天模型。 |
+| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | 用于首轮后生成会话标题的 OpenAI 模型。 |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API 基础 URL。 |
+| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API Key。 |
+| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex 模型路径或模型名。 |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | 用于会话标题的 Vertex 总结模型。 |
+| `debugMode` | `debug-mode` | boolean | `false` | 记录详细请求和工具活动日志。 |
+| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | 启用单次请求的工具循环上限。 |
+| `toolCallLimit` | `tool-call-limit` | integer | `16` | 允许范围是 `1` 到 `20`。 |
+| `systemPrompt` | `system-prompt` | string | empty | 为空时使用内置 system prompt。命令模式可用值 `default` 重置。 |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | 控制动态占位符运行模式。修改后需要重启。 |
 
-## Per-player setting
+## 按玩家设置
 
-`broadcast-requests-to` is command-only and per-player.
+`broadcast-requests-to` 仅支持命令设置，且按玩家保存。
 
-- Command key: `broadcast-requests-to`
-- Allowed values: `self`, `all`, `ops`
-- Stored in: `mineclawd/player-settings.json`
-- Purpose: controls who sees prompt echo and task start or finish lines.
+- 命令 key：`broadcast-requests-to`
+- 可选值：`self`, `all`, `ops`
+- 存储位置：`mineclawd/player-settings.json`
+- 用途：控制谁能看到 prompt 回显和任务开始或结束信息。
 
-## Dynamic registry mode behavior
+## Dynamic registry 模式行为
 
-- `AUTO`: enabled in client runtime (single-player), disabled on dedicated servers.
-- `ENABLED`: force enabled in all runtimes.
-- `DISABLED`: fully disabled.
+- `AUTO`：在客户端运行时（单人）启用，在专用服务器禁用。
+- `ENABLED`：在所有运行环境强制启用。
+- `DISABLED`：完全禁用。
 
 <Warning>
-If you force `ENABLED` on a dedicated server, joining clients must have MineClawd installed.
+如果在专用服务器上强制设为 `ENABLED`，加入的客户端必须安装 MineClawd。
 </Warning>
 
-## Recommended baselines
+## 推荐基线配置
 
-### Baseline for first-time OpenAI setup
+### 首次 OpenAI 配置基线
 
 ```bash
 /mineclawd config provider openai
@@ -92,7 +92,7 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config summarize-model gpt-4o-mini
 ```
 
-### Baseline for first-time Vertex setup
+### 首次 Vertex 配置基线
 
 ```bash
 /mineclawd config provider vertex-ai
@@ -102,9 +102,9 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
 ```
 
-## GUI path
+## GUI 路径
 
-- In game: **Mod Menu** -> **MineClawd** -> **Configure**
-- Command fallback: `/mineclawd config ...`
+- 游戏内：**Mod Menu** -> **MineClawd** -> **Configure**
+- 命令兜底：`/mineclawd config ...`
 
-If client GUI open fails, configure through command keys.
+如果客户端 GUI 打不开，请改用命令 key 配置。

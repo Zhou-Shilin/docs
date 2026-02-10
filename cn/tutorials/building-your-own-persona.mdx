@@ -1,100 +1,100 @@
 ---
-title: "Building your own persona"
-description: "Design advanced soul files that give MineClawd a stable character, voice, and social behavior."
+title: "构建你自己的 persona"
+description: "设计进阶 soul 文件，让 MineClawd 拥有稳定角色、语气和社交行为。"
 ---
 
-## Read this first: soul vs task instructions
+## 先看这里：soul 与任务指令的区别
 
-A soul is a long-lived identity.
-It should answer: who is this agent, how does it feel, and how does it talk with players.
+soul 是长期生效的身份设定。
+它应该回答三个问题：这个 agent 是谁、它是什么情绪风格、它如何和玩家对话。
 
-Use other places for task logic:
+任务逻辑请放在其他位置：
 
-- Gameplay goals: normal chat prompts.
-- Operational policy: team docs or command workflows.
-- Runtime behavior switches: `/mineclawd config ...`.
+- 玩法目标：普通聊天 prompts。
+- 运维策略：团队文档或命令工作流。
+- 运行时行为开关：`/mineclawd config ...`。
 
-If you put operational scripts inside soul files, personality quality drops and replies become stiff.
+如果把运维脚本写进 soul 文件，人格质量会下降，回复会变得生硬。
 
-## How MineClawd loads personas
+## MineClawd 如何加载 personas
 
-- Souls are markdown files in `mineclawd/souls/`.
-- Built-in souls are `default` and `yuki`.
-- Active soul selection is stored per owner in `mineclawd/souls/.active/<owner>.txt`.
-- If a selected soul cannot be read, MineClawd falls back to `default`.
+- souls 是 `mineclawd/souls/` 下的 markdown 文件。
+- 内置 souls 是 `default` 和 `yuki`。
+- 激活 soul 选择按 owner 存在 `mineclawd/souls/.active/<owner>.txt`。
+- 如果选中的 soul 无法读取，MineClawd 会回退到 `default`。
 
-This lets you iterate safely without breaking the server experience.
+这种机制让你可以安全迭代，而不破坏服务器体验。
 
-## Use `yuki` as your benchmark
+## 用 `yuki` 作为基准
 
-The bundled `yuki` soul demonstrates a strong pattern:
+内置 `yuki` soul 展示了一个可靠结构：
 
-1. Clear identity.
-2. Stable personality traits.
-3. Distinct speaking style.
-4. Interaction rules for failure and success.
-5. Character continuity ("never break character").
+1. 清晰的身份。
+2. 稳定的人格特征。
+3. 鲜明的说话风格。
+4. 面向失败与成功场景的互动规则。
+5. 角色连续性（“never break character”）。
 
-Use this structure when creating your own advanced persona.
+创建你自己的进阶 persona 时，建议沿用这套结构。
 
-## Advanced authoring workflow
+## 进阶编写流程
 
-1. Pick one persona goal.
-Example: `calm architect mentor` or `strict survival coach`.
-2. Create a soul file, for example `mineclawd/souls/architect-mentor.md`.
-3. Write identity, personality, speaking style, and interaction behavior.
-4. Activate it:
+1. 先确定一个 persona 目标。
+示例：`calm architect mentor` 或 `strict survival coach`。
+2. 创建 soul 文件，例如 `mineclawd/souls/architect-mentor.md`。
+3. 编写身份、人格、说话风格和互动行为。
+4. 激活它：
 
 ```bash
 /mineclawd persona architect-mentor
 ```
 
-5. Run a fixed prompt set each revision so style differences are measurable.
-6. Revise one section at a time, not the whole file at once.
-7. Keep versioned snapshots while tuning.
+5. 每次修订都跑同一组固定 prompts，确保风格差异可测量。
+6. 每次只改一个章节，不要整份文件一起改。
+7. 调优过程中保留带版本的快照。
 
-## Soul template for advanced use
+## 进阶使用的 soul 模板
 
 ```md
-### Role & Identity
-You are [character name], [world role], helping players in Minecraft.
+### 角色与身份
+你是 [角色名]，[世界角色]，在 Minecraft 中帮助玩家。
 
-### Personality
-1. [Trait with emotional intent]
-2. [Trait with social intent]
-3. [Trait with problem-solving intent]
+### 人格
+1. [带有情绪意图的特质]
+2. [带有社交意图的特质]
+3. [带有问题解决意图的特质]
 
-### Speaking Style
-- Tone: [short definition]
-- Rhythm: [answer length and formatting preference]
-- Signature language: [small phrase habits, language adaptation rules]
+### 说话风格
+- 语气：[简短定义]
+- 节奏：[回答长度和格式偏好]
+- 标志性语言：[短语习惯、语言适配规则]
 
-### Interaction Guidelines
-- When user is stuck: [comfort + action pattern]
-- When user succeeds: [celebration pattern]
-- When user is vague: [clarification style]
-- Never break character.
+### 互动准则
+- 用户卡住时：[安抚 + 行动模式]
+- 用户成功时：[庆祝模式]
+- 用户表达模糊时：[澄清风格]
+- 永不跳出角色。
 ```
 
-## Quality checks before release
+## 发布前质量检查
 
-| Check | What to verify |
+| 检查项 | 要验证的内容 |
 | --- | --- |
-| Character consistency | The same persona appears across different tasks and sessions. |
-| Emotional behavior | Failure and success responses match your intended personality. |
-| Language flexibility | Tone remains recognizable across English and other languages. |
-| Drift resistance | Long chats do not collapse into generic assistant voice. |
-| Community fit | Persona behavior matches your server culture and moderation rules. |
+| 角色一致性 | 在不同任务和会话中都能体现同一 persona。 |
+| 情绪行为 | 失败与成功时的回应符合你的预期人格。 |
+| 语言灵活性 | 在英语和其他语言中都能保持可识别语气。 |
+| 漂移抗性 | 长对话不会退化成通用助手口吻。 |
+| 社区适配 | persona 行为符合你的服务器文化和管理规则。 |
 
-## Multiplayer persona strategy
+## 多人联机 persona 策略
 
-- Active persona is per owner key, not global.
-- Two operators can run different personas on the same server.
-- Keep shared soul files in version control for team consistency.
-- Use clear names like `mentor-calm`, `builder-energetic`, `admin-formal`.
-- Add a short README near soul files so new operators know intended usage.
+- active persona 按 owner key 生效，不是全局共享。
+- 两位操作员可以在同一服务器运行不同 persona。
+- 共享 soul 文件应纳入版本控制，保证团队一致性。
+- 使用清晰命名，例如 `mentor-calm`、`builder-energetic`、`admin-formal`。
+- 在 soul 文件旁放一份简短 README，让新操作员了解预期用法。
 
-## Related pages
+## 相关页面
 
 - [/configuration/souls](/configuration/souls)
 - [/commands/persona](/commands/persona)

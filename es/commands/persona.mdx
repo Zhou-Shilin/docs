@@ -1,25 +1,25 @@
 ---
 title: "persona"
-description: "Show available souls or switch to a different soul persona."
+description: "Muestra los souls disponibles o cambia a una personalidad soul diferente."
 ---
 
-## Purpose
+## Propósito
 
-Use this command to inspect or switch your active soul persona.
+Usa este comando para revisar o cambiar tu personalidad soul activa.
 
-## Syntax
+## Sintaxis
 
 ```bash
 /mineclawd persona
 /mineclawd persona <soul>
 ```
 
-## What it does
+## Qué hace
 
-- Without args: shows active soul and available soul names.
-- With `<soul>`: switches active soul for your owner key.
+- Sin argumentos: muestra el soul activo y los nombres de souls disponibles.
+- Con `<soul>`: cambia el soul activo para tu clave de propietario.
 
-## Examples
+## Ejemplos
 
 ```bash
 /mineclawd persona
@@ -27,15 +27,15 @@ Use this command to inspect or switch your active soul persona.
 /mineclawd persona builder
 ```
 
-## Behavior and limits
+## Comportamiento y límites
 
-- Soul names are read from `mineclawd/souls/*.md`.
-- Active selection is stored per owner in `mineclawd/souls/.active/`.
-- Persona switching is blocked while a request is running.
+- Los nombres de soul se leen desde `mineclawd/souls/*.md`.
+- La selección activa se guarda por propietario en `mineclawd/souls/.active/`.
+- El cambio de personalidad está bloqueado mientras se ejecuta una solicitud.
 
-## Common failures
+## Errores comunes
 
-- `persona not found`: verify name with `/mineclawd persona`.
-- `cannot switch persona while a request is running`: wait for completion.
+- `persona not found`: verifica el nombre con `/mineclawd persona`.
+- `cannot switch persona while a request is running`: espera a que termine.
 
-For soul authoring, see [/configuration/souls](/configuration/souls).
+Para crear souls, consulta [/configuration/souls](/configuration/souls).

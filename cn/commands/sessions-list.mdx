@@ -1,41 +1,41 @@
 ---
 title: "sessions list"
-description: "List saved MineClawd sessions for the current owner."
+description: "列出当前 owner 已保存的 MineClawd 会话。"
 ---
 
-## Purpose
+## 用途
 
-Show your saved sessions so you can resume, remove, or repair them.
+显示你保存的会话，便于你恢复、删除或修复。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd sessions
 /mineclawd sessions list
 ```
 
-## What you get
+## 返回内容
 
-The list includes:
+列表包含：
 
-- session id
-- session title
-- session token
-- last updated time
-- active marker
+- 会话 id
+- 会话标题
+- 会话 token
+- 最后更新时间
+- 活动标记
 
-## Examples
+## 示例
 
 ```bash
 /mineclawd sessions list
 ```
 
-## Behavior and limits
+## 行为和限制
 
-- Sessions are scoped by owner key.
-- Player executions use player UUID as owner key.
-- Console executions use `server` as owner key.
+- 会话按 owner key 隔离。
+- 玩家执行时使用玩家 UUID 作为 owner key。
+- 控制台执行时使用 `server` 作为 owner key。
 
-## Common failures
+## 常见失败
 
-- If you see no sessions, create one with `/mineclawd sessions new`.
+- 如果没有任何会话，请先运行 `/mineclawd sessions new` 创建一个。

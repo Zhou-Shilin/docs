@@ -1,39 +1,39 @@
+﻿---
+title: "Soul パーソナリティ"
+description: "MineClawd のアイデンティティ、性格、話し方を定義する soul ファイルを作成して切り替えます。"
 ---
-title: "Soul personality"
-description: "Create and switch soul files to define MineClawd's identity, personality, and speaking style."
----
 
-## What a soul is
+## soul とは
 
-A soul is MineClawd's character sheet.
-It defines who the agent is, how it talks, and how it behaves with people.
+soul は MineClawd のキャラクターシートです。
+エージェントが誰で、どう話し、人とどう関わるかを定義します。
 
-Think of it as personality, not a task script.
+タスク用スクリプトではなく、人格として考えてください。
 
-- Good soul content: identity, temperament, tone, and social behavior.
-- Bad soul content: long command recipes, tool instructions, or one-off workflow steps.
+- 良い soul 内容: アイデンティティ、気質、口調、対人行動。
+- 悪い soul 内容: 長いコマンド手順、ツール指示、単発ワークフロー手順。
 
 <Note>
-Even if a soul uses a different character name, project and tool identity still remain MineClawd.
+soul が別のキャラクター名を使っていても、プロジェクト名とツール名のアイデンティティは MineClawd のままです。
 </Note>
 
-## Built-in souls
+## 組み込み soul
 
-MineClawd ships with:
+MineClawd には次が同梱されています:
 
 - `default`
 - `yuki`
 
-`yuki` is the mascot-style soul and a good structure reference.
+`yuki` はマスコット風 soul で、構成の良い参考例です。
 
-## Soul file locations
+## soul ファイルの場所
 
-- Soul directory: `mineclawd/souls/`
-- Active soul pointer per owner: `mineclawd/souls/.active/<owner>.txt`
+- soul ディレクトリ: `mineclawd/souls/`
+- owner ごとのアクティブ soul ポインタ: `mineclawd/souls/.active/<owner>.txt`
 
-Each operator can keep a different active soul on the same server.
+同じサーバーでも、オペレーターごとに異なるアクティブ soul を使えます。
 
-## Show and switch souls
+## soul の表示と切り替え
 
 ```bash
 /mineclawd persona
@@ -42,42 +42,42 @@ Each operator can keep a different active soul on the same server.
 ```
 
 <Info>
-You cannot switch souls while a request is running.
-Wait for completion, then run `/mineclawd persona <soul>`.
+リクエスト実行中は soul を切り替えられません。
+完了を待ってから `/mineclawd persona <soul>` を実行してください。
 </Info>
 
-## Create a custom soul
+## カスタム soul の作成
 
-1. Create a markdown file in `mineclawd/souls/`, for example `mineclawd/souls/mentor.md`.
-2. Write persona content with the structure below.
-3. Run `/mineclawd persona mentor`.
-4. Send a few normal prompts and refine the voice.
+1. `mineclawd/souls/` に Markdown ファイルを作成します。例: `mineclawd/souls/mentor.md`。
+2. 下記構造で persona 内容を書きます。
+3. `/mineclawd persona mentor` を実行します。
+4. 通常プロンプトをいくつか送り、話し方を調整します。
 
-## Soul writing template
+## soul 記述テンプレート
 
 ```md
-### Role & Identity
-You are [name], [short identity].
+### 役割とアイデンティティ
+あなたは [名前]、[短い自己紹介] です。
 
-### Personality
-1. [Core trait 1]
-2. [Core trait 2]
-3. [Core trait 3]
+### 性格
+1. [中核特性 1]
+2. [中核特性 2]
+3. [中核特性 3]
 
-### Speaking Style
-- Tone: [friendly/calm/playful/etc.]
-- Verbal habits: [short phrases, occasional catchphrases, etc.]
-- Language behavior: [how you adapt to user language]
+### 話し方
+- 口調: [フレンドリー/落ち着き/遊び心 など]
+- 話し方の癖: [短い言い回し、たまに使う決まり文句 など]
+- 言語対応: [ユーザーの言語にどう合わせるか]
 
-### Interaction Guidelines
-- When user is stuck: [comfort + recovery behavior]
-- When user succeeds: [celebration behavior]
-- Never break character.
+### 対話ガイドライン
+- ユーザーが詰まったとき: [安心させる対応 + 立て直し方]
+- ユーザーが成功したとき: [祝福のしかた]
+- キャラクターを崩さないこと。
 ```
 
-## Practical tips
+## 実践のコツ
 
-- Keep emotional tone consistent across all sections.
-- Prefer concrete voice cues over vague adjectives.
-- Keep operational behavior in prompts and docs, not in soul files.
-- Read bundled `yuki.md` before designing your own soul.
+- 感情トーンは全セクションで一貫させてください。
+- 曖昧な形容詞より、具体的な話し方の手がかりを優先してください。
+- 運用動作は soul ファイルではなく、プロンプトとドキュメントに書いてください。
+- 独自 soul を設計する前に、同梱の `yuki.md` を読んでください。

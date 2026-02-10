@@ -1,11 +1,11 @@
 ---
 title: "retry"
-description: "Retry the last failed request using a retry token."
+description: "Die letzte fehlgeschlagene Anfrage mit einem Retry-Token erneut ausführen."
 ---
 
-## Purpose
+## Zweck
 
-Replay a failed request without retyping the prompt.
+Eine fehlgeschlagene Anfrage erneut ausführen, ohne den Prompt neu zu tippen.
 
 ## Syntax
 
@@ -13,18 +13,18 @@ Replay a failed request without retyping the prompt.
 /mineclawd retry <token>
 ```
 
-## Where the token comes from
+## Woher das Token kommt
 
-When a request fails, MineClawd can show clickable `[Retry]` and `[Adjust Prompt]` actions. Use the token behind `[Retry]`.
+Wenn eine Anfrage fehlschlägt, kann MineClawd klickbare Aktionen `[Retry]` und `[Adjust Prompt]` anzeigen. Nutze das Token hinter `[Retry]`.
 
-## Behavior and limits
+## Verhalten und Grenzen
 
-- Retry tokens expire after 30 minutes.
-- Retry only works when your active session still matches the original failed session.
-- If retry starts successfully, MineClawd clears the stored failed token.
+- Retry-Tokens laufen nach 30 Minuten ab.
+- Retry funktioniert nur, wenn deine aktive Session noch mit der ursprünglichen fehlgeschlagenen Session übereinstimmt.
+- Wenn Retry erfolgreich startet, löscht MineClawd das gespeicherte fehlgeschlagene Token.
 
-## Common failures
+## Häufige Fehler
 
-- `retry token is invalid or expired`: request failed too long ago or token is wrong.
-- `active session changed`: resume the original session or resend manually.
-- `another request is still running for this session`: wait for completion.
+- `retry token is invalid or expired`: Anfrage liegt zu lange zurück oder Token ist falsch.
+- `active session changed`: ursprüngliche Session wieder aufnehmen oder manuell erneut senden.
+- `another request is still running for this session`: auf Abschluss warten.

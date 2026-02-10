@@ -1,79 +1,79 @@
+﻿---
+title: "セッション管理"
+description: "高度なセッション運用、履歴確認、ストレージ構成、復旧プレイブック。"
 ---
-title: "Managing sessions"
-description: "Advanced session workflow, history review, storage layout, and recovery playbook."
----
 
-## Why session discipline matters
+## セッション運用が重要な理由
 
-Sessions are MineClawd's long-term memory. A clean session workflow gives you better answers, fewer context mistakes, and faster recovery when something breaks.
+セッションは MineClawd の長期記憶です。整理されたセッション運用を行うと、応答品質が上がり、文脈ミスが減り、障害時の復旧も速くなります。
 
-## How sessions are scoped
+## セッションのスコープ
 
-- Sessions are isolated by owner key.
-- Player commands use the player UUID as owner key.
-- Console commands use the command source name as owner key.
-- Each owner has one active session pointer.
-- All session commands require OP permission level `2`.
+- セッションは owner key ごとに分離されます。
+- プレイヤーコマンドはプレイヤー UUID を owner key として使います。
+- コンソールコマンドはコマンドソース名を owner key として使います。
+- 各 owner は 1 つのアクティブセッションポインタを持ちます。
+- すべてのセッションコマンドに OP 権限レベル `2` が必要です。
 
-## Daily command workflow
+## 日常のコマンド運用フロー
 
-| Goal | Command |
+| 目的 | コマンド |
 | --- | --- |
-| Start a clean context | `/mineclawd sessions new` |
-| See all saved sessions | `/mineclawd sessions list` |
-| Switch active context | `/mineclawd sessions resume <session>` |
-| Remove stale context | `/mineclawd sessions remove <session>` |
-| Read current chat history | `/mineclawd history` |
-| Repair malformed Vertex turns | `/mineclawd sessions repair [session]` |
+| 新しい文脈で開始 | `/mineclawd sessions new` |
+| 保存済みセッションを確認 | `/mineclawd sessions list` |
+| アクティブ文脈を切り替え | `/mineclawd sessions resume <session>` |
+| 古い文脈を削除 | `/mineclawd sessions remove <session>` |
+| 現在のチャット履歴を読む | `/mineclawd history` |
+| 破損した Vertex ターンを修復 | `/mineclawd sessions repair [session]` |
 
-`<session>` accepts either a short id like `1a2b` or a token like `1a2b-my-build-plan`.
+`<session>` には `1a2b` のような短い ID か、`1a2b-my-build-plan` のような token を指定できます。
 
 <Tip>
-Prefer the short session id for notes, scripts, and runbooks. The id is stable. The token title part can change after MineClawd generates a better title.
+メモ、スクリプト、ランブックでは短いセッション ID を優先してください。ID は安定しています。token のタイトル部分は MineClawd がより良いタイトルを生成した後に変わることがあります。
 </Tip>
 
-## Best practices for long tasks
+## 長い作業のベストプラクティス
 
-1. Use one session per objective, not one session for everything.
-2. Rename context by starting fresh sessions instead of dragging old history forever.
-3. Run `/mineclawd sessions list` before `resume`, `remove`, or `repair`.
-4. Avoid session mutations while a request is still running.
-5. Review context with `/mineclawd history` before destructive tasks.
+1. 何でも 1 セッションに入れず、目的ごとに 1 セッションを使います。
+2. 古い履歴を引きずり続けるより、新しいセッションを作って文脈を更新します。
+3. `resume`、`remove`、`repair` の前に `/mineclawd sessions list` を実行します。
+4. リクエスト実行中のセッション変更を避けます。
+5. 破壊的作業の前に `/mineclawd history` で文脈を確認します。
 
-## Using `/mineclawd history` well
+## `/mineclawd history` をうまく使う
 
-- The history book shows session token, update time, and visible chat turns.
-- The command only works for players, not console.
-- The history book UI requires MineClawd on the client.
-- Very long history is truncated to Minecraft book page limits.
+- 履歴本にはセッショントークン、更新時刻、表示可能なチャットターンが含まれます。
+- このコマンドはコンソールではなくプレイヤーでのみ動作します。
+- 履歴本 UI にはクライアント側 MineClawd が必要です。
+- 非常に長い履歴は Minecraft 本ページ上限に合わせて切り詰められます。
 
-If your client does not have MineClawd installed, use `sessions list` plus recent chat logs as your fallback context check.
+クライアントに MineClawd が入っていない場合は、`sessions list` と直近チャットログを代替の文脈確認手段にしてください。
 
-## Recovery playbook
+## 復旧プレイブック
 
-### Request failed but context should stay
+### リクエスト失敗したが文脈は維持したい
 
-Use `/mineclawd retry <token>` from the latest failure message. Retry tokens expire after 30 minutes.
+最新の失敗メッセージにある token を使って `/mineclawd retry <token>` を実行します。retry token は 30 分で期限切れです。
 
-### Vertex function-call mismatch errors
+### Vertex function-call 不一致エラー
 
-Run:
+次を実行します:
 
 ```bash
 /mineclawd sessions repair
 ```
 
-Or target a specific session:
+または特定セッションを対象にします:
 
 ```bash
 /mineclawd sessions repair <session>
 ```
 
-`repair` normalizes malformed Vertex function-call turns and saves the fixed session.
+`repair` は破損した Vertex function-call ターンを正規化し、修復済みセッションを保存します。
 
-## Session file locations
+## セッションファイルの場所
 
-MineClawd stores sessions under your game directory:
+MineClawd はゲームディレクトリ配下にセッションを保存します:
 
 ```text
 mineclawd/
@@ -83,18 +83,18 @@ mineclawd/
       <id>.json
 ```
 
-- `active.json` stores the active session id.
-- `<id>.json` stores metadata and both provider histories (`openAiHistory`, `vertexHistory`).
-- If you remove the active session, MineClawd auto-selects the most recently updated remaining session. If none remain, active session is cleared.
+- `active.json` はアクティブセッション ID を保存します。
+- `<id>.json` はメタデータと両プロバイダー履歴（`openAiHistory`, `vertexHistory`）を保存します。
+- アクティブセッションを削除すると、MineClawd は最終更新が最も新しい残存セッションを自動選択します。残存がなければアクティブセッションは解除されます。
 
-## Backup and cleanup strategy
+## バックアップとクリーンアップ戦略
 
-1. Back up `mineclawd/sessions/` before mass cleanup.
-2. Remove stale sessions with `/mineclawd sessions remove <session>`.
-3. Keep one known-good session per operator for rapid rollback.
-4. Use `/resources/technical-details` when you need to inspect storage internals.
+1. 一括クリーンアップ前に `mineclawd/sessions/` をバックアップします。
+2. `/mineclawd sessions remove <session>` で古いセッションを削除します。
+3. オペレーターごとに既知の正常セッションを 1 つ残し、迅速なロールバックに備えます。
+4. ストレージ内部を確認したい場合は `/resources/technical-details` を参照します。
 
-## Related pages
+## 関連ページ
 
 - [/commands/sessions-list](/commands/sessions-list)
 - [/commands/sessions-resume](/commands/sessions-resume)

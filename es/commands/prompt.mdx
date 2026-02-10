@@ -1,38 +1,38 @@
 ---
 title: "prompt"
-description: "Send a natural-language request to MineClawd."
+description: "Envía una solicitud en lenguaje natural a MineClawd."
 ---
 
-## Purpose
+## Propósito
 
-Use this command to ask MineClawd to do work for you.
+Usa este comando para pedirle a MineClawd que haga trabajo por ti.
 
-## Syntax
+## Sintaxis
 
 ```bash
 /mineclawd prompt <request>
 /mclawd <request>
 ```
 
-## When to use it
+## Cuándo usarlo
 
-Use this for normal day-to-day requests, such as world edits, command tasks, or KubeJS automation.
+Úsalo para solicitudes cotidianas normales, como ediciones del mundo, tareas de comandos o automatización con KubeJS.
 
-## Examples
+## Ejemplos
 
 ```bash
-/mclawd build a 9x9 wheat farm next to me
-/mineclawd prompt create a server script that announces when a player sleeps
+/mclawd construye una granja de trigo 9x9 junto a mí
+/mineclawd prompt crea un script de servidor que anuncie cuando un jugador se duerme
 ```
 
-## Behavior and limits
+## Comportamiento y límites
 
-- MineClawd validates your provider config before it starts.
-- MineClawd creates or reuses your active session automatically.
-- MineClawd allows one active request per session owner at a time.
-- Prompt echo and task status visibility follow your `broadcast-requests-to` setting.
+- MineClawd valida tu configuración de proveedor antes de comenzar.
+- MineClawd crea o reutiliza tu sesión activa automáticamente.
+- MineClawd permite una sola solicitud activa por propietario de sesión al mismo tiempo.
+- El eco del prompt y la visibilidad del estado de la tarea siguen tu ajuste `broadcast-requests-to`.
 
-## Common failures
+## Errores comunes
 
-- `OpenAI API Key is missing` or `Vertex AI API Key is missing`: set credentials in config.
-- `another request is still running for this session`: wait for completion, then retry.
+- `OpenAI API Key is missing` o `Vertex AI API Key is missing`: configura las credenciales en `config`.
+- `another request is still running for this session`: espera a que termine y vuelve a intentarlo.

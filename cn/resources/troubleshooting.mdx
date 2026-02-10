@@ -1,97 +1,97 @@
 ---
-title: "Troubleshooting"
-description: "Fix common MineClawd setup and runtime problems quickly."
+title: "故障排查"
+description: "快速修复 MineClawd 常见安装和运行问题。"
 ---
 
-If MineClawd fails, find the closest symptom below and apply that fix first.
+如果 MineClawd 出现故障，请先找到最接近的症状并优先应用对应修复。
 
 <AccordionGroup>
-  <Accordion title="MineClawd says only OP users can run this command">
-    Give your player OP level 2 permissions. Every `/mineclawd` and `/mclawd` command requires OP access.
+  <Accordion title="MineClawd 提示只有 OP 用户可以运行此命令">
+    给你的玩家授予 OP 等级 2 权限。所有 `/mineclawd` 和 `/mclawd` 命令都需要 OP 权限。
   </Accordion>
 
-  <Accordion title="MineClawd says API key or model is missing">
-    Open config and set provider credentials.
+  <Accordion title="MineClawd 提示缺少 API Key 或 model">
+    打开配置并设置 provider 凭据。
 
-    OpenAI path:
+    OpenAI 路径：
     - `provider openai`
     - `api-key <key>`
     - `model <model>`
 
-    Vertex path:
+    Vertex 路径：
     - `provider vertex-ai`
     - `vertex-api-key <key>`
     - `vertex-model <model>`
   </Accordion>
 
-  <Accordion title="`/mineclawd config` does not open GUI">
-    Your client likely does not have MineClawd installed. Use command configuration:
+  <Accordion title="`/mineclawd config` 无法打开 GUI">
+    你的客户端很可能没有安装 MineClawd。请改用命令配置：
 
     ```bash
     /mineclawd config <key> <value>
     ```
   </Accordion>
 
-  <Accordion title="`/mineclawd history` says client mod is required">
-    Install MineClawd on your client. The history book UI uses a client packet channel.
+  <Accordion title="`/mineclawd history` 提示需要客户端模组">
+    请在客户端安装 MineClawd。历史书本 UI 使用了客户端数据包通道。
   </Accordion>
 
   <Accordion title="Another request is still running for this session">
-    Wait for current task completion before starting a new one, switching sessions, or switching persona.
+    请先等待当前任务完成，再开始新任务、切换会话或切换人格。
   </Accordion>
 
-  <Accordion title="Retry token is invalid or expired">
-    Retry tokens expire after 30 minutes.
+  <Accordion title="Retry token 无效或已过期">
+    Retry token 会在 30 分钟后过期。
 
-    Trigger a new request or use the latest retry action from a fresh failure message.
+    请触发新请求，或使用最新失败消息中的 retry 操作。
   </Accordion>
 
-  <Accordion title="Session not found for resume, remove, or repair">
-    Run `/mineclawd sessions list` first.
+  <Accordion title="resume、remove 或 repair 时提示找不到 session">
+    请先运行 `/mineclawd sessions list`。
 
-    Then use exact session id or token from that output.
+    然后使用输出中的精确 session id 或 token。
   </Accordion>
 
   <Accordion title="Persona not found">
-    Check available names with `/mineclawd persona`.
+    用 `/mineclawd persona` 检查可用名称。
 
-    If needed, create a new soul file under `mineclawd/souls/`.
+    如果需要，请在 `mineclawd/souls/` 下创建新的 soul 文件。
   </Accordion>
 
-  <Accordion title="Dynamic placeholder registry is disabled">
-    Set mode and restart:
+  <Accordion title="Dynamic placeholder registry 已禁用">
+    设置模式并重启：
 
     ```bash
     /mineclawd config dynamic-registry-mode enabled
     ```
 
-    On dedicated servers, clients must also install MineClawd when this is enabled.
+    在专用服务器上启用后，客户端也必须安装 MineClawd。
   </Accordion>
 
-  <Accordion title="`reload-game` reports KubeJS errors">
-    Read the reported lines, fix script syntax or runtime issues in `kubejs/server_scripts/mineclawd/`, then reload again.
+  <Accordion title="`reload-game` 报告 KubeJS 错误">
+    先阅读报错行，修复 `kubejs/server_scripts/mineclawd/` 中的脚本语法或运行时问题，然后再次重载。
 
-    Keep fixing until reload output reports no KubeJS errors.
+    持续修复，直到重载输出不再出现 KubeJS 错误。
   </Accordion>
 
-  <Accordion title="`/mineclawd choose` says no pending question">
-    MineClawd is not waiting for an answer.
+  <Accordion title="`/mineclawd choose` 提示 no pending question">
+    MineClawd 当前没有在等待回答。
 
-    Run `choose` only after MineClawd asks a clarification question.
+    只有在 MineClawd 提出澄清问题后再运行 `choose`。
   </Accordion>
 
-  <Accordion title="There's only one option in LLM provider selection/Broadcast Requests To">
-    It's a weird bug of YACL. Click on the value and enter the first (two) letter(s) of the option you want, then select it from the dropdown that appears.
+  <Accordion title="LLM provider selection/Broadcast Requests To 里只有一个选项">
+    这是 YACL 的一个奇怪 bug。点击该值后输入你想要选项的前 1 到 2 个字母，再从出现的下拉框中选择。
 
-    For LLM provider: type `o` for OpenAI or `g` for Google Vertex AI.
-    For Broadcast Requests To: type `on` for only-me, `a` for all, or `op` for ops.
+    对 LLM provider：输入 `o` 选 OpenAI，输入 `g` 选 Google Vertex AI。
+    对 Broadcast Requests To：输入 `on` 选 only-me，输入 `a` 选 all，输入 `op` 选 ops。
   </Accordion>
 </AccordionGroup>
 
 
-## If problems continue
+## 如果问题仍然存在
 
-- Enable debug logs: `/mineclawd config debug-mode true`
-- Reproduce once
-- Check `logs/latest.log`
-- File an issue: `https://github.com/Zhou-Shilin/MineClawd/issues`
+- 启用调试日志：`/mineclawd config debug-mode true`
+- 复现一次问题
+- 检查 `logs/latest.log`
+- 提交 issue：`https://github.com/Zhou-Shilin/MineClawd/issues`

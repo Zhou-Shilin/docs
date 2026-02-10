@@ -1,25 +1,25 @@
----
+﻿---
 title: "persona"
-description: "Show available souls or switch to a different soul persona."
+description: "利用可能な soul を表示するか、別の soul persona へ切り替えます。"
 ---
 
-## Purpose
+## 目的
 
-Use this command to inspect or switch your active soul persona.
+このコマンドで現在の soul persona を確認または切り替えます。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd persona
 /mineclawd persona <soul>
 ```
 
-## What it does
+## 動作内容
 
-- Without args: shows active soul and available soul names.
-- With `<soul>`: switches active soul for your owner key.
+- 引数なし: アクティブ soul と利用可能な soul 名を表示します。
+- `<soul>` あり: あなたの owner key に対するアクティブ soul を切り替えます。
 
-## Examples
+## 例
 
 ```bash
 /mineclawd persona
@@ -27,15 +27,15 @@ Use this command to inspect or switch your active soul persona.
 /mineclawd persona builder
 ```
 
-## Behavior and limits
+## 動作と制限
 
-- Soul names are read from `mineclawd/souls/*.md`.
-- Active selection is stored per owner in `mineclawd/souls/.active/`.
-- Persona switching is blocked while a request is running.
+- Soul 名は `mineclawd/souls/*.md` から読み込まれます。
+- アクティブ選択は owner ごとに `mineclawd/souls/.active/` に保存されます。
+- リクエスト実行中は persona 切り替えがブロックされます。
 
-## Common failures
+## よくある失敗
 
-- `persona not found`: verify name with `/mineclawd persona`.
-- `cannot switch persona while a request is running`: wait for completion.
+- `persona not found`: `/mineclawd persona` で名前を確認してください。
+- `cannot switch persona while a request is running`: 処理完了まで待ってください。
 
-For soul authoring, see [/configuration/souls](/configuration/souls).
+soul の作成方法は [/configuration/souls](/configuration/souls) を参照してください。

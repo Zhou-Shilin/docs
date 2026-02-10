@@ -1,38 +1,38 @@
----
+﻿---
 title: "prompt"
-description: "Send a natural-language request to MineClawd."
+description: "自然言語のリクエストを MineClawd に送信します。"
 ---
 
-## Purpose
+## 目的
 
-Use this command to ask MineClawd to do work for you.
+このコマンドで MineClawd に作業を依頼します。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd prompt <request>
 /mclawd <request>
 ```
 
-## When to use it
+## 使う場面
 
-Use this for normal day-to-day requests, such as world edits, command tasks, or KubeJS automation.
+ワールド編集、コマンド作業、KubeJS 自動化など、日常的な依頼に使います。
 
-## Examples
+## 例
 
 ```bash
-/mclawd build a 9x9 wheat farm next to me
-/mineclawd prompt create a server script that announces when a player sleeps
+/mclawd すぐ隣に9x9の小麦畑を作って
+/mineclawd prompt プレイヤーが寝たときに通知するサーバースクリプトを作って
 ```
 
-## Behavior and limits
+## 動作と制限
 
-- MineClawd validates your provider config before it starts.
-- MineClawd creates or reuses your active session automatically.
-- MineClawd allows one active request per session owner at a time.
-- Prompt echo and task status visibility follow your `broadcast-requests-to` setting.
+- MineClawd は開始前にプロバイダー設定を検証します。
+- MineClawd はアクティブセッションを自動で作成または再利用します。
+- セッション owner ごとに同時実行できるリクエストは 1 件です。
+- プロンプト表示とタスク状態の公開範囲は `broadcast-requests-to` 設定に従います。
 
-## Common failures
+## よくある失敗
 
-- `OpenAI API Key is missing` or `Vertex AI API Key is missing`: set credentials in config.
-- `another request is still running for this session`: wait for completion, then retry.
+- `OpenAI API Key is missing` または `Vertex AI API Key is missing`: config で認証情報を設定してください。
+- `another request is still running for this session`: 完了まで待ってから再試行してください。

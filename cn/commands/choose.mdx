@@ -1,42 +1,42 @@
 ---
 title: "choose"
-description: "Answer a pending MineClawd clarification question."
+description: "回答 MineClawd 的待处理澄清问题。"
 ---
 
-## Purpose
+## 用途
 
-Respond to pending `ask-user-question` prompts from MineClawd.
+响应 MineClawd 发出的待处理 `ask-user-question` 提示。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd choose
 /mineclawd choose <option>
 ```
 
-`<option>` can be:
+`<option>` 可以是：
 
-- `1`, `2`, `3`, ... (preset option index)
-- `other` (enter custom chat text)
-- `skip` (continue without answer)
-- `cancel` (cancel pending custom text input)
+- `1`, `2`, `3`, ...（预设选项索引）
+- `other`（输入自定义聊天文本）
+- `skip`（不回答并继续）
+- `cancel`（取消待处理的自定义文本输入）
 
-## Example flow
+## 示例流程
 
 ```bash
 /mineclawd choose 2
 /mineclawd choose other
-# type your custom answer in normal chat within 60 seconds
+# 在 60 秒内在普通聊天中输入你的自定义答案
 ```
 
-## Behavior and limits
+## 行为和限制
 
-- This command must be executed by a player.
-- You can only answer your own pending question.
-- Custom text input mode times out after 60 seconds.
+- 这个命令必须由玩家执行。
+- 你只能回答自己待处理的问题。
+- 自定义文本输入模式会在 60 秒后超时。
 
-## Common failures
+## 常见失败
 
-- `no pending question`: MineClawd is not currently waiting for your input.
-- `invalid option`: use tab completion or a valid number.
-- `not waiting for custom text input`: you called `cancel` outside custom mode.
+- `no pending question`：MineClawd 当前没有在等待你的输入。
+- `invalid option`：请使用 Tab 补全或有效数字。
+- `not waiting for custom text input`：你在非自定义模式下调用了 `cancel`。

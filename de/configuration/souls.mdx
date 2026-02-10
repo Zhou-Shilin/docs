@@ -1,39 +1,39 @@
 ---
-title: "Soul personality"
-description: "Create and switch soul files to define MineClawd's identity, personality, and speaking style."
+title: "Soul-Persönlichkeit"
+description: "Soul-Dateien erstellen und wechseln, um MineClawds Identität, Persönlichkeit und Sprechstil festzulegen."
 ---
 
-## What a soul is
+## Was eine Soul ist
 
-A soul is MineClawd's character sheet.
-It defines who the agent is, how it talks, and how it behaves with people.
+Eine Soul ist das Charakterblatt von MineClawd.
+Sie legt fest, wer der Agent ist, wie er spricht und wie er sich mit Menschen verhält.
 
-Think of it as personality, not a task script.
+Sieh sie als Persönlichkeit, nicht als Aufgaben-Skript.
 
-- Good soul content: identity, temperament, tone, and social behavior.
-- Bad soul content: long command recipes, tool instructions, or one-off workflow steps.
+- Guter Soul-Inhalt: Identität, Temperament, Ton und soziales Verhalten.
+- Schlechter Soul-Inhalt: lange Befehlsrezepte, Tool-Anweisungen oder einmalige Workflow-Schritte.
 
 <Note>
-Even if a soul uses a different character name, project and tool identity still remain MineClawd.
+Auch wenn eine Soul einen anderen Charakternamen verwendet, bleiben Projekt- und Tool-Identität weiterhin MineClawd.
 </Note>
 
-## Built-in souls
+## Eingebaute Souls
 
-MineClawd ships with:
+MineClawd wird ausgeliefert mit:
 
 - `default`
 - `yuki`
 
-`yuki` is the mascot-style soul and a good structure reference.
+`yuki` ist die Soul im Maskottchen-Stil und eine gute Strukturreferenz.
 
-## Soul file locations
+## Speicherorte von Soul-Dateien
 
-- Soul directory: `mineclawd/souls/`
-- Active soul pointer per owner: `mineclawd/souls/.active/<owner>.txt`
+- Soul-Verzeichnis: `mineclawd/souls/`
+- Aktiver Soul-Zeiger pro Owner: `mineclawd/souls/.active/<owner>.txt`
 
-Each operator can keep a different active soul on the same server.
+Jeder Operator kann auf demselben Server eine andere aktive Soul behalten.
 
-## Show and switch souls
+## Souls anzeigen und wechseln
 
 ```bash
 /mineclawd persona
@@ -42,42 +42,42 @@ Each operator can keep a different active soul on the same server.
 ```
 
 <Info>
-You cannot switch souls while a request is running.
-Wait for completion, then run `/mineclawd persona <soul>`.
+Du kannst Souls nicht wechseln, während eine Anfrage läuft.
+Warte auf den Abschluss und führe dann `/mineclawd persona <soul>` aus.
 </Info>
 
-## Create a custom soul
+## Eine eigene Soul erstellen
 
-1. Create a markdown file in `mineclawd/souls/`, for example `mineclawd/souls/mentor.md`.
-2. Write persona content with the structure below.
-3. Run `/mineclawd persona mentor`.
-4. Send a few normal prompts and refine the voice.
+1. Erstelle eine Markdown-Datei in `mineclawd/souls/`, zum Beispiel `mineclawd/souls/mentor.md`.
+2. Schreibe Persona-Inhalt mit der unten stehenden Struktur.
+3. Führe `/mineclawd persona mentor` aus.
+4. Sende ein paar normale Prompts und verfeinere die Stimme.
 
-## Soul writing template
+## Soul-Schreibvorlage
 
 ```md
-### Role & Identity
-You are [name], [short identity].
+### Rolle & Identität
+Du bist [Name], [kurze Identität].
 
-### Personality
-1. [Core trait 1]
-2. [Core trait 2]
-3. [Core trait 3]
+### Persönlichkeit
+1. [Kerneigenschaft 1]
+2. [Kerneigenschaft 2]
+3. [Kerneigenschaft 3]
 
-### Speaking Style
-- Tone: [friendly/calm/playful/etc.]
-- Verbal habits: [short phrases, occasional catchphrases, etc.]
-- Language behavior: [how you adapt to user language]
+### Sprechstil
+- Ton: [freundlich/ruhig/verspielt/etc.]
+- Sprachgewohnheiten: [kurze Phrasen, gelegentliche Wiedererkennungs-Sprüche, etc.]
+- Sprachverhalten: [wie du dich an die Sprache des Nutzers anpasst]
 
-### Interaction Guidelines
-- When user is stuck: [comfort + recovery behavior]
-- When user succeeds: [celebration behavior]
-- Never break character.
+### Interaktionsrichtlinien
+- Wenn der Nutzer feststeckt: [Trost + Wiederherstellungsverhalten]
+- Wenn der Nutzer Erfolg hat: [Feierverhalten]
+- Brich niemals den Charakter.
 ```
 
-## Practical tips
+## Praktische Tipps
 
-- Keep emotional tone consistent across all sections.
-- Prefer concrete voice cues over vague adjectives.
-- Keep operational behavior in prompts and docs, not in soul files.
-- Read bundled `yuki.md` before designing your own soul.
+- Halte den emotionalen Ton in allen Abschnitten konsistent.
+- Bevorzuge konkrete Sprachhinweise statt vager Adjektive.
+- Halte operatives Verhalten in Prompts und Docs, nicht in Soul-Dateien.
+- Lies die mitgelieferte `yuki.md`, bevor du deine eigene Soul entwirfst.

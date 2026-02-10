@@ -1,35 +1,35 @@
 ---
 title: "sessions new"
-description: "Create and switch to a new MineClawd session."
+description: "创建并切换到新的 MineClawd 会话。"
 ---
 
-## Purpose
+## 用途
 
-Create a fresh session so new tasks do not mix with old context.
+创建一个全新会话，避免新任务和旧上下文混在一起。
 
-## Syntax
-
-```bash
-/mineclawd sessions new
-```
-
-## When to use it
-
-Use this before a new project, a different play style, or a different objective.
-
-## Examples
+## 语法
 
 ```bash
 /mineclawd sessions new
 ```
 
-## Behavior and limits
+## 何时使用
 
-- The new session becomes your active session immediately.
-- Initial title is `New Session` and may be auto-renamed after first response.
-- Session id is a short 4-character id, and token format is `<id>-<title-slug>`.
+开始新项目、切换玩法或更换目标前使用这个命令。
 
-## Common failures
+## 示例
 
-- `cannot create a new session while a request is running`: wait for current task to finish.
-- `failed to create session`: check write access to `mineclawd/sessions/`.
+```bash
+/mineclawd sessions new
+```
+
+## 行为和限制
+
+- 新会话会立即成为当前活动会话。
+- 初始标题是 `New Session`，首次响应后可能自动重命名。
+- session id 是 4 位短 id，token 格式为 `<id>-<title-slug>`。
+
+## 常见失败
+
+- `cannot create a new session while a request is running`：请等待当前任务完成。
+- `failed to create session`：请检查 `mineclawd/sessions/` 的写入权限。

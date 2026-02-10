@@ -1,11 +1,11 @@
 ---
 title: "prompt"
-description: "Send a natural-language request to MineClawd."
+description: "Eine Anfrage in natürlicher Sprache an MineClawd senden."
 ---
 
-## Purpose
+## Zweck
 
-Use this command to ask MineClawd to do work for you.
+Nutze diesen Befehl, um MineClawd Arbeit für dich erledigen zu lassen.
 
 ## Syntax
 
@@ -14,25 +14,25 @@ Use this command to ask MineClawd to do work for you.
 /mclawd <request>
 ```
 
-## When to use it
+## Wann du ihn verwendest
 
-Use this for normal day-to-day requests, such as world edits, command tasks, or KubeJS automation.
+Nutze das für normale tägliche Anfragen, etwa Weltbearbeitungen, Befehlsaufgaben oder KubeJS-Automatisierung.
 
-## Examples
+## Beispiele
 
 ```bash
-/mclawd build a 9x9 wheat farm next to me
-/mineclawd prompt create a server script that announces when a player sleeps
+/mclawd baue neben mir eine 9x9-Weizenfarm
+/mineclawd prompt erstelle ein Server-Skript, das meldet, wenn ein Spieler schläft
 ```
 
-## Behavior and limits
+## Verhalten und Grenzen
 
-- MineClawd validates your provider config before it starts.
-- MineClawd creates or reuses your active session automatically.
-- MineClawd allows one active request per session owner at a time.
-- Prompt echo and task status visibility follow your `broadcast-requests-to` setting.
+- MineClawd validiert vor dem Start deine Provider-Konfiguration.
+- MineClawd erstellt oder verwendet deine aktive Session automatisch wieder.
+- MineClawd erlaubt jeweils nur eine aktive Anfrage pro Session-Owner.
+- Prompt-Echo und Sichtbarkeit des Aufgabenstatus folgen deiner Einstellung `broadcast-requests-to`.
 
-## Common failures
+## Häufige Fehler
 
-- `OpenAI API Key is missing` or `Vertex AI API Key is missing`: set credentials in config.
-- `another request is still running for this session`: wait for completion, then retry.
+- `OpenAI API Key is missing` oder `Vertex AI API Key is missing`: Anmeldedaten in der Konfiguration setzen.
+- `another request is still running for this session`: auf Abschluss warten und dann erneut versuchen.

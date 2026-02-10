@@ -1,13 +1,13 @@
 ---
 title: "config"
-description: "Open, read, or update MineClawd settings."
+description: "打开、读取或更新 MineClawd 设置。"
 ---
 
-## Purpose
+## 用途
 
-Use this command to open GUI config or manage settings from chat.
+用这个命令打开 GUI 配置，或在聊天中管理设置。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd config
@@ -15,7 +15,7 @@ Use this command to open GUI config or manage settings from chat.
 /mineclawd config <key> <value>
 ```
 
-## Common keys
+## 常用 key
 
 - `provider`: `openai` or `vertex-ai`
 - `endpoint`, `api-key`, `model`, `summarize-model`
@@ -27,7 +27,7 @@ Use this command to open GUI config or manage settings from chat.
 - `broadcast-requests-to`: `self`, `all`, or `ops`
 - `dynamic-registry-mode`: `auto`, `enabled`, or `disabled`
 
-## Examples
+## 示例
 
 ```bash
 /mineclawd config provider openai
@@ -37,15 +37,15 @@ Use this command to open GUI config or manage settings from chat.
 /mineclawd config dynamic-registry-mode enabled
 ```
 
-## Behavior and limits
+## 行为和限制
 
-- `/mineclawd config` opens GUI only when the player client has MineClawd installed.
-- `broadcast-requests-to` is per-player and must be set in-game.
-- Secret values are masked when you read them.
-- Changing `dynamic-registry-mode` requires a game or server restart.
+- 只有玩家客户端安装了 MineClawd 时，`/mineclawd config` 才会打开 GUI。
+- `broadcast-requests-to` 是按玩家保存的，必须在游戏内设置。
+- 读取敏感值时会自动脱敏。
+- 修改 `dynamic-registry-mode` 后需要重启游戏或服务器。
 
-## Common failures
+## 常见失败
 
-- `unknown config key`: check spelling or use tab completion.
-- `invalid boolean`: use `true` or `false`.
-- `tool-call-limit must be between 1 and 20`: stay in range.
+- `unknown config key`：请检查拼写，或使用 Tab 补全。
+- `invalid boolean`：请使用 `true` 或 `false`。
+- `tool-call-limit must be between 1 and 20`：请保持在范围内。

@@ -1,33 +1,33 @@
 ---
-title: "Technical details"
-description: "Architecture, storage, limits, and runtime internals for MineClawd."
+title: "Technische Details"
+description: "Architektur, Speicher, Limits und Runtime-Interna für MineClawd."
 ---
 
-## Request lifecycle
+## Anfrage-Lebenszyklus
 
-1. You run `/mclawd ...` or `/mineclawd prompt ...`.
-2. MineClawd validates provider config and OP access.
-3. MineClawd loads or creates active session state.
-4. MineClawd sends request to OpenAI-compatible or Vertex endpoint.
-5. Model responses can trigger tool calls.
-6. Tool results are fed back into the model loop.
-7. Final assistant output is rendered to chat and session history is saved.
+1. Du führst `/mclawd ...` oder `/mineclawd prompt ...` aus.
+2. MineClawd validiert Provider-Konfiguration und OP-Zugriff.
+3. MineClawd lädt oder erstellt den aktiven Session-Status.
+4. MineClawd sendet eine Anfrage an einen OpenAI-kompatiblen oder Vertex-Endpunkt.
+5. Modellantworten können Tool-Calls auslösen.
+6. Tool-Ergebnisse werden in die Modellschleife zurückgeführt.
+7. Die finale Assistenten-Ausgabe wird im Chat gerendert und der Session-Verlauf wird gespeichert.
 
-## Runtime tool families
+## Runtime-Tool-Familien
 
-- Command and script execution:
+- Befehls- und Skriptausführung:
   - `execute-command`
   - `apply-instant-server-script`
-- Persistent script files:
+- Persistente Skriptdateien:
   - `list-server-scripts`
   - `read-server-script`
   - `write-server-script`
   - `delete-server-script`
   - `reload-game`
   - `sync-command-tree`
-- Clarification:
+- Rückfragen:
   - `ask-user-question`
-- Dynamic placeholders (only when enabled):
+- Dynamische Platzhalter (nur wenn aktiviert):
   - `list-dynamic-content`
   - `register-dynamic-item`
   - `register-dynamic-block`
@@ -37,7 +37,7 @@ description: "Architecture, storage, limits, and runtime internals for MineClawd
   - `update-dynamic-fluid`
   - `unregister-dynamic-content`
 
-## Storage layout
+## Speicherlayout
 
 ```text
 gameDir/
@@ -61,35 +61,35 @@ gameDir/
         ...
 ```
 
-## Session internals
+## Session-Interna
 
-- Session id is a 4-character lowercase token.
-- Command token format is `<id>-<title-slug>`.
-- Session file stores OpenAI and Vertex histories separately.
-- Active session pointer is stored in `active.json` per owner.
-- Session title is generated after first successful round using summarize model.
+- Session-ID ist ein 4-stelliges Token in Kleinbuchstaben.
+- Das Befehls-Token-Format ist `<id>-<title-slug>`.
+- Die Session-Datei speichert OpenAI- und Vertex-Verläufe getrennt.
+- Der aktive Session-Zeiger wird pro Owner in `active.json` gespeichert.
+- Der Session-Titel wird nach der ersten erfolgreichen Runde mit dem Summarize-Modell generiert.
 
-## LLM transport details
+## LLM-Transportdetails
 
-- OpenAI-compatible request path: `<endpoint>/chat/completions`
-- Vertex request path: `<endpoint>/<model>:generateContent?key=<api_key>`
-- Both paths use 60-second request timeout.
-- Both paths support function-style tool calling.
+- OpenAI-kompatibler Anfragepfad: `<endpoint>/chat/completions`
+- Vertex-Anfragepfad: `<endpoint>/<model>:generateContent?key=<api_key>`
+- Beide Pfade verwenden ein Anfrage-Timeout von 60 Sekunden.
+- Beide Pfade unterstützen Tool-Calling im Function-Stil.
 
-## Dynamic placeholder internals
+## Interna dynamischer Platzhalter
 
-- Capacity: `30` item slots, `30` block slots, `30` fluid slots.
-- Fixed ids include:
+- Kapazität: `30` Item-Slots, `30` Block-Slots, `30` Fluid-Slots.
+- Feste IDs enthalten:
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- State sync uses `sync_dynamic_content` network payload.
-- State persistence uses world `PersistentState` id `mineclawd_dynamic_content`.
-- `AUTO` mode enables runtime placeholders in client runtime and disables them on dedicated servers.
+- State-Sync nutzt die Netzwerklast `sync_dynamic_content`.
+- State-Persistenz nutzt die Welt-`PersistentState`-ID `mineclawd_dynamic_content`.
+- Der Modus `AUTO` aktiviert Runtime-Platzhalter in der Client-Runtime und deaktiviert sie auf dedizierten Servern.
 
-## Networking channels
+## Netzwerkkanäle
 
-MineClawd defines these packet identifiers:
+MineClawd definiert diese Paket-Identifikatoren:
 
 - `mineclawd:open_config`
 - `mineclawd:sync_broadcast_target`
@@ -98,23 +98,23 @@ MineClawd defines these packet identifiers:
 - `mineclawd:question_response`
 - `mineclawd:open_history_book`
 
-## Limits and timers
+## Limits und Timer
 
-| Setting or behavior | Value |
+| Einstellung oder Verhalten | Wert |
 | --- | --- |
-| Tool call limit range | `1` to `20` |
-| Default tool call limit value | `16` |
-| Tool call limit default state | disabled |
-| Ask-user max options | `5` |
-| Ask-user timeout | `60` seconds |
-| Failed-request retry token TTL | `30` minutes |
-| Rate-limit retry count | `2` retries |
-| Rate-limit retry backoff | `1500ms * retry_index` |
-| History max entries for book build | `300` |
+| Tool-Call-Limit-Bereich | `1` bis `20` |
+| Standardwert für Tool-Call-Limit | `16` |
+| Standardzustand für Tool-Call-Limit | deaktiviert |
+| Maximale Ask-User-Optionen | `5` |
+| Ask-User-Timeout | `60` Sekunden |
+| TTL für Retry-Token bei fehlgeschlagenen Anfragen | `30` Minuten |
+| Anzahl der Rate-Limit-Wiederholungen | `2` Retries |
+| Rate-Limit-Retry-Backoff | `1500ms * retry_index` |
+| Maximale Verlaufseinträge für Buchaufbau | `300` |
 
-## Security model
+## Sicherheitsmodell
 
-- Every command path is OP-gated.
-- KubeJS execution is real server execution, not simulation.
-- API keys must be treated as secrets.
-- Use trusted environments only.
+- Jeder Befehlspfad ist OP-geschützt.
+- KubeJS-Ausführung ist echte Serverausführung, keine Simulation.
+- API-Keys müssen als Geheimnisse behandelt werden.
+- Nutze nur vertrauenswürdige Umgebungen.

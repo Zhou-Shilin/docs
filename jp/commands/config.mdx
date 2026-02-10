@@ -1,13 +1,13 @@
----
+﻿---
 title: "config"
-description: "Open, read, or update MineClawd settings."
+description: "MineClawd の設定を開く・確認する・更新する。"
 ---
 
-## Purpose
+## 目的
 
-Use this command to open GUI config or manage settings from chat.
+このコマンドで GUI 設定を開くか、チャットから設定を管理します。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd config
@@ -15,19 +15,19 @@ Use this command to open GUI config or manage settings from chat.
 /mineclawd config <key> <value>
 ```
 
-## Common keys
+## よく使うキー
 
-- `provider`: `openai` or `vertex-ai`
+- `provider`: `openai` または `vertex-ai`
 - `endpoint`, `api-key`, `model`, `summarize-model`
 - `vertex-endpoint`, `vertex-api-key`, `vertex-model`, `vertex-summarize-model`
-- `debug-mode`: `true` or `false`
-- `limit-tool-calls`: `true` or `false`
-- `tool-call-limit`: `1` to `20`
+- `debug-mode`: `true` または `false`
+- `limit-tool-calls`: `true` または `false`
+- `tool-call-limit`: `1` から `20`
 - `system-prompt`
-- `broadcast-requests-to`: `self`, `all`, or `ops`
-- `dynamic-registry-mode`: `auto`, `enabled`, or `disabled`
+- `broadcast-requests-to`: `self`, `all`, または `ops`
+- `dynamic-registry-mode`: `auto`, `enabled`, または `disabled`
 
-## Examples
+## 例
 
 ```bash
 /mineclawd config provider openai
@@ -37,15 +37,15 @@ Use this command to open GUI config or manage settings from chat.
 /mineclawd config dynamic-registry-mode enabled
 ```
 
-## Behavior and limits
+## 動作と制限
 
-- `/mineclawd config` opens GUI only when the player client has MineClawd installed.
-- `broadcast-requests-to` is per-player and must be set in-game.
-- Secret values are masked when you read them.
-- Changing `dynamic-registry-mode` requires a game or server restart.
+- `/mineclawd config` は、プレイヤークライアントに MineClawd が入っている場合のみ GUI を開きます。
+- `broadcast-requests-to` はプレイヤーごとの設定で、ゲーム内で設定する必要があります。
+- 秘密値は読み取り時にマスクされます。
+- `dynamic-registry-mode` の変更後はゲームまたはサーバー再起動が必要です。
 
-## Common failures
+## よくある失敗
 
-- `unknown config key`: check spelling or use tab completion.
-- `invalid boolean`: use `true` or `false`.
-- `tool-call-limit must be between 1 and 20`: stay in range.
+- `unknown config key`: スペルを確認するかタブ補完を使ってください。
+- `invalid boolean`: `true` か `false` を使ってください。
+- `tool-call-limit must be between 1 and 20`: 範囲内の値を指定してください。

@@ -1,37 +1,37 @@
 ---
 title: "sessions repair"
-description: "Repair malformed Vertex function-call turns in session history."
+description: "Repara turnos mal formados de llamadas de función de Vertex en el historial de sesión."
 ---
 
-## Purpose
+## Propósito
 
-Repair a session when Vertex function-call turns become malformed.
+Repara una sesión cuando los turnos de llamadas de función de Vertex quedan mal formados.
 
-## Syntax
+## Sintaxis
 
 ```bash
 /mineclawd sessions repair
 /mineclawd sessions repair <session>
 ```
 
-## When to use it
+## Cuándo usarlo
 
-Use this after tool-call mismatch errors in Vertex-backed sessions.
+Úsalo después de errores de desajuste de llamadas de herramientas en sesiones respaldadas por Vertex.
 
-## Examples
+## Ejemplos
 
 ```bash
 /mineclawd sessions repair
 /mineclawd sessions repair 1a2b
 ```
 
-## Behavior and limits
+## Comportamiento y límites
 
-- Without `<session>`, MineClawd repairs the active session.
-- With `<session>`, MineClawd repairs the referenced session.
-- If no repair is needed, MineClawd reports that state and changes nothing.
+- Sin `<session>`, MineClawd repara la sesión activa.
+- Con `<session>`, MineClawd repara la sesión referenciada.
+- Si no se necesita reparación, MineClawd informa ese estado y no cambia nada.
 
-## Common failures
+## Errores comunes
 
-- `session not found`: verify reference with `/mineclawd sessions list`.
-- `cannot repair sessions while a request is running`: wait for completion.
+- `session not found`: verifica la referencia con `/mineclawd sessions list`.
+- `cannot repair sessions while a request is running`: espera a que termine.

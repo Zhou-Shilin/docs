@@ -1,100 +1,100 @@
+﻿---
+title: "独自 persona の構築"
+description: "MineClawd に安定したキャラクター性、声、対人行動を与える高度な soul ファイルを設計します。"
 ---
-title: "Building your own persona"
-description: "Design advanced soul files that give MineClawd a stable character, voice, and social behavior."
----
 
-## Read this first: soul vs task instructions
+## 先に読む: soul とタスク指示の違い
 
-A soul is a long-lived identity.
-It should answer: who is this agent, how does it feel, and how does it talk with players.
+soul は長期的なアイデンティティです。
+答えるべきことは、このエージェントは誰か、どう感じるか、プレイヤーにどう話すかです。
 
-Use other places for task logic:
+タスクロジックは別の場所に置きます:
 
-- Gameplay goals: normal chat prompts.
-- Operational policy: team docs or command workflows.
-- Runtime behavior switches: `/mineclawd config ...`.
+- ゲームプレイ目標: 通常のチャットプロンプト。
+- 運用ポリシー: チームドキュメントまたはコマンド運用フロー。
+- 実行時の動作切り替え: `/mineclawd config ...`。
 
-If you put operational scripts inside soul files, personality quality drops and replies become stiff.
+運用スクリプトを soul ファイルに入れると、人格の品質が下がり、返信が硬くなります。
 
-## How MineClawd loads personas
+## MineClawd が persona を読み込む仕組み
 
-- Souls are markdown files in `mineclawd/souls/`.
-- Built-in souls are `default` and `yuki`.
-- Active soul selection is stored per owner in `mineclawd/souls/.active/<owner>.txt`.
-- If a selected soul cannot be read, MineClawd falls back to `default`.
+- Soul は `mineclawd/souls/` 配下の Markdown ファイルです。
+- 組み込み soul は `default` と `yuki` です。
+- アクティブ soul 選択は owner ごとに `mineclawd/souls/.active/<owner>.txt` に保存されます。
+- 選択した soul を読めない場合、MineClawd は `default` にフォールバックします。
 
-This lets you iterate safely without breaking the server experience.
+これにより、サーバー体験を壊さずに安全に反復改善できます。
 
-## Use `yuki` as your benchmark
+## `yuki` を基準にする
 
-The bundled `yuki` soul demonstrates a strong pattern:
+同梱の `yuki` soul は強いパターンを示します:
 
-1. Clear identity.
-2. Stable personality traits.
-3. Distinct speaking style.
-4. Interaction rules for failure and success.
-5. Character continuity ("never break character").
+1. 明確なアイデンティティ。
+2. 安定した性格特性。
+3. 区別できる話し方。
+4. 失敗時と成功時の対話ルール。
+5. キャラクターの連続性（「キャラクターを崩さない」）。
 
-Use this structure when creating your own advanced persona.
+独自の高度な persona を作るときは、この構造を使ってください。
 
-## Advanced authoring workflow
+## 高度な作成ワークフロー
 
-1. Pick one persona goal.
-Example: `calm architect mentor` or `strict survival coach`.
-2. Create a soul file, for example `mineclawd/souls/architect-mentor.md`.
-3. Write identity, personality, speaking style, and interaction behavior.
-4. Activate it:
+1. persona の目標を 1 つ決めます。
+例: `落ち着いた建築メンター` や `厳格なサバイバルコーチ`。
+2. soul ファイルを作成します。例: `mineclawd/souls/architect-mentor.md`。
+3. アイデンティティ、性格、話し方、対話行動を書きます。
+4. 有効化します:
 
 ```bash
 /mineclawd persona architect-mentor
 ```
 
-5. Run a fixed prompt set each revision so style differences are measurable.
-6. Revise one section at a time, not the whole file at once.
-7. Keep versioned snapshots while tuning.
+5. 改訂ごとに固定プロンプトセットを実行し、スタイル差分を測定可能にします。
+6. ファイル全体を一度に直すのではなく、1 セクションずつ修正します。
+7. 調整中はバージョン付きスナップショットを保持します。
 
-## Soul template for advanced use
+## 高度な用途向け soul テンプレート
 
 ```md
-### Role & Identity
-You are [character name], [world role], helping players in Minecraft.
+### 役割とアイデンティティ
+あなたは [キャラクター名] として、[ワールド内での役割] の立場で Minecraft のプレイヤーを支援します。
 
-### Personality
-1. [Trait with emotional intent]
-2. [Trait with social intent]
-3. [Trait with problem-solving intent]
+### 性格
+1. [感情面の意図を持つ特性]
+2. [対人面の意図を持つ特性]
+3. [問題解決面の意図を持つ特性]
 
-### Speaking Style
-- Tone: [short definition]
-- Rhythm: [answer length and formatting preference]
-- Signature language: [small phrase habits, language adaptation rules]
+### 話し方
+- 口調: [短い定義]
+- リズム: [回答の長さと書式の好み]
+- 定型表現: [よく使う短い言い回し、言語適応ルール]
 
-### Interaction Guidelines
-- When user is stuck: [comfort + action pattern]
-- When user succeeds: [celebration pattern]
-- When user is vague: [clarification style]
-- Never break character.
+### 対話ガイドライン
+- ユーザーが詰まったとき: [安心させる対応 + 次の行動パターン]
+- ユーザーが成功したとき: [祝福のパターン]
+- ユーザーの依頼が曖昧なとき: [確認質問のスタイル]
+- キャラクターを崩さないこと。
 ```
 
-## Quality checks before release
+## リリース前の品質チェック
 
-| Check | What to verify |
+| チェック | 確認内容 |
 | --- | --- |
-| Character consistency | The same persona appears across different tasks and sessions. |
-| Emotional behavior | Failure and success responses match your intended personality. |
-| Language flexibility | Tone remains recognizable across English and other languages. |
-| Drift resistance | Long chats do not collapse into generic assistant voice. |
-| Community fit | Persona behavior matches your server culture and moderation rules. |
+| キャラクター一貫性 | 異なるタスクやセッションでも同じ persona が現れる。 |
+| 感情表現 | 失敗時と成功時の応答が意図した人格に一致する。 |
+| 言語柔軟性 | 英語や他言語でも口調の識別性が保たれる。 |
+| ドリフト耐性 | 長時間チャットでも汎用アシスタント口調へ崩れない。 |
+| コミュニティ適合性 | persona の振る舞いがサーバー文化とモデレーション規則に一致する。 |
 
-## Multiplayer persona strategy
+## マルチプレイでの persona 戦略
 
-- Active persona is per owner key, not global.
-- Two operators can run different personas on the same server.
-- Keep shared soul files in version control for team consistency.
-- Use clear names like `mentor-calm`, `builder-energetic`, `admin-formal`.
-- Add a short README near soul files so new operators know intended usage.
+- アクティブ persona はグローバルではなく owner key ごとです。
+- 同じサーバーで 2 人のオペレーターが別々の persona を使えます。
+- チーム一貫性のため、共有 soul ファイルはバージョン管理してください。
+- `mentor-calm`, `builder-energetic`, `admin-formal` のような明確な名前を使ってください。
+- soul ファイルの近くに短い README を置き、新規オペレーターが想定用途を把握できるようにしてください。
 
-## Related pages
+## 関連ページ
 
 - [/configuration/souls](/configuration/souls)
 - [/commands/persona](/commands/persona)

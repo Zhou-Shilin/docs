@@ -1,38 +1,38 @@
 ---
 title: "prompt"
-description: "Send a natural-language request to MineClawd."
+description: "向 MineClawd 发送自然语言请求。"
 ---
 
-## Purpose
+## 用途
 
-Use this command to ask MineClawd to do work for you.
+用这个命令让 MineClawd 帮你执行任务。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd prompt <request>
 /mclawd <request>
 ```
 
-## When to use it
+## 何时使用
 
-Use this for normal day-to-day requests, such as world edits, command tasks, or KubeJS automation.
+日常请求都可以用这个命令，比如世界编辑、命令任务或 KubeJS 自动化。
 
-## Examples
+## 示例
 
 ```bash
-/mclawd build a 9x9 wheat farm next to me
-/mineclawd prompt create a server script that announces when a player sleeps
+/mclawd 在我旁边建一个 9x9 的小麦农场
+/mineclawd prompt 创建一个服务器脚本，在玩家睡觉时发出公告
 ```
 
-## Behavior and limits
+## 行为和限制
 
-- MineClawd validates your provider config before it starts.
-- MineClawd creates or reuses your active session automatically.
-- MineClawd allows one active request per session owner at a time.
-- Prompt echo and task status visibility follow your `broadcast-requests-to` setting.
+- MineClawd 在开始前会校验你的 provider 配置。
+- MineClawd 会自动创建或复用当前活动会话。
+- 每个 session owner 同时只允许一个活动请求。
+- prompt 回显和任务状态可见范围遵循 `broadcast-requests-to` 设置。
 
-## Common failures
+## 常见失败
 
-- `OpenAI API Key is missing` or `Vertex AI API Key is missing`: set credentials in config.
-- `another request is still running for this session`: wait for completion, then retry.
+- `OpenAI API Key is missing` 或 `Vertex AI API Key is missing`：请在配置中设置凭据。
+- `another request is still running for this session`：请等待请求完成后再重试。

@@ -1,19 +1,19 @@
 ---
-title: "Complete configuration"
-description: "Full MineClawd configuration reference with defaults, command keys, and behavior notes."
+title: "Configuración completa"
+description: "Referencia completa de configuración de MineClawd con valores por defecto, claves de comando y notas de comportamiento."
 ---
 
-## Purpose
+## Propósito
 
-This page gives you the full MineClawd configuration model, including file settings, command keys, and restart behavior.
+Esta página te da el modelo completo de configuración de MineClawd, incluyendo ajustes de archivo, claves de comando y comportamiento de reinicio.
 
-## Where settings live
+## Dónde están los ajustes
 
-- Global config file: `config/mineclawd.json5`
-- Per-player chat visibility: `mineclawd/player-settings.json`
-- Soul files and active soul state: `mineclawd/souls/` and `mineclawd/souls/.active/`
+- Archivo de configuración global: `config/mineclawd.json5`
+- Visibilidad del chat por jugador: `mineclawd/player-settings.json`
+- Archivos soul y estado del soul activo: `mineclawd/souls/` y `mineclawd/souls/.active/`
 
-## Complete `mineclawd.json5` template
+## Plantilla completa de `mineclawd.json5`
 
 ```json5
 {
@@ -37,52 +37,52 @@ This page gives you the full MineClawd configuration model, including file setti
 ```
 
 <Info>
-In file form, enum values are uppercase (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`).
+En formato de archivo, los valores enum van en mayúsculas (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`).
 
-In command form, values are lowercase (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
+En formato de comando, los valores van en minúsculas (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
 </Info>
 
-## Key reference
+## Referencia de claves
 
-| File key | Command key | Type | Default | Notes |
+| Clave de archivo | Clave de comando | Tipo | Predeterminado | Notas |
 | --- | --- | --- | --- | --- |
-| `provider` | `provider` | enum | `OPENAI` | Provider selection: OpenAI-compatible or Vertex AI. |
-| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-compatible base URL, no trailing slash required. |
-| `apiKey` | `api-key` | string | empty | OpenAI API key. |
-| `model` | `model` | string | `gpt-4o-mini` | OpenAI chat model. |
-| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI model for first-turn session title generation. |
-| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API base URL. |
-| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API key. |
-| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex model path or model name. |
-| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex summarize model for session titles. |
-| `debugMode` | `debug-mode` | boolean | `false` | Logs detailed request and tool activity. |
-| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Enables per-request tool-loop cap. |
-| `toolCallLimit` | `tool-call-limit` | integer | `16` | Allowed range is `1` to `20`. |
-| `systemPrompt` | `system-prompt` | string | empty | Empty means built-in system prompt. Use value `default` in command mode to reset. |
-| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Controls dynamic placeholder runtime mode. Restart required after change. |
+| `provider` | `provider` | enum | `OPENAI` | Selección de proveedor: compatible con OpenAI o Vertex AI. |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | URL base compatible con OpenAI; no requiere barra final. |
+| `apiKey` | `api-key` | string | vacío | Clave API de OpenAI. |
+| `model` | `model` | string | `gpt-4o-mini` | Modelo de chat de OpenAI. |
+| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | Modelo de OpenAI para generar el título de sesión en el primer turno. |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | URL base de la API de Vertex. |
+| `vertexApiKey` | `vertex-api-key` | string | vacío | Clave API de Vertex. |
+| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Ruta del modelo de Vertex o nombre de modelo. |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Modelo de resumen de Vertex para títulos de sesión. |
+| `debugMode` | `debug-mode` | boolean | `false` | Registra actividad detallada de solicitudes y herramientas. |
+| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Habilita un límite de bucle de herramientas por solicitud. |
+| `toolCallLimit` | `tool-call-limit` | integer | `16` | El rango permitido es de `1` a `20`. |
+| `systemPrompt` | `system-prompt` | string | vacío | Vacío significa usar el system prompt incorporado. Usa `default` en modo comando para restablecer. |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Controla el modo de ejecución de marcadores dinámicos. Requiere reinicio después del cambio. |
 
-## Per-player setting
+## Ajuste por jugador
 
-`broadcast-requests-to` is command-only and per-player.
+`broadcast-requests-to` es solo de comando y por jugador.
 
-- Command key: `broadcast-requests-to`
-- Allowed values: `self`, `all`, `ops`
-- Stored in: `mineclawd/player-settings.json`
-- Purpose: controls who sees prompt echo and task start or finish lines.
+- Clave de comando: `broadcast-requests-to`
+- Valores permitidos: `self`, `all`, `ops`
+- Se guarda en: `mineclawd/player-settings.json`
+- Propósito: controla quién ve el eco del prompt y las líneas de inicio o fin de tarea.
 
-## Dynamic registry mode behavior
+## Comportamiento del modo de registro dinámico
 
-- `AUTO`: enabled in client runtime (single-player), disabled on dedicated servers.
-- `ENABLED`: force enabled in all runtimes.
-- `DISABLED`: fully disabled.
+- `AUTO`: habilitado en runtime de cliente (un jugador), deshabilitado en servidores dedicados.
+- `ENABLED`: forzado como habilitado en todos los runtimes.
+- `DISABLED`: totalmente deshabilitado.
 
 <Warning>
-If you force `ENABLED` on a dedicated server, joining clients must have MineClawd installed.
+Si fuerzas `ENABLED` en un servidor dedicado, los clientes que se conecten deben tener MineClawd instalado.
 </Warning>
 
-## Recommended baselines
+## Configuraciones base recomendadas
 
-### Baseline for first-time OpenAI setup
+### Base para una primera configuración con OpenAI
 
 ```bash
 /mineclawd config provider openai
@@ -92,7 +92,7 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config summarize-model gpt-4o-mini
 ```
 
-### Baseline for first-time Vertex setup
+### Base para una primera configuración con Vertex
 
 ```bash
 /mineclawd config provider vertex-ai
@@ -102,9 +102,9 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
 ```
 
-## GUI path
+## Ruta GUI
 
-- In game: **Mod Menu** -> **MineClawd** -> **Configure**
-- Command fallback: `/mineclawd config ...`
+- En el juego: **Mod Menu** -> **MineClawd** -> **Configure**
+- Alternativa por comando: `/mineclawd config ...`
 
-If client GUI open fails, configure through command keys.
+Si falla la apertura de la GUI en cliente, configura mediante claves de comando.

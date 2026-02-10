@@ -1,25 +1,25 @@
 ---
 title: "persona"
-description: "Show available souls or switch to a different soul persona."
+description: "显示可用 souls，或切换到其他 soul 人格。"
 ---
 
-## Purpose
+## 用途
 
-Use this command to inspect or switch your active soul persona.
+使用这个命令查看或切换你当前激活的 soul 人格。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd persona
 /mineclawd persona <soul>
 ```
 
-## What it does
+## 功能说明
 
-- Without args: shows active soul and available soul names.
-- With `<soul>`: switches active soul for your owner key.
+- 不带参数：显示当前激活 soul 和可用 soul 名称。
+- 带 `<soul>`：为你的 owner key 切换激活 soul。
 
-## Examples
+## 示例
 
 ```bash
 /mineclawd persona
@@ -27,15 +27,15 @@ Use this command to inspect or switch your active soul persona.
 /mineclawd persona builder
 ```
 
-## Behavior and limits
+## 行为和限制
 
-- Soul names are read from `mineclawd/souls/*.md`.
-- Active selection is stored per owner in `mineclawd/souls/.active/`.
-- Persona switching is blocked while a request is running.
+- soul 名称从 `mineclawd/souls/*.md` 读取。
+- 激活选择按 owner 存储在 `mineclawd/souls/.active/` 中。
+- 请求执行期间禁止切换人格。
 
-## Common failures
+## 常见失败
 
-- `persona not found`: verify name with `/mineclawd persona`.
-- `cannot switch persona while a request is running`: wait for completion.
+- `persona not found`：请用 `/mineclawd persona` 验证名称。
+- `cannot switch persona while a request is running`：请等待当前请求完成。
 
-For soul authoring, see [/configuration/souls](/configuration/souls).
+关于 soul 编写，请查看 [/configuration/souls](/configuration/souls)。

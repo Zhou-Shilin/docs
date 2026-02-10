@@ -1,33 +1,33 @@
 ---
-title: "Technical details"
-description: "Architecture, storage, limits, and runtime internals for MineClawd."
+title: "Detalles técnicos"
+description: "Arquitectura, almacenamiento, límites e internals de runtime de MineClawd."
 ---
 
-## Request lifecycle
+## Ciclo de vida de una solicitud
 
-1. You run `/mclawd ...` or `/mineclawd prompt ...`.
-2. MineClawd validates provider config and OP access.
-3. MineClawd loads or creates active session state.
-4. MineClawd sends request to OpenAI-compatible or Vertex endpoint.
-5. Model responses can trigger tool calls.
-6. Tool results are fed back into the model loop.
-7. Final assistant output is rendered to chat and session history is saved.
+1. Ejecutas `/mclawd ...` o `/mineclawd prompt ...`.
+2. MineClawd valida la configuración del proveedor y el acceso OP.
+3. MineClawd carga o crea el estado de sesión activa.
+4. MineClawd envía la solicitud a un endpoint compatible con OpenAI o a Vertex.
+5. Las respuestas del modelo pueden activar llamadas de herramientas.
+6. Los resultados de herramientas se devuelven al bucle del modelo.
+7. La salida final del asistente se muestra en el chat y se guarda el historial de sesión.
 
-## Runtime tool families
+## Familias de herramientas en runtime
 
-- Command and script execution:
+- Ejecución de comandos y scripts:
   - `execute-command`
   - `apply-instant-server-script`
-- Persistent script files:
+- Archivos de script persistentes:
   - `list-server-scripts`
   - `read-server-script`
   - `write-server-script`
   - `delete-server-script`
   - `reload-game`
   - `sync-command-tree`
-- Clarification:
+- Aclaración:
   - `ask-user-question`
-- Dynamic placeholders (only when enabled):
+- Marcadores dinámicos (solo cuando están habilitados):
   - `list-dynamic-content`
   - `register-dynamic-item`
   - `register-dynamic-block`
@@ -37,7 +37,7 @@ description: "Architecture, storage, limits, and runtime internals for MineClawd
   - `update-dynamic-fluid`
   - `unregister-dynamic-content`
 
-## Storage layout
+## Estructura de almacenamiento
 
 ```text
 gameDir/
@@ -61,35 +61,35 @@ gameDir/
         ...
 ```
 
-## Session internals
+## Internals de sesión
 
-- Session id is a 4-character lowercase token.
-- Command token format is `<id>-<title-slug>`.
-- Session file stores OpenAI and Vertex histories separately.
-- Active session pointer is stored in `active.json` per owner.
-- Session title is generated after first successful round using summarize model.
+- El id de sesión es un token de 4 caracteres en minúsculas.
+- El formato del token de comando es `<id>-<title-slug>`.
+- El archivo de sesión almacena por separado los historiales de OpenAI y Vertex.
+- El puntero de sesión activa se guarda en `active.json` por propietario.
+- El título de sesión se genera tras la primera ronda exitosa usando el modelo de resumen.
 
-## LLM transport details
+## Detalles de transporte LLM
 
-- OpenAI-compatible request path: `<endpoint>/chat/completions`
-- Vertex request path: `<endpoint>/<model>:generateContent?key=<api_key>`
-- Both paths use 60-second request timeout.
-- Both paths support function-style tool calling.
+- Ruta de solicitud compatible con OpenAI: `<endpoint>/chat/completions`
+- Ruta de solicitud de Vertex: `<endpoint>/<model>:generateContent?key=<api_key>`
+- Ambas rutas usan timeout de solicitud de 60 segundos.
+- Ambas rutas soportan llamadas de herramientas tipo función.
 
-## Dynamic placeholder internals
+## Internals de marcadores dinámicos
 
-- Capacity: `30` item slots, `30` block slots, `30` fluid slots.
-- Fixed ids include:
+- Capacidad: `30` slots de ítems, `30` slots de bloques, `30` slots de fluidos.
+- Los ids fijos incluyen:
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- State sync uses `sync_dynamic_content` network payload.
-- State persistence uses world `PersistentState` id `mineclawd_dynamic_content`.
-- `AUTO` mode enables runtime placeholders in client runtime and disables them on dedicated servers.
+- La sincronización de estado usa la carga de red `sync_dynamic_content`.
+- La persistencia de estado usa el id de `PersistentState` del mundo `mineclawd_dynamic_content`.
+- El modo `AUTO` habilita marcadores de runtime en cliente y los deshabilita en servidores dedicados.
 
-## Networking channels
+## Canales de red
 
-MineClawd defines these packet identifiers:
+MineClawd define estos identificadores de paquetes:
 
 - `mineclawd:open_config`
 - `mineclawd:sync_broadcast_target`
@@ -98,23 +98,23 @@ MineClawd defines these packet identifiers:
 - `mineclawd:question_response`
 - `mineclawd:open_history_book`
 
-## Limits and timers
+## Límites y temporizadores
 
-| Setting or behavior | Value |
+| Ajuste o comportamiento | Valor |
 | --- | --- |
-| Tool call limit range | `1` to `20` |
-| Default tool call limit value | `16` |
-| Tool call limit default state | disabled |
-| Ask-user max options | `5` |
-| Ask-user timeout | `60` seconds |
-| Failed-request retry token TTL | `30` minutes |
-| Rate-limit retry count | `2` retries |
-| Rate-limit retry backoff | `1500ms * retry_index` |
-| History max entries for book build | `300` |
+| Rango de límite de llamadas de herramientas | `1` a `20` |
+| Valor predeterminado del límite de llamadas de herramientas | `16` |
+| Estado predeterminado del límite de llamadas de herramientas | deshabilitado |
+| Máximo de opciones en ask-user | `5` |
+| Timeout de ask-user | `60` segundos |
+| TTL del token de reintento de solicitud fallida | `30` minutos |
+| Cantidad de reintentos por rate limit | `2` reintentos |
+| Backoff de reintento por rate limit | `1500ms * retry_index` |
+| Máximo de entradas de historial para construir el libro | `300` |
 
-## Security model
+## Modelo de seguridad
 
-- Every command path is OP-gated.
-- KubeJS execution is real server execution, not simulation.
-- API keys must be treated as secrets.
-- Use trusted environments only.
+- Todas las rutas de comando están protegidas por OP.
+- La ejecución de KubeJS es ejecución real en servidor, no simulación.
+- Las claves API deben tratarse como secretos.
+- Usa solo entornos de confianza.

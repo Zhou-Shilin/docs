@@ -1,31 +1,31 @@
 ---
 title: "history"
-description: "Open a readable in-game book view of current session history."
+description: "在游戏内以可读书本视图打开当前会话历史。"
 ---
 
-## Purpose
+## 用途
 
-View your active session conversation in a written book UI.
+在书本 UI 中查看当前活动会话的对话记录。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd history
 ```
 
-## When to use it
+## 何时使用
 
-Use this to review context before continuing a long task.
+继续长任务之前，用它先回顾上下文。
 
-## Behavior and limits
+## 行为和限制
 
-- This command must be executed by a player, not console.
-- Client support is required for the direct history book UI packet.
-- If there is no active session, MineClawd asks you to create one first.
-- Very long history is truncated to book limits.
+- 这个命令必须由玩家执行，不能在控制台执行。
+- 直接打开历史书本 UI 数据包需要客户端支持。
+- 如果没有活动会话，MineClawd 会要求你先创建一个。
+- 历史过长时会按书本上限截断。
 
-## Common failures
+## 常见失败
 
-- `this command must be executed by a player`: run in player chat.
-- `Client mod is required for /mineclawd history book UI`: install MineClawd on your client.
-- `No active session`: run `/mineclawd sessions new` first.
+- `this command must be executed by a player`：请在玩家聊天栏中运行。
+- `Client mod is required for /mineclawd history book UI`：请在客户端安装 MineClawd。
+- `No active session`：请先运行 `/mineclawd sessions new`。

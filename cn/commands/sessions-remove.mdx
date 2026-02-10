@@ -1,32 +1,32 @@
 ---
 title: "sessions remove"
-description: "Delete a saved session by id or token."
+description: "通过 id 或 token 删除已保存会话。"
 ---
 
-## Purpose
+## 用途
 
-Remove sessions you no longer need.
+删除你不再需要的会话。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd sessions remove <session>
 ```
 
-## Examples
+## 示例
 
 ```bash
 /mineclawd sessions remove 1a2b
 /mineclawd sessions remove 1a2b-my-project-title
 ```
 
-## Behavior and limits
+## 行为和限制
 
-- Deletion is permanent.
-- If you remove the active session, MineClawd switches active pointer to the most recently updated remaining session.
-- If no sessions remain, there is no active session.
+- 删除是永久操作。
+- 如果删除的是活动会话，MineClawd 会把活动指针切到剩余会话中最近更新的一个。
+- 如果没有剩余会话，就不会有活动会话。
 
-## Common failures
+## 常见失败
 
-- `session not found`: check id or token with `/mineclawd sessions list`.
-- `cannot remove sessions while a request is running`: wait for completion.
+- `session not found`：请用 `/mineclawd sessions list` 检查 id 或 token。
+- `cannot remove sessions while a request is running`：请等待当前请求完成。

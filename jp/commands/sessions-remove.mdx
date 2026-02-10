@@ -1,32 +1,32 @@
----
+﻿---
 title: "sessions remove"
-description: "Delete a saved session by id or token."
+description: "id または token を指定して保存済みセッションを削除します。"
 ---
 
-## Purpose
+## 目的
 
-Remove sessions you no longer need.
+不要になったセッションを削除します。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd sessions remove <session>
 ```
 
-## Examples
+## 例
 
 ```bash
 /mineclawd sessions remove 1a2b
 /mineclawd sessions remove 1a2b-my-project-title
 ```
 
-## Behavior and limits
+## 動作と制限
 
-- Deletion is permanent.
-- If you remove the active session, MineClawd switches active pointer to the most recently updated remaining session.
-- If no sessions remain, there is no active session.
+- 削除は永続的です。
+- アクティブセッションを削除すると、MineClawd は残っている中で最終更新が最も新しいセッションへアクティブポインタを切り替えます。
+- セッションが 1 つも残らない場合、アクティブセッションはなくなります。
 
-## Common failures
+## よくある失敗
 
-- `session not found`: check id or token with `/mineclawd sessions list`.
-- `cannot remove sessions while a request is running`: wait for completion.
+- `session not found`: `/mineclawd sessions list` で id または token を確認してください。
+- `cannot remove sessions while a request is running`: 完了まで待ってください。

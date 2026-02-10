@@ -1,41 +1,41 @@
----
+﻿---
 title: "sessions list"
-description: "List saved MineClawd sessions for the current owner."
+description: "現在の owner に保存された MineClawd セッションを一覧表示します。"
 ---
 
-## Purpose
+## 目的
 
-Show your saved sessions so you can resume, remove, or repair them.
+保存済みセッションを表示し、resume、remove、repair を行えるようにします。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd sessions
 /mineclawd sessions list
 ```
 
-## What you get
+## 表示内容
 
-The list includes:
+一覧には次が含まれます:
 
-- session id
-- session title
-- session token
-- last updated time
-- active marker
+- セッション ID
+- セッションタイトル
+- セッショントークン
+- 最終更新時刻
+- アクティブマーカー
 
-## Examples
+## 例
 
 ```bash
 /mineclawd sessions list
 ```
 
-## Behavior and limits
+## 動作と制限
 
-- Sessions are scoped by owner key.
-- Player executions use player UUID as owner key.
-- Console executions use `server` as owner key.
+- セッションは owner key ごとに分離されます。
+- プレイヤー実行ではプレイヤー UUID が owner key になります。
+- コンソール実行では `server` が owner key になります。
 
-## Common failures
+## よくある失敗
 
-- If you see no sessions, create one with `/mineclawd sessions new`.
+- セッションが表示されない場合は、`/mineclawd sessions new` で作成してください。

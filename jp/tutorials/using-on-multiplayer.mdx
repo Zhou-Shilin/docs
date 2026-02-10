@@ -1,98 +1,98 @@
----
-title: "Using on multiplayer"
-description: "Operate MineClawd on dedicated servers with clear permissions, visibility controls, and safe rollout patterns."
+﻿---
+title: "マルチプレイで使う"
+description: "専用サーバーで MineClawd を運用するための、明確な権限設計、表示制御、安全なロールアウト手順。"
 ---
 
-## Deployment model
+## デプロイモデル
 
-- Install MineClawd on the server to enable `/mineclawd` and `/mclawd`.
-- Client install is optional for core command usage.
-- Client install is required for:
-  - `/mineclawd config` GUI open packet
-  - `/mineclawd history` book UI
-  - popup question UI for `ask-user-question`
+- サーバーに MineClawd を導入すると `/mineclawd` と `/mclawd` が有効になります。
+- コアコマンド利用だけならクライアント導入は任意です。
+- 次の機能にはクライアント導入が必要です:
+  - `/mineclawd config` GUI オープンパケット
+  - `/mineclawd history` 本 UI
+  - `ask-user-question` のポップアップ質問 UI
 
 <Info>
-If a player does not have the client mod, MineClawd still has a fallback question flow in chat (`/mineclawd choose ...`).
+プレイヤーがクライアント Mod を入れていなくても、MineClawd にはチャット経由の質問フォールバック（`/mineclawd choose ...`）があります。
 </Info>
 
 <Info>
-Without client mod, you can still use `/mineclawd config <key> <value>` in chat for configuration.
+クライアント Mod なしでも、設定はチャットで `/mineclawd config <key> <value>` を使えます。
 </Info>
 
-## Permission model and admin control
+## 権限モデルと管理者制御
 
-- MineClawd command roots are gated by vanilla permission level `2` (`source.hasPermissionLevel(2)`).
-- There are no built-in custom permission nodes per subcommand.
-- Practical result: grant OP to trusted operators only.
+- MineClawd コマンドルートは vanilla 権限レベル `2`（`source.hasPermissionLevel(2)`）で保護されます。
+- サブコマンド単位の独自権限ノードは組み込みで提供されません。
+- 実務上の結論: 信頼できるオペレーターのみに OP を付与してください。
 
-If your server stack supports command-level permission remapping, expose `/mineclawd` and `/mclawd` only to your AI-operator role.
+サーバースタックがコマンド単位の権限再マッピングをサポートする場合、`/mineclawd` と `/mclawd` は AI オペレーター役割のみに公開してください。
 
-## Visibility controls for busy servers
+## 混雑サーバー向け表示制御
 
-MineClawd has a per-player visibility setting:
+MineClawd にはプレイヤーごとの表示設定があります:
 
 ```bash
 /mineclawd config broadcast-requests-to <self|all|ops>
 ```
 
-- `self`: only the requester sees prompt echo and task status.
-- `all`: everyone sees it.
-- `ops`: only operators see it.
+- `self`: プロンプトのエコーとタスク状態を依頼者だけが見ます。
+- `all`: 全員が見ます。
+- `ops`: OP のみが見ます。
 
-This setting is stored in `mineclawd/player-settings.json` and is scoped per player UUID.
+この設定は `mineclawd/player-settings.json` に保存され、プレイヤー UUID ごとに管理されます。
 
-It can be also set in the GUI config screen, inside the "Misc" section, as "Broadcast requests to".
+GUI 設定画面の "Misc" セクションにある "Broadcast requests to" からも設定できます。
 
-## Session ownership in multiplayer
+## マルチプレイでのセッション所有
 
-- Session data is isolated per owner key.
-- Player commands operate on that player's own session set.
-- Console commands use a separate owner namespace.
+- セッションデータは owner key ごとに分離されます。
+- プレイヤーコマンドはそのプレイヤー自身のセッション集合を操作します。
+- コンソールコマンドは別の owner 名前空間を使います。
 
-For team operations, decide early whether each operator keeps personal sessions or everyone shares one operator account.
+チーム運用では、各オペレーターが個別セッションを使うか、全員で 1 つの運用アカウントを共有するかを早めに決めてください。
 
-## Dynamic registry on dedicated servers
+## 専用サーバーでの dynamic registry
 
-By default, `dynamic-registry-mode` is `AUTO`. In `AUTO`, dynamic placeholder runtime is disabled on dedicated servers.
+デフォルトの `dynamic-registry-mode` は `AUTO` です。`AUTO` では、専用サーバーで動的プレースホルダー実行時機能は無効です。
 
-To force-enable it:
+強制有効にするには:
 
 ```bash
 /mineclawd config dynamic-registry-mode enabled
 ```
 
-Then restart the server.
+その後サーバーを再起動します。
 
-### What changes when enabled
+### 有効化時の変更点
 
-- Dynamic placeholders for item/block/fluid slots become available at runtime.
-- Dynamic state sync is sent to clients.
-- Persistent world state stores dynamic slot data.
-- Clients must also install MineClawd to join this dedicated server.
+- item/block/fluid スロット向け動的プレースホルダーが実行時に利用可能になります。
+- 動的状態同期がクライアントへ送信されます。
+- 永続ワールド状態に動的スロットデータが保存されます。
+- この専用サーバーに参加するクライアントにも MineClawd 導入が必要になります。
 
 <Warning>
-Enable dynamic registry on production servers only after a staged test. The client requirement is a hard compatibility change for all players.
+本番サーバーで dynamic registry を有効化するのは段階的テスト後にしてください。クライアント要件は全プレイヤーに影響する互換性変更です。
 </Warning>
 
-## Recommended operator baseline
+## 推奨オペレーターベースライン
 
-| Goal | Suggested setting |
+| 目的 | 推奨設定 |
 | --- | --- |
-| Reduce chat noise | `broadcast-requests-to ops` |
-| Prevent long tool loops | `limit-tool-calls true` |
-| Keep loops bounded | `tool-call-limit 8` to `12` |
-| Debug incidents only | `debug-mode true` temporarily |
+| チャットノイズを減らす | `broadcast-requests-to ops` |
+| 長いツールループを防ぐ | `limit-tool-calls true` |
+| ループ上限を明確にする | `tool-call-limit 8` から `12` |
+| 障害調査時のみデバッグ | `debug-mode true` を一時的に |
 
-## Rollout checklist for server owners
+## サーバーオーナー向けロールアウトチェックリスト
 
-1. Pick your operator role and OP policy first.
-2. Set provider and model credentials.
-3. Set broadcast policy (`self`, `ops`, or `all`).
-4. Decide whether dynamic registry stays `auto` or changes to `enabled`.
-5. Test with two real accounts (operator and non-operator) before public launch.
+1. 先にオペレーター役割と OP ポリシーを決める。
+2. プロバイダーとモデルの認証情報を設定する。
+3. 表示ポリシー（`self`, `ops`, `all`）を設定する。
+4. dynamic registry を `auto` のままにするか `enabled` に変えるか決める。
+5. 公開前に実アカウント 2 つ（オペレーターと非オペレーター）でテストする。
 
-## Related pages
+## 関連ページ
 
 - [/commands/overview](/commands/overview)
 - [/commands/config](/commands/config)

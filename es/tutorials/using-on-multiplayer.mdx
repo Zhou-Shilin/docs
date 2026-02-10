@@ -1,98 +1,98 @@
 ---
-title: "Using on multiplayer"
-description: "Operate MineClawd on dedicated servers with clear permissions, visibility controls, and safe rollout patterns."
+title: "Uso en multijugador"
+description: "Opera MineClawd en servidores dedicados con permisos claros, controles de visibilidad y patrones de despliegue seguros."
 ---
 
-## Deployment model
+## Modelo de despliegue
 
-- Install MineClawd on the server to enable `/mineclawd` and `/mclawd`.
-- Client install is optional for core command usage.
-- Client install is required for:
-  - `/mineclawd config` GUI open packet
-  - `/mineclawd history` book UI
-  - popup question UI for `ask-user-question`
+- Instala MineClawd en el servidor para habilitar `/mineclawd` y `/mclawd`.
+- La instalación en cliente es opcional para el uso básico de comandos.
+- La instalación en cliente es obligatoria para:
+  - paquete de apertura de GUI de `/mineclawd config`
+  - interfaz de libro de `/mineclawd history`
+  - interfaz emergente de preguntas para `ask-user-question`
 
 <Info>
-If a player does not have the client mod, MineClawd still has a fallback question flow in chat (`/mineclawd choose ...`).
+Si un jugador no tiene el mod de cliente, MineClawd aún tiene un flujo alternativo de preguntas en el chat (`/mineclawd choose ...`).
 </Info>
 
 <Info>
-Without client mod, you can still use `/mineclawd config <key> <value>` in chat for configuration.
+Sin mod de cliente, igualmente puedes usar `/mineclawd config <key> <value>` en el chat para configurar.
 </Info>
 
-## Permission model and admin control
+## Modelo de permisos y control de administración
 
-- MineClawd command roots are gated by vanilla permission level `2` (`source.hasPermissionLevel(2)`).
-- There are no built-in custom permission nodes per subcommand.
-- Practical result: grant OP to trusted operators only.
+- Las raíces de comando de MineClawd están protegidas por el nivel de permiso vanilla `2` (`source.hasPermissionLevel(2)`).
+- No hay nodos de permisos personalizados integrados por subcomando.
+- Resultado práctico: da OP solo a operadores de confianza.
 
-If your server stack supports command-level permission remapping, expose `/mineclawd` and `/mclawd` only to your AI-operator role.
+Si tu stack de servidor soporta reasignación de permisos por comando, expón `/mineclawd` y `/mclawd` solo al rol de operador de IA.
 
-## Visibility controls for busy servers
+## Controles de visibilidad para servidores concurridos
 
-MineClawd has a per-player visibility setting:
+MineClawd tiene un ajuste de visibilidad por jugador:
 
 ```bash
 /mineclawd config broadcast-requests-to <self|all|ops>
 ```
 
-- `self`: only the requester sees prompt echo and task status.
-- `all`: everyone sees it.
-- `ops`: only operators see it.
+- `self`: solo quien hace la solicitud ve el eco del prompt y el estado de la tarea.
+- `all`: todos lo ven.
+- `ops`: solo lo ven los operadores.
 
-This setting is stored in `mineclawd/player-settings.json` and is scoped per player UUID.
+Este ajuste se guarda en `mineclawd/player-settings.json` y se delimita por UUID de jugador.
 
-It can be also set in the GUI config screen, inside the "Misc" section, as "Broadcast requests to".
+También puede configurarse en la pantalla de configuración GUI, en la sección "Misc", como "Broadcast requests to".
 
-## Session ownership in multiplayer
+## Propiedad de sesiones en multijugador
 
-- Session data is isolated per owner key.
-- Player commands operate on that player's own session set.
-- Console commands use a separate owner namespace.
+- Los datos de sesión están aislados por clave de propietario.
+- Los comandos de jugador operan sobre el conjunto de sesiones de ese jugador.
+- Los comandos de consola usan un namespace de propietario separado.
 
-For team operations, decide early whether each operator keeps personal sessions or everyone shares one operator account.
+Para operación en equipo, decide pronto si cada operador mantiene sesiones personales o si todos comparten una cuenta de operador.
 
-## Dynamic registry on dedicated servers
+## Registro dinámico en servidores dedicados
 
-By default, `dynamic-registry-mode` is `AUTO`. In `AUTO`, dynamic placeholder runtime is disabled on dedicated servers.
+Por defecto, `dynamic-registry-mode` es `AUTO`. En `AUTO`, el runtime de marcadores dinámicos está deshabilitado en servidores dedicados.
 
-To force-enable it:
+Para habilitarlo de forma forzada:
 
 ```bash
 /mineclawd config dynamic-registry-mode enabled
 ```
 
-Then restart the server.
+Luego reinicia el servidor.
 
-### What changes when enabled
+### Qué cambia cuando se habilita
 
-- Dynamic placeholders for item/block/fluid slots become available at runtime.
-- Dynamic state sync is sent to clients.
-- Persistent world state stores dynamic slot data.
-- Clients must also install MineClawd to join this dedicated server.
+- Los marcadores dinámicos para slots de ítems/bloques/fluidos pasan a estar disponibles en runtime.
+- La sincronización de estado dinámico se envía a los clientes.
+- El estado persistente del mundo guarda datos de slots dinámicos.
+- Los clientes también deben instalar MineClawd para entrar a este servidor dedicado.
 
 <Warning>
-Enable dynamic registry on production servers only after a staged test. The client requirement is a hard compatibility change for all players.
+Habilita el registro dinámico en servidores de producción solo después de una prueba por etapas. El requisito de cliente es un cambio de compatibilidad estricto para todos los jugadores.
 </Warning>
 
-## Recommended operator baseline
+## Base recomendada para operadores
 
-| Goal | Suggested setting |
+| Objetivo | Ajuste sugerido |
 | --- | --- |
-| Reduce chat noise | `broadcast-requests-to ops` |
-| Prevent long tool loops | `limit-tool-calls true` |
-| Keep loops bounded | `tool-call-limit 8` to `12` |
-| Debug incidents only | `debug-mode true` temporarily |
+| Reducir ruido en el chat | `broadcast-requests-to ops` |
+| Evitar bucles largos de herramientas | `limit-tool-calls true` |
+| Mantener bucles acotados | `tool-call-limit 8` a `12` |
+| Depurar solo incidentes | `debug-mode true` temporalmente |
 
-## Rollout checklist for server owners
+## Checklist de despliegue para propietarios de servidor
 
-1. Pick your operator role and OP policy first.
-2. Set provider and model credentials.
-3. Set broadcast policy (`self`, `ops`, or `all`).
-4. Decide whether dynamic registry stays `auto` or changes to `enabled`.
-5. Test with two real accounts (operator and non-operator) before public launch.
+1. Define primero tu rol de operador y política de OP.
+2. Configura credenciales de proveedor y modelo.
+3. Configura la política de difusión (`self`, `ops` o `all`).
+4. Decide si el registro dinámico se queda en `auto` o cambia a `enabled`.
+5. Prueba con dos cuentas reales (operador y no operador) antes del lanzamiento público.
 
-## Related pages
+## Páginas relacionadas
 
 - [/commands/overview](/commands/overview)
 - [/commands/config](/commands/config)

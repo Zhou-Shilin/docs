@@ -1,100 +1,100 @@
 ---
-title: "Building your own persona"
-description: "Design advanced soul files that give MineClawd a stable character, voice, and social behavior."
+title: "Crear tu propia personalidad"
+description: "Diseña archivos soul avanzados que den a MineClawd un carácter, una voz y un comportamiento social estables."
 ---
 
-## Read this first: soul vs task instructions
+## Lee esto primero: soul vs instrucciones de tarea
 
-A soul is a long-lived identity.
-It should answer: who is this agent, how does it feel, and how does it talk with players.
+Un soul es una identidad de larga duración.
+Debe responder: quién es este agente, cómo se siente y cómo habla con los jugadores.
 
-Use other places for task logic:
+Usa otros lugares para la lógica de tareas:
 
-- Gameplay goals: normal chat prompts.
-- Operational policy: team docs or command workflows.
-- Runtime behavior switches: `/mineclawd config ...`.
+- Objetivos de juego: prompts normales de chat.
+- Política operativa: documentos del equipo o flujos de comandos.
+- Cambios de comportamiento en runtime: `/mineclawd config ...`.
 
-If you put operational scripts inside soul files, personality quality drops and replies become stiff.
+Si pones scripts operativos dentro de archivos soul, baja la calidad de la personalidad y las respuestas se vuelven rígidas.
 
-## How MineClawd loads personas
+## Cómo carga MineClawd las personalidades
 
-- Souls are markdown files in `mineclawd/souls/`.
-- Built-in souls are `default` and `yuki`.
-- Active soul selection is stored per owner in `mineclawd/souls/.active/<owner>.txt`.
-- If a selected soul cannot be read, MineClawd falls back to `default`.
+- Los souls son archivos markdown en `mineclawd/souls/`.
+- Los souls incluidos son `default` y `yuki`.
+- La selección del soul activo se guarda por propietario en `mineclawd/souls/.active/<owner>.txt`.
+- Si no se puede leer un soul seleccionado, MineClawd vuelve a `default`.
 
-This lets you iterate safely without breaking the server experience.
+Esto te permite iterar de forma segura sin romper la experiencia del servidor.
 
-## Use `yuki` as your benchmark
+## Usa `yuki` como referencia
 
-The bundled `yuki` soul demonstrates a strong pattern:
+El soul `yuki` incluido demuestra un patrón sólido:
 
-1. Clear identity.
-2. Stable personality traits.
-3. Distinct speaking style.
-4. Interaction rules for failure and success.
-5. Character continuity ("never break character").
+1. Identidad clara.
+2. Rasgos de personalidad estables.
+3. Estilo de habla distintivo.
+4. Reglas de interacción para fracaso y éxito.
+5. Continuidad del personaje ("nunca rompas el personaje").
 
-Use this structure when creating your own advanced persona.
+Usa esta estructura al crear tu propia personalidad avanzada.
 
-## Advanced authoring workflow
+## Flujo avanzado de creación
 
-1. Pick one persona goal.
-Example: `calm architect mentor` or `strict survival coach`.
-2. Create a soul file, for example `mineclawd/souls/architect-mentor.md`.
-3. Write identity, personality, speaking style, and interaction behavior.
-4. Activate it:
+1. Elige un objetivo para la personalidad.
+Ejemplo: `calm architect mentor` o `strict survival coach`.
+2. Crea un archivo soul, por ejemplo `mineclawd/souls/architect-mentor.md`.
+3. Escribe identidad, personalidad, estilo de habla y comportamiento de interacción.
+4. Actívalo:
 
 ```bash
 /mineclawd persona architect-mentor
 ```
 
-5. Run a fixed prompt set each revision so style differences are measurable.
-6. Revise one section at a time, not the whole file at once.
-7. Keep versioned snapshots while tuning.
+5. Ejecuta un conjunto fijo de prompts en cada revisión para que las diferencias de estilo sean medibles.
+6. Revisa una sección a la vez, no todo el archivo de una sola vez.
+7. Guarda snapshots versionados mientras ajustas.
 
-## Soul template for advanced use
+## Plantilla de soul para uso avanzado
 
 ```md
-### Role & Identity
-You are [character name], [world role], helping players in Minecraft.
+### Rol e identidad
+Eres [nombre del personaje], [rol en el mundo], y ayudas a jugadores en Minecraft.
 
-### Personality
-1. [Trait with emotional intent]
-2. [Trait with social intent]
-3. [Trait with problem-solving intent]
+### Personalidad
+1. [Rasgo con intención emocional]
+2. [Rasgo con intención social]
+3. [Rasgo con intención de resolución de problemas]
 
-### Speaking Style
-- Tone: [short definition]
-- Rhythm: [answer length and formatting preference]
-- Signature language: [small phrase habits, language adaptation rules]
+### Estilo de habla
+- Tono: [definición corta]
+- Ritmo: [preferencia de longitud y formato de respuesta]
+- Lenguaje característico: [hábitos de frases cortas, reglas de adaptación de idioma]
 
-### Interaction Guidelines
-- When user is stuck: [comfort + action pattern]
-- When user succeeds: [celebration pattern]
-- When user is vague: [clarification style]
-- Never break character.
+### Guías de interacción
+- Cuando el usuario se atasca: [patrón de apoyo + acción]
+- Cuando el usuario tiene éxito: [patrón de celebración]
+- Cuando el usuario es ambiguo: [estilo de aclaración]
+- Nunca rompas el personaje.
 ```
 
-## Quality checks before release
+## Comprobaciones de calidad antes de publicar
 
-| Check | What to verify |
+| Comprobación | Qué verificar |
 | --- | --- |
-| Character consistency | The same persona appears across different tasks and sessions. |
-| Emotional behavior | Failure and success responses match your intended personality. |
-| Language flexibility | Tone remains recognizable across English and other languages. |
-| Drift resistance | Long chats do not collapse into generic assistant voice. |
-| Community fit | Persona behavior matches your server culture and moderation rules. |
+| Consistencia del personaje | La misma personalidad aparece en diferentes tareas y sesiones. |
+| Comportamiento emocional | Las respuestas ante fracaso y éxito coinciden con la personalidad que buscas. |
+| Flexibilidad de idioma | El tono sigue siendo reconocible en inglés y otros idiomas. |
+| Resistencia al desvío | Los chats largos no colapsan hacia una voz de asistente genérica. |
+| Ajuste a la comunidad | El comportamiento de la personalidad encaja con la cultura y reglas de moderación de tu servidor. |
 
-## Multiplayer persona strategy
+## Estrategia de personalidad en multijugador
 
-- Active persona is per owner key, not global.
-- Two operators can run different personas on the same server.
-- Keep shared soul files in version control for team consistency.
-- Use clear names like `mentor-calm`, `builder-energetic`, `admin-formal`.
-- Add a short README near soul files so new operators know intended usage.
+- La personalidad activa es por clave de propietario, no global.
+- Dos operadores pueden usar personalidades distintas en el mismo servidor.
+- Mantén los archivos soul compartidos en control de versiones para consistencia del equipo.
+- Usa nombres claros como `mentor-calm`, `builder-energetic`, `admin-formal`.
+- Añade un README corto junto a los archivos soul para que operadores nuevos sepan el uso previsto.
 
-## Related pages
+## Páginas relacionadas
 
 - [/configuration/souls](/configuration/souls)
 - [/commands/persona](/commands/persona)

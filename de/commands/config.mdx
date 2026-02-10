@@ -1,11 +1,11 @@
 ---
 title: "config"
-description: "Open, read, or update MineClawd settings."
+description: "MineClawd-Einstellungen öffnen, lesen oder aktualisieren."
 ---
 
-## Purpose
+## Zweck
 
-Use this command to open GUI config or manage settings from chat.
+Nutze diesen Befehl, um die GUI-Konfiguration zu öffnen oder Einstellungen im Chat zu verwalten.
 
 ## Syntax
 
@@ -15,19 +15,19 @@ Use this command to open GUI config or manage settings from chat.
 /mineclawd config <key> <value>
 ```
 
-## Common keys
+## Häufige Schlüssel
 
-- `provider`: `openai` or `vertex-ai`
+- `provider`: `openai` oder `vertex-ai`
 - `endpoint`, `api-key`, `model`, `summarize-model`
 - `vertex-endpoint`, `vertex-api-key`, `vertex-model`, `vertex-summarize-model`
-- `debug-mode`: `true` or `false`
-- `limit-tool-calls`: `true` or `false`
-- `tool-call-limit`: `1` to `20`
+- `debug-mode`: `true` oder `false`
+- `limit-tool-calls`: `true` oder `false`
+- `tool-call-limit`: `1` bis `20`
 - `system-prompt`
-- `broadcast-requests-to`: `self`, `all`, or `ops`
-- `dynamic-registry-mode`: `auto`, `enabled`, or `disabled`
+- `broadcast-requests-to`: `self`, `all` oder `ops`
+- `dynamic-registry-mode`: `auto`, `enabled` oder `disabled`
 
-## Examples
+## Beispiele
 
 ```bash
 /mineclawd config provider openai
@@ -37,15 +37,15 @@ Use this command to open GUI config or manage settings from chat.
 /mineclawd config dynamic-registry-mode enabled
 ```
 
-## Behavior and limits
+## Verhalten und Grenzen
 
-- `/mineclawd config` opens GUI only when the player client has MineClawd installed.
-- `broadcast-requests-to` is per-player and must be set in-game.
-- Secret values are masked when you read them.
-- Changing `dynamic-registry-mode` requires a game or server restart.
+- `/mineclawd config` öffnet die GUI nur, wenn der Spieler-Client MineClawd installiert hat.
+- `broadcast-requests-to` gilt pro Spieler und muss im Spiel gesetzt werden.
+- Geheime Werte werden beim Auslesen maskiert.
+- Das Ändern von `dynamic-registry-mode` erfordert einen Neustart von Spiel oder Server.
 
-## Common failures
+## Häufige Fehler
 
-- `unknown config key`: check spelling or use tab completion.
-- `invalid boolean`: use `true` or `false`.
-- `tool-call-limit must be between 1 and 20`: stay in range.
+- `unknown config key`: Rechtschreibung prüfen oder Tab-Vervollständigung nutzen.
+- `invalid boolean`: nutze `true` oder `false`.
+- `tool-call-limit must be between 1 and 20`: im Bereich bleiben.

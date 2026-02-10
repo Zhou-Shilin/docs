@@ -1,51 +1,51 @@
+﻿---
+title: "はじめに"
+description: "完全な初心者向けルート。バニラランチャーから最初の MineClawd チャットまで。"
 ---
-title: "Getting started"
-description: "Absolute beginner path: from vanilla launcher to your first MineClawd chat."
----
 
-## Goal
+## 目標
 
-Follow this page step by step, and you will get one successful reply from MineClawd.
+このページを手順どおりに進めると、MineClawd から 1 回の正常な返信を受け取れます。
 
-## Tiny glossary
+## ミニ用語集
 
 <CardGroup cols={2}>
   <Card title="Minecraft Java Edition">
-    The PC version of Minecraft from the official Minecraft Launcher.
+    公式 Minecraft Launcher で遊ぶ PC 版 Minecraft です。
   </Card>
   <Card title="Fabric">
-    A small loader that lets Minecraft run mods.
+    Minecraft で Mod を動かすための軽量ローダーです。
   </Card>
   <Card title="Mod">
-    A `.jar` file that adds features to Minecraft.
+    Minecraft に機能を追加する `.jar` ファイルです。
   </Card>
-  <Card title="API key">
-    A secret key that lets MineClawd talk to an online AI service.
+  <Card title="API キー">
+    MineClawd がオンライン AI サービスと通信するための秘密鍵です。
   </Card>
 </CardGroup>
 
-## Step 1: install Fabric for Minecraft 1.20.1
+## ステップ 1: Minecraft 1.20.1 向け Fabric をインストール
 
-1. Download Fabric Installer from: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
-2. Run the installer.
-3. Choose:
+1. Fabric Installer をダウンロード: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
+2. インストーラーを実行します。
+3. 次を選びます:
    - Install type: **Client**
    - Minecraft version: **1.20.1**
-4. Click **Install**.
-5. Open Minecraft Launcher and run **Fabric Loader 1.20.1** once, then close the game.
+4. **Install** をクリックします。
+5. Minecraft Launcher で **Fabric Loader 1.20.1** を 1 回起動し、ゲームを閉じます。
 
 <Note>
-On Windows with the official launcher, this is usually a one-click installer flow.
+公式ランチャーを使う Windows では、通常はワンクリックでインストールできます。
 </Note>
 
-## Step 2: download required mods (Fabric + 1.20.1 versions)
+## ステップ 2: 必須 Mod をダウンロード（Fabric + 1.20.1 版）
 
-Download these files from Modrinth. On each page, choose a file that matches:
+Modrinth から次のファイルをダウンロードします。各ページで、以下に一致するファイルを選んでください:
 
 - Minecraft version: `1.20.1`
 - Loader: `Fabric`
 
-| Mod | Download link |
+| Mod | ダウンロードリンク |
 | --- | --- |
 | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
 | Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
@@ -53,50 +53,50 @@ Download these files from Modrinth. On each page, choose a file that matches:
 | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
 | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
 | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
-| Mod Menu (for GUI config) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+| Mod Menu (GUI 設定用) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
 
-## Step 3: put mod files into your `mods` folder
+## ステップ 3: `mods` フォルダーに Mod ファイルを配置
 
-1. Open your Minecraft folder.
-2. Open `mods` folder. If it does not exist, create it.
-3. Move all downloaded `.jar` files into `mods`.
-4. Do not unzip `.jar` files.
+1. Minecraft フォルダーを開きます。
+2. `mods` フォルダーを開きます。なければ作成します。
+3. ダウンロードした `.jar` ファイルをすべて `mods` に移動します。
+4. `.jar` ファイルは解凍しないでください。
 
-## Step 4: launch game and open MineClawd GUI
+## ステップ 4: ゲームを起動して MineClawd GUI を開く
 
-1. Start Minecraft with **Fabric Loader 1.20.1** profile.
-2. Create or open a single-player world.
-3. Turn **Allow Cheats** ON for that world.
-4. Open **Mod Menu** -> **MineClawd** -> **Configure**.
+1. **Fabric Loader 1.20.1** プロファイルで Minecraft を起動します。
+2. シングルプレイのワールドを作成または開きます。
+3. そのワールドで **Allow Cheats** を ON にします。
+4. **Mod Menu** -> **MineClawd** -> **Configure** を開きます。
 
-## Step 5: connect an AI service
+## ステップ 5: AI サービスに接続
 
-If you do not have an AI account yet, use OpenRouter and pick a free model.
+まだ AI アカウントがない場合は、OpenRouter で無料モデルを選ぶ方法が簡単です。
 
-1. Create account: [openrouter.ai](https://openrouter.ai/)
-2. Create API key: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
-3. In MineClawd GUI, set:
+1. アカウント作成: [openrouter.ai](https://openrouter.ai/)
+2. API キー作成: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
+3. MineClawd GUI で次を設定します:
    - **Provider**: `OpenAI`
    - **Endpoint**: `https://openrouter.ai/api/v1`
-   - **API Key**: paste your OpenRouter key
-   - **Model**: pick one model id from [openrouter.ai/models](https://openrouter.ai/models) (free models often include `:free`)
-   - **Summarize Model**: use the same model id for now
-4. Save config.
+   - **API Key**: OpenRouter キーを貼り付け
+   - **Model**: [openrouter.ai/models](https://openrouter.ai/models) からモデル ID を 1 つ選択（無料モデルは `:free` を含むことが多いです）
+   - **Summarize Model**: ひとまず同じモデル ID を使います
+4. 設定を保存します。
 
 <Info>
-Free models and limits change over time. If one model fails, pick another model id from the same models page.
+無料モデルと制限値は時間とともに変わります。1 つのモデルで失敗する場合は、同じ models ページから別のモデル ID を選んでください。
 </Info>
 
-## Step 6: send your first message
+## ステップ 6: 最初のメッセージを送信
 
-Open chat in your world and run:
+ワールドでチャットを開き、次を実行します:
 
 ```bash
-/mclawd hello
+/mclawd こんにちは
 ```
 
-If setup is correct, MineClawd replies in chat.
+設定が正しければ、MineClawd がチャットで返信します。
 
-## If it does not work
+## 動かない場合
 
-Go to [/resources/troubleshooting](/resources/troubleshooting) and follow the matching symptom.
+[/resources/troubleshooting](/resources/troubleshooting) に進み、症状に合う項目を確認してください。

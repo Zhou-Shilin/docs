@@ -1,39 +1,39 @@
 ---
-title: "Soul personality"
-description: "Create and switch soul files to define MineClawd's identity, personality, and speaking style."
+title: "Soul 人格"
+description: "通过创建和切换 soul 文件定义 MineClawd 的身份、人格与说话风格。"
 ---
 
-## What a soul is
+## 什么是 soul
 
-A soul is MineClawd's character sheet.
-It defines who the agent is, how it talks, and how it behaves with people.
+soul 是 MineClawd 的角色设定表。
+它定义这个 agent 是谁、怎么说话、以及如何与人互动。
 
-Think of it as personality, not a task script.
+把它当作人格，而不是任务脚本。
 
-- Good soul content: identity, temperament, tone, and social behavior.
-- Bad soul content: long command recipes, tool instructions, or one-off workflow steps.
+- 合适的 soul 内容：身份、气质、语气和社交行为。
+- 不合适的 soul 内容：冗长命令配方、工具说明或一次性流程步骤。
 
 <Note>
-Even if a soul uses a different character name, project and tool identity still remain MineClawd.
+即使 soul 使用了不同角色名，项目和工具身份仍然是 MineClawd。
 </Note>
 
-## Built-in souls
+## 内置 souls
 
-MineClawd ships with:
+MineClawd 默认包含：
 
 - `default`
 - `yuki`
 
-`yuki` is the mascot-style soul and a good structure reference.
+`yuki` 是吉祥物风格 soul，也是很好的结构参考。
 
-## Soul file locations
+## Soul 文件位置
 
-- Soul directory: `mineclawd/souls/`
-- Active soul pointer per owner: `mineclawd/souls/.active/<owner>.txt`
+- Soul 目录：`mineclawd/souls/`
+- 按 owner 保存的激活 soul 指针：`mineclawd/souls/.active/<owner>.txt`
 
-Each operator can keep a different active soul on the same server.
+在同一台服务器上，每个操作员都可以使用不同的激活 soul。
 
-## Show and switch souls
+## 查看和切换 souls
 
 ```bash
 /mineclawd persona
@@ -42,42 +42,42 @@ Each operator can keep a different active soul on the same server.
 ```
 
 <Info>
-You cannot switch souls while a request is running.
-Wait for completion, then run `/mineclawd persona <soul>`.
+请求运行期间不能切换 souls。
+请等请求完成后再运行 `/mineclawd persona <soul>`。
 </Info>
 
-## Create a custom soul
+## 创建自定义 soul
 
-1. Create a markdown file in `mineclawd/souls/`, for example `mineclawd/souls/mentor.md`.
-2. Write persona content with the structure below.
-3. Run `/mineclawd persona mentor`.
-4. Send a few normal prompts and refine the voice.
+1. 在 `mineclawd/souls/` 中创建一个 markdown 文件，例如 `mineclawd/souls/mentor.md`。
+2. 按下方结构编写人格内容。
+3. 运行 `/mineclawd persona mentor`。
+4. 发送几条普通 prompt，持续调整语气风格。
 
-## Soul writing template
+## Soul 编写模板
 
 ```md
-### Role & Identity
-You are [name], [short identity].
+### 角色与身份
+你是 [名字]，[简短身份]。
 
-### Personality
-1. [Core trait 1]
-2. [Core trait 2]
-3. [Core trait 3]
+### 人格
+1. [核心特质 1]
+2. [核心特质 2]
+3. [核心特质 3]
 
-### Speaking Style
-- Tone: [friendly/calm/playful/etc.]
-- Verbal habits: [short phrases, occasional catchphrases, etc.]
-- Language behavior: [how you adapt to user language]
+### 说话风格
+- 语气：[友好/冷静/活泼/等]
+- 口头习惯：[短句、偶尔口头禅等]
+- 语言行为：[你如何适配用户语言]
 
-### Interaction Guidelines
-- When user is stuck: [comfort + recovery behavior]
-- When user succeeds: [celebration behavior]
-- Never break character.
+### 互动准则
+- 用户卡住时：[安抚 + 恢复行为]
+- 用户成功时：[庆祝行为]
+- 永不跳出角色。
 ```
 
-## Practical tips
+## 实用建议
 
-- Keep emotional tone consistent across all sections.
-- Prefer concrete voice cues over vague adjectives.
-- Keep operational behavior in prompts and docs, not in soul files.
-- Read bundled `yuki.md` before designing your own soul.
+- 让所有章节保持一致的情绪基调。
+- 优先使用具体语气线索，避免模糊形容词。
+- 运行行为请放在 prompt 和文档中，不要写进 soul 文件。
+- 设计自己的 soul 前，先阅读内置 `yuki.md`。

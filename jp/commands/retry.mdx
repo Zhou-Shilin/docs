@@ -1,30 +1,30 @@
----
+﻿---
 title: "retry"
-description: "Retry the last failed request using a retry token."
+description: "retry token を使って最後に失敗したリクエストを再試行します。"
 ---
 
-## Purpose
+## 目的
 
-Replay a failed request without retyping the prompt.
+プロンプトを再入力せずに失敗したリクエストを再実行します。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd retry <token>
 ```
 
-## Where the token comes from
+## token の取得元
 
-When a request fails, MineClawd can show clickable `[Retry]` and `[Adjust Prompt]` actions. Use the token behind `[Retry]`.
+リクエスト失敗時、MineClawd はクリック可能な `[Retry]` と `[Adjust Prompt]` を表示できます。`[Retry]` に紐づく token を使います。
 
-## Behavior and limits
+## 動作と制限
 
-- Retry tokens expire after 30 minutes.
-- Retry only works when your active session still matches the original failed session.
-- If retry starts successfully, MineClawd clears the stored failed token.
+- retry token の有効期限は 30 分です。
+- 再試行は、アクティブセッションが元の失敗セッションと一致している場合のみ動作します。
+- 再試行が正常開始すると、MineClawd は保存していた失敗 token を消去します。
 
-## Common failures
+## よくある失敗
 
-- `retry token is invalid or expired`: request failed too long ago or token is wrong.
-- `active session changed`: resume the original session or resend manually.
-- `another request is still running for this session`: wait for completion.
+- `retry token is invalid or expired`: 失敗から時間が経ちすぎたか token が誤っています。
+- `active session changed`: 元のセッションを resume するか、手動で再送してください。
+- `another request is still running for this session`: 完了まで待ってください。

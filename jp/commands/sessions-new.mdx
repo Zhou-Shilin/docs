@@ -1,35 +1,35 @@
----
+﻿---
 title: "sessions new"
-description: "Create and switch to a new MineClawd session."
+description: "新しい MineClawd セッションを作成して切り替えます。"
 ---
 
-## Purpose
+## 目的
 
-Create a fresh session so new tasks do not mix with old context.
+新しいセッションを作成し、新しいタスクが古い文脈と混ざらないようにします。
 
-## Syntax
-
-```bash
-/mineclawd sessions new
-```
-
-## When to use it
-
-Use this before a new project, a different play style, or a different objective.
-
-## Examples
+## 構文
 
 ```bash
 /mineclawd sessions new
 ```
 
-## Behavior and limits
+## 使う場面
 
-- The new session becomes your active session immediately.
-- Initial title is `New Session` and may be auto-renamed after first response.
-- Session id is a short 4-character id, and token format is `<id>-<title-slug>`.
+新しいプロジェクト、別のプレイスタイル、または別の目的を始める前に使います。
 
-## Common failures
+## 例
 
-- `cannot create a new session while a request is running`: wait for current task to finish.
-- `failed to create session`: check write access to `mineclawd/sessions/`.
+```bash
+/mineclawd sessions new
+```
+
+## 動作と制限
+
+- 新しいセッションは即座にアクティブになります。
+- 初期タイトルは `New Session` で、最初の返信後に自動で改名される場合があります。
+- セッション ID は 4 文字の短い id で、token 形式は `<id>-<title-slug>` です。
+
+## よくある失敗
+
+- `cannot create a new session while a request is running`: 現在のタスク完了を待ってください。
+- `failed to create session`: `mineclawd/sessions/` への書き込み権限を確認してください。

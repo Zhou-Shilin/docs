@@ -1,36 +1,36 @@
----
+﻿---
 title: "sessions resume"
-description: "Switch the active session by id or token."
+description: "id または token でアクティブセッションを切り替えます。"
 ---
 
-## Purpose
+## 目的
 
-Make an older session active again so new requests continue that context.
+過去のセッションを再びアクティブにして、新しい依頼をその文脈で続行します。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd sessions resume <session>
 ```
 
-`<session>` can be:
+`<session>` に指定できる値:
 
-- session id, such as `1a2b`
-- session token, such as `1a2b-my-project-title`
+- `1a2b` のようなセッション ID
+- `1a2b-my-project-title` のようなセッショントークン
 
-## Examples
+## 例
 
 ```bash
 /mineclawd sessions resume 1a2b
 /mineclawd sessions resume 1a2b-my-project-title
 ```
 
-## Behavior and limits
+## 動作と制限
 
-- Resuming does not edit history. It only switches active session pointer.
-- Use `/mineclawd sessions list` first if you are not sure which reference to use.
+- resume は履歴を編集しません。アクティブセッションポインタを切り替えるだけです。
+- どの参照を使うべきか不明な場合は、先に `/mineclawd sessions list` を実行してください。
 
-## Common failures
+## よくある失敗
 
-- `session not found`: use exact id or token from list output.
-- `cannot switch sessions while a request is running`: wait for completion.
+- `session not found`: 一覧出力にある正確な id または token を使ってください。
+- `cannot switch sessions while a request is running`: 完了まで待ってください。

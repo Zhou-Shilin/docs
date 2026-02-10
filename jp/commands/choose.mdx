@@ -1,42 +1,42 @@
----
+﻿---
 title: "choose"
-description: "Answer a pending MineClawd clarification question."
+description: "保留中の MineClawd 確認質問に回答します。"
 ---
 
-## Purpose
+## 目的
 
-Respond to pending `ask-user-question` prompts from MineClawd.
+MineClawd からの保留中 `ask-user-question` プロンプトに回答します。
 
-## Syntax
+## 構文
 
 ```bash
 /mineclawd choose
 /mineclawd choose <option>
 ```
 
-`<option>` can be:
+`<option>` に指定できる値:
 
-- `1`, `2`, `3`, ... (preset option index)
-- `other` (enter custom chat text)
-- `skip` (continue without answer)
-- `cancel` (cancel pending custom text input)
+- `1`, `2`, `3`, ...（プリセット選択肢のインデックス）
+- `other`（カスタム入力テキストをチャットで送る）
+- `skip`（回答せずに続行）
+- `cancel`（保留中のカスタム入力モードをキャンセル）
 
-## Example flow
+## 実行例フロー
 
 ```bash
 /mineclawd choose 2
 /mineclawd choose other
-# type your custom answer in normal chat within 60 seconds
+# 60秒以内に通常チャットでカスタム回答を入力
 ```
 
-## Behavior and limits
+## 動作と制限
 
-- This command must be executed by a player.
-- You can only answer your own pending question.
-- Custom text input mode times out after 60 seconds.
+- このコマンドはプレイヤーとして実行する必要があります。
+- 回答できるのは自分の保留中質問のみです。
+- カスタム入力モードは 60 秒でタイムアウトします。
 
-## Common failures
+## よくある失敗
 
-- `no pending question`: MineClawd is not currently waiting for your input.
-- `invalid option`: use tab completion or a valid number.
-- `not waiting for custom text input`: you called `cancel` outside custom mode.
+- `no pending question`: MineClawd は現在あなたの入力を待っていません。
+- `invalid option`: タブ補完または有効な番号を使ってください。
+- `not waiting for custom text input`: カスタムモード外で `cancel` を実行しました。

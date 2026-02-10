@@ -1,33 +1,33 @@
 ---
-title: "Technical details"
-description: "Architecture, storage, limits, and runtime internals for MineClawd."
+title: "技术细节"
+description: "MineClawd 的架构、存储、限制与运行时内部机制。"
 ---
 
-## Request lifecycle
+## 请求生命周期
 
-1. You run `/mclawd ...` or `/mineclawd prompt ...`.
-2. MineClawd validates provider config and OP access.
-3. MineClawd loads or creates active session state.
-4. MineClawd sends request to OpenAI-compatible or Vertex endpoint.
-5. Model responses can trigger tool calls.
-6. Tool results are fed back into the model loop.
-7. Final assistant output is rendered to chat and session history is saved.
+1. 你运行 `/mclawd ...` 或 `/mineclawd prompt ...`。
+2. MineClawd 校验 provider 配置和 OP 权限。
+3. MineClawd 加载或创建活动会话状态。
+4. MineClawd 向 OpenAI 兼容或 Vertex endpoint 发送请求。
+5. 模型响应可能触发工具调用。
+6. 工具结果会回送进模型循环。
+7. 最终 assistant 输出会渲染到聊天中，并保存会话历史。
 
-## Runtime tool families
+## 运行时工具分类
 
-- Command and script execution:
+- 命令与脚本执行：
   - `execute-command`
   - `apply-instant-server-script`
-- Persistent script files:
+- 持久化脚本文件：
   - `list-server-scripts`
   - `read-server-script`
   - `write-server-script`
   - `delete-server-script`
   - `reload-game`
   - `sync-command-tree`
-- Clarification:
+- 澄清交互：
   - `ask-user-question`
-- Dynamic placeholders (only when enabled):
+- 动态占位符（仅在启用时）：
   - `list-dynamic-content`
   - `register-dynamic-item`
   - `register-dynamic-block`
@@ -37,7 +37,7 @@ description: "Architecture, storage, limits, and runtime internals for MineClawd
   - `update-dynamic-fluid`
   - `unregister-dynamic-content`
 
-## Storage layout
+## 存储布局
 
 ```text
 gameDir/
@@ -61,35 +61,35 @@ gameDir/
         ...
 ```
 
-## Session internals
+## 会话内部机制
 
-- Session id is a 4-character lowercase token.
-- Command token format is `<id>-<title-slug>`.
-- Session file stores OpenAI and Vertex histories separately.
-- Active session pointer is stored in `active.json` per owner.
-- Session title is generated after first successful round using summarize model.
+- session id 是 4 位小写 token。
+- 命令 token 格式为 `<id>-<title-slug>`。
+- 会话文件分别存储 OpenAI 和 Vertex 历史。
+- 活动会话指针按 owner 存储在 `active.json` 中。
+- 会话标题在第一次成功轮次后由 summarize model 生成。
 
-## LLM transport details
+## LLM 传输细节
 
-- OpenAI-compatible request path: `<endpoint>/chat/completions`
-- Vertex request path: `<endpoint>/<model>:generateContent?key=<api_key>`
-- Both paths use 60-second request timeout.
-- Both paths support function-style tool calling.
+- OpenAI 兼容请求路径：`<endpoint>/chat/completions`
+- Vertex 请求路径：`<endpoint>/<model>:generateContent?key=<api_key>`
+- 两种路径都使用 60 秒请求超时。
+- 两种路径都支持 function 风格工具调用。
 
-## Dynamic placeholder internals
+## Dynamic placeholder 内部机制
 
-- Capacity: `30` item slots, `30` block slots, `30` fluid slots.
-- Fixed ids include:
+- 容量：`30` 个 item 槽位、`30` 个 block 槽位、`30` 个 fluid 槽位。
+- 固定 id 包括：
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- State sync uses `sync_dynamic_content` network payload.
-- State persistence uses world `PersistentState` id `mineclawd_dynamic_content`.
-- `AUTO` mode enables runtime placeholders in client runtime and disables them on dedicated servers.
+- 状态同步使用 `sync_dynamic_content` 网络负载。
+- 状态持久化使用世界 `PersistentState` id `mineclawd_dynamic_content`。
+- `AUTO` 模式会在客户端运行时启用运行时占位符，并在专用服务器禁用。
 
-## Networking channels
+## 网络通道
 
-MineClawd defines these packet identifiers:
+MineClawd 定义了这些数据包标识符：
 
 - `mineclawd:open_config`
 - `mineclawd:sync_broadcast_target`
@@ -98,23 +98,23 @@ MineClawd defines these packet identifiers:
 - `mineclawd:question_response`
 - `mineclawd:open_history_book`
 
-## Limits and timers
+## 限制与计时器
 
-| Setting or behavior | Value |
+| 设置或行为 | 值 |
 | --- | --- |
-| Tool call limit range | `1` to `20` |
-| Default tool call limit value | `16` |
-| Tool call limit default state | disabled |
-| Ask-user max options | `5` |
-| Ask-user timeout | `60` seconds |
-| Failed-request retry token TTL | `30` minutes |
-| Rate-limit retry count | `2` retries |
-| Rate-limit retry backoff | `1500ms * retry_index` |
-| History max entries for book build | `300` |
+| 工具调用上限范围 | `1` 到 `20` |
+| 工具调用上限默认值 | `16` |
+| 工具调用上限默认状态 | disabled |
+| Ask-user 最大选项数 | `5` |
+| Ask-user 超时时间 | `60` 秒 |
+| 失败请求 retry token TTL | `30` 分钟 |
+| 限流重试次数 | `2` 次重试 |
+| 限流重试退避 | `1500ms * retry_index` |
+| 书本历史构建最大条目数 | `300` |
 
-## Security model
+## 安全模型
 
-- Every command path is OP-gated.
-- KubeJS execution is real server execution, not simulation.
-- API keys must be treated as secrets.
-- Use trusted environments only.
+- 每条命令路径都受 OP 权限门控。
+- KubeJS 执行是真实服务器执行，不是模拟。
+- API keys 必须按密钥处理。
+- 只在可信环境中使用。

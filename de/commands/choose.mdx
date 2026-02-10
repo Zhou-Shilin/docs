@@ -1,11 +1,11 @@
 ---
 title: "choose"
-description: "Answer a pending MineClawd clarification question."
+description: "Eine ausstehende MineClawd-Rückfrage beantworten."
 ---
 
-## Purpose
+## Zweck
 
-Respond to pending `ask-user-question` prompts from MineClawd.
+Ausstehende `ask-user-question`-Prompts von MineClawd beantworten.
 
 ## Syntax
 
@@ -14,29 +14,29 @@ Respond to pending `ask-user-question` prompts from MineClawd.
 /mineclawd choose <option>
 ```
 
-`<option>` can be:
+`<option>` kann sein:
 
-- `1`, `2`, `3`, ... (preset option index)
-- `other` (enter custom chat text)
-- `skip` (continue without answer)
-- `cancel` (cancel pending custom text input)
+- `1`, `2`, `3`, ... (vordefinierter Optionsindex)
+- `other` (eigenen Chat-Text eingeben)
+- `skip` (ohne Antwort fortfahren)
+- `cancel` (ausstehende Eingabe von eigenem Text abbrechen)
 
-## Example flow
+## Beispielablauf
 
 ```bash
 /mineclawd choose 2
 /mineclawd choose other
-# type your custom answer in normal chat within 60 seconds
+# gib deine eigene Antwort innerhalb von 60 Sekunden im normalen Chat ein
 ```
 
-## Behavior and limits
+## Verhalten und Grenzen
 
-- This command must be executed by a player.
-- You can only answer your own pending question.
-- Custom text input mode times out after 60 seconds.
+- Dieser Befehl muss von einem Spieler ausgeführt werden.
+- Du kannst nur deine eigene ausstehende Frage beantworten.
+- Der Modus für die Eingabe von eigenem Text läuft nach 60 Sekunden ab.
 
-## Common failures
+## Häufige Fehler
 
-- `no pending question`: MineClawd is not currently waiting for your input.
-- `invalid option`: use tab completion or a valid number.
-- `not waiting for custom text input`: you called `cancel` outside custom mode.
+- `no pending question`: MineClawd wartet aktuell nicht auf deine Eingabe.
+- `invalid option`: nutze Tab-Vervollständigung oder eine gültige Zahl.
+- `not waiting for custom text input`: du hast `cancel` außerhalb des benutzerdefinierten Modus aufgerufen.

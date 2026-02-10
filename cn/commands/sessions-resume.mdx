@@ -1,36 +1,36 @@
 ---
 title: "sessions resume"
-description: "Switch the active session by id or token."
+description: "通过 id 或 token 切换活动会话。"
 ---
 
-## Purpose
+## 用途
 
-Make an older session active again so new requests continue that context.
+重新激活旧会话，让新请求继续沿用该上下文。
 
-## Syntax
+## 语法
 
 ```bash
 /mineclawd sessions resume <session>
 ```
 
-`<session>` can be:
+`<session>` 可以是：
 
-- session id, such as `1a2b`
-- session token, such as `1a2b-my-project-title`
+- session id，例如 `1a2b`
+- session token，例如 `1a2b-my-project-title`
 
-## Examples
+## 示例
 
 ```bash
 /mineclawd sessions resume 1a2b
 /mineclawd sessions resume 1a2b-my-project-title
 ```
 
-## Behavior and limits
+## 行为和限制
 
-- Resuming does not edit history. It only switches active session pointer.
-- Use `/mineclawd sessions list` first if you are not sure which reference to use.
+- `resume` 不会修改历史，只会切换活动会话指针。
+- 如果不确定要用哪个引用，请先运行 `/mineclawd sessions list`。
 
-## Common failures
+## 常见失败
 
-- `session not found`: use exact id or token from list output.
-- `cannot switch sessions while a request is running`: wait for completion.
+- `session not found`：请使用列表输出中的精确 id 或 token。
+- `cannot switch sessions while a request is running`：请等待当前请求完成。

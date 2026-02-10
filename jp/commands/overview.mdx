@@ -1,34 +1,34 @@
+﻿---
+title: "コマンド概要"
+description: "MineClawd プレイヤーコマンド全体のマップ。"
 ---
-title: "Command overview"
-description: "Map of all MineClawd player commands."
----
 
-## Global rules
+## グローバルルール
 
-- Every MineClawd command requires OP permission level 2.
-- Command root is `/mineclawd`.
-- Fast alias for prompt is `/mclawd <request>`.
-- Session references accept either session id (`1a2b`) or token (`1a2b-new-session`).
+- すべての MineClawd コマンドには OP 権限レベル 2 が必要です。
+- コマンドルートは `/mineclawd` です。
+- prompt の短縮エイリアスは `/mclawd <request>` です。
+- セッション参照はセッション ID（`1a2b`）または token（`1a2b-new-session`）のどちらも使えます。
 
-## Command map
+## コマンドマップ
 
-| Command | Purpose | Reference |
+| コマンド | 目的 | リファレンス |
 | --- | --- | --- |
-| `/mineclawd prompt <request>` | Send a request to MineClawd. | [/commands/prompt](/commands/prompt) |
-| `/mclawd <request>` | Short alias for prompt. | [/commands/prompt](/commands/prompt) |
-| `/mineclawd config ...` | Open, read, or update settings. | [/commands/config](/commands/config) |
-| `/mineclawd sessions new` | Create and switch to a new session. | [/commands/sessions-new](/commands/sessions-new) |
-| `/mineclawd sessions list` | Show all saved sessions. | [/commands/sessions-list](/commands/sessions-list) |
-| `/mineclawd sessions resume <session>` | Switch active session. | [/commands/sessions-resume](/commands/sessions-resume) |
-| `/mineclawd sessions remove <session>` | Delete a session. | [/commands/sessions-remove](/commands/sessions-remove) |
-| `/mineclawd sessions repair [session]` | Repair malformed Vertex history turns. | [/commands/sessions-repair](/commands/sessions-repair) |
-| `/mineclawd history` | Open current session history book UI. | [/commands/history](/commands/history) |
-| `/mineclawd retry <token>` | Retry last failed request. | [/commands/retry](/commands/retry) |
-| `/mineclawd persona [soul]` | Show or switch active soul persona. | [/commands/persona](/commands/persona) |
-| `/mineclawd choose [option]` | Answer pending clarification questions. | [/commands/choose](/commands/choose) |
-| `/mineclawd new` | Alias of `sessions new`. | [/commands/new](/commands/new) |
+| `/mineclawd prompt <request>` | MineClawd にリクエストを送信します。 | [/commands/prompt](/commands/prompt) |
+| `/mclawd <request>` | prompt の短縮エイリアスです。 | [/commands/prompt](/commands/prompt) |
+| `/mineclawd config ...` | 設定を開く・確認する・更新する。 | [/commands/config](/commands/config) |
+| `/mineclawd sessions new` | 新しいセッションを作成して切り替える。 | [/commands/sessions-new](/commands/sessions-new) |
+| `/mineclawd sessions list` | 保存済みセッションを一覧表示する。 | [/commands/sessions-list](/commands/sessions-list) |
+| `/mineclawd sessions resume <session>` | アクティブセッションを切り替える。 | [/commands/sessions-resume](/commands/sessions-resume) |
+| `/mineclawd sessions remove <session>` | セッションを削除する。 | [/commands/sessions-remove](/commands/sessions-remove) |
+| `/mineclawd sessions repair [session]` | 破損した Vertex 履歴ターンを修復する。 | [/commands/sessions-repair](/commands/sessions-repair) |
+| `/mineclawd history` | 現在のセッション履歴を本 UI で開く。 | [/commands/history](/commands/history) |
+| `/mineclawd retry <token>` | 直近の失敗リクエストを再試行する。 | [/commands/retry](/commands/retry) |
+| `/mineclawd persona [soul]` | アクティブ soul を表示または切り替える。 | [/commands/persona](/commands/persona) |
+| `/mineclawd choose [option]` | 保留中の確認質問に回答する。 | [/commands/choose](/commands/choose) |
+| `/mineclawd new` | `sessions new` のエイリアス。 | [/commands/new](/commands/new) |
 
-## Related pages
+## 関連ページ
 
-- For full setup, start with [/quickstart](/quickstart).
-- For full key-by-key settings, see [/configuration/complete-config](/configuration/complete-config).
+- セットアップ全体は [/quickstart](/quickstart) から開始してください。
+- キーごとの設定詳細は [/configuration/complete-config](/configuration/complete-config) を参照してください。

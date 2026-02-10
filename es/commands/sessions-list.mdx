@@ -1,0 +1,41 @@
+---
+title: "sessions list"
+description: "List saved MineClawd sessions for the current owner."
+---
+
+## Purpose
+
+Show your saved sessions so you can resume, remove, or repair them.
+
+## Syntax
+
+```bash
+/mineclawd sessions
+/mineclawd sessions list
+```
+
+## What you get
+
+The list includes:
+
+- session id
+- session title
+- session token
+- last updated time
+- active marker
+
+## Examples
+
+```bash
+/mineclawd sessions list
+```
+
+## Behavior and limits
+
+- Sessions are scoped by owner key.
+- Player executions use player UUID as owner key.
+- Console executions use `server` as owner key.
+
+## Common failures
+
+- If you see no sessions, create one with `/mineclawd sessions new`.

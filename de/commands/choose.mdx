@@ -1,0 +1,42 @@
+---
+title: "choose"
+description: "Answer a pending MineClawd clarification question."
+---
+
+## Purpose
+
+Respond to pending `ask-user-question` prompts from MineClawd.
+
+## Syntax
+
+```bash
+/mineclawd choose
+/mineclawd choose <option>
+```
+
+`<option>` can be:
+
+- `1`, `2`, `3`, ... (preset option index)
+- `other` (enter custom chat text)
+- `skip` (continue without answer)
+- `cancel` (cancel pending custom text input)
+
+## Example flow
+
+```bash
+/mineclawd choose 2
+/mineclawd choose other
+# type your custom answer in normal chat within 60 seconds
+```
+
+## Behavior and limits
+
+- This command must be executed by a player.
+- You can only answer your own pending question.
+- Custom text input mode times out after 60 seconds.
+
+## Common failures
+
+- `no pending question`: MineClawd is not currently waiting for your input.
+- `invalid option`: use tab completion or a valid number.
+- `not waiting for custom text input`: you called `cancel` outside custom mode.

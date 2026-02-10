@@ -1,0 +1,35 @@
+---
+title: "sessions new"
+description: "Create and switch to a new MineClawd session."
+---
+
+## Purpose
+
+Create a fresh session so new tasks do not mix with old context.
+
+## Syntax
+
+```bash
+/mineclawd sessions new
+```
+
+## When to use it
+
+Use this before a new project, a different play style, or a different objective.
+
+## Examples
+
+```bash
+/mineclawd sessions new
+```
+
+## Behavior and limits
+
+- The new session becomes your active session immediately.
+- Initial title is `New Session` and may be auto-renamed after first response.
+- Session id is a short 4-character id, and token format is `<id>-<title-slug>`.
+
+## Common failures
+
+- `cannot create a new session while a request is running`: wait for current task to finish.
+- `failed to create session`: check write access to `mineclawd/sessions/`.

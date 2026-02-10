@@ -1,0 +1,36 @@
+---
+title: "sessions resume"
+description: "Switch the active session by id or token."
+---
+
+## Purpose
+
+Make an older session active again so new requests continue that context.
+
+## Syntax
+
+```bash
+/mineclawd sessions resume <session>
+```
+
+`<session>` can be:
+
+- session id, such as `1a2b`
+- session token, such as `1a2b-my-project-title`
+
+## Examples
+
+```bash
+/mineclawd sessions resume 1a2b
+/mineclawd sessions resume 1a2b-my-project-title
+```
+
+## Behavior and limits
+
+- Resuming does not edit history. It only switches active session pointer.
+- Use `/mineclawd sessions list` first if you are not sure which reference to use.
+
+## Common failures
+
+- `session not found`: use exact id or token from list output.
+- `cannot switch sessions while a request is running`: wait for completion.

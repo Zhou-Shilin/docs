@@ -1,0 +1,102 @@
+---
+title: "Getting started"
+description: "Absolute beginner path: from vanilla launcher to your first MineClawd chat."
+---
+
+## Goal
+
+Follow this page step by step, and you will get one successful reply from MineClawd.
+
+## Tiny glossary
+
+<CardGroup cols={2}>
+  <Card title="Minecraft Java Edition">
+    The PC version of Minecraft from the official Minecraft Launcher.
+  </Card>
+  <Card title="Fabric">
+    A small loader that lets Minecraft run mods.
+  </Card>
+  <Card title="Mod">
+    A `.jar` file that adds features to Minecraft.
+  </Card>
+  <Card title="API key">
+    A secret key that lets MineClawd talk to an online AI service.
+  </Card>
+</CardGroup>
+
+## Step 1: install Fabric for Minecraft 1.20.1
+
+1. Download Fabric Installer from: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
+2. Run the installer.
+3. Choose:
+   - Install type: **Client**
+   - Minecraft version: **1.20.1**
+4. Click **Install**.
+5. Open Minecraft Launcher and run **Fabric Loader 1.20.1** once, then close the game.
+
+<Note>
+On Windows with the official launcher, this is usually a one-click installer flow.
+</Note>
+
+## Step 2: download required mods (Fabric + 1.20.1 versions)
+
+Download these files from Modrinth. On each page, choose a file that matches:
+
+- Minecraft version: `1.20.1`
+- Loader: `Fabric`
+
+| Mod | Download link |
+| --- | --- |
+| MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+| Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
+| KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+| Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+| Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+| YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+| Mod Menu (for GUI config) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+
+## Step 3: put mod files into your `mods` folder
+
+1. Open your Minecraft folder.
+2. Open `mods` folder. If it does not exist, create it.
+3. Move all downloaded `.jar` files into `mods`.
+4. Do not unzip `.jar` files.
+
+## Step 4: launch game and open MineClawd GUI
+
+1. Start Minecraft with **Fabric Loader 1.20.1** profile.
+2. Create or open a single-player world.
+3. Turn **Allow Cheats** ON for that world.
+4. Open **Mod Menu** -> **MineClawd** -> **Configure**.
+
+## Step 5: connect an AI service
+
+If you do not have an AI account yet, use OpenRouter and pick a free model.
+
+1. Create account: [openrouter.ai](https://openrouter.ai/)
+2. Create API key: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
+3. In MineClawd GUI, set:
+   - **Provider**: `OpenAI`
+   - **Endpoint**: `https://openrouter.ai/api/v1`
+   - **API Key**: paste your OpenRouter key
+   - **Model**: pick one model id from [openrouter.ai/models](https://openrouter.ai/models) (free models often include `:free`)
+   - **Summarize Model**: use the same model id for now
+4. Save config.
+
+<Info>
+Free models and limits change over time. If one model fails, pick another model id from the same models page.
+</Info>
+
+## Step 6: send your first message
+
+Open chat in your world and run:
+
+```bash
+/mclawd hello
+```
+
+If setup is correct, MineClawd replies in chat.
+
+## If it does not work
+
+Go to [/resources/troubleshooting](/resources/troubleshooting) and follow the matching symptom.

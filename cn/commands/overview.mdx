@@ -1,0 +1,34 @@
+---
+title: "Command overview"
+description: "Map of all MineClawd player commands."
+---
+
+## Global rules
+
+- Every MineClawd command requires OP permission level 2.
+- Command root is `/mineclawd`.
+- Fast alias for prompt is `/mclawd <request>`.
+- Session references accept either session id (`1a2b`) or token (`1a2b-new-session`).
+
+## Command map
+
+| Command | Purpose | Reference |
+| --- | --- | --- |
+| `/mineclawd prompt <request>` | Send a request to MineClawd. | [/commands/prompt](/commands/prompt) |
+| `/mclawd <request>` | Short alias for prompt. | [/commands/prompt](/commands/prompt) |
+| `/mineclawd config ...` | Open, read, or update settings. | [/commands/config](/commands/config) |
+| `/mineclawd sessions new` | Create and switch to a new session. | [/commands/sessions-new](/commands/sessions-new) |
+| `/mineclawd sessions list` | Show all saved sessions. | [/commands/sessions-list](/commands/sessions-list) |
+| `/mineclawd sessions resume <session>` | Switch active session. | [/commands/sessions-resume](/commands/sessions-resume) |
+| `/mineclawd sessions remove <session>` | Delete a session. | [/commands/sessions-remove](/commands/sessions-remove) |
+| `/mineclawd sessions repair [session]` | Repair malformed Vertex history turns. | [/commands/sessions-repair](/commands/sessions-repair) |
+| `/mineclawd history` | Open current session history book UI. | [/commands/history](/commands/history) |
+| `/mineclawd retry <token>` | Retry last failed request. | [/commands/retry](/commands/retry) |
+| `/mineclawd persona [soul]` | Show or switch active soul persona. | [/commands/persona](/commands/persona) |
+| `/mineclawd choose [option]` | Answer pending clarification questions. | [/commands/choose](/commands/choose) |
+| `/mineclawd new` | Alias of `sessions new`. | [/commands/new](/commands/new) |
+
+## Related pages
+
+- For full setup, start with [/quickstart](/quickstart).
+- For full key-by-key settings, see [/configuration/complete-config](/configuration/complete-config).

@@ -1,0 +1,83 @@
+---
+title: "Soul personality"
+description: "Create and switch soul files to define MineClawd's identity, personality, and speaking style."
+---
+
+## What a soul is
+
+A soul is MineClawd's character sheet.
+It defines who the agent is, how it talks, and how it behaves with people.
+
+Think of it as personality, not a task script.
+
+- Good soul content: identity, temperament, tone, and social behavior.
+- Bad soul content: long command recipes, tool instructions, or one-off workflow steps.
+
+<Note>
+Even if a soul uses a different character name, project and tool identity still remain MineClawd.
+</Note>
+
+## Built-in souls
+
+MineClawd ships with:
+
+- `default`
+- `yuki`
+
+`yuki` is the mascot-style soul and a good structure reference.
+
+## Soul file locations
+
+- Soul directory: `mineclawd/souls/`
+- Active soul pointer per owner: `mineclawd/souls/.active/<owner>.txt`
+
+Each operator can keep a different active soul on the same server.
+
+## Show and switch souls
+
+```bash
+/mineclawd persona
+/mineclawd persona yuki
+/mineclawd persona default
+```
+
+<Info>
+You cannot switch souls while a request is running.
+Wait for completion, then run `/mineclawd persona <soul>`.
+</Info>
+
+## Create a custom soul
+
+1. Create a markdown file in `mineclawd/souls/`, for example `mineclawd/souls/mentor.md`.
+2. Write persona content with the structure below.
+3. Run `/mineclawd persona mentor`.
+4. Send a few normal prompts and refine the voice.
+
+## Soul writing template
+
+```md
+### Role & Identity
+You are [name], [short identity].
+
+### Personality
+1. [Core trait 1]
+2. [Core trait 2]
+3. [Core trait 3]
+
+### Speaking Style
+- Tone: [friendly/calm/playful/etc.]
+- Verbal habits: [short phrases, occasional catchphrases, etc.]
+- Language behavior: [how you adapt to user language]
+
+### Interaction Guidelines
+- When user is stuck: [comfort + recovery behavior]
+- When user succeeds: [celebration behavior]
+- Never break character.
+```
+
+## Practical tips
+
+- Keep emotional tone consistent across all sections.
+- Prefer concrete voice cues over vague adjectives.
+- Keep operational behavior in prompts and docs, not in soul files.
+- Read bundled `yuki.md` before designing your own soul.

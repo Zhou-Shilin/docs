@@ -1,0 +1,110 @@
+---
+title: "Complete configuration"
+description: "Full MineClawd configuration reference with defaults, command keys, and behavior notes."
+---
+
+## Purpose
+
+This page gives you the full MineClawd configuration model, including file settings, command keys, and restart behavior.
+
+## Where settings live
+
+- Global config file: `config/mineclawd.json5`
+- Per-player chat visibility: `mineclawd/player-settings.json`
+- Soul files and active soul state: `mineclawd/souls/` and `mineclawd/souls/.active/`
+
+## Complete `mineclawd.json5` template
+
+```json5
+{
+  provider: "OPENAI",
+  endpoint: "https://api.openai.com/v1",
+  apiKey: "",
+  model: "gpt-4o-mini",
+  summarizeModel: "gpt-4o-mini",
+
+  vertexEndpoint: "https://aiplatform.googleapis.com/v1",
+  vertexApiKey: "",
+  vertexModel: "publishers/google/models/gemini-3-pro-preview",
+  vertexSummarizeModel: "publishers/google/models/gemini-3-pro-preview",
+
+  debugMode: false,
+  limitToolCalls: false,
+  toolCallLimit: 16,
+  systemPrompt: "",
+  dynamicRegistryMode: "AUTO"
+}
+```
+
+<Info>
+In file form, enum values are uppercase (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`).
+
+In command form, values are lowercase (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
+</Info>
+
+## Key reference
+
+| File key | Command key | Type | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `provider` | `provider` | enum | `OPENAI` | Provider selection: OpenAI-compatible or Vertex AI. |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-compatible base URL, no trailing slash required. |
+| `apiKey` | `api-key` | string | empty | OpenAI API key. |
+| `model` | `model` | string | `gpt-4o-mini` | OpenAI chat model. |
+| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI model for first-turn session title generation. |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API base URL. |
+| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API key. |
+| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex model path or model name. |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex summarize model for session titles. |
+| `debugMode` | `debug-mode` | boolean | `false` | Logs detailed request and tool activity. |
+| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Enables per-request tool-loop cap. |
+| `toolCallLimit` | `tool-call-limit` | integer | `16` | Allowed range is `1` to `20`. |
+| `systemPrompt` | `system-prompt` | string | empty | Empty means built-in system prompt. Use value `default` in command mode to reset. |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Controls dynamic placeholder runtime mode. Restart required after change. |
+
+## Per-player setting
+
+`broadcast-requests-to` is command-only and per-player.
+
+- Command key: `broadcast-requests-to`
+- Allowed values: `self`, `all`, `ops`
+- Stored in: `mineclawd/player-settings.json`
+- Purpose: controls who sees prompt echo and task start or finish lines.
+
+## Dynamic registry mode behavior
+
+- `AUTO`: enabled in client runtime (single-player), disabled on dedicated servers.
+- `ENABLED`: force enabled in all runtimes.
+- `DISABLED`: fully disabled.
+
+<Warning>
+If you force `ENABLED` on a dedicated server, joining clients must have MineClawd installed.
+</Warning>
+
+## Recommended baselines
+
+### Baseline for first-time OpenAI setup
+
+```bash
+/mineclawd config provider openai
+/mineclawd config endpoint https://api.openai.com/v1
+/mineclawd config api-key <your-key>
+/mineclawd config model gpt-4o-mini
+/mineclawd config summarize-model gpt-4o-mini
+```
+
+### Baseline for first-time Vertex setup
+
+```bash
+/mineclawd config provider vertex-ai
+/mineclawd config vertex-endpoint https://aiplatform.googleapis.com/v1
+/mineclawd config vertex-api-key <your-key>
+/mineclawd config vertex-model publishers/google/models/gemini-3-pro-preview
+/mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
+```
+
+## GUI path
+
+- In game: **Mod Menu** -> **MineClawd** -> **Configure**
+- Command fallback: `/mineclawd config ...`
+
+If client GUI open fails, configure through command keys.

@@ -1,0 +1,31 @@
+---
+title: "history"
+description: "Open a readable in-game book view of current session history."
+---
+
+## Purpose
+
+View your active session conversation in a written book UI.
+
+## Syntax
+
+```bash
+/mineclawd history
+```
+
+## When to use it
+
+Use this to review context before continuing a long task.
+
+## Behavior and limits
+
+- This command must be executed by a player, not console.
+- Client support is required for the direct history book UI packet.
+- If there is no active session, MineClawd asks you to create one first.
+- Very long history is truncated to book limits.
+
+## Common failures
+
+- `this command must be executed by a player`: run in player chat.
+- `Client mod is required for /mineclawd history book UI`: install MineClawd on your client.
+- `No active session`: run `/mineclawd sessions new` first.

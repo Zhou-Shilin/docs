@@ -9,55 +9,288 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Docs",
-        "groups": [
+        "language": "en",
+        "tabs": [
           {
-            "group": "Welcome",
-            "pages": [
-              "index",
-              "quickstart"
+            "tab": "Docs",
+            "groups": [
+              {
+                "group": "Welcome",
+                "pages": [
+                  "index",
+                  "quickstart"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "tutorials/managing-sessions",
+                  "tutorials/using-on-multiplayer",
+                  "tutorials/building-your-own-persona"
+                ]
+              },
+              {
+                "group": "Commands",
+                "pages": [
+                  "commands/overview",
+                  "commands/prompt",
+                  "commands/config",
+                  "commands/sessions-new",
+                  "commands/sessions-list",
+                  "commands/sessions-resume",
+                  "commands/sessions-remove",
+                  "commands/sessions-repair",
+                  "commands/history",
+                  "commands/retry",
+                  "commands/persona",
+                  "commands/choose",
+                  "commands/new"
+                ]
+              },
+              {
+                "group": "Configuration",
+                "pages": [
+                  "configuration/complete-config",
+                  "configuration/souls"
+                ]
+              },
+              {
+                "group": "Resources",
+                "pages": [
+                  "resources/troubleshooting",
+                  "resources/technical-details"
+                ]
+              }
             ]
-          },
+          }
+        ]
+      },
+      {
+        "language": "cn",
+        "tabs": [
           {
-            "group": "Tutorials",
-            "pages": [
-              "tutorials/managing-sessions",
-              "tutorials/using-on-multiplayer",
-              "tutorials/building-your-own-persona"
+            "tab": "Docs",
+            "groups": [
+              {
+                "group": "Welcome",
+                "pages": [
+                  "cn/index",
+                  "cn/quickstart"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "cn/tutorials/managing-sessions",
+                  "cn/tutorials/using-on-multiplayer",
+                  "cn/tutorials/building-your-own-persona"
+                ]
+              },
+              {
+                "group": "Commands",
+                "pages": [
+                  "cn/commands/overview",
+                  "cn/commands/prompt",
+                  "cn/commands/config",
+                  "cn/commands/sessions-new",
+                  "cn/commands/sessions-list",
+                  "cn/commands/sessions-resume",
+                  "cn/commands/sessions-remove",
+                  "cn/commands/sessions-repair",
+                  "cn/commands/history",
+                  "cn/commands/retry",
+                  "cn/commands/persona",
+                  "cn/commands/choose",
+                  "cn/commands/new"
+                ]
+              },
+              {
+                "group": "Configuration",
+                "pages": [
+                  "cn/configuration/complete-config",
+                  "cn/configuration/souls"
+                ]
+              },
+              {
+                "group": "Resources",
+                "pages": [
+                  "cn/resources/troubleshooting",
+                  "cn/resources/technical-details"
+                ]
+              }
             ]
-          },
+          }
+        ]
+      },
+      {
+        "language": "jp",
+        "tabs": [
           {
-            "group": "Commands",
-            "pages": [
-              "commands/overview",
-              "commands/prompt",
-              "commands/config",
-              "commands/sessions-new",
-              "commands/sessions-list",
-              "commands/sessions-resume",
-              "commands/sessions-remove",
-              "commands/sessions-repair",
-              "commands/history",
-              "commands/retry",
-              "commands/persona",
-              "commands/choose",
-              "commands/new"
+            "tab": "Docs",
+            "groups": [
+              {
+                "group": "Welcome",
+                "pages": [
+                  "jp/index",
+                  "jp/quickstart"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "jp/tutorials/managing-sessions",
+                  "jp/tutorials/using-on-multiplayer",
+                  "jp/tutorials/building-your-own-persona"
+                ]
+              },
+              {
+                "group": "Commands",
+                "pages": [
+                  "jp/commands/overview",
+                  "jp/commands/prompt",
+                  "jp/commands/config",
+                  "jp/commands/sessions-new",
+                  "jp/commands/sessions-list",
+                  "jp/commands/sessions-resume",
+                  "jp/commands/sessions-remove",
+                  "jp/commands/sessions-repair",
+                  "jp/commands/history",
+                  "jp/commands/retry",
+                  "jp/commands/persona",
+                  "jp/commands/choose",
+                  "jp/commands/new"
+                ]
+              },
+              {
+                "group": "Configuration",
+                "pages": [
+                  "jp/configuration/complete-config",
+                  "jp/configuration/souls"
+                ]
+              },
+              {
+                "group": "Resources",
+                "pages": [
+                  "jp/resources/troubleshooting",
+                  "jp/resources/technical-details"
+                ]
+              }
             ]
-          },
+          }
+        ]
+      },
+      {
+        "language": "de",
+        "tabs": [
           {
-            "group": "Configuration",
-            "pages": [
-              "configuration/complete-config",
-              "configuration/souls"
+            "tab": "Docs",
+            "groups": [
+              {
+                "group": "Welcome",
+                "pages": [
+                  "de/index",
+                  "de/quickstart"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "de/tutorials/managing-sessions",
+                  "de/tutorials/using-on-multiplayer",
+                  "de/tutorials/building-your-own-persona"
+                ]
+              },
+              {
+                "group": "Commands",
+                "pages": [
+                  "de/commands/overview",
+                  "de/commands/prompt",
+                  "de/commands/config",
+                  "de/commands/sessions-new",
+                  "de/commands/sessions-list",
+                  "de/commands/sessions-resume",
+                  "de/commands/sessions-remove",
+                  "de/commands/sessions-repair",
+                  "de/commands/history",
+                  "de/commands/retry",
+                  "de/commands/persona",
+                  "de/commands/choose",
+                  "de/commands/new"
+                ]
+              },
+              {
+                "group": "Configuration",
+                "pages": [
+                  "de/configuration/complete-config",
+                  "de/configuration/souls"
+                ]
+              },
+              {
+                "group": "Resources",
+                "pages": [
+                  "de/resources/troubleshooting",
+                  "de/resources/technical-details"
+                ]
+              }
             ]
-          },
+          }
+        ]
+      },
+      {
+        "language": "es",
+        "tabs": [
           {
-            "group": "Resources",
-            "pages": [
-              "resources/troubleshooting",
-              "resources/technical-details"
+            "tab": "Docs",
+            "groups": [
+              {
+                "group": "Welcome",
+                "pages": [
+                  "es/index",
+                  "es/quickstart"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "es/tutorials/managing-sessions",
+                  "es/tutorials/using-on-multiplayer",
+                  "es/tutorials/building-your-own-persona"
+                ]
+              },
+              {
+                "group": "Commands",
+                "pages": [
+                  "es/commands/overview",
+                  "es/commands/prompt",
+                  "es/commands/config",
+                  "es/commands/sessions-new",
+                  "es/commands/sessions-list",
+                  "es/commands/sessions-resume",
+                  "es/commands/sessions-remove",
+                  "es/commands/sessions-repair",
+                  "es/commands/history",
+                  "es/commands/retry",
+                  "es/commands/persona",
+                  "es/commands/choose",
+                  "es/commands/new"
+                ]
+              },
+              {
+                "group": "Configuration",
+                "pages": [
+                  "es/configuration/complete-config",
+                  "es/configuration/souls"
+                ]
+              },
+              {
+                "group": "Resources",
+                "pages": [
+                  "es/resources/troubleshooting",
+                  "es/resources/technical-details"
+                ]
+              }
             ]
           }
         ]

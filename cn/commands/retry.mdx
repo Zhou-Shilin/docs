@@ -1,0 +1,30 @@
+---
+title: "retry"
+description: "Retry the last failed request using a retry token."
+---
+
+## Purpose
+
+Replay a failed request without retyping the prompt.
+
+## Syntax
+
+```bash
+/mineclawd retry <token>
+```
+
+## Where the token comes from
+
+When a request fails, MineClawd can show clickable `[Retry]` and `[Adjust Prompt]` actions. Use the token behind `[Retry]`.
+
+## Behavior and limits
+
+- Retry tokens expire after 30 minutes.
+- Retry only works when your active session still matches the original failed session.
+- If retry starts successfully, MineClawd clears the stored failed token.
+
+## Common failures
+
+- `retry token is invalid or expired`: request failed too long ago or token is wrong.
+- `active session changed`: resume the original session or resend manually.
+- `another request is still running for this session`: wait for completion.

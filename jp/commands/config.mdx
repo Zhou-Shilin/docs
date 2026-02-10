@@ -1,0 +1,51 @@
+---
+title: "config"
+description: "Open, read, or update MineClawd settings."
+---
+
+## Purpose
+
+Use this command to open GUI config or manage settings from chat.
+
+## Syntax
+
+```bash
+/mineclawd config
+/mineclawd config <key>
+/mineclawd config <key> <value>
+```
+
+## Common keys
+
+- `provider`: `openai` or `vertex-ai`
+- `endpoint`, `api-key`, `model`, `summarize-model`
+- `vertex-endpoint`, `vertex-api-key`, `vertex-model`, `vertex-summarize-model`
+- `debug-mode`: `true` or `false`
+- `limit-tool-calls`: `true` or `false`
+- `tool-call-limit`: `1` to `20`
+- `system-prompt`
+- `broadcast-requests-to`: `self`, `all`, or `ops`
+- `dynamic-registry-mode`: `auto`, `enabled`, or `disabled`
+
+## Examples
+
+```bash
+/mineclawd config provider openai
+/mineclawd config api-key sk-...
+/mineclawd config tool-call-limit 12
+/mineclawd config broadcast-requests-to ops
+/mineclawd config dynamic-registry-mode enabled
+```
+
+## Behavior and limits
+
+- `/mineclawd config` opens GUI only when the player client has MineClawd installed.
+- `broadcast-requests-to` is per-player and must be set in-game.
+- Secret values are masked when you read them.
+- Changing `dynamic-registry-mode` requires a game or server restart.
+
+## Common failures
+
+- `unknown config key`: check spelling or use tab completion.
+- `invalid boolean`: use `true` or `false`.
+- `tool-call-limit must be between 1 and 20`: stay in range.

@@ -1,0 +1,100 @@
+---
+title: "Using on multiplayer"
+description: "Operate MineClawd on dedicated servers with clear permissions, visibility controls, and safe rollout patterns."
+---
+
+## Deployment model
+
+- Install MineClawd on the server to enable `/mineclawd` and `/mclawd`.
+- Client install is optional for core command usage.
+- Client install is required for:
+  - `/mineclawd config` GUI open packet
+  - `/mineclawd history` book UI
+  - popup question UI for `ask-user-question`
+
+<Info>
+If a player does not have the client mod, MineClawd still has a fallback question flow in chat (`/mineclawd choose ...`).
+</Info>
+
+<Info>
+Without client mod, you can still use `/mineclawd config <key> <value>` in chat for configuration.
+</Info>
+
+## Permission model and admin control
+
+- MineClawd command roots are gated by vanilla permission level `2` (`source.hasPermissionLevel(2)`).
+- There are no built-in custom permission nodes per subcommand.
+- Practical result: grant OP to trusted operators only.
+
+If your server stack supports command-level permission remapping, expose `/mineclawd` and `/mclawd` only to your AI-operator role.
+
+## Visibility controls for busy servers
+
+MineClawd has a per-player visibility setting:
+
+```bash
+/mineclawd config broadcast-requests-to <self|all|ops>
+```
+
+- `self`: only the requester sees prompt echo and task status.
+- `all`: everyone sees it.
+- `ops`: only operators see it.
+
+This setting is stored in `mineclawd/player-settings.json` and is scoped per player UUID.
+
+It can be also set in the GUI config screen, inside the "Misc" section, as "Broadcast requests to".
+
+## Session ownership in multiplayer
+
+- Session data is isolated per owner key.
+- Player commands operate on that player's own session set.
+- Console commands use a separate owner namespace.
+
+For team operations, decide early whether each operator keeps personal sessions or everyone shares one operator account.
+
+## Dynamic registry on dedicated servers
+
+By default, `dynamic-registry-mode` is `AUTO`. In `AUTO`, dynamic placeholder runtime is disabled on dedicated servers.
+
+To force-enable it:
+
+```bash
+/mineclawd config dynamic-registry-mode enabled
+```
+
+Then restart the server.
+
+### What changes when enabled
+
+- Dynamic placeholders for item/block/fluid slots become available at runtime.
+- Dynamic state sync is sent to clients.
+- Persistent world state stores dynamic slot data.
+- Clients must also install MineClawd to join this dedicated server.
+
+<Warning>
+Enable dynamic registry on production servers only after a staged test. The client requirement is a hard compatibility change for all players.
+</Warning>
+
+## Recommended operator baseline
+
+| Goal | Suggested setting |
+| --- | --- |
+| Reduce chat noise | `broadcast-requests-to ops` |
+| Prevent long tool loops | `limit-tool-calls true` |
+| Keep loops bounded | `tool-call-limit 8` to `12` |
+| Debug incidents only | `debug-mode true` temporarily |
+
+## Rollout checklist for server owners
+
+1. Pick your operator role and OP policy first.
+2. Set provider and model credentials.
+3. Set broadcast policy (`self`, `ops`, or `all`).
+4. Decide whether dynamic registry stays `auto` or changes to `enabled`.
+5. Test with two real accounts (operator and non-operator) before public launch.
+
+## Related pages
+
+- [/commands/overview](/commands/overview)
+- [/commands/config](/commands/config)
+- [/configuration/complete-config](/configuration/complete-config)
+- [/resources/troubleshooting](/resources/troubleshooting)

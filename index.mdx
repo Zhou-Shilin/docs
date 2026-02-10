@@ -1,97 +1,61 @@
 ---
 title: "Introduction"
-description: "Welcome to the new home for your documentation"
+description: "Meet MineClawd, see real use cases, and jump to the next chapter fast."
 ---
 
-## Setting up
+<Frame>
+  <iframe
+    width="100%"
+    height="315"
+    src="https://www.youtube.com/embed/a_dkB-nYL14?si=fAlRMMR0J82D4BoK"
+    title="MineClawd introduction video"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+  />
+</Frame>
 
-Get your documentation site up and running in minutes.
+MineClawd is a Minecraft mod that lets you ask for changes in plain language.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+You type what you want. MineClawd can do the work in your world.
 
-## Make it yours
+<Warning>
+MineClawd is experimental. It can execute generated JavaScript in-game. Treat OP access and API keys as sensitive.
+</Warning>
 
-Design a docs site that looks great and empowers your users.
+## What you can do right now
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+| Type this | What happens |
+| --- | --- |
+| `/mclawd summon a villager that trades wooden swords for 64 emerald blocks` | MineClawd creates a villager NPC that offers wooden swords in exchange for 64 emerald blocks each. |
+| `/mclawd tell the whole server in a fancy way that i'm going to sleep` | MineClawd broadcasts a stylish message to all players on the server, announcing that you are going to sleep. |
+| `/mclawd always welcomes new players with messages in chat` | MineClawd sends a welcome message in chat whenever a new player joins the world. |
+| `/mclawd summon god of lightning at random locations every 5 minutes` | MineClawd summons a powerful lightning entity at random locations in the Minecraft world every 5 minutes. |
+| `/mclawd make white wool with r=10 continuously spawn under my feet` | MineClawd creates white wool blocks in a radius of 10 around you, continuously spawning under your feet. |
+| `/mclawd build a small house at 100, 64, 100` | MineClawd constructs a small house at the specified coordinates (100, 64, 100) in the Minecraft world. |
+
+## Pick your path
+
+<CardGroup cols={2}>
+  <Card title="Getting started" icon="rocket" href="/quickstart">
+    Start from zero and send your first working message with the GUI path.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Tutorials" icon="book-open" href="/tutorials/managing-sessions">
+    Go deeper with advanced guides for sessions, multiplayer, and persona design.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Command reference" icon="terminal" href="/commands/overview">
+    Learn every `/mineclawd` subcommand with syntax and examples.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Configuration" icon="palette" href="/configuration/complete-config">
+    Set provider, model, limits, and runtime options in detail.
   </Card>
-</Columns>
-
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
+  <Card title="Soul personality" icon="pen-to-square" href="/configuration/souls">
+    Customize MineClawd tone and behavior with soul files.
   </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
+  <Card title="Troubleshooting" icon="wrench" href="/resources/troubleshooting">
+    Fix setup and runtime problems quickly.
   </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
+  <Card title="Technical details" icon="code" href="/resources/technical-details">
+    Understand storage, tool loops, dynamic placeholders, and networking.
   </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+</CardGroup>

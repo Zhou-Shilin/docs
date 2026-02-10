@@ -1,0 +1,120 @@
+---
+title: "Technical details"
+description: "Architecture, storage, limits, and runtime internals for MineClawd."
+---
+
+## Request lifecycle
+
+1. You run `/mclawd ...` or `/mineclawd prompt ...`.
+2. MineClawd validates provider config and OP access.
+3. MineClawd loads or creates active session state.
+4. MineClawd sends request to OpenAI-compatible or Vertex endpoint.
+5. Model responses can trigger tool calls.
+6. Tool results are fed back into the model loop.
+7. Final assistant output is rendered to chat and session history is saved.
+
+## Runtime tool families
+
+- Command and script execution:
+  - `execute-command`
+  - `apply-instant-server-script`
+- Persistent script files:
+  - `list-server-scripts`
+  - `read-server-script`
+  - `write-server-script`
+  - `delete-server-script`
+  - `reload-game`
+  - `sync-command-tree`
+- Clarification:
+  - `ask-user-question`
+- Dynamic placeholders (only when enabled):
+  - `list-dynamic-content`
+  - `register-dynamic-item`
+  - `register-dynamic-block`
+  - `register-dynamic-fluid`
+  - `update-dynamic-item`
+  - `update-dynamic-block`
+  - `update-dynamic-fluid`
+  - `unregister-dynamic-content`
+
+## Storage layout
+
+```text
+gameDir/
+  config/
+    mineclawd.json5
+  mineclawd/
+    player-settings.json
+    sessions/
+      <owner>/
+        active.json
+        <id>.json
+    souls/
+      default.md
+      yuki.md
+      <custom>.md
+      .active/
+        <owner>.txt
+  kubejs/
+    server_scripts/
+      mineclawd/
+        ...
+```
+
+## Session internals
+
+- Session id is a 4-character lowercase token.
+- Command token format is `<id>-<title-slug>`.
+- Session file stores OpenAI and Vertex histories separately.
+- Active session pointer is stored in `active.json` per owner.
+- Session title is generated after first successful round using summarize model.
+
+## LLM transport details
+
+- OpenAI-compatible request path: `<endpoint>/chat/completions`
+- Vertex request path: `<endpoint>/<model>:generateContent?key=<api_key>`
+- Both paths use 60-second request timeout.
+- Both paths support function-style tool calling.
+
+## Dynamic placeholder internals
+
+- Capacity: `30` item slots, `30` block slots, `30` fluid slots.
+- Fixed ids include:
+  - `mineclawd:dynamic_item_001`
+  - `mineclawd:dynamic_block_001`
+  - `mineclawd:dynamic_fluid_001`
+- State sync uses `sync_dynamic_content` network payload.
+- State persistence uses world `PersistentState` id `mineclawd_dynamic_content`.
+- `AUTO` mode enables runtime placeholders in client runtime and disables them on dedicated servers.
+
+## Networking channels
+
+MineClawd defines these packet identifiers:
+
+- `mineclawd:open_config`
+- `mineclawd:sync_broadcast_target`
+- `mineclawd:sync_dynamic_content`
+- `mineclawd:open_question`
+- `mineclawd:question_response`
+- `mineclawd:open_history_book`
+
+## Limits and timers
+
+| Setting or behavior | Value |
+| --- | --- |
+| Tool call limit range | `1` to `20` |
+| Default tool call limit value | `16` |
+| Tool call limit default state | disabled |
+| Ask-user max options | `5` |
+| Ask-user timeout | `60` seconds |
+| Failed-request retry token TTL | `30` minutes |
+| Rate-limit retry count | `2` retries |
+| Rate-limit retry backoff | `1500ms * retry_index` |
+| History max entries for book build | `300` |
+
+## Security model
+
+- Every command path is OP-gated.
+- KubeJS execution is real server execution, not simulation.
+- API keys must be treated as secrets.
+- Use trusted environments only.

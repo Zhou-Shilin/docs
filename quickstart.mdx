@@ -1,80 +1,102 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "Getting started"
+description: "Absolute beginner path: from vanilla launcher to your first MineClawd chat."
 ---
 
-## Get started in three steps
+## Goal
 
-Get your documentation site running locally and make your first customization.
+Follow this page step by step, and you will get one successful reply from MineClawd.
 
-### Step 1: Set up your local environment
-
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 2: Deploy your changes
-
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
-
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
-
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 3: Go live
-
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
-
-## Next steps
-
-Now that you have your docs running, explore these key features:
+## Tiny glossary
 
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Minecraft Java Edition">
+    The PC version of Minecraft from the official Minecraft Launcher.
+  </Card>
+  <Card title="Fabric">
+    A small loader that lets Minecraft run mods.
+  </Card>
+  <Card title="Mod">
+    A `.jar` file that adds features to Minecraft.
+  </Card>
+  <Card title="API key">
+    A secret key that lets MineClawd talk to an online AI service.
+  </Card>
 </CardGroup>
 
+## Step 1: install Fabric for Minecraft 1.20.1
+
+1. Download Fabric Installer from: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
+2. Run the installer.
+3. Choose:
+   - Install type: **Client**
+   - Minecraft version: **1.20.1**
+4. Click **Install**.
+5. Open Minecraft Launcher and run **Fabric Loader 1.20.1** once, then close the game.
+
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+On Windows with the official launcher, this is usually a one-click installer flow.
 </Note>
+
+## Step 2: download required mods (Fabric + 1.20.1 versions)
+
+Download these files from Modrinth. On each page, choose a file that matches:
+
+- Minecraft version: `1.20.1`
+- Loader: `Fabric`
+
+| Mod | Download link |
+| --- | --- |
+| MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+| Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
+| KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+| Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+| Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+| YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+| Mod Menu (for GUI config) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+
+## Step 3: put mod files into your `mods` folder
+
+1. Open your Minecraft folder.
+2. Open `mods` folder. If it does not exist, create it.
+3. Move all downloaded `.jar` files into `mods`.
+4. Do not unzip `.jar` files.
+
+## Step 4: launch game and open MineClawd GUI
+
+1. Start Minecraft with **Fabric Loader 1.20.1** profile.
+2. Create or open a single-player world.
+3. Turn **Allow Cheats** ON for that world.
+4. Open **Mod Menu** -> **MineClawd** -> **Configure**.
+
+## Step 5: connect an AI service
+
+If you do not have an AI account yet, use OpenRouter and pick a free model.
+
+1. Create account: [openrouter.ai](https://openrouter.ai/)
+2. Create API key: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
+3. In MineClawd GUI, set:
+   - **Provider**: `OpenAI`
+   - **Endpoint**: `https://openrouter.ai/api/v1`
+   - **API Key**: paste your OpenRouter key
+   - **Model**: pick one model id from [openrouter.ai/models](https://openrouter.ai/models) (free models often include `:free`)
+   - **Summarize Model**: use the same model id for now
+4. Save config.
+
+<Info>
+Free models and limits change over time. If one model fails, pick another model id from the same models page.
+</Info>
+
+## Step 6: send your first message
+
+Open chat in your world and run:
+
+```bash
+/mclawd hello
+```
+
+If setup is correct, MineClawd replies in chat.
+
+## If it does not work
+
+Go to [/resources/troubleshooting](/resources/troubleshooting) and follow the matching symptom.

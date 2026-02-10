@@ -5,3 +5,12 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Agent instruction files
+AGENTS.md
+
+# Legacy template pages not used in this MineClawd docs build
+essentials/
+ai-tools/
+api-reference/
+development.mdx

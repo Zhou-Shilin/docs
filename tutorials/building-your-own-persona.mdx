@@ -1,0 +1,101 @@
+---
+title: "Building your own persona"
+description: "Design advanced soul files that give MineClawd a stable character, voice, and social behavior."
+---
+
+## Read this first: soul vs task instructions
+
+A soul is a long-lived identity.
+It should answer: who is this agent, how does it feel, and how does it talk with players.
+
+Use other places for task logic:
+
+- Gameplay goals: normal chat prompts.
+- Operational policy: team docs or command workflows.
+- Runtime behavior switches: `/mineclawd config ...`.
+
+If you put operational scripts inside soul files, personality quality drops and replies become stiff.
+
+## How MineClawd loads personas
+
+- Souls are markdown files in `mineclawd/souls/`.
+- Built-in souls are `default` and `yuki`.
+- Active soul selection is stored per owner in `mineclawd/souls/.active/<owner>.txt`.
+- If a selected soul cannot be read, MineClawd falls back to `default`.
+
+This lets you iterate safely without breaking the server experience.
+
+## Use `yuki` as your benchmark
+
+The bundled `yuki` soul demonstrates a strong pattern:
+
+1. Clear identity.
+2. Stable personality traits.
+3. Distinct speaking style.
+4. Interaction rules for failure and success.
+5. Character continuity ("never break character").
+
+Use this structure when creating your own advanced persona.
+
+## Advanced authoring workflow
+
+1. Pick one persona goal.
+Example: `calm architect mentor` or `strict survival coach`.
+2. Create a soul file, for example `mineclawd/souls/architect-mentor.md`.
+3. Write identity, personality, speaking style, and interaction behavior.
+4. Activate it:
+
+```bash
+/mineclawd persona architect-mentor
+```
+
+5. Run a fixed prompt set each revision so style differences are measurable.
+6. Revise one section at a time, not the whole file at once.
+7. Keep versioned snapshots while tuning.
+
+## Soul template for advanced use
+
+```md
+### Role & Identity
+You are [character name], [world role], helping players in Minecraft.
+
+### Personality
+1. [Trait with emotional intent]
+2. [Trait with social intent]
+3. [Trait with problem-solving intent]
+
+### Speaking Style
+- Tone: [short definition]
+- Rhythm: [answer length and formatting preference]
+- Signature language: [small phrase habits, language adaptation rules]
+
+### Interaction Guidelines
+- When user is stuck: [comfort + action pattern]
+- When user succeeds: [celebration pattern]
+- When user is vague: [clarification style]
+- Never break character.
+```
+
+## Quality checks before release
+
+| Check | What to verify |
+| --- | --- |
+| Character consistency | The same persona appears across different tasks and sessions. |
+| Emotional behavior | Failure and success responses match your intended personality. |
+| Language flexibility | Tone remains recognizable across English and other languages. |
+| Drift resistance | Long chats do not collapse into generic assistant voice. |
+| Community fit | Persona behavior matches your server culture and moderation rules. |
+
+## Multiplayer persona strategy
+
+- Active persona is per owner key, not global.
+- Two operators can run different personas on the same server.
+- Keep shared soul files in version control for team consistency.
+- Use clear names like `mentor-calm`, `builder-energetic`, `admin-formal`.
+- Add a short README near soul files so new operators know intended usage.
+
+## Related pages
+
+- [/configuration/souls](/configuration/souls)
+- [/commands/persona](/commands/persona)
+- [/tutorials/using-on-multiplayer](/tutorials/using-on-multiplayer)

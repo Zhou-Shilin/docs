@@ -1,0 +1,41 @@
+---
+title: "persona"
+description: "Show available souls or switch to a different soul persona."
+---
+
+## Purpose
+
+Use this command to inspect or switch your active soul persona.
+
+## Syntax
+
+```bash
+/mineclawd persona
+/mineclawd persona <soul>
+```
+
+## What it does
+
+- Without args: shows active soul and available soul names.
+- With `<soul>`: switches active soul for your owner key.
+
+## Examples
+
+```bash
+/mineclawd persona
+/mineclawd persona yuki
+/mineclawd persona builder
+```
+
+## Behavior and limits
+
+- Soul names are read from `mineclawd/souls/*.md`.
+- Active selection is stored per owner in `mineclawd/souls/.active/`.
+- Persona switching is blocked while a request is running.
+
+## Common failures
+
+- `persona not found`: verify name with `/mineclawd persona`.
+- `cannot switch persona while a request is running`: wait for completion.
+
+For soul authoring, see [/configuration/souls](/configuration/souls).

@@ -1,0 +1,97 @@
+---
+title: "Troubleshooting"
+description: "Fix common MineClawd setup and runtime problems quickly."
+---
+
+If MineClawd fails, find the closest symptom below and apply that fix first.
+
+<AccordionGroup>
+  <Accordion title="MineClawd says only OP users can run this command">
+    Give your player OP level 2 permissions. Every `/mineclawd` and `/mclawd` command requires OP access.
+  </Accordion>
+
+  <Accordion title="MineClawd says API key or model is missing">
+    Open config and set provider credentials.
+
+    OpenAI path:
+    - `provider openai`
+    - `api-key <key>`
+    - `model <model>`
+
+    Vertex path:
+    - `provider vertex-ai`
+    - `vertex-api-key <key>`
+    - `vertex-model <model>`
+  </Accordion>
+
+  <Accordion title="`/mineclawd config` does not open GUI">
+    Your client likely does not have MineClawd installed. Use command configuration:
+
+    ```bash
+    /mineclawd config <key> <value>
+    ```
+  </Accordion>
+
+  <Accordion title="`/mineclawd history` says client mod is required">
+    Install MineClawd on your client. The history book UI uses a client packet channel.
+  </Accordion>
+
+  <Accordion title="Another request is still running for this session">
+    Wait for current task completion before starting a new one, switching sessions, or switching persona.
+  </Accordion>
+
+  <Accordion title="Retry token is invalid or expired">
+    Retry tokens expire after 30 minutes.
+
+    Trigger a new request or use the latest retry action from a fresh failure message.
+  </Accordion>
+
+  <Accordion title="Session not found for resume, remove, or repair">
+    Run `/mineclawd sessions list` first.
+
+    Then use exact session id or token from that output.
+  </Accordion>
+
+  <Accordion title="Persona not found">
+    Check available names with `/mineclawd persona`.
+
+    If needed, create a new soul file under `mineclawd/souls/`.
+  </Accordion>
+
+  <Accordion title="Dynamic placeholder registry is disabled">
+    Set mode and restart:
+
+    ```bash
+    /mineclawd config dynamic-registry-mode enabled
+    ```
+
+    On dedicated servers, clients must also install MineClawd when this is enabled.
+  </Accordion>
+
+  <Accordion title="`reload-game` reports KubeJS errors">
+    Read the reported lines, fix script syntax or runtime issues in `kubejs/server_scripts/mineclawd/`, then reload again.
+
+    Keep fixing until reload output reports no KubeJS errors.
+  </Accordion>
+
+  <Accordion title="`/mineclawd choose` says no pending question">
+    MineClawd is not waiting for an answer.
+
+    Run `choose` only after MineClawd asks a clarification question.
+  </Accordion>
+
+  <Accordion title="There's only one option in LLM provider selection/Broadcast Requests To">
+    It's a weird bug of YACL. Click on the value and enter the first (two) letter(s) of the option you want, then select it from the dropdown that appears.
+
+    For LLM provider: type `o` for OpenAI or `g` for Google Vertex AI.
+    For Broadcast Requests To: type `on` for only-me, `a` for all, or `op` for ops.
+  </Accordion>
+</AccordionGroup>
+
+
+## If problems continue
+
+- Enable debug logs: `/mineclawd config debug-mode true`
+- Reproduce once
+- Check `logs/latest.log`
+- File an issue: `https://github.com/Zhou-Shilin/MineClawd/issues`

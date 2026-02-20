@@ -2,6 +2,12 @@
 > For Mintlify product knowledge (components, configuration, writing standards),
 > install the Mintlify skill: `npx skills add https://mintlify.com/docs`
 
+## How to use this guide
+
+- Treat this file as the single source for agent instructions that should be updated whenever the documentation workflow or tooling changes.
+- Replace placeholder sections (terminology, style, content boundaries) with real examples that describe the product and the team’s naming conventions.
+- Link back to Mintlify references via the installed skill when you need UI or configuration context.
+
 # Documentation project instructions
 
 ## About this project

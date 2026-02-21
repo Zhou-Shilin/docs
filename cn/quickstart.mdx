@@ -1,102 +1,153 @@
----
-title: "快速开始"
-description: "面向零基础用户：从原版启动器到发出第一条 MineClawd 聊天消息。"
+﻿---
+title: "开始使用"
+description: "绝对新手路径：从原版启动器到你的第一个 MineClawd 聊天。"
 ---
 
 ## 目标
 
-按本页步骤操作后，你将获得一次 MineClawd 的成功回复。
+按本页步骤操作，你能获得 MineClawd 的一次成功回复。
 
-## 术语速览
+## 小词汇表
 
 <CardGroup cols={2}>
   <Card title="Minecraft Java Edition">
-    通过官方 Minecraft Launcher 启动的 PC 版 Minecraft。
+    官方 Minecraft 启动器中的 PC 版本。
   </Card>
-  <Card title="Fabric">
-    让 Minecraft 运行模组的轻量加载器。
+  <Card title="模组加载器">
+    让 Minecraft 加载模组的软件。MineClawd 支持 Fabric、Forge 和 NeoForge。
   </Card>
   <Card title="模组">
-    一个为 Minecraft 增加功能的 `.jar` 文件。
+    增加功能的 `.jar` 文件。
   </Card>
-  <Card title="API Key">
-    让 MineClawd 连接在线 AI 服务的密钥。
+  <Card title="API 密钥">
+    让 MineClawd 与在线 AI 服务通信的密钥。
   </Card>
 </CardGroup>
 
-## 第 1 步：为 Minecraft 1.20.1 安装 Fabric
+## 选择平台
 
-1. 从这里下载 Fabric Installer：[fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
-2. 运行安装程序。
-3. 选择：
-   - 安装类型：**Client**
-   - Minecraft 版本：**1.20.1**
-4. 点击 **Install**。
-5. 打开 Minecraft Launcher，先运行一次 **Fabric Loader 1.20.1**，然后关闭游戏。
+MineClawd 支持三种加载器与版本组合。挑选与你的设置匹配的选项卡。
 
-<Note>
-在 Windows 和官方启动器环境下，这通常是一次点击即可完成的安装流程。
-</Note>
+<Tabs>
+  <Tab title="NeoForge 1.21.1（推荐）">
+    ### 第 1 步：安装 NeoForge
 
-## 第 2 步：下载必需模组（Fabric + 1.20.1 版本）
+    1. 从 [neoforged.net](https://neoforged.net/) 下载 NeoForge 安装程序。
+    2. 选择 Minecraft 版本 **1.21.1** 并运行安装程序。
+    3. 打开 Minecraft 启动器，运行 **NeoForge 1.21.1** 配置档一次，然后关闭游戏。
 
-从 Modrinth 下载以下文件。每个页面都要选择满足这些条件的版本：
+    ### 第 2 步：下载必需模组
 
-- Minecraft 版本：`1.20.1`
-- 加载器：`Fabric`
+    从 Modrinth 下载以下文件。每个页面都选择匹配 **NeoForge** 和 **1.21.1** 的版本。
 
-| 模组 | 下载链接 |
-| --- | --- |
-| MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
-| Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
-| KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
-| Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
-| Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
-| YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
-| Mod Menu (for GUI config) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+    | 模组 | 下载链接 |
+    | --- | --- |
+    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+    | Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
+  </Tab>
+  <Tab title="Forge 1.20.1">
+    ### 第 1 步：安装 Forge
 
-## 第 3 步：把模组文件放进 `mods` 文件夹
+    1. 从 [files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html) 下载 Forge 安装程序。
+    2. 运行安装，选择 **Install Client**。
+    3. 打开 Minecraft 启动器，运行 **Forge 1.20.1** 配置档一次，然后关闭游戏。
+
+    ### 第 2 步：下载必需模组
+
+    从 Modrinth 下载以下文件。每个页面都选择匹配 **Forge** 和 **1.20.1** 的版本。
+
+    | 模组 | 下载链接 |
+    | --- | --- |
+    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+    | Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
+  </Tab>
+  <Tab title="Fabric 1.20.1">
+    ### 第 1 步：安装 Fabric
+
+    1. 从 [fabricmc.net/use/installer](https://fabricmc.net/use/installer/) 下载 Fabric 安装器。
+    2. 运行安装器。
+    3. 选择 **Client**，Minecraft 版本选择 **1.20.1**。
+    4. 点击 **Install**。
+    5. 打开 Minecraft 启动器，运行 **Fabric Loader 1.20.1** 配置档一次，然后关闭游戏。
+
+    ### 第 2 步：下载必需模组
+
+    从 Modrinth 下载以下文件。每个页面都选择匹配 **Fabric** 和 **1.20.1** 的版本。
+
+    | 模组 | 下载链接 |
+    | --- | --- |
+    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+    | Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
+    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+    | Mod Menu | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+  </Tab>
+</Tabs>
+
+## 第 3 步：将模组文件放入 `mods` 文件夹
 
 1. 打开你的 Minecraft 文件夹。
-2. 打开 `mods` 文件夹。如果不存在就新建。
-3. 把所有下载的 `.jar` 文件移动到 `mods` 中。
+2. 进入 `mods` 文件夹；如果不存在，就新建一个。
+3. 将所有下载的 `.jar` 文件移动到 `mods`。
 4. 不要解压 `.jar` 文件。
 
-## 第 4 步：启动游戏并打开 MineClawd GUI
+## 第 4 步：启动游戏并打开 MineClawd 配置
 
-1. 使用 **Fabric Loader 1.20.1** 配置启动 Minecraft。
+1. 使用你选择的模组加载器配置启动 Minecraft。
 2. 创建或打开一个单人世界。
-3. 为该世界开启 **Allow Cheats**。
-4. 打开 **Mod Menu** -> **MineClawd** -> **Configure**。
+3. 将该世界的 **允许作弊** 设为 ON。
+    4. 打开 **Better ModList** -> **MineClawd** -> **Configure**（Fabric 上则打开 **Mod Menu**）。
 
 ## 第 5 步：连接 AI 服务
 
-如果你还没有 AI 账号，可以先用 OpenRouter 并选择免费模型。
+如果你还没有 AI 账号，可以用 OpenRouter 并选一个免费的模型。
 
-1. 创建账号：[openrouter.ai](https://openrouter.ai/)
-2. 创建 API Key：[openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
-3. 在 MineClawd GUI 中设置：
-   - **Provider**: `OpenAI`
-   - **Endpoint**: `https://openrouter.ai/api/v1`
-   - **API Key**：粘贴你的 OpenRouter key
-   - **Model**：从 [openrouter.ai/models](https://openrouter.ai/models) 选择一个 model id（免费模型通常带 `:free`）
-   - **Summarize Model**：先使用相同的 model id
+1. 创建账号： [openrouter.ai](https://openrouter.ai/)
+2. 创建 API 密钥： [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
+3. 在 MineClawd 配置界面设置：
+   - **Provider**：`OpenAI`
+   - **Endpoint**：`https://openrouter.ai/api/v1`
+   - **API Key**：粘贴你的 OpenRouter 密钥
+   - **Model**：从 [openrouter.ai/models](https://openrouter.ai/models) 选择一个模型 ID（免费模型往往带有 `:free`）
+   - **Summarize Model**：暂时使用相同的模型 ID
 4. 保存配置。
 
 <Info>
-免费模型和限制会随时间变化。如果某个模型失败，请在同一模型页面选择另一个 model id。
+免费模型和限制会随时间变化。如果某个模型失效，再从同一页挑另一个模型 ID。
 </Info>
 
-## 第 6 步：发送第一条消息
+## 第 6 步：发送你的第一个消息
 
-在你的世界里打开聊天并运行：
+你可以通过两种方式与 MineClawd 对话：
+
+### 方式 A：使用覆盖层 GUI
+
+在屏幕左侧找到浮动球体（AssistiveTouch）。点击它展开覆盖层，在输入栏输入消息后点击 **Send**。
+
+<Frame caption="AssistiveTouch 球体一键打开覆盖层">
+  <img src="/images/mineclawd-assistive-touch.png" alt="MineClawd AssistiveTouch 浮动球体" />
+</Frame>
+
+### 方式 B：使用聊天命令
+
+打开聊天并运行：
 
 ```bash
-/mclawd 你好
+/mclawd hello
 ```
 
-如果配置正确，MineClawd 会在聊天栏回复。
+两种方式都适用。覆盖层提供流式响应与会话管理，详见 [使用 GUI](/tutorials/using-the-gui)。
 
-## 如果没有成功
+## 如果不工作
 
-前往 [/resources/troubleshooting](/resources/troubleshooting)，按对应症状排查。
+前往 [/resources/troubleshooting](/resources/troubleshooting)，根据症状操作。

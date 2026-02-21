@@ -1,0 +1,117 @@
+---
+title: "Seguimiento de activos"
+description: "Usa el sistema de seguimiento de activos para catalogar, localizar y gestionar todo lo que MineClawd crea."
+tag: "NEW"
+---
+
+Cuando MineClawd crea entidades, objetos, scripts o mecánicas de juego, el sistema de seguimiento las registra. Desde la superposición o los comandos puedes explorar, teletransportarte, darte, modificar o eliminar cualquier activo rastreado.
+
+## Qué se rastrea
+
+Las herramientas del LLM catalogan automáticamente las creaciones en cinco categorías:
+
+| Categoría | Ejemplos |
+| --- | --- |
+| **Entities** | Aldeanos invocados, mobs personalizados, NPCs |
+| **Items/Blocks/Fluids** | Objetos dinámicos, bloques personalizados, fluidos en runtime |
+| **Special Items** | Objetos con NBT personalizado, herramientas encantadas |
+| **Commands** | Comandos personalizados registrados, scripts de comando |
+| **Game Mechanics** | Eventos programados, listeners de unión de jugadores, efectos de área |
+
+Cada registro almacena nombre, resumen, ruta del script que lo creó y metadatos específicos de categoría como UUID/ubicación de entidades, content IDs o datos NBT.
+
+## Explorar activos en la superposición
+
+Abre el menú de la superposición y haz clic en **Assets** para pasar a la vista de inventario de activos.
+
+<Frame caption="Inventario de activos con pestañas de categoría">
+  <img src="/images/mineclawd-assets.png" alt="La superposición de MineClawd muestra una lista de activos categorizados con filtros y botones por entrada" />
+</Frame>
+
+La vista tiene dos partes:
+
+1. **Pestañas de categoría** en la parte superior: **All**, **Entities**, **Items/Blocks/Fluids**, **Special Items**, **Commands** y **Game Mechanics**. Haz clic para filtrar.
+2. **Filas de activos** debajo que muestran nombre y resumen. Selecciona uno para mostrar la barra de acciones.
+
+## Acciones sobre activos
+
+Cuando seleccionas un activo, aparece una barra de acciones con botones contextuales:
+
+| Acción | Disponible para | Qué hace |
+| --- | --- | --- |
+| **Teleport** | Entidades con UUID y ubicación guardados | Te teletransporta a las coordenadas conocidas. |
+| **Give** | Items/Blocks/Fluids con content ID, Special Items con special item ID | Te da el objeto mediante ejecución de comando. |
+| **Modify** | Todas las categorías | Abre una nueva sesión con un prompt prellenado para modificar el activo. |
+| **Delete** | Todas las categorías | Abre una nueva sesión con un prompt prellenado para eliminar el activo del mundo. |
+
+<Tip>
+**Modify** y **Delete** inician una conversación nueva con MineClawd en lugar de cambiar el mundo al instante. Esto permite que MineClawd razone dependencias y limpie scripts correctamente.
+</Tip>
+
+## Usar comandos
+
+Puedes gestionar activos desde el chat sin la superposición.
+
+### Lista todos los activos
+
+```bash
+/mineclawd assets list
+```
+
+Muestra todos los registros de activos rastreados para el propietario actual.
+
+### Teletransportarte a un activo
+
+```bash
+/mineclawd assets teleport <asset>
+```
+
+Te teletransporta a la ubicación almacenada de la entidad. Solo funciona con activos tipo entidad que tienen UUID y dimensión válidos.
+
+### Obteniendo un activo
+
+```bash
+/mineclawd assets give <asset>
+```
+
+Te da el objeto o bloque asociado al activo. Funciona para Items/Blocks/Fluids (por content ID) y Special Items (por special item ID y NBT).
+
+### Eliminar un registro de activo
+
+```bash
+/mineclawd assets remove-record <asset>
+```
+
+Elimina el registro del almacenamiento. No borra la entidad, el objeto o el script del mundo: solo elimina el seguimiento.
+
+<Warning>
+Eliminar un registro de activo no deshace su creación. Usa la acción **Delete** en la superposición si quieres que MineClawd limpie también el mundo.
+</Warning>
+
+## Cómo funciona el seguimiento detrás del escenario
+
+MineClawd usa tres herramientas del LLM para gestionar registros durante las solicitudes:
+
+- `list-assets` — recupera los registros para contexto.
+- `upsert-asset-record` — crea o actualiza registros con metadatos.
+- `remove-asset-record` — borra un registro por id.
+
+El LLM recibe un apéndice de seguimiento de activos en cada solicitud para que catalogue automáticamente sus creaciones. No necesitas pedirle a MineClawd que rastree activos: lo hace cuando el sistema está habilitado.
+
+## Almacenamiento
+
+Los registros se guardan como JSON por propietario:
+
+```text
+mineclawd/
+  assets/
+    <owner>.json
+```
+
+Cada archivo contiene un arreglo de objetos `AssetRecord` con campos como `id`, `category`, `name`, `summary`, `scriptPath` y campos específicos (`entityUuid`, `entityDimension`, `entityX/Y/Z`, `contentId`, `specialItemId`, `specialItemNbt`, `command`).
+
+## Páginas relacionadas
+
+- [Uso de la GUI](/tutorials/using-the-gui)
+- [Comando Assets](/commands/assets)
+- [Detalles técnicos](/resources/technical-details)

@@ -15,9 +15,13 @@ description: "Meet MineClawd, see real use cases, and jump to the next chapter f
   />
 </Frame>
 
-MineClawd is a Minecraft mod that lets you ask for changes in plain language.
+MineClawd is a Minecraft mod that lets you ask for changes in plain language. Type what you want, and MineClawd does the work in your world.
 
-You type what you want. MineClawd can do the work in your world.
+Starting with v1.4.0, MineClawd includes a dedicated overlay GUI with real-time streaming, session management, and asset tracking built in.
+
+<Frame caption="Watch MineClawd stream a response in the overlay">
+  <img src="/images/mineclawd-generating.png" alt="MineClawd overlay GUI showing a streaming response" />
+</Frame>
 
 <Warning>
 MineClawd is experimental. It can execute generated JavaScript in-game. Treat OP access and API keys as sensitive.
@@ -38,10 +42,16 @@ MineClawd is experimental. It can execute generated JavaScript in-game. Treat OP
 
 <CardGroup cols={2}>
   <Card title="Getting started" icon="rocket" href="/quickstart">
-    Start from zero and send your first working message with the GUI path.
+    Start from zero and send your first working message.
+  </Card>
+  <Card title="Using the GUI" icon="desktop" href="/tutorials/using-the-gui">
+    Learn the overlay window, AssistiveTouch orb, and streaming controls.
+  </Card>
+  <Card title="Tracking assets" icon="box" href="/tutorials/tracking-assets">
+    Browse, teleport to, and manage everything MineClawd creates.
   </Card>
   <Card title="Tutorials" icon="book-open" href="/tutorials/managing-sessions">
-    Go deeper with advanced guides for sessions, multiplayer, and persona design.
+    Go deeper with guides for sessions, multiplayer, and persona design.
   </Card>
   <Card title="Command reference" icon="terminal" href="/commands/overview">
     Learn every `/mineclawd` subcommand with syntax and examples.
@@ -54,8 +64,5 @@ MineClawd is experimental. It can execute generated JavaScript in-game. Treat OP
   </Card>
   <Card title="Troubleshooting" icon="wrench" href="/resources/troubleshooting">
     Fix setup and runtime problems quickly.
-  </Card>
-  <Card title="Technical details" icon="code" href="/resources/technical-details">
-    Understand storage, tool loops, dynamic placeholders, and networking.
   </Card>
 </CardGroup>

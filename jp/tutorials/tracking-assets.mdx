@@ -1,0 +1,117 @@
+---
+title: "アセットの追跡"
+description: "MineClawd がワールドで作成したすべてを記録、検索、管理する方法。"
+tag: "NEW"
+---
+
+MineClawd がエンティティ、アイテム、スクリプト、ゲームメカニクスを作ると、アセット追跡が自動で記録します。オーバーレイまたはコマンドで閲覧、テレポート、付与、編集、削除ができます。
+
+## 何が記録されるか
+
+MineClawd の LLM ツールは以下の 5 カテゴリに自動で振り分けます:
+
+| カテゴリ | 例 |
+| --- | --- |
+| **Entities** | 召喚された村人、カスタムモブ、NPC |
+| **Items/Blocks/Fluids** | 動的アイテム、カスタムブロック、ランタイム流体 |
+| **Special Items** | カスタム NBT を持つアイテム、エンチャント付きツール |
+| **Commands** | 登録済みカスタムコマンド、スクリプト |
+| **Game Mechanics** | スケジュールされたイベント、プレイヤー参加リスナー、エリアエフェクト |
+
+各アセット記録には名前、要約、作成スクリプトのパス、カテゴリ固有のメタデータ（エンティティ UUID/位置、コンテンツ ID、NBT など）を含みます。
+
+## オーバーレイでの閲覧
+
+オーバーレイメニューの **Assets** をクリックして、アセット在庫ビューに切り替えます。
+
+<Frame caption="カテゴリタブとアクション付きのアセット一覧">
+  <img src="/images/mineclawd-assets.png" alt="カテゴリフィルターとアクションボタン付きの MineClawd アセット一覧" />
+</Frame>
+
+ビューは 2 部構成です:
+
+1. 上部のカテゴリタブ: **All**, **Entities**, **Items/Blocks/Fluids**, **Special Items**, **Commands**, **Game Mechanics**。クリックでフィルターできます。
+2. 下部のアセット行: 名前と要約を表示し、選択するとアクションバーが表示されます。
+
+## アセットのアクション
+
+選択中のアセットに応じて次のようなボタンが表示されます:
+
+| アクション | 対応カテゴリ | 内容 |
+| --- | --- | --- |
+| **Teleport** | UUID + 座標を持つエンティティ | 最後に記録した座標へテレポートします。 |
+| **Give** | Items/Blocks/Fluids（content ID）、Special Items（special item ID + NBT） | コマンドを実行してアイテムを付与します。 |
+| **Modify** | 全カテゴリ | MineClawd が事前入力済みプロンプトで新セッションを作ります。 |
+| **Delete** | 全カテゴリ | MineClawd が世界からアセットを取り除くための新セッションを開始します。 |
+
+<Tip>
+**Modify** と **Delete** は即時変更ではなく、新しい会話を始めます。MineClawd が依存関係を検討し、スクリプトを適切に更新またはクリーンアップする猶予を作るためです。
+</Tip>
+
+## コマンドで操作する
+
+オーバーレイなしでもチャットからアセットを管理できます。
+
+### すべてのアセットを一覧表示
+
+```bash
+/mineclawd assets list
+```
+
+現在のオーナーに紐づいたすべての記録を表示します。
+
+### アセットへテレポート
+
+```bash
+/mineclawd assets teleport <asset>
+```
+
+エンティティの最終座標へテレポートします。UUID、ディメンション、座標を持つエンティティアセットのみ動作します。
+
+### アセットを付与
+
+```bash
+/mineclawd assets give <asset>
+```
+
+content ID（Items/Blocks/Fluids）または special item ID + NBT（Special Items）に基づき、アイテムやブロックを自身に付与します。
+
+### アセット記録を削除
+
+```bash
+/mineclawd assets remove-record <asset>
+```
+
+記録だけを削除し、実体（エンティティやアイテム、スクリプト）には触りません。
+
+<Warning>
+記録を消しても生成は取り消されません。世界から完全に削除したい場合はオーバーレイの **Delete** アクションを使って MineClawd に指示してください。
+</Warning>
+
+## 追跡の仕組み
+
+MineClawd はアセット記録を管理するために 3 つの LLM ツールを使います:
+
+- `list-assets`: コンテキスト用にすべての記録を取得します。
+- `upsert-asset-record`: メタデータとともに記録を作成または更新します。
+- `remove-asset-record`: `id` で記録を削除します。
+
+すべてのリクエストに資産追跡用のプロンプト付録が含まれるため、手動で依頼しなくても MineClawd が記録します。
+
+## ストレージ
+
+アセット記録はオーナー単位で JSON ファイルに保存されます:
+
+```text
+mineclawd/
+  assets/
+    <owner>.json
+```
+
+各ファイルは `AssetRecord` 配列で、以下のフィールドを持ちます: `id`, `category`, `name`, `summary`, `scriptPath`, カテゴリごとのフィールド（`entityUuid`, `entityDimension`, `entityX/Y/Z`, `contentId`, `specialItemId`, `specialItemNbt`, `command`）など。
+
+## 関連ページ
+
+- [GUI の使い方](/tutorials/using-the-gui)
+- [Assets コマンド](/commands/assets)
+- [技術詳細](/resources/technical-details)

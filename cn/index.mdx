@@ -1,6 +1,6 @@
 ---
-title: "简介"
-description: "认识 MineClawd，查看真实用例，并快速进入下一章节。"
+title: "����"
+description: "�˽� MineClawd������ʹ��ʾ���������ٽ�����һ�¡�"
 ---
 
 <Frame>
@@ -8,54 +8,61 @@ description: "认识 MineClawd，查看真实用例，并快速进入下一章�
     width="100%"
     height="315"
     src="https://www.youtube.com/embed/a_dkB-nYL14?si=fAlRMMR0J82D4BoK"
-    title="MineClawd 介绍视频"
+    title="MineClawd ������Ƶ"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerPolicy="strict-origin-when-cross-origin"
     allowFullScreen
   />
 </Frame>
 
-MineClawd 是一个 Minecraft 模组，让你可以用自然语言提出修改请求。
+MineClawd ��һ�� Minecraft ģ�飬������ʹ����Ȼ��������޸�����MineClawd ������������������Щ������
 
-你输入想要的内容，MineClawd 就能在你的世界里执行。
+�� v1.4.0 ��ʼ��MineClawd �ṩר�����ǲ� GUI������ʵʱ��ʽ���Ự�������ʲ����ٹ��ܡ�
+
+<Frame caption="�ۿ� MineClawd �ڸ��ǲ�����ʽ���ɵ���Ӧ">
+  <img src="/images/mineclawd-generating.png" alt="MineClawd ���ǲ� GUI ��ʾ��ʽ��Ӧ" />
+</Frame>
 
 <Warning>
-MineClawd 仍处于实验阶段。它可以在游戏内执行生成的 JavaScript。请将 OP 权限和 API Key 视为敏感信息。
+MineClawd ��ǰ�Դ���ʵ��׶Ρ���������Ϸ��ִ�����ɵ� JavaScript���뽫 OP Ȩ�޺� API ��Կ��Ϊ������Ϣ��
 </Warning>
 
-## 你现在可以做什么
+## �����ڿ�����ʲô
 
-| 输入这个 | 会发生什么 |
+| ��������� | �����Ч |
 | --- | --- |
-| `/mclawd 召唤一个村民，用 64 个绿宝石方块交换木剑` | MineClawd 会创建一个村民 NPC，用 64 个绿宝石方块兑换一把木剑。 |
-| `/mclawd 用华丽一点的方式告诉全服我要去睡觉了` | MineClawd 会向全服玩家广播一条更有风格的消息，宣布你要去睡觉了。 |
-| `/mclawd 每次有新玩家加入都在聊天栏欢迎他` | 每当有新玩家加入世界时，MineClawd 都会在聊天栏发送欢迎消息。 |
-| `/mclawd 每隔 5 分钟在随机位置召唤雷电之神` | MineClawd 会每 5 分钟在 Minecraft 世界随机位置召唤一个强力雷电实体。 |
-| `/mclawd 持续在我脚下生成 r=10 的白色羊毛` | MineClawd 会以你为中心半径 10 持续生成白色羊毛方块，位置在你脚下。 |
-| `/mclawd 在 100, 64, 100 建一间小房子` | MineClawd 会在指定坐标 (100, 64, 100) 在 Minecraft 世界中建造一间小房子。 |
+| `/mclawd �ٻ�һ���� 64 ���̱�ʯ�齻��ľ���Ĵ���` | MineClawd ���������д���һ������ NPC���ṩÿ��ľ���� 64 ���̱�ʯ��Ľ��ס� |
+| `/mclawd �Ի����ķ�ʽ����ȫ����Ҫ˯��` | MineClawd ���������������ҹ㲥һ��������Ϣ��˵����׼��˯���� |
+| `/mclawd ʼ��������Ҽ���ʱ���ͻ�ӭ��Ϣ` | MineClawd ���������л�ӭÿλ����ҡ� |
+| `/mclawd ÿ 5 ���������λ���ٻ�����` | MineClawd ��ÿ 5 ��������������������ٻ�һ��ǿ���׻�ʵ�塣 |
+| `/mclawd ÿ�����ҽ��°뾶 10 ���ɰ�ɫ��ë` | MineClawd ���������Χ�뾶 10 �ķ�Χ�ڳ������ɰ�ɫ��ë�� |
+| `/mclawd �� 100, 64, 100 λ�ý�һ��С��` | MineClawd ����ָ������ (100, 64, 100) ����һ��С���ӡ� |
 
-## 选择你的路径
+## ѡ�����·��
 
 <CardGroup cols={2}>
-  <Card title="快速开始" icon="rocket" href="/quickstart">
-    从零开始，通过 GUI 路径发出第一条可用消息。
+  <Card title="��ʼ" icon="rocket" href="/quickstart">
+    ���㿪ʼ����ɵ�һ����Ч����
   </Card>
-  <Card title="教程" icon="book-open" href="/tutorials/managing-sessions">
-    通过会话、多人联机和人格设计的进阶指南深入学习。
+  <Card title="ʹ�� GUI" icon="desktop" href="/tutorials/using-the-gui">
+    �Ը��ǲ㴰�ڡ�AssistiveTouch �������ʽ���ƽ�������������
   </Card>
-  <Card title="命令参考" icon="terminal" href="/commands/overview">
-    通过语法和示例学习每个 `/mineclawd` 子命令。
+  <Card title="�ʲ�����" icon="box" href="/tutorials/tracking-assets">
+    ��������Ͳ����� MineClawd ��������һ�����ݡ�
   </Card>
-  <Card title="配置" icon="palette" href="/configuration/complete-config">
-    详细设置 provider、model、限制项和运行时选项。
+  <Card title="�̳�" icon="book-open" href="/tutorials/managing-sessions">
+    �����˽�Ự�����˺͸��Ի���ơ�
   </Card>
-  <Card title="Soul 人格" icon="pen-to-square" href="/configuration/souls">
-    使用 soul 文件自定义 MineClawd 的语气和行为。
+  <Card title="����ο�" icon="terminal" href="/commands/overview">
+    ѧϰ���� `/mineclawd` ��������﷨��ʾ����
   </Card>
-  <Card title="故障排查" icon="wrench" href="/resources/troubleshooting">
-    快速修复安装和运行问题。
+  <Card title="����" icon="palette" href="/configuration/complete-config">
+    ��ϸ�����ṩ�̡�ģ�͡����ƺ�����ʱѡ�
   </Card>
-  <Card title="技术细节" icon="code" href="/resources/technical-details">
-    理解存储、工具循环、动态占位符和网络通信机制。
+  <Card title="Soul ����" icon="pen-to-square" href="/configuration/souls">
+    ʹ�� soul �ļ��Զ��� MineClawd ����������Ϊ��
+  </Card>
+  <Card title="�����Ų�" icon="wrench" href="/resources/troubleshooting">
+    ���ٽ����װ���������⡣
   </Card>
 </CardGroup>

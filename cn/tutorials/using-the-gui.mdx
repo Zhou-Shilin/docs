@@ -1,0 +1,140 @@
+﻿---
+title: "使用 GUI"
+description: "通过游戏内覆盖层发送请求、查看流式响应、管理会话与浏览资产。"
+tag: "NEW"
+---
+
+MineClawd 1.4.0 新增一个覆盖层窗口，悬浮在游戏之上。你可以在其中输入请求、实时观看响应、切换会话并管理资产，无需打开聊天框。
+
+<Note>
+该 GUI 依赖客户端安装 MineClawd。在专用服务器上，请在服务器与每位玩家客户端都安装 MineClawd。
+</Note>
+
+## 打开覆盖层
+
+覆盖层以左侧的浮动球体（AssistiveTouch）形式出现。点击球体可展开完整窗口。
+
+<Frame caption="AssistiveTouch 球体处于空闲状态">
+  <img src="/images/mineclawd-assistive-touch.png" alt="MineClawd AssistiveTouch 浮动球体" />
+</Frame>
+
+球体仅对拥有 OP 级别 2 的玩家可见。如果未出现，请检查权限并确保配置中 **Enable GUI** 已打开（**Mod Menu** -> **MineClawd** -> **Configure**）。
+
+## 覆盖层布局
+
+展开后的覆盖层包含三部分：
+
+1. **标题栏**：显示当前模式（Response、Sessions 或 Assets）、活动 soul 名称以及“Streaming”或“Question”等状态。右侧有菜单、最小化与关闭按钮。
+2. **内容区**：根据模式显示对话历史、会话列表或资产库存。
+3. **输入栏**：底部文本字段用于输入请求，**Send** 按钮在生成时会变为 **Stop**。
+
+你可以拖动标题栏移动覆盖层，并从右下角拖拉调整大小。
+
+## 发送请求
+
+在输入栏键入请求，点击 **Send**（或按 Enter）。这与 `/mclawd <请求>` 相同，但无需打开聊天框。
+
+<Frame caption="MineClawd 覆盖层实时流式响应">
+  <img src="/images/mineclawd-generating.png" alt="MineClawd 覆盖层显示流式响应并带闪烁光标" />
+</Frame>
+
+请求运行时：
+
+- 闪烁光标会跟随最新文本。
+- 标题栏显示 **Streaming** 状态。
+- **Send** 按钮会变成 **Stop** 按钮。点击它即可取消请求，效果与 `/mineclawd stop` 相同。
+- 最小化后，AssistiveTouch 球体会显示脉冲点。
+
+<Frame caption="请求运行时球体闪烁提示">
+  <img src="/images/mineclawd-assistive-touch-while-generating.png" alt="AssistiveTouch 球体在生成期间显示脉冲指示" />
+</Frame>
+
+<Frame caption="另一个多步骤生成实例">
+  <img src="/images/mineclawd-generating-2.png" alt="MineClawd 覆盖层显示包含工具调用的长流式响应" />
+</Frame>
+
+<Frame caption="生成完成后的结果显示">
+  <img src="/images/mineclawd-result.png" alt="MineClawd 覆盖层显示请求完成后的最终结果" />
+</Frame>
+
+## 消息展示
+
+消息采用颜色区分：
+
+- **你：** 蓝色调。
+- **MineClawd：** 金色/白色，会根据工具调用拆分轮次但每个助理轮次只保留一个前缀。
+
+MineClawd 需要澄清时（通过 `ask-user-question`），会在界面内展示选项按钮。选一个或点击 **Skip** 等待倒计时结束。
+
+## 使用菜单
+
+点击标题栏右侧的汉堡图标打开菜单，下拉项包括：
+
+| 条目 | 功能 |
+| --- | --- |
+| **Config** | 打开 YACL 配置界面。 |
+| **Sessions** | 切换到会话列表视图。 |
+| **Assets** | 切换到资产库存视图。 |
+| **Persona** | 在可用 soul 之间循环。 |
+
+## 在覆盖层管理会话
+
+点击菜单中的 **Sessions** 可以查看可滚动的会话列表。
+
+<Frame caption="覆盖层中的会话列表">
+  <img src="/images/mineclawd-sessions.png" alt="MineClawd Sessions 覆盖层显示带时间戳的会话列表" />
+</Frame>
+
+在该视图中你可以：
+
+- 点击 **New Session** 创建并切换到新会话。
+- 点击任意会话行切换至该会话，活动会话会高亮。
+- 一目了然查看会话标题与最近更新时间。
+
+点击后退箭头或从菜单选 **Response** 返回对话视图。
+
+## 浏览资产
+
+点击菜单中的 **Assets** 切换到资产库存。详见 [追踪资产](/tutorials/tracking-assets)。
+
+<Frame caption="分类标签与操作按钮的资产库存视图">
+  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets 覆盖层显示分类资产列表并配有操作控件" />
+</Frame>
+
+## 最小化与恢复
+
+点击标题栏的最小化按钮（短横线图标）可将覆盖层缩回 AssistiveTouch 球体。点击球体即可恢复。
+
+你可以拖动球体调整位置，位置会在当前会话中保持。
+
+## 输入隔离
+
+窗口展开时，键盘与鼠标输入会被覆盖层拦截，不会泄露到聊天、物品栏或其他界面。
+
+输入栏支持标准文本编辑快捷键：Ctrl+A（全选）、Ctrl+C（复制）、Ctrl+X（剪切）、Ctrl+V（粘贴）、Home、End 以及 Ctrl+方向键跳词。
+
+## 禁用 GUI
+
+若你更倾向只使用聊天交互，可按以下步骤关闭覆盖层：
+
+1. 打开 **Mod Menu** -> **MineClawd** -> **Configure**。
+2. 将 **Enable GUI** 设为 OFF。
+3. 保存。
+
+关闭覆盖层后，所有命令仍可通过聊天执行。动态内容同步仍然生效，运行时占位符继续渲染。
+
+你也可以为每位玩家单独切换 AssistiveTouch 球体：
+
+```bash
+/mineclawd assistivetouch
+```
+
+该命令在不禁用整个 GUI 的情况下隐藏球体，再次运行可恢复显示。
+
+## 相关页面
+
+- [追踪资产](/tutorials/tracking-assets)
+- [管理会话](/tutorials/managing-sessions)
+- [完整配置](/configuration/complete-config)
+- [Stop 命令](/commands/stop)
+- [AssistiveTouch 命令](/commands/assistivetouch)

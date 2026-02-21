@@ -15,9 +15,13 @@ description: "Conoce MineClawd, mira casos de uso reales y pasa rápido al sigui
   />
 </Frame>
 
-MineClawd es un mod de Minecraft que te permite pedir cambios en lenguaje natural.
+MineClawd es un mod de Minecraft que te permite pedir cambios en lenguaje natural. Escribe lo que necesitas y MineClawd hace el trabajo dentro de tu mundo.
 
-Escribes lo que quieres. MineClawd puede hacer el trabajo en tu mundo.
+A partir de la versión v1.4.0, MineClawd incluye una superposición dedicada con transmisión en tiempo real, gestión de sesiones y seguimiento de activos integrado.
+
+<Frame caption="Observa a MineClawd transmitir una respuesta en la superposición">
+  <img src="/images/mineclawd-generating.png" alt="La GUI de superposición de MineClawd muestra una respuesta transmitiéndose en tiempo real" />
+</Frame>
 
 <Warning>
 MineClawd es experimental. Puede ejecutar JavaScript generado dentro del juego. Trata el acceso OP y las claves API como información sensible.
@@ -27,35 +31,38 @@ MineClawd es experimental. Puede ejecutar JavaScript generado dentro del juego. 
 
 | Escribe esto | Qué ocurre |
 | --- | --- |
-| `/mclawd invoca un aldeano que intercambie espadas de madera por 64 bloques de esmeralda` | MineClawd crea un aldeano NPC que ofrece espadas de madera a cambio de 64 bloques de esmeralda cada una. |
-| `/mclawd dile a todo el servidor de forma elegante que me voy a dormir` | MineClawd envía un mensaje con estilo a todos los jugadores del servidor, anunciando que te vas a dormir. |
-| `/mclawd da siempre la bienvenida a los jugadores nuevos con mensajes en el chat` | MineClawd envía un mensaje de bienvenida en el chat cada vez que un jugador nuevo entra al mundo. |
-| `/mclawd invoca un dios del rayo en ubicaciones aleatorias cada 5 minutos` | MineClawd invoca una entidad poderosa de rayos en ubicaciones aleatorias del mundo de Minecraft cada 5 minutos. |
-| `/mclawd haz que lana blanca con r=10 aparezca continuamente bajo mis pies` | MineClawd crea bloques de lana blanca en un radio de 10 a tu alrededor, apareciendo de forma continua bajo tus pies. |
-| `/mclawd construye una casa pequeña en 100, 64, 100` | MineClawd construye una casa pequeña en las coordenadas especificadas (100, 64, 100) en el mundo de Minecraft. |
+| `/mclawd summon a villager that trades wooden swords for 64 emerald blocks` | MineClawd crea un aldeano NPC que ofrece espadas de madera a cambio de 64 bloques de esmeralda cada una. |
+| `/mclawd tell the whole server in a fancy way that i'm going to sleep` | MineClawd transmite un mensaje con estilo a todos los jugadores del servidor anunciando que te vas a dormir. |
+| `/mclawd always welcomes new players with messages in chat` | MineClawd envía un mensaje de bienvenida en el chat cada vez que un jugador nuevo entra al mundo. |
+| `/mclawd summon god of lightning at random locations every 5 minutes` | MineClawd invoca una poderosa entidad de rayos en ubicaciones aleatorias cada 5 minutos. |
+| `/mclawd make white wool with r=10 continuously spawn under my feet` | MineClawd crea bloques de lana blanca en un radio de 10 a tu alrededor, apareciendo continuamente bajo tus pies. |
+| `/mclawd build a small house at 100, 64, 100` | MineClawd construye una casa pequeña en las coordenadas especificadas (100, 64, 100). |
 
 ## Elige tu camino
 
 <CardGroup cols={2}>
   <Card title="Primeros pasos" icon="rocket" href="/quickstart">
-    Empieza desde cero y envía tu primer mensaje funcional usando la ruta GUI.
+    Empieza desde cero y envía tu primer mensaje funcional.
+  </Card>
+  <Card title="Uso de la GUI" icon="desktop" href="/tutorials/using-the-gui">
+    Aprende la ventana de superposición, el orbe AssistiveTouch y los controles de transmisión.
+  </Card>
+  <Card title="Seguimiento de activos" icon="box" href="/tutorials/tracking-assets">
+    Explora, teletranspórtate y gestiona todo lo que MineClawd crea.
   </Card>
   <Card title="Tutoriales" icon="book-open" href="/tutorials/managing-sessions">
-    Profundiza con guías avanzadas sobre sesiones, multijugador y diseño de personalidad.
+    Profundiza con guías sobre sesiones, multijugador y diseño de personalidades.
   </Card>
   <Card title="Referencia de comandos" icon="terminal" href="/commands/overview">
-    Aprende cada subcomando de `/mineclawd` con sintaxis y ejemplos.
+    Revisa cada subcomando `/mineclawd` con sintaxis y ejemplos.
   </Card>
   <Card title="Configuración" icon="palette" href="/configuration/complete-config">
-    Configura proveedor, modelo, límites y opciones de ejecución en detalle.
+    Ajusta proveedor, modelo, límites y opciones de ejecución en detalle.
   </Card>
   <Card title="Personalidad soul" icon="pen-to-square" href="/configuration/souls">
-    Personaliza el tono y comportamiento de MineClawd con archivos soul.
+    Personaliza el tono y el comportamiento de MineClawd con archivos soul.
   </Card>
   <Card title="Solución de problemas" icon="wrench" href="/resources/troubleshooting">
-    Resuelve rápido los problemas de configuración y ejecución.
-  </Card>
-  <Card title="Detalles técnicos" icon="code" href="/resources/technical-details">
-    Entiende almacenamiento, bucles de herramientas, marcadores dinámicos y red.
+    Repara rápidamente errores de configuración y ejecución.
   </Card>
 </CardGroup>

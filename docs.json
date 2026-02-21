@@ -26,6 +26,8 @@
               {
                 "group": "Tutorials",
                 "pages": [
+                  "tutorials/using-the-gui",
+                  "tutorials/tracking-assets",
                   "tutorials/managing-sessions",
                   "tutorials/using-on-multiplayer",
                   "tutorials/building-your-own-persona"
@@ -37,6 +39,7 @@
                   "commands/overview",
                   "commands/prompt",
                   "commands/config",
+                  "commands/stop",
                   "commands/sessions-new",
                   "commands/sessions-list",
                   "commands/sessions-resume",
@@ -46,9 +49,12 @@
                   "commands/retry",
                   "commands/persona",
                   "commands/choose",
-                  "commands/new"
+                  "commands/new",
+                  "commands/assets",
+                  "commands/assistivetouch"
                 ]
               },
+
               {
                 "group": "Configuration",
                 "pages": [
@@ -83,6 +89,8 @@
               {
                 "group": "Tutorials",
                 "pages": [
+                  "cn/tutorials/using-the-gui",
+                  "cn/tutorials/tracking-assets",
                   "cn/tutorials/managing-sessions",
                   "cn/tutorials/using-on-multiplayer",
                   "cn/tutorials/building-your-own-persona"
@@ -94,6 +102,7 @@
                   "cn/commands/overview",
                   "cn/commands/prompt",
                   "cn/commands/config",
+                  "cn/commands/stop",
                   "cn/commands/sessions-new",
                   "cn/commands/sessions-list",
                   "cn/commands/sessions-resume",
@@ -103,7 +112,9 @@
                   "cn/commands/retry",
                   "cn/commands/persona",
                   "cn/commands/choose",
-                  "cn/commands/new"
+                  "cn/commands/new",
+                  "cn/commands/assets",
+                  "cn/commands/assistivetouch"
                 ]
               },
               {
@@ -140,6 +151,8 @@
               {
                 "group": "Tutorials",
                 "pages": [
+                  "jp/tutorials/using-the-gui",
+                  "jp/tutorials/tracking-assets",
                   "jp/tutorials/managing-sessions",
                   "jp/tutorials/using-on-multiplayer",
                   "jp/tutorials/building-your-own-persona"
@@ -151,6 +164,7 @@
                   "jp/commands/overview",
                   "jp/commands/prompt",
                   "jp/commands/config",
+                  "jp/commands/stop",
                   "jp/commands/sessions-new",
                   "jp/commands/sessions-list",
                   "jp/commands/sessions-resume",
@@ -160,7 +174,9 @@
                   "jp/commands/retry",
                   "jp/commands/persona",
                   "jp/commands/choose",
-                  "jp/commands/new"
+                  "jp/commands/new",
+                  "jp/commands/assets",
+                  "jp/commands/assistivetouch"
                 ]
               },
               {
@@ -197,6 +213,8 @@
               {
                 "group": "Tutorials",
                 "pages": [
+                  "de/tutorials/using-the-gui",
+                  "de/tutorials/tracking-assets",
                   "de/tutorials/managing-sessions",
                   "de/tutorials/using-on-multiplayer",
                   "de/tutorials/building-your-own-persona"
@@ -208,6 +226,7 @@
                   "de/commands/overview",
                   "de/commands/prompt",
                   "de/commands/config",
+                  "de/commands/stop",
                   "de/commands/sessions-new",
                   "de/commands/sessions-list",
                   "de/commands/sessions-resume",
@@ -217,7 +236,9 @@
                   "de/commands/retry",
                   "de/commands/persona",
                   "de/commands/choose",
-                  "de/commands/new"
+                  "de/commands/new",
+                  "de/commands/assets",
+                  "de/commands/assistivetouch"
                 ]
               },
               {
@@ -254,6 +275,8 @@
               {
                 "group": "Tutorials",
                 "pages": [
+                  "es/tutorials/using-the-gui",
+                  "es/tutorials/tracking-assets",
                   "es/tutorials/managing-sessions",
                   "es/tutorials/using-on-multiplayer",
                   "es/tutorials/building-your-own-persona"
@@ -265,6 +288,7 @@
                   "es/commands/overview",
                   "es/commands/prompt",
                   "es/commands/config",
+                  "es/commands/stop",
                   "es/commands/sessions-new",
                   "es/commands/sessions-list",
                   "es/commands/sessions-resume",
@@ -274,7 +298,9 @@
                   "es/commands/retry",
                   "es/commands/persona",
                   "es/commands/choose",
-                  "es/commands/new"
+                  "es/commands/new",
+                  "es/commands/assets",
+                  "es/commands/assistivetouch"
                 ]
               },
               {

@@ -1,0 +1,140 @@
+---
+title: "GUI の使い方"
+description: "インゲームオーバーレイからリクエスト送信、ストリーミング応答確認、セッションとアセット管理を行う方法。"
+tag: "NEW"
+---
+
+MineClawd 1.4.0 ではゲーム上に専用オーバーレイウィンドウが表示されます。チャットを開かずにリクエストを入力、応答をリアルタイムで確認し、セッションやアセットを管理できます。
+
+<Note>
+オーバーレイはクライアントにも MineClawd が入っている必要があります。専用サーバーの場合はサーバーと各プレイヤーの双方に導入してください。
+</Note>
+
+## オーバーレイを開く
+
+画面左に浮かぶ AssistiveTouch オーブをクリックするとオーバーレイ全体が展開します。
+
+<Frame caption="何もしていないときの AssistiveTouch オーブ">
+  <img src="/images/mineclawd-assistive-touch.png" alt="AssistiveTouch 浮遊オーブが画面の左側に表示されている" />
+</Frame>
+
+オーブは OP レベル 2 のプレイヤーにのみ見えます。見えない場合は権限と **Mod Menu** -> **MineClawd** -> **Configure** で **Enable GUI** が ON か確認してください。
+
+## オーバーレイの構成
+
+展開中のオーバーレイは次の 3 つに分かれます:
+
+1. **ヘッダーバー** — 現在のモード（Response、Sessions、Assets）、アクティブソウル名、「Streaming」や「Question」などの状態を表示します。右端にメニューアイコン、最小化ボタン、閉じるボタンがあります。
+2. **コンテンツ領域** — 会話履歴、セッション一覧、またはアセット在庫のいずれかの表示に切り替わります。
+3. **入力バー** — リクエストを入力するテキストフィールド。通常は **Send** ボタンで、生成中は **Stop** ボタンに変わります。
+
+オーバーレイはヘッダーをドラッグして移動できます。右下からサイズ変更も可能です。
+
+## リクエストを送る
+
+入力バーにリクエストを入力し、**Send**（または Enter）を押します。これは `/mclawd <request>` と同じ動作で、チャットを開く必要がありません。
+
+<Frame caption="MineClawd がリアルタイムに応答をストリーミング中">
+  <img src="/images/mineclawd-generating.png" alt="MineClawd オーバーレイが点滅カーソル付きでストリーミング応答を表示" />
+</Frame>
+
+生成中は:
+
+- 点滅カーソルが最新のテキストを追います。
+- ヘッダーに **Streaming** ステータスが表示されます。
+- **Send** が **Stop** に変わり、クリックすると `/mineclawd stop` と同じキャンセルが送れます。
+- オーブが最小化されている場合は点滅インジケーターが出ます。
+
+<Frame caption="生成中にオーブが点滅している">
+  <img src="/images/mineclawd-assistive-touch-while-generating.png" alt="AssistiveTouch オーブがパルス状の表示で生成中であることを示す" />
+</Frame>
+
+<Frame caption="マルチステップ生成の例">
+  <img src="/images/mineclawd-generating-2.png" alt="MineClawd オーバーレイが長い応答とツール呼び出しを表示している" />
+</Frame>
+
+生成後は結果が会話履歴に残ります。
+
+<Frame caption="生成が完了した結果表示">
+  <img src="/images/mineclawd-result.png" alt="MineClawd オーバーレイが最終結果を表示" />
+</Frame>
+
+## メッセージ表示
+
+- **You:** は青系で表示されます。
+- **MineClawd:** は金色か白系で表示され、ツール呼び出しで分割されても各アシスタントターンで 1 つのプレフィックスになります。
+
+MineClawd が `ask-user-question` を使って説明質問をした場合、オプションボタンがインラインで現れます。オプションを選ぶか **Skip** をクリックしてタイマーを待ってください。
+
+## メニューを使う
+
+ヘッダーのハンバーガーアイコンをクリックするとメニューが開き、次の 4 エントリがあります:
+
+| エントリ | 内容 |
+| --- | --- |
+| **Config** | YACL 設定画面を開きます。 |
+| **Sessions** | セッション一覧モードに切り替えます。 |
+| **Assets** | アセット在庫モードに切り替えます。 |
+| **Persona** | 利用可能な soul の間で循環表示します。 |
+
+## オーバーレイでのセッション管理
+
+メニューの **Sessions** で保存済みセッションの一覧を表示できます。
+
+<Frame caption="オーバーレイのセッション一覧">
+  <img src="/images/mineclawd-sessions.png" alt="MineClawd セッション一覧がタイムスタンプ付きで表示されている" />
+</Frame>
+
+この画面では:
+
+- **New Session** をクリックして新しいセッションを作成し、即切り替え。
+- 任意のセッション行をクリックするとアクティブに切り替えます。アクティブはハイライトされます。
+- セッションタイトルと最終更新時刻がひと目でわかります。
+
+左上の戻る矢印かメニューの **Response** で会話ビューに戻れます。
+
+## アセットをブラウズ
+
+メニューの **Assets** でアセット在庫を開き、カテゴリフィルターとアクションボタン付きで操作できます。詳しい手順は [アセットの追跡](/tutorials/tracking-assets) を参照してください。
+
+<Frame caption="カテゴリタブとアクション付き在庫">
+  <img src="/images/mineclawd-assets.png" alt="カテゴリフィルターとアクションコントロールを備えた MineClawd アセット一覧" />
+</Frame>
+
+## 最小化と復元
+
+ヘッダー右の最小化ボタン（ダッシュアイコン）を押すとオーブの形に戻ります。オーブをクリックすると再び展開します。
+
+オーブはドラッグ可能で、位置はセッション間で保持されます。
+
+## 入力の隔離
+
+オーバーレイ展開中はキーボードとマウスの入力が完全にオーバーレイにキャプチャされ、チャットやインベントリに伝播しません。
+
+入力バーでは Ctrl+A（全選択）、Ctrl+C（コピー）、Ctrl+X（切り取り）、Ctrl+V（貼り付け）、Home、End、Ctrl+矢印（単語単位移動）が動作します。
+
+## GUI を無効化する
+
+チャットだけで操作したい場合は以下の手順でオーバーレイを無効にしてください:
+
+1. **Mod Menu** -> **MineClawd** -> **Configure** を開く。
+2. **Enable GUI** を OFF に切り替える。
+3. 保存する。
+
+無効にしてもコマンドはチャットで機能し続け、動的コンテンツ同期はそのまま動きます。
+
+プレイヤー単位で Assistive Touch オーブを切り替えるには:
+
+```bash
+/mineclawd assistivetouch
+```
+
+このコマンドがオーブだけを隠し、オーバーレイ自体は維持します。再度実行すると表示されます。
+
+## 関連ページ
+
+- [アセットの追跡](/tutorials/tracking-assets)
+- [セッション管理](/tutorials/managing-sessions)
+- [設定リファレンス](/configuration/complete-config)
+- [Stop コマンド](/commands/stop)
+- [AssistiveTouch コマンド](/commands/assistivetouch)

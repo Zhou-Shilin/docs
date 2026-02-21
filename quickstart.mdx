@@ -13,8 +13,8 @@ Follow this page step by step, and you will get one successful reply from MineCl
   <Card title="Minecraft Java Edition">
     The PC version of Minecraft from the official Minecraft Launcher.
   </Card>
-  <Card title="Fabric">
-    A small loader that lets Minecraft run mods.
+  <Card title="Mod loader">
+    Software that lets Minecraft run mods. MineClawd supports Fabric, Forge, and NeoForge.
   </Card>
   <Card title="Mod">
     A `.jar` file that adds features to Minecraft.
@@ -24,36 +24,75 @@ Follow this page step by step, and you will get one successful reply from MineCl
   </Card>
 </CardGroup>
 
-## Step 1: install Fabric for Minecraft 1.20.1
+## Choose your platform
 
-1. Download Fabric Installer from: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
-2. Run the installer.
-3. Choose:
-   - Install type: **Client**
-   - Minecraft version: **1.20.1**
-4. Click **Install**.
-5. Open Minecraft Launcher and run **Fabric Loader 1.20.1** once, then close the game.
+MineClawd supports three loader and version combinations. Pick the tab that matches your setup.
 
-<Note>
-On Windows with the official launcher, this is usually a one-click installer flow.
-</Note>
+<Tabs>
+  <Tab title="NeoForge 1.21.1 (Recommended)">
+    ### Step 1: install NeoForge
 
-## Step 2: download required mods (Fabric + 1.20.1 versions)
+    1. Download NeoForge Installer from: [neoforged.net](https://neoforged.net/)
+    2. Select Minecraft version **1.21.1** and run the installer.
+    3. Open Minecraft Launcher and run the **NeoForge 1.21.1** profile once, then close the game.
 
-Download these files from Modrinth. On each page, choose a file that matches:
+    ### Step 2: download required mods
 
-- Minecraft version: `1.20.1`
-- Loader: `Fabric`
+    Download these files from Modrinth. On each page, choose a file matching **NeoForge** and **1.21.1**.
 
-| Mod | Download link |
-| --- | --- |
-| MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
-| Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
-| KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
-| Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
-| Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
-| YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
-| Mod Menu (for GUI config) | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+    | Mod | Download link |
+    | --- | --- |
+    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+    | Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
+  </Tab>
+  <Tab title="Forge 1.20.1">
+    ### Step 1: install Forge
+
+    1. Download Forge Installer from: [files.minecraftforge.net](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html)
+    2. Run the installer and select **Install Client**.
+    3. Open Minecraft Launcher and run the **Forge 1.20.1** profile once, then close the game.
+
+    ### Step 2: download required mods
+
+    Download these files from Modrinth. On each page, choose a file matching **Forge** and **1.20.1**.
+
+    | Mod | Download link |
+    | --- | --- |
+    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+    | Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
+  </Tab>
+  <Tab title="Fabric 1.20.1">
+    ### Step 1: install Fabric
+
+    1. Download Fabric Installer from: [fabricmc.net/use/installer](https://fabricmc.net/use/installer/)
+    2. Run the installer.
+    3. Choose **Client** and Minecraft version **1.20.1**.
+    4. Click **Install**.
+    5. Open Minecraft Launcher and run **Fabric Loader 1.20.1** once, then close the game.
+
+    ### Step 2: download required mods
+
+    Download these files from Modrinth. On each page, choose a file matching **Fabric** and **1.20.1**.
+
+    | Mod | Download link |
+    | --- | --- |
+    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+    | Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
+    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+    | Mod Menu | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+  </Tab>
+</Tabs>
 
 ## Step 3: put mod files into your `mods` folder
 
@@ -62,12 +101,12 @@ Download these files from Modrinth. On each page, choose a file that matches:
 3. Move all downloaded `.jar` files into `mods`.
 4. Do not unzip `.jar` files.
 
-## Step 4: launch game and open MineClawd GUI
+## Step 4: launch game and open MineClawd config
 
-1. Start Minecraft with **Fabric Loader 1.20.1** profile.
+1. Start Minecraft with your mod loader profile.
 2. Create or open a single-player world.
 3. Turn **Allow Cheats** ON for that world.
-4. Open **Mod Menu** -> **MineClawd** -> **Configure**.
+    4. Open **Better ModList** -> **MineClawd** -> **Configure** (or **Mod Menu** if on Fabric).
 
 ## Step 5: connect an AI service
 
@@ -75,7 +114,7 @@ If you do not have an AI account yet, use OpenRouter and pick a free model.
 
 1. Create account: [openrouter.ai](https://openrouter.ai/)
 2. Create API key: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
-3. In MineClawd GUI, set:
+3. In MineClawd config screen, set:
    - **Provider**: `OpenAI`
    - **Endpoint**: `https://openrouter.ai/api/v1`
    - **API Key**: paste your OpenRouter key
@@ -89,13 +128,25 @@ Free models and limits change over time. If one model fails, pick another model 
 
 ## Step 6: send your first message
 
-Open chat in your world and run:
+You have two ways to talk to MineClawd:
+
+### Option A: use the overlay GUI
+
+Look for the floating orb (AssistiveTouch) on the left side of your screen. Click the orb to open the overlay, type your message in the input bar, and click **Send**.
+
+<Frame caption="The AssistiveTouch orb opens the overlay with one click">
+  <img src="/images/mineclawd-assistive-touch.png" alt="MineClawd AssistiveTouch floating orb" />
+</Frame>
+
+### Option B: use chat commands
+
+Open chat and run:
 
 ```bash
 /mclawd hello
 ```
 
-If setup is correct, MineClawd replies in chat.
+Both methods work. The overlay gives you streaming responses and session management in one place. See [using the GUI](/tutorials/using-the-gui) for the full walkthrough.
 
 ## If it does not work
 

@@ -1,6 +1,6 @@
-﻿---
-title: "イントロダクション"
-description: "MineClawd を知り、実際のユースケースを確認し、次の章へすばやく進みます。"
+---
+title: "����ȥ����������"
+description: "MineClawd ��֪�ꡢ�g�H�Υ�`�����`����_�J�����Τ��¤ؤ��Ф䤯�M�ߤޤ���"
 ---
 
 <Frame>
@@ -8,54 +8,61 @@ description: "MineClawd を知り、実際のユースケースを確認し、�
     width="100%"
     height="315"
     src="https://www.youtube.com/embed/a_dkB-nYL14?si=fAlRMMR0J82D4BoK"
-    title="MineClawd 紹介動画"
+    title="MineClawd �B��ӻ�"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerPolicy="strict-origin-when-cross-origin"
     allowFullScreen
   />
 </Frame>
 
-MineClawd は、自然な言葉で変更を依頼できる Minecraft Mod です。
+MineClawd �ϡ���Ȼ�����~�ǉ�������m�Ǥ��� Minecraft Mod �Ǥ�����ꤿ�����Ȥ���������ȡ�MineClawd �����ʤ��Υ�`��ɤ����I���ޤ���
 
-やりたいことを入力すると、MineClawd があなたのワールドで作業します。
+MineClawd 1.4.0 �Խ��ϡ��ꥢ�륿����Υ��ȥ�`�ߥ󥰡����å��������������å�׷�E��䤨�����å��`�Щ`�쥤 GUI ��֤��ޤ���
+
+<Frame caption="MineClawd �����`�Щ`�쥤�Ǐ��򥹥ȥ�`�ߥ���">
+  <img src="/images/mineclawd-generating.png" alt="MineClawd ���`�Щ`�쥤 GUI �ǥ��ȥ�`�ߥ󥰏����ʾ" />
+</Frame>
 
 <Warning>
-MineClawd は実験的な機能です。ゲーム内で生成された JavaScript を実行できます。OP 権限と API キーは機密情報として扱ってください。
+MineClawd �όg�Y�ĤʙC�ܤǤ������`���ڤ����ɤ��줿 JavaScript ��g�ФǤ��ޤ���OP ���ޤ� API ���`�ϙC�����Ȥ��ƒQ�äƤ���������
 </Warning>
 
-## 今すぐできること
+## �񤹤��Ǥ��뤳��
 
-| これを入力 | 起こること |
+| ��������� | �𤳤뤳�� |
 | --- | --- |
-| `/mclawd 木の剣64本をエメラルドブロック64個と交換する村人を召喚して` | 木の剣を 64 個のエメラルドブロックと交換する村人 NPC を MineClawd が作成します。 |
-| `/mclawd これから寝ることをサーバー全体におしゃれな言い方で伝えて` | あなたが寝ることを、サーバー全体におしゃれなメッセージで MineClawd が告知します。 |
-| `/mclawd 新しいプレイヤーが参加するたびにチャットで歓迎メッセージを送って` | 新しいプレイヤーが参加するたびに、MineClawd がチャットで歓迎メッセージを送ります。 |
-| `/mclawd 5分ごとにランダムな場所へ雷の神を召喚して` | 5 分ごとにランダムな場所へ、強力な雷エンティティを MineClawd が召喚します。 |
-| `/mclawd 足元の半径10に白い羊毛を継続生成して` | あなたの足元を中心に半径 10 の範囲で、白い羊毛ブロックを MineClawd が継続的に生成します。 |
-| `/mclawd 100, 64, 100 に小さな家を建てて` | 指定座標 (100, 64, 100) に小さな家を MineClawd が建築します。 |
+| `/mclawd summon a villager that trades wooden swords for 64 emerald blocks` | MineClawd ��ľ�΄��� 64 ���Υ�����ɥ֥��å��Ƚ��Q������� NPC �����ɤ��ޤ��� |
+| `/mclawd tell the whole server in a fancy way that i'm going to sleep` | MineClawd �����`�Щ`ȫ��ˤ������ʥ�å��`���Ǥ��ʤ����ޤ뤳�Ȥ򁻤��ޤ��� |
+| `/mclawd always welcomes new players with messages in chat` | MineClawd ���¤����ץ쥤��`���μӤ��뤿�Ӥ˥���åȤǚZӭ��å��`�����ͤ�ޤ��� |
+| `/mclawd summon god of lightning at random locations every 5 minutes` | MineClawd �� 5 �֤��Ȥ˥�����ʈ������פ�����ن����ޤ��� |
+| `/mclawd make white wool with r=10 continuously spawn under my feet` | MineClawd �����ʤ�����Ԫ�����Ĥ˰뾶 10 �ǰפ���ë�֥��å����B�A���ɤ��ޤ��� |
+| `/mclawd build a small house at 100, 64, 100` | MineClawd ��ָ������ (100, 64, 100) ��С���ʼҤ򽨤Ƥޤ��� |
 
-## 目的別ガイド
+## �M���
 
 <CardGroup cols={2}>
-  <Card title="はじめに" icon="rocket" href="/quickstart">
-    ゼロから始めて、GUI ルートで最初の動作するメッセージを送ります。
+  <Card title="�Ϥ����" icon="rocket" href="/quickstart">
+    ��������ʼ��� GUI ��������Є��ʥ�å��`�����ͤ�ޤ���
   </Card>
-  <Card title="チュートリアル" icon="book-open" href="/tutorials/managing-sessions">
-    セッション運用、マルチプレイ、persona 設計の上級ガイドに進みます。
+  <Card title="GUI ��ʹ����" icon="desktop" href="/tutorials/using-the-gui">
+    Assistive Touch ���`�֤��_���ƥ��ȥ�`�ߥ󥰏��䥻�å����������Ф��ޤ���
   </Card>
-  <Card title="コマンドリファレンス" icon="terminal" href="/commands/overview">
-    `/mineclawd` の全サブコマンドを、構文と例つきで確認します。
+  <Card title="�����åȤ�׷�E" icon="box" href="/tutorials/tracking-assets">
+    MineClawd �����ɤ��������åȤ�֥饦��������`��ɤ��ƄӤ丶���ʹ���ޤ���
   </Card>
-  <Card title="設定" icon="palette" href="/configuration/complete-config">
-    プロバイダー、モデル、制限値、実行時オプションを詳しく設定します。
+  <Card title="����`�ȥꥢ��" icon="book-open" href="/tutorials/managing-sessions">
+    Session���ޥ���ץ쥤��persona �OӋ�Ώ��å����ɤ��M�ߤޤ���
   </Card>
-  <Card title="Soul パーソナリティ" icon="pen-to-square" href="/configuration/souls">
-    soul ファイルで MineClawd の口調と振る舞いをカスタマイズします。
+  <Card title="���ޥ�ɥ�ե����" icon="terminal" href="/commands/overview">
+    `/mineclawd` ��ȫ���֥��ޥ�ɤȘ��Ĥ�_�J���ޤ���
   </Card>
-  <Card title="トラブルシューティング" icon="wrench" href="/resources/troubleshooting">
-    セットアップと実行時の問題をすばやく解決します。
+  <Card title="�O��" icon="palette" href="/configuration/complete-config">
+    �ץ��Х����`���ǥ롢���ޡ��g�Еr���ץ����򂀄e���{�����ޤ���
   </Card>
-  <Card title="技術詳細" icon="code" href="/resources/technical-details">
-    ストレージ、ツールループ、動的プレースホルダー、ネットワークを理解します。
+  <Card title="Soul �ѩ`���ʥ�ƥ�" icon="pen-to-square" href="/configuration/souls">
+    soul �ե������ MineClawd �ο��{������褤�򥫥����ޥ������ޤ���
+  </Card>
+  <Card title="�ȥ�֥륷��`�ƥ���" icon="wrench" href="/resources/troubleshooting">
+    ���åȥ��åפ�g�Еr�Ά��}�򤹤Ф䤯��Q���ޤ���
   </Card>
 </CardGroup>

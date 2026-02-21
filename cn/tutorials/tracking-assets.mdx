@@ -1,0 +1,117 @@
+﻿---
+title: "追踪资产"
+description: "使用资产追踪系统记录、定位和管理 MineClawd 在世界中创建的内容。"
+tag: "NEW"
+---
+
+当 MineClawd 在你的世界中创建实体、物品、脚本或游戏机制时，资产追踪系统会记录这些内容。你可以在覆盖层或使用命令浏览、传送、给予、修改或删除任何追踪资产。
+
+## 自动追踪的内容
+
+MineClawd 的 LLM 工具会自动将创建内容归类到五大类别：
+
+| 类别 | 示例 |
+| --- | --- |
+| **实体** | 召唤的村民、自定义怪物、NPC |
+| **物品/方块/液体** | 动态物品、自定义方块、运行时液体 |
+| **特殊物品** | 带自定义 NBT 或附魔的工具 |
+| **命令** | 注册的自定义命令、脚本命令 |
+| **游戏机制** | 定时事件、玩家加入监听、区域效果 |
+
+每个资产记录会保存名称、摘要、创建它的脚本路径以及分类特有的元数据（如实体 UUID/位置、内容 ID 或 NBT）。
+
+## 在覆盖层浏览资产
+
+打开覆盖层菜单，点击 **Assets** 进入资产库存视图。
+
+<Frame caption="带分类过滤标签的资产库存">
+  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets 覆盖层显示分类资产列表与操作按钮" />
+</Frame>
+
+视图分为两部分：
+
+1. 顶部显示 **全部**、**实体**、**物品/方块/液体**、**特殊物品**、**命令** 和 **游戏机制** 的分类标签。点击标签即可过滤。
+2. 下方的资产行展示名称与摘要，点击某行可选中该资产并展示操作栏。
+
+## 资产操作
+
+选中资产后会显示上下文相关操作按钮：
+
+| 操作 | 可用范围 | 功能 |
+| --- | --- | --- |
+| **Teleport** | 具有 UUID 与位置的实体 | 传送到该实体创建时的位置。 |
+| **Give** | 具有内容 ID 的物品/方块/液体，或带特殊 ID 与 NBT 的特殊物品 | 通过命令给予你该物品。 |
+| **Modify** | 所有类别 | 启动新会话并填充修改请求。 |
+| **Delete** | 所有类别 | 启动新会话并填充移除请求。 |
+
+<Tip>
+**Modify** 与 **Delete** 会发起新对话，让 MineClawd 推理依赖关系并正确清理脚本，而非立即执行世界修改。
+</Tip>
+
+## 通过命令使用
+
+你也可以在聊天中管理资产。
+
+### 列出所有资产
+
+```bash
+/mineclawd assets list
+```
+
+显示当前拥有者的所有追踪记录。
+
+### 传送到资产
+
+```bash
+/mineclawd assets teleport <asset>
+```
+
+传送到实体的存储位置，仅在实体类资产拥有有效 UUID 和维度时有效。
+
+### 获取资产
+
+```bash
+/mineclawd assets give <asset>
+```
+
+给予与你的资产关联的物品或方块。支持物品/方块/液体（按内容 ID）和特殊物品（按特殊 ID 与 NBT）。
+
+### 删除资产记录
+
+```bash
+/mineclawd assets remove-record <asset>
+```
+
+从存储中删除资产记录，但不会从世界中移除实体、物品或脚本。
+
+<Warning>
+删除记录不会撤销创建操作。如需 MineClawd 同时清理世界，请在覆盖层使用 **Delete** 操作。
+</Warning>
+
+## 背后原理
+
+MineClawd 在请求过程中通过三种 LLM 工具管理资产记录：
+
+- `list-assets` —— 拉取当前拥有者的所有记录。
+- `upsert-asset-record` —— 凭元数据创建或更新记录。
+- `remove-asset-record` —— 根据 ID 删除记录。
+
+系统提示中每次请求都会附带资产追踪附录，因此你无需额外请求 MineClawd 记录，它会自动开启。
+
+## 存储
+
+资产记录按拥有者保存在 JSON 文件里：
+
+```text
+mineclawd/
+  assets/
+    <owner>.json
+```
+
+文件包含 `AssetRecord` 对象数组，每项字段包括 `id`、`category`、`name`、`summary`、`scriptPath` 及分类特有字段（如 `entityUuid`、`entityX/Y/Z`、`contentId`、`specialItemId`、`specialItemNbt`、`command`）。
+
+## 相关页面
+
+- [使用 GUI](/tutorials/using-the-gui)
+- [Assets 命令](/commands/assets)
+- [技术细节](/resources/technical-details)

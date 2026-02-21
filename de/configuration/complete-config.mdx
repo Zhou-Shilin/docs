@@ -1,19 +1,19 @@
 ---
 title: "Vollständige Konfiguration"
-description: "Vollständige MineClawd-Konfigurationsreferenz mit Standardwerten, Befehlsschlüsseln und Verhaltenshinweisen."
+description: "Vollständige MineClawd-Konfigurationsreferenz mit Defaults, Befehlschlüsseln und Verhaltenserläuterungen."
 ---
 
 ## Zweck
 
-Diese Seite zeigt dir das vollständige MineClawd-Konfigurationsmodell, einschließlich Dateieinstellungen, Befehlsschlüsseln und Neustartverhalten.
+Diese Seite zeigt dir das komplette MineClawd-Konfigurationsmodell, inklusive Dateieinstellungen, Befehlschlüsseln und Neustartverhalten.
 
-## Wo Einstellungen gespeichert sind
+## Wo Einstellungen liegen
 
 - Globale Konfigurationsdatei: `config/mineclawd.json5`
-- Chat-Sichtbarkeit pro Spieler: `mineclawd/player-settings.json`
-- Soul-Dateien und aktiver Soul-Status: `mineclawd/souls/` und `mineclawd/souls/.active/`
+- Sichtbarkeit im Chat pro Spieler: `mineclawd/player-settings.json`
+- Soul-Dateien und aktiver Soul-State: `mineclawd/souls/` und `mineclawd/souls/.active/`
 
-## Vollständiges `mineclawd.json5`-Template
+## Vollständige `mineclawd.json5`-Vorlage
 
 ```json5
 {
@@ -32,57 +32,66 @@ Diese Seite zeigt dir das vollständige MineClawd-Konfigurationsmodell, einschli
   limitToolCalls: false,
   toolCallLimit: 16,
   systemPrompt: "",
-  dynamicRegistryMode: "AUTO"
+  dynamicRegistryMode: "AUTO",
+
+  // Client-only (nicht in der Serverkonfiguration)
+  enableGui: true
 }
 ```
 
 <Info>
-In Dateiform sind Enum-Werte großgeschrieben (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`).
-
-In Befehlsform sind Werte kleingeschrieben (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
+In Dateiform sind Enum-Werte großgeschrieben (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`). In Befehlsform sind sie kleingeschrieben (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
 </Info>
 
 ## Schlüsselreferenz
 
-| Dateischlüssel | Befehlsschlüssel | Typ | Standard | Hinweise |
+| Dateischlüssel | Befehlschlüssel | Typ | Vorgabe | Hinweise |
 | --- | --- | --- | --- | --- |
 | `provider` | `provider` | enum | `OPENAI` | Provider-Auswahl: OpenAI-kompatibel oder Vertex AI. |
-| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-kompatible Basis-URL, kein abschließender Slash erforderlich. |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-kompatible Basis-URL, ohne abschließenden Slash. |
 | `apiKey` | `api-key` | string | leer | OpenAI-API-Key. |
-| `model` | `model` | string | `gpt-4o-mini` | OpenAI-Chat-Modell. |
-| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI-Modell für die Titelgenerierung der Session im ersten Turn. |
-| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex-API-Basis-URL. |
+| `model` | `model` | string | `gpt-4o-mini` | OpenAI-Chatmodell. |
+| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI-Modell für die erste Session-Titelerstellung. |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex-API-URL. |
 | `vertexApiKey` | `vertex-api-key` | string | leer | Vertex-API-Key. |
 | `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex-Modellpfad oder Modellname. |
-| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex-Summarize-Modell für Session-Titel. |
-| `debugMode` | `debug-mode` | boolean | `false` | Protokolliert detaillierte Anfrage- und Tool-Aktivität. |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex-Zusammenfassungsmodell für Session-Titel. |
+| `debugMode` | `debug-mode` | boolean | `false` | Zeichnet detaillierte Request- und Tool-Aktivitäten auf. |
 | `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Aktiviert ein Tool-Loop-Limit pro Anfrage. |
-| `toolCallLimit` | `tool-call-limit` | integer | `16` | Erlaubter Bereich ist `1` bis `20`. |
-| `systemPrompt` | `system-prompt` | string | leer | Leer bedeutet eingebauter System-Prompt. Nutze im Befehlsmodus den Wert `default`, um zurückzusetzen. |
-| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Steuert den Runtime-Modus für dynamische Platzhalter. Nach Änderung ist ein Neustart erforderlich. |
+| `toolCallLimit` | `tool-call-limit` | integer | `16` | Erlaubter Bereich: `1` bis `20`. |
+| `systemPrompt` | `system-prompt` | string | leer | Leer bedeutet eingebaute Systemprompt. Verwende `default`, um den Wert im Befehlsmodus zurückzusetzen. |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Steuert den Runtime-Modus für dynamische Platzhalter. Neustart erforderlich nach Änderung. |
+| `enableGui` | -- | boolean | `true` | Nur Client-seitig. Zeigt das Overlay oder nicht. Über **Mod Menu** -> **MineClawd** -> **Configure** steuerbar. |
 
-## Einstellung pro Spieler
+## Einstellungen pro Spieler
 
-`broadcast-requests-to` ist nur per Befehl verfügbar und gilt pro Spieler.
+### broadcast-requests-to
 
-- Befehlsschlüssel: `broadcast-requests-to`
-- Erlaubte Werte: `self`, `all`, `ops`
+- Befehlschlüssel: `broadcast-requests-to`
+- Zulässige Werte: `self`, `all`, `ops`
 - Gespeichert in: `mineclawd/player-settings.json`
-- Zweck: steuert, wer Prompt-Echo und Start-/Endzeilen von Aufgaben sieht.
+- Zweck: Steuert, wer Prompt-Echo und Statusmeldungen sieht.
 
-## Verhalten des Dynamic-Registry-Modus
+### assistivetouch
 
-- `AUTO`: in der Client-Runtime (Singleplayer) aktiviert, auf dedizierten Servern deaktiviert.
-- `ENABLED`: in allen Runtimes erzwungen aktiviert.
-- `DISABLED`: vollständig deaktiviert.
+- Befehl: `/mineclawd assistivetouch`
+- Gespeichert in: `mineclawd/player-settings.json`
+- Standard: aktiviert (sichtbar)
+- Zweck: Zeigt oder versteckt den schwebenden AssistiveTouch-Orb ohne komplette GUI-Abschaltung.
+
+## Verhalten von dynamic registry mode
+
+- `AUTO`: Aktiviert im Client-Runtime (Einzelspieler), deaktiviert auf dedizierten Servern.
+- `ENABLED`: Erzwingt Aktivierung in allen Laufzeiten.
+- `DISABLED`: Deaktiviert vollständig.
 
 <Warning>
-Wenn du auf einem dedizierten Server `ENABLED` erzwingst, müssen beitretende Clients MineClawd installiert haben.
+Wenn du `ENABLED` auf einem dedizierten Server erzwingst, müssen alle Clients MineClawd installiert haben.
 </Warning>
 
 ## Empfohlene Baselines
 
-### Baseline für das erste OpenAI-Setup
+### OpenAI-Erstsetup
 
 ```bash
 /mineclawd config provider openai
@@ -92,7 +101,7 @@ Wenn du auf einem dedizierten Server `ENABLED` erzwingst, müssen beitretende Cl
 /mineclawd config summarize-model gpt-4o-mini
 ```
 
-### Baseline für das erste Vertex-Setup
+### Vertex-Erstsetup
 
 ```bash
 /mineclawd config provider vertex-ai
@@ -102,9 +111,14 @@ Wenn du auf einem dedizierten Server `ENABLED` erzwingst, müssen beitretende Cl
 /mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
 ```
 
-## GUI-Weg
+## GUI-Pfad
 
 - Im Spiel: **Mod Menu** -> **MineClawd** -> **Configure**
-- Befehl als Fallback: `/mineclawd config ...`
+- Als Befehl: `/mineclawd config ...`
+- Im Overlay-Menü: Hamburger-Icon klicken -> **Config**
 
-Wenn das Öffnen der Client-GUI fehlschlägt, konfiguriere über die Befehlsschlüssel.
+Wenn das GUI nicht öffnet, nutze die Befehls-Schlüssel.
+
+<Info>
+Die Einstellung `enableGui` steuert das Overlay. Wenn du sie auf OFF setzt, bleibt der YACL-Konfigurationsbildschirm erreichbar – du kannst **Mod Menu** oder `/mineclawd config` weiterhin verwenden.
+</Info>

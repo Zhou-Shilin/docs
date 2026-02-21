@@ -1,0 +1,51 @@
+---
+title: "assets"
+description: "List, teleport to, give, or remove tracked asset records."
+tag: "NEW"
+---
+
+## Purpose
+
+Manage the asset records that MineClawd creates when building things in your world.
+
+## Syntax
+
+```bash
+/mineclawd assets list
+/mineclawd assets teleport <asset>
+/mineclawd assets give <asset>
+/mineclawd assets remove-record <asset>
+```
+
+## Subcommands
+
+| Subcommand | What it does |
+| --- | --- |
+| `list` | Show all tracked assets for the current owner. |
+| `teleport <asset>` | Teleport to an entity asset's stored location. |
+| `give <asset>` | Give yourself the item or block tied to the asset. |
+| `remove-record <asset>` | Delete the tracking record without touching the world. |
+
+## When to use it
+
+- Use `list` to see everything MineClawd has created across sessions.
+- Use `teleport` to find entities that were summoned at specific coordinates.
+- Use `give` to obtain items or blocks that MineClawd registered.
+- Use `remove-record` to clean up stale records after manual world changes.
+
+## Behavior and limits
+
+- `teleport` only works for entity-category assets with a stored UUID, dimension, and coordinates.
+- `give` works for Items/Blocks/Fluids (by content ID) and Special Items (by special item ID and NBT).
+- `remove-record` only removes the tracking record. It does not delete the entity, item, or script from the world.
+- Asset records are scoped per owner, same as sessions.
+
+## GUI alternative
+
+Open the overlay menu and click **Assets** to browse records with category filters and per-entry action buttons. See [tracking assets](/tutorials/tracking-assets) for a walkthrough.
+
+## Common failures
+
+- `Asset not found` -- the asset ID does not match any stored record. Run `list` first.
+- `Cannot teleport to this asset` -- the asset is not an entity or does not have stored location data.
+- `Cannot give this asset` -- the asset has no content ID or special item ID.

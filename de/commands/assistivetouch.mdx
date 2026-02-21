@@ -1,0 +1,33 @@
+---
+title: "assistivetouch"
+description: "Zeige oder verberge den schwebenden Orb für deinen Spieler."
+tag: "NEW"
+---
+
+## Zweck
+
+Zeige oder verberge den AssistiveTouch-Orb, ohne die gesamte GUI abzuschalten.
+
+## Syntax
+
+```bash
+/mineclawd assistivetouch
+```
+
+## Wann du es nutzt
+
+- Du willst den Orb vorübergehend von deinem Bildschirm entfernen.
+- Du öffnest das Overlay lieber über andere Wege (Sessions-, Assets- oder Menübefehle).
+
+## Was passiert
+
+Schaltet die Sichtbarkeit des AssistiveTouch-Orbs für deinen Spieler um. Ein Lauf blendet ihn aus, ein zweiter Lauf blendet ihn wieder ein.
+
+Diese Einstellung speichert MineClawd in `mineclawd/player-settings.json` pro Spieler und überdauert Sessions.
+
+## Verhalten und Limits
+
+- Der Schalter gilt pro Spieler, nicht global.
+- Ist das Overlay schon offen, bleibt es offen, auch wenn du den Orb ausblendest.
+- Der Orb ist nur für Spieler mit OP-Level 2 sichtbar, unabhängig vom Schalter.
+- Standardmäßig ist der Orb sichtbar.

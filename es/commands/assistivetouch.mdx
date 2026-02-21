@@ -1,0 +1,33 @@
+---
+title: "assistivetouch"
+description: "Alterna la visibilidad del orbe flotante para tu jugador."
+tag: "NEW"
+---
+
+## Propósito
+
+Muestra u oculta el orbe flotante AssistiveTouch para tu jugador sin desactivar todo el sistema de GUI.
+
+## Sintaxis
+
+```bash
+/mineclawd assistivetouch
+```
+
+## Cuándo usarlo
+
+- Quieres ocultar temporalmente el orbe de la pantalla.
+- Prefieres abrir la superposición solo desde otros medios (como los comandos de Sesiones o Activos).
+
+## Qué hace
+
+Alterna la visibilidad del orbe AssistiveTouch para tu jugador. Ejecútalo una vez para ocultarlo y otra vez para mostrarlo.
+
+Esta configuración se guarda por jugador en `mineclawd/player-settings.json` y se mantiene entre sesiones.
+
+## Comportamiento y límites
+
+- El ajuste se aplica por jugador, no globalmente.
+- Ocultar el orbe no desactiva la superposición. Si ya está abierta, sigue abierta.
+- Solo los jugadores con nivel OP 2 pueden ver el orbe, independientemente del estado del toggle.
+- El estado predeterminado es visible.

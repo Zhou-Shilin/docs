@@ -1,0 +1,33 @@
+﻿---
+title: "assistivetouch"
+description: "切换浮动球体在玩家端的可见性。"
+tag: "NEW"
+---
+
+## 目的
+
+在不关闭整个 GUI 的情况下显示或隐藏 AssistiveTouch 浮动球体。
+
+## 语法
+
+```bash
+/mineclawd assistivetouch
+```
+
+## 何时使用
+
+- 想临时隐藏屏幕上的球体。
+- 希望通过会话或资产菜单打开覆盖层，而非点击球体。
+
+## 执行内容
+
+切换该玩家的 AssistiveTouch 可见性。运行一次隐藏，再运行一次恢复显示。
+
+该设置存储在 `mineclawd/player-settings.json` 中，并会跨会话保留。
+
+## 行为与限制
+
+- 切换项是按玩家生效的，而非全局。
+- 隐藏球体不会关闭已打开的覆盖层。
+- 只有拥有 OP 级别 2 的玩家才能看到球体。
+- 默认状态为可见（开启）。

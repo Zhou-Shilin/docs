@@ -1,0 +1,51 @@
+---
+title: "assets"
+description: "追跡されたアセットの一覧、テレポート、付与、削除を行う。"
+tag: "NEW"
+---
+
+## 目的
+
+MineClawd が作成したアセット記録を管理します。
+
+## 構文
+
+```bash
+/mineclawd assets list
+/mineclawd assets teleport <asset>
+/mineclawd assets give <asset>
+/mineclawd assets remove-record <asset>
+```
+
+## サブコマンド
+
+| サブコマンド | 内容 |
+| --- | --- |
+| `list` | 現在のオーナーの追跡アセット一覧を表示します。 |
+| `teleport <asset>` | エンティティアセットの保存位置へテレポートします。 |
+| `give <asset>` | アセットに紐づいたアイテムやブロックを自分に付与します。 |
+| `remove-record <asset>` | ワールドには触らずに記録のみ削除します。 |
+
+## 使うタイミング
+
+- `list` で MineClawd が作成済みのすべてを確認します。
+- `teleport` で特定の座標にいたエンティティに移動します。
+- `give` で記録されたアイテムやブロックを取得します。
+- `remove-record` で手動編集後の古い記録を片付けます。
+
+## 動作と制限
+
+- `teleport` は UUID、ディメンション、座標が保存されたエンティティタイプにしか使えません。
+- `give` は Items/Blocks/Fluids（content ID）および Special Items（special item ID と NBT）に対応します。
+- `remove-record` は記録だけを消し、実際のエンティティやアイテムには影響しません。
+- アセット記録はセッションと同様にオーナー単位で管理されます。
+
+## GUI での代替
+
+オーバーレイのメニューから **Assets** を開けば、カテゴリフィルターとアクションボタン付きの一覧から操作できます。詳細は [アセットの追跡](/tutorials/tracking-assets) を参照してください。
+
+## よくある失敗
+
+- `Asset not found` -- 指定した ID が存在しません。先に `list` してください。
+- `Cannot teleport to this asset` -- エンティティ以外または位置情報が欠けています。
+- `Cannot give this asset` -- コンテンツ ID または special item ID がありません。

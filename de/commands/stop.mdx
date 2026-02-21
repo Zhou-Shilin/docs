@@ -1,0 +1,42 @@
+---
+title: "stop"
+description: "Eine aktive MineClawd-Generierung abbrechen."
+tag: "NEW"
+---
+
+## Zweck
+
+Brich die aktuell laufende Anfrage für deine Session ab.
+
+## Syntax
+
+```bash
+/mineclawd stop
+```
+
+## Wann du es nutzt
+
+- Eine Anfrage dauert zu lange und du willst abbrechen.
+- MineClawd hängt in einer Tool-Aufruf-Schleife.
+- Du willst deine Meinung ändern, während eine Generierung noch läuft.
+
+## Was passiert
+
+1. Die aktive Anfrage wird als abgebrochen markiert.
+2. Laufende Netzwerkrequests zum LLM-Anbieter werden gestoppt.
+3. Ausstehende `ask-user-question`-Prompts werden bereinigt.
+4. Die Session wird wieder frei, damit du eine neue Anfrage senden kannst.
+
+## GUI-Alternative
+
+Während eine Anfrage läuft, zeigt die Eingabeleiste des Overlays statt des **Send**-Buttons den **Stop**-Button (Kreis mit Quadrat). Ein Klick hat dieselbe Wirkung wie `/mineclawd stop`.
+
+## Verhalten und Limits
+
+- Gibt es keine aktive Anfrage, passiert nichts.
+- Teilweise gestreamte Antworten bleiben im Session-Verlauf.
+- Die Session bleibt nach dem Abbruch dieselbe.
+
+## Häufige Fehler
+
+- `No active request to cancel` — Es läuft keine Generierung für deine Session.

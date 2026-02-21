@@ -1,0 +1,42 @@
+---
+title: "stop"
+description: "Cancela una generación activa de MineClawd."
+tag: "NEW"
+---
+
+## Propósito
+
+Cancela la solicitud que se está ejecutando actualmente en tu sesión.
+
+## Sintaxis
+
+```bash
+/mineclawd stop
+```
+
+## Cuándo usarlo
+
+- Un pedido tarda demasiado y quieres abortarlo.
+- MineClawd se quedó atascado en un bucle de llamadas de herramienta.
+- Cambiaste de idea sobre la solicitud mientras se generaba.
+
+## Qué hace
+
+1. Marca la solicitud activa como cancelada.
+2. Cancela las peticiones de red en curso hacia el proveedor de LLM.
+3. Limpia cualquier pregunta pendiente de tipo `ask-user-question`.
+4. Libera la sesión para que puedas enviar una nueva solicitud.
+
+## Alternativa en GUI
+
+Mientras se ejecuta una solicitud, la barra de entrada muestra un botón **Stop** (círculo con icono de cuadrado) en lugar del botón **Send**. Hacer clic tiene el mismo efecto que `/mineclawd stop`.
+
+## Comportamiento y límites
+
+- Si no hay una solicitud en curso, no ocurre nada.
+- Las respuestas parciales ya transmitidas antes de la cancelación permanecen en el historial.
+- La sesión sigue siendo la misma tras cancelar.
+
+## Fallos comunes
+
+- `No active request to cancel` — no hay ninguna generación ejecutándose para tu sesión.

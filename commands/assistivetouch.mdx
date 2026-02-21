@@ -1,0 +1,33 @@
+---
+title: "assistivetouch"
+description: "Toggle the floating orb visibility for your player."
+tag: "NEW"
+---
+
+## Purpose
+
+Show or hide the AssistiveTouch floating orb for your player without disabling the entire GUI system.
+
+## Syntax
+
+```bash
+/mineclawd assistivetouch
+```
+
+## When to use it
+
+- You want to temporarily hide the orb from your screen.
+- You prefer to open the overlay only through other means (like the Sessions or Assets menu commands).
+
+## What it does
+
+Toggles the AssistiveTouch orb visibility for your player. Run once to hide, run again to show.
+
+This setting is stored per player in `mineclawd/player-settings.json` and persists across sessions.
+
+## Behavior and limits
+
+- The toggle is per-player, not global.
+- Hiding the orb does not disable the overlay. If the overlay is already open, it stays open.
+- The orb is only visible to players with OP level 2, regardless of this toggle.
+- Default state is visible (enabled).

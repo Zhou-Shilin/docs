@@ -1,0 +1,51 @@
+﻿---
+title: "assets"
+description: "列出、传送、给予或移除已追踪的资产记录。"
+tag: "NEW"
+---
+
+## 目的
+
+管理 MineClawd 在世界中创建内容时记录的资产。
+
+## 语法
+
+```bash
+/mineclawd assets list
+/mineclawd assets teleport <asset>
+/mineclawd assets give <asset>
+/mineclawd assets remove-record <asset>
+```
+
+## 子命令
+
+| 子命令 | 功能 |
+| --- | --- |
+| `list` | 显示当前拥有者所有的追踪资产。 |
+| `teleport <asset>` | 传送到实体资产记录的存储位置。 |
+| `give <asset>` | 将与资产关联的物品或方块给你。 |
+| `remove-record <asset>` | 删除追踪记录，不影响世界内的实体。 |
+
+## 使用时机
+
+- 用 `list` 查看 MineClawd 在各会话中创建的所有记录。
+- 用 `teleport` 找到某个实体的坐标。
+- 用 `give` 获取 MineClawd 注册的物品或方块。
+- 用 `remove-record` 清理手动修改后残留的旧记录。
+
+## 行为与限制
+
+- `teleport` 仅支持具有 UUID、维度与坐标的实体类资产。
+- `give` 支持物品/方块/液体（按内容 ID）和特殊物品（按特殊 ID 与 NBT）。
+- `remove-record` 只删除记录，不会删除实体、物品或脚本。
+- 资产记录按拥有者隔离，与会话范围相同。
+
+## GUI 替代操作
+
+打开覆盖层菜单，点击 **Assets** 可切换到资产视图，并使用分类过滤与操作按钮。详见 [资产跟踪](/tutorials/tracking-assets)。
+
+## 常见失败
+
+- `Asset not found` —— 资产 ID 无法匹配任何记录。请先运行 `list`。
+- `Cannot teleport to this asset` —— 资产不是实体或缺少位置信息。
+- `Cannot give this asset` —— 资产缺少内容 ID 或特殊物品 ID。

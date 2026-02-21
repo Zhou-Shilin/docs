@@ -1,0 +1,51 @@
+---
+title: "assets"
+description: "Lista, teletransporta, da o elimina registros de activos rastreados."
+tag: "NEW"
+---
+
+## Propósito
+
+Gestiona los registros de activos que MineClawd crea al construir cosas en tu mundo.
+
+## Sintaxis
+
+```bash
+/mineclawd assets list
+/mineclawd assets teleport <asset>
+/mineclawd assets give <asset>
+/mineclawd assets remove-record <asset>
+```
+
+## Subcomandos
+
+| Subcomando | Qué hace |
+| --- | --- |
+| `list` | Muestra todos los activos rastreados para el propietario actual. |
+| `teleport <asset>` | Teletransporta al jugador a la ubicación guardada del activo entidad. |
+| `give <asset>` | Te da el objeto o bloque vinculado al activo. |
+| `remove-record <asset>` | Elimina el registro sin tocar el mundo. |
+
+## Cuándo usarlo
+
+- Usa `list` para ver todo lo que MineClawd ha creado entre sesiones.
+- Usa `teleport` para localizar entidades que se invocaron en coordenadas específicas.
+- Usa `give` para obtener objetos o bloques registrados por MineClawd.
+- Usa `remove-record` para limpiar registros obsoletos luego de editar el mundo manualmente.
+
+## Comportamiento y límites
+
+- `teleport` solo funciona con activos de categoría entidad que tienen UUID, dimensión y coordenadas almacenados.
+- `give` funciona para Items/Bloques/Fluidos (por content ID) y Objetos especiales (por special item ID y NBT).
+- `remove-record` solo borra el registro de seguimiento. No elimina la entidad, el objeto o el script del mundo.
+- Los registros de activos están separados por propietario, igual que las sesiones.
+
+## Alternativa en GUI
+
+Abre el menú de la superposición y haz clic en **Assets** para explorar los registros con filtros por categoría y botones de acción. Consulta [Seguimiento de activos](/tutorials/tracking-assets) para la guía completa.
+
+## Fallos comunes
+
+- `Asset not found` — el ID no coincide con ningún registro. Ejecuta `list` primero.
+- `Cannot teleport to this asset` — el activo no es una entidad o no tiene ubicación guardada.
+- `Cannot give this asset` — el activo no tiene content ID ni special item ID.

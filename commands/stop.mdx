@@ -1,0 +1,42 @@
+---
+title: "stop"
+description: "Cancel an active MineClawd generation."
+tag: "NEW"
+---
+
+## Purpose
+
+Cancel the currently running request for your session.
+
+## Syntax
+
+```bash
+/mineclawd stop
+```
+
+## When to use it
+
+- A request is taking too long and you want to abort.
+- MineClawd is stuck in a tool-call loop.
+- You changed your mind about a request mid-generation.
+
+## What it does
+
+1. Marks the active request as cancelled.
+2. Cancels in-flight network requests to the LLM provider.
+3. Cleans up any pending `ask-user-question` prompts.
+4. Frees the session so you can send a new request.
+
+## GUI alternative
+
+While a request is running, the overlay input bar shows a **Stop** button (circle with square icon) in place of the **Send** button. Clicking it has the same effect as running `/mineclawd stop`.
+
+## Behavior and limits
+
+- If no request is running, the command does nothing.
+- Partial responses that streamed before cancellation remain in the session history.
+- The session stays on the same active session after cancellation.
+
+## Common failures
+
+- `No active request to cancel` -- no generation is currently running for your session.

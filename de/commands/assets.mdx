@@ -1,0 +1,51 @@
+---
+title: "assets"
+description: "Getrackte Asset-Einträge auflisten, teleportieren, geben oder entfernen."
+tag: "NEW"
+---
+
+## Zweck
+
+Verwalte die Asset-Einträge, die MineClawd beim Erstellen von Dingen in deiner Welt anlegt.
+
+## Syntax
+
+```bash
+/mineclawd assets list
+/mineclawd assets teleport <asset>
+/mineclawd assets give <asset>
+/mineclawd assets remove-record <asset>
+```
+
+## Unterbefehle
+
+| Unterbefehl | Was er macht |
+| --- | --- |
+| `list` | Zeigt alle getrackten Assets für den aktuellen Owner. |
+| `teleport <asset>` | Teleportiert dich zur gespeicherten Position eines Entity-Asset. |
+| `give <asset>` | Gibt dir den Gegenstand oder Block, der zum Asset gehört. |
+| `remove-record <asset>` | Löscht den Tracking-Eintrag, ohne die Welt zu verändern. |
+
+## Wann du ihn nutzt
+
+- `list`, um zu sehen, was MineClawd über alle Sessions hinweg angelegt hat.
+- `teleport`, um Entitäten an bekannten Koordinaten zu finden.
+- `give`, um dir einen registrierten Block, Gegenstand oder Fluss zu holen.
+- `remove-record`, um nach manuellen Änderungen veraltete Einträge zu reinigen.
+
+## Verhalten und Limits
+
+- `teleport` funktioniert nur für Entity-Assets mit UUID, Dimension und Koordinaten.
+- `give` funktioniert für Items/Blocks/Fluids (über Content-ID) und Special Items (über special item ID + NBT).
+- `remove-record` löscht nur den Tracking-Eintrag, nicht das Item, die Entität oder das Skript.
+- Asset-Einträge gelten pro Owner, genau wie Sessions.
+
+## GUI-Alternative
+
+Öffne das Overlay-Menü und klicke auf **Assets**, um den Inventarblick mit Kategorie-Filter und Aktionsbuttons zu sehen. Sieh dir [Assets verfolgen](/tutorials/tracking-assets) für eine vollständige Anleitung an.
+
+## Häufige Fehler
+
+- `Asset not found` — Die Asset-ID passt zu keinem gespeicherten Eintrag. Führe zuerst `list` aus.
+- `Cannot teleport to this asset` — Das Asset ist keine Entität oder hat keine Positionsdaten.
+- `Cannot give this asset` — Dem Asset fehlt eine Content-ID oder special item ID.

@@ -1,34 +1,37 @@
----
-title: "命令总览"
-description: "MineClawd 所有玩家命令的导航图。"
+﻿---
+title: "命令概览"
+description: "MineClawd 所有玩家命令的地图。"
 ---
 
 ## 全局规则
 
-- 每个 MineClawd 命令都需要 OP 权限等级 2。
-- 命令根路径是 `/mineclawd`。
-- `prompt` 的快捷别名是 `/mclawd <request>`。
-- 会话引用既支持 session id（`1a2b`），也支持 token（`1a2b-new-session`）。
+- 所有 MineClawd 命令都需要 OP 级别 2。
+- 命令根为 `/mineclawd`。
+- 快捷前缀是 `/mclawd <请求>`。
+- 会话引用可以使用会话 id（例如 `1a2b`）或令牌（例如 `1a2b-new-session`）。
 
 ## 命令列表
 
-| 命令 | 用途 | 参考 |
+| 命令 | 目的 | 参考 |
 | --- | --- | --- |
-| `/mineclawd prompt <request>` | 向 MineClawd 发送请求。 | [/commands/prompt](/commands/prompt) |
-| `/mclawd <request>` | `prompt` 的短别名。 | [/commands/prompt](/commands/prompt) |
-| `/mineclawd config ...` | 打开、读取或更新设置。 | [/commands/config](/commands/config) |
+| `/mineclawd prompt <请求>` | 发送请求给 MineClawd。 | [/commands/prompt](/commands/prompt) |
+| `/mclawd <请求>` | `/mineclawd prompt` 的快捷别名。 | [/commands/prompt](/commands/prompt) |
+| `/mineclawd config ...` | 打开、查看或更新设置。 | [/commands/config](/commands/config) |
 | `/mineclawd sessions new` | 创建并切换到新会话。 | [/commands/sessions-new](/commands/sessions-new) |
-| `/mineclawd sessions list` | 显示所有已保存会话。 | [/commands/sessions-list](/commands/sessions-list) |
-| `/mineclawd sessions resume <session>` | 切换当前活动会话。 | [/commands/sessions-resume](/commands/sessions-resume) |
-| `/mineclawd sessions remove <session>` | 删除一个会话。 | [/commands/sessions-remove](/commands/sessions-remove) |
-| `/mineclawd sessions repair [session]` | 修复 Vertex 历史中的畸形轮次。 | [/commands/sessions-repair](/commands/sessions-repair) |
-| `/mineclawd history` | 打开当前会话历史的书本 UI。 | [/commands/history](/commands/history) |
-| `/mineclawd retry <token>` | 重试最近一次失败请求。 | [/commands/retry](/commands/retry) |
-| `/mineclawd persona [soul]` | 查看或切换当前 soul 人格。 | [/commands/persona](/commands/persona) |
-| `/mineclawd choose [option]` | 回答待处理的澄清问题。 | [/commands/choose](/commands/choose) |
-| `/mineclawd new` | `sessions new` 的别名。 | [/commands/new](/commands/new) |
+| `/mineclawd sessions list` | 显示所有保存的会话。 | [/commands/sessions-list](/commands/sessions-list) |
+| `/mineclawd sessions resume <会话>` | 切换活动会话。 | [/commands/sessions-resume](/commands/sessions-resume) |
+| `/mineclawd sessions remove <会话>` | 删除会话。 | [/commands/sessions-remove](/commands/sessions-remove) |
+| `/mineclawd sessions repair [会话]` | 修复损坏的 Vertex 历史。 | [/commands/sessions-repair](/commands/sessions-repair) |
+| `/mineclawd history` | 打开当前会话的历史书 UI。 | [/commands/history](/commands/history) |
+| `/mineclawd retry <令牌>` | 重试上一个失败请求。 | [/commands/retry](/commands/retry) |
+| `/mineclawd persona [soul]` | 显示或切换当前 soul 角色。 | [/commands/persona](/commands/persona) |
+| `/mineclawd choose [选项]` | 回答待办澄清问题。 | [/commands/choose](/commands/choose) |
+| `/mineclawd new` | `/sessions new` 的别名。 | [/commands/new](/commands/new) |
+| `/mineclawd stop` | 取消正在生成的内容。 | [/commands/stop](/commands/stop) |
+| `/mineclawd assets ...` | 列出、传送、给予或移除资产记录。 | [/commands/assets](/commands/assets) |
+| `/mineclawd assistivetouch` | 切换浮动球体的可见性。 | [/commands/assistivetouch](/commands/assistivetouch) |
 
 ## 相关页面
 
-- 完整安装流程请从 [/quickstart](/quickstart) 开始。
-- 完整逐项配置请查看 [/configuration/complete-config](/configuration/complete-config)。
+- 若要完成设置，请先阅读 [/quickstart](/quickstart)。
+- 若要查看详细键位设置，请参阅 [/configuration/complete-config](/configuration/complete-config)。

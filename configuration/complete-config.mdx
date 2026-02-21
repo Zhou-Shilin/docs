@@ -32,7 +32,10 @@ This page gives you the full MineClawd configuration model, including file setti
   limitToolCalls: false,
   toolCallLimit: 16,
   systemPrompt: "",
-  dynamicRegistryMode: "AUTO"
+  dynamicRegistryMode: "AUTO",
+
+  // Client-only (not in server config file)
+  enableGui: true
 }
 ```
 
@@ -60,15 +63,27 @@ In command form, values are lowercase (`openai`, `vertex-ai`, `auto`, `enabled`,
 | `toolCallLimit` | `tool-call-limit` | integer | `16` | Allowed range is `1` to `20`. |
 | `systemPrompt` | `system-prompt` | string | empty | Empty means built-in system prompt. Use value `default` in command mode to reset. |
 | `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Controls dynamic placeholder runtime mode. Restart required after change. |
+| `enableGui` | -- | boolean | `true` | Client-only. Show or hide the overlay GUI. Set through **Mod Menu** -> **MineClawd** -> **Configure**. |
 
-## Per-player setting
+## Per-player settings
 
-`broadcast-requests-to` is command-only and per-player.
+### broadcast-requests-to
+
+Command-only, per-player.
 
 - Command key: `broadcast-requests-to`
 - Allowed values: `self`, `all`, `ops`
 - Stored in: `mineclawd/player-settings.json`
 - Purpose: controls who sees prompt echo and task start or finish lines.
+
+### assistivetouch
+
+Toggle-only, per-player.
+
+- Command: `/mineclawd assistivetouch`
+- Stored in: `mineclawd/player-settings.json`
+- Default: enabled (visible)
+- Purpose: show or hide the floating AssistiveTouch orb without disabling the full GUI.
 
 ## Dynamic registry mode behavior
 
@@ -106,5 +121,10 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 
 - In game: **Mod Menu** -> **MineClawd** -> **Configure**
 - Command fallback: `/mineclawd config ...`
+- Overlay menu: click the hamburger icon -> **Config**
 
 If client GUI open fails, configure through command keys.
+
+<Info>
+The `enableGui` setting controls the overlay window. Setting it to OFF does not affect the YACL config screen -- you can still open config through **Mod Menu** or `/mineclawd config`.
+</Info>

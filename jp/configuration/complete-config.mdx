@@ -1,15 +1,15 @@
-﻿---
+---
 title: "完全な設定"
 description: "デフォルト値、コマンドキー、動作メモを含む MineClawd 設定の完全リファレンス。"
 ---
 
 ## 目的
 
-このページでは、ファイル設定、コマンドキー、再起動時の挙動を含む MineClawd の完全な設定モデルを説明します。
+このページは、MineClawd の設定ファイル、コマンドキー、再起動後の挙動を一望できるようにしています。
 
 ## 設定の保存場所
 
-- グローバル設定ファイル: `config/mineclawd.json5`
+- グローバル設定: `config/mineclawd.json5`
 - プレイヤーごとのチャット可視性: `mineclawd/player-settings.json`
 - Soul ファイルとアクティブ soul 状態: `mineclawd/souls/` と `mineclawd/souls/.active/`
 
@@ -32,67 +32,76 @@ description: "デフォルト値、コマンドキー、動作メモを含む Mi
   limitToolCalls: false,
   toolCallLimit: 16,
   systemPrompt: "",
-  dynamicRegistryMode: "AUTO"
+  dynamicRegistryMode: "AUTO",
+
+  // クライアント専用
+  enableGui: true
 }
 ```
 
 <Info>
-ファイル形式では列挙値は大文字です（`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`）。
-
-コマンド形式では値は小文字です（`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`）。
+ファイル形式の列挙値は大文字（`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`）です。コマンド形式では小文字（`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`）を使ってください。
 </Info>
 
 ## キーリファレンス
 
 | ファイルキー | コマンドキー | 型 | デフォルト | メモ |
 | --- | --- | --- | --- | --- |
-| `provider` | `provider` | enum | `OPENAI` | プロバイダー選択: OpenAI 互換または Vertex AI。 |
-| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI 互換のベース URL。末尾スラッシュは不要です。 |
-| `apiKey` | `api-key` | string | empty | OpenAI API キー。 |
+| `provider` | `provider` | enum | `OPENAI` | OpenAI 互換または Vertex AI を選びます。 |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI 互換のベース URL です。末尾スラッシュは不要です。 |
+| `apiKey` | `api-key` | string | empty | OpenAI 互換プロバイダーの API キー。 |
 | `model` | `model` | string | `gpt-4o-mini` | OpenAI チャットモデル。 |
-| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | 初回ターンのセッションタイトル生成に使う OpenAI モデル。 |
-| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API ベース URL。 |
-| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API キー。 |
-| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex モデルパスまたはモデル名。 |
-| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | セッションタイトル用の Vertex 要約モデル。 |
-| `debugMode` | `debug-mode` | boolean | `false` | 詳細なリクエストとツール動作をログ出力します。 |
-| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | リクエスト単位のツールループ上限を有効化します。 |
+| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | セッションタイトル生成用の OpenAI モデル。 |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex AI のベース URL。 |
+| `vertexApiKey` | `vertex-api-key` | string | empty | Vertex AI の API キー。 |
+| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex モデル名またはパス。 |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | セッションタイトル生成用 Vertex モデル。 |
+| `debugMode` | `debug-mode` | boolean | `false` | 詳細なリクエストとツールのログを出します。 |
+| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | リクエストごとのツールループ上限を有効化します。 |
 | `toolCallLimit` | `tool-call-limit` | integer | `16` | 許容範囲は `1` から `20` です。 |
-| `systemPrompt` | `system-prompt` | string | empty | 空文字は内蔵システムプロンプトを意味します。コマンドモードで `default` を指定するとリセットします。 |
-| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | 動的プレースホルダー実行モードを制御します。変更後は再起動が必要です。 |
+| `systemPrompt` | `system-prompt` | string | empty | 空文字で内蔵プロンプト、`default` でコマンドからリセットします。 |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | 動的プレースホルダーの動作を制御します。変更後は再起動が必要です。 |
+| `enableGui` | -- | boolean | `true` | クライアント専用。オーバーレイ GUI の表示/非表示を切り替えます。 |
 
 ## プレイヤーごとの設定
 
-`broadcast-requests-to` はコマンド専用で、プレイヤーごとに保持されます。
+### `broadcast-requests-to`
 
 - コマンドキー: `broadcast-requests-to`
 - 許可値: `self`, `all`, `ops`
 - 保存先: `mineclawd/player-settings.json`
-- 目的: プロンプトのエコーとタスク開始/終了行を誰が見られるかを制御します。
+- 目的: リクエストのエコーとタスク通知を誰に見せるかを決めます。
+
+### `assistivetouch`
+
+- コマンド: `/mineclawd assistivetouch`
+- 保存先: `mineclawd/player-settings.json`
+- デフォルト: ON（オーブ表示）
+- 目的: Assistive Touch オーブの表示をトグルし、オーバーレイを閉じずに画面上の存在感を切り替えます。
 
 ## Dynamic registry mode の挙動
 
-- `AUTO`: クライアント実行時（シングルプレイ）では有効、専用サーバーでは無効。
-- `ENABLED`: すべての実行環境で強制有効。
-- `DISABLED`: 完全に無効。
+- `AUTO`: シングルプレイ/クライアント時に有効化、専用サーバーでは無効化。
+- `ENABLED`: すべての環境で強制有効化。
+- `DISABLED`: ランタイムで完全に無効化。
 
 <Warning>
-専用サーバーで `ENABLED` を強制した場合、参加クライアントにも MineClawd の導入が必要です。
+専用サーバーで `ENABLED` を強制する場合は、すべてのクライアントにも MineClawd を導入してください。
 </Warning>
 
 ## 推奨ベースライン
 
-### 初回 OpenAI セットアップ向けベースライン
+### 初回 OpenAI セットアップ
 
 ```bash
 /mineclawd config provider openai
-/mineclawd config endpoint https://api.openai.com/v1
+/mineclawd config endpoint https://api.openrouter.ai/api/v1
 /mineclawd config api-key <your-key>
 /mineclawd config model gpt-4o-mini
 /mineclawd config summarize-model gpt-4o-mini
 ```
 
-### 初回 Vertex セットアップ向けベースライン
+### 初回 Vertex セットアップ
 
 ```bash
 /mineclawd config provider vertex-ai
@@ -105,6 +114,8 @@ description: "デフォルト値、コマンドキー、動作メモを含む Mi
 ## GUI パス
 
 - ゲーム内: **Mod Menu** -> **MineClawd** -> **Configure**
-- コマンド代替: `/mineclawd config ...`
+- コマンド: `/mineclawd config ...`
 
-クライアントで GUI オープンに失敗する場合は、コマンドキー経由で設定してください。
+<Info>
+`enableGui` を OFF にしても **Mod Menu** や `/mineclawd config` での設定は使えます。オーバーレイの表示だけが切り替わるので、必要ならコマンドキーで同じ設定を続けてください。
+</Info>

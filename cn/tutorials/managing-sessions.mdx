@@ -1,61 +1,61 @@
----
+﻿---
 title: "管理会话"
-description: "进阶会话工作流、历史回看、存储布局与故障恢复手册。"
+description: "高级会话工作流、历史回顾、存储结构与恢复流程。"
 ---
 
-## 为什么会话纪律很重要
+## 为什么要维护会话纪律
 
-会话是 MineClawd 的长期记忆。清晰的会话工作流会带来更好的回答、更少的上下文错误，以及更快的故障恢复速度。
+会话是 MineClawd 的长期记忆。清晰的会话流程能提升答案准确度、减少上下文错误，并在出现故障时快速恢复。
 
-## 会话如何隔离
+## 会话的作用域
 
-- 会话按 owner key 隔离。
-- 玩家命令使用玩家 UUID 作为 owner key。
-- 控制台命令使用命令来源名称作为 owner key。
-- 每个 owner 都有一个活动会话指针。
+- 会话按拥有者密钥隔离。
+- 玩家命令使用玩家 UUID 作为拥有者密钥。
+- 控制台命令使用命令来源名称。
+- 每个拥有者仅保存一个活动会话指针。
 - 所有会话命令都需要 OP 权限等级 `2`。
 
-## 日常命令工作流
+## 每日命令工作流
 
-| 目标 | 命令 |
-| --- | --- |
-| 开始一个干净上下文 | `/mineclawd sessions new` |
-| 查看全部已保存会话 | `/mineclawd sessions list` |
-| 切换活动上下文 | `/mineclawd sessions resume <session>` |
-| 删除陈旧上下文 | `/mineclawd sessions remove <session>` |
-| 阅读当前聊天历史 | `/mineclawd history` |
-| 修复 Vertex 畸形轮次 | `/mineclawd sessions repair [session]` |
+| 目标 | 命令 | GUI 替代 |
+| --- | --- | --- |
+| 开始一个干净上下文 | `/mineclawd sessions new` | 在 Sessions 视图中点击 **New Session** |
+| 查看所有保存会话 | `/mineclawd sessions list` | 在覆盖层菜单打开 **Sessions** |
+| 切换活动上下文 | `/mineclawd sessions resume <会话>` | 点击 Sessions 视图中的任意行 |
+| 删除过时会话 | `/mineclawd sessions remove <会话>` | -- |
+| 查看当前聊天历史 | `/mineclawd history` | 在覆盖层滚动对话记录 |
+| 修复损坏的 Vertex 轮次 | `/mineclawd sessions repair [会话]` | -- |
 
-`<session>` 既可以是 `1a2b` 这样的短 id，也可以是 `1a2b-my-build-plan` 这样的 token。
+`<会话>` 可以是类似 `1a2b` 的短 ID，也可以是 `1a2b-my-build-plan` 这样的令牌。
 
 <Tip>
-在笔记、脚本和运行手册中优先使用短 session id。id 更稳定。MineClawd 生成更好标题后，token 的标题部分可能变化。
+优先使用短 ID（如 `1a2b`）记录笔记、脚本与运行手册。ID 较稳定，而令牌的标题部分可能会在 MineClawd 生成更好标题时改变。
 </Tip>
 
 ## 长任务最佳实践
 
-1. 一个目标用一个会话，不要把所有事情塞进同一个会话。
-2. 通过新建会话重置上下文，不要无限拖长旧历史。
-3. 在 `resume`、`remove` 或 `repair` 前先运行 `/mineclawd sessions list`。
-4. 请求仍在运行时避免修改会话状态。
-5. 执行破坏性操作前先用 `/mineclawd history` 回看上下文。
+1. 每个目标开启一个会话，而非一个会话处理所有任务。
+2. 想要重命名上下文时，用新会话替代旧历史，避免无限拖动旧记录。
+3. 在运行 `resume`、`remove` 或 `repair` 前先执行 `/mineclawd sessions list`。
+4. 不要在请求仍在运行时修改会话。
+5. 在执行破坏性任务前，先用 `/mineclawd history` 回顾上下文。
 
-## 正确使用 `/mineclawd history`
+## 高效使用 `/mineclawd history`
 
-- 历史书本会显示 session token、更新时间和可见聊天轮次。
-- 该命令仅对玩家可用，不支持控制台。
-- 历史书本 UI 需要客户端安装 MineClawd。
-- 历史过长会按 Minecraft 书本页数上限截断。
+- 历史书显示会话令牌、更新时间与可见的对话轮次。
+- 该命令仅对玩家有效，控制台无法使用。
+- 历史书 UI 需要客户端安装 MineClawd。
+- 超长历史会因为 Minecraft 书页面限制而截断。
 
-如果客户端没有安装 MineClawd，请用 `sessions list` 加最近聊天日志作为兜底上下文检查。
+如果客户端未安装 MineClawd，可用 `sessions list` 配合最近的聊天日志作为备用上下文检查方式。
 
-## 故障恢复手册
+## 恢复操作流程
 
-### 请求失败但应保留上下文
+### 请求失败但要保留上下文
 
-使用最新失败消息里的 `/mineclawd retry <token>`。retry token 会在 30 分钟后过期。
+使用最新失败提示中的 `/mineclawd retry <令牌>`。重试令牌有效期 30 分钟。
 
-### Vertex function-call 不匹配错误
+### Vertex 函数调用不匹配错误
 
 运行：
 
@@ -63,17 +63,17 @@ description: "进阶会话工作流、历史回看、存储布局与故障恢复
 /mineclawd sessions repair
 ```
 
-也可以指定某个会话：
+或指定会话：
 
 ```bash
-/mineclawd sessions repair <session>
+/mineclawd sessions repair <会话>
 ```
 
-`repair` 会规范化畸形的 Vertex function-call 轮次，并保存修复后的会话。
+`repair` 会规范化损坏的 Vertex 函数调用轮次并保存修复后的会话。
 
 ## 会话文件位置
 
-MineClawd 会在游戏目录下保存会话：
+MineClawd 在游戏目录下保存：
 
 ```text
 mineclawd/
@@ -83,19 +83,20 @@ mineclawd/
       <id>.json
 ```
 
-- `active.json` 存储活动会话 id。
-- `<id>.json` 存储元数据与两个 provider 的历史（`openAiHistory`, `vertexHistory`）。
-- 如果删除活动会话，MineClawd 会自动选择剩余会话中最近更新的一个。若没有剩余会话，则清空活动会话。
+- `active.json` 保存活动会话 id。
+- `<id>.json` 存储元数据及 OpenAI 与 Vertex 历史。
+- 如果删除活动会话，MineClawd 会自动选取最近更新的会话作为新活动；如果没有剩余会话，活动指针会清空。
 
 ## 备份与清理策略
 
-1. 大规模清理前先备份 `mineclawd/sessions/`。
-2. 用 `/mineclawd sessions remove <session>` 删除陈旧会话。
-3. 每位操作员保留一个已验证可用会话，便于快速回滚。
-4. 需要查看存储内部细节时，参考 `/resources/technical-details`。
+1. 批量清理前备份 `mineclawd/sessions/`。
+2. 使用 `/mineclawd sessions remove <会话>` 删除过时会话。
+3. 每位运营者保留一个可快速恢复的稳定会话。
+4. 需要查看存储内部时参考 `/resources/technical-details`。
 
 ## 相关页面
 
+- [使用 GUI](/tutorials/using-the-gui)
 - [/commands/sessions-list](/commands/sessions-list)
 - [/commands/sessions-resume](/commands/sessions-resume)
 - [/commands/sessions-repair](/commands/sessions-repair)

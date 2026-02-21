@@ -1,11 +1,11 @@
 ---
 title: "Gestionar sesiones"
-description: "Flujo avanzado de sesiones, revisión de historial, estructura de almacenamiento y guía de recuperación."
+description: "Flujo avanzado de sesiones, historia, estructura de almacenamiento y guía de recuperación."
 ---
 
 ## Por qué importa la disciplina de sesiones
 
-Las sesiones son la memoria a largo plazo de MineClawd. Un flujo limpio de sesiones te da mejores respuestas, menos errores de contexto y recuperación más rápida cuando algo falla.
+Las sesiones son la memoria a largo plazo de MineClawd. Un flujo limpio de sesiones te da mejores respuestas, menos errores de contexto y una recuperación más rápida cuando algo falla.
 
 ## Cómo se delimitan las sesiones
 
@@ -17,14 +17,14 @@ Las sesiones son la memoria a largo plazo de MineClawd. Un flujo limpio de sesio
 
 ## Flujo diario de comandos
 
-| Objetivo | Comando |
-| --- | --- |
-| Empezar con contexto limpio | `/mineclawd sessions new` |
-| Ver todas las sesiones guardadas | `/mineclawd sessions list` |
-| Cambiar el contexto activo | `/mineclawd sessions resume <session>` |
-| Eliminar contexto obsoleto | `/mineclawd sessions remove <session>` |
-| Leer el historial actual del chat | `/mineclawd history` |
-| Reparar turnos de Vertex mal formados | `/mineclawd sessions repair [session]` |
+| Objetivo | Comando | Alternativa en GUI |
+| --- | --- | --- |
+| Empezar con contexto limpio | `/mineclawd sessions new` | Haz clic en **New Session** en la vista de sesiones |
+| Ver todas las sesiones guardadas | `/mineclawd sessions list` | Abre **Sessions** desde el menú de la superposición |
+| Cambiar el contexto activo | `/mineclawd sessions resume <session>` | Haz clic en una fila de sesión en la vista de sesiones |
+| Eliminar contexto obsoleto | `/mineclawd sessions remove <session>` | -- |
+| Leer el historial actual del chat | `/mineclawd history` | Desplázate por la conversación de la superposición |
+| Reparar turnos de Vertex mal formados | `/mineclawd sessions repair [session]` | -- |
 
 `<session>` acepta un id corto como `1a2b` o un token como `1a2b-my-build-plan`.
 
@@ -35,19 +35,19 @@ Prefiere el id corto de sesión para notas, scripts y runbooks. El id es estable
 ## Mejores prácticas para tareas largas
 
 1. Usa una sesión por objetivo, no una sesión para todo.
-2. Renueva el contexto iniciando sesiones nuevas en lugar de arrastrar historial viejo para siempre.
+2. Renueva el contexto iniciando sesiones nuevas en lugar de arrastrar historial viejo.
 3. Ejecuta `/mineclawd sessions list` antes de `resume`, `remove` o `repair`.
 4. Evita modificar sesiones mientras una solicitud sigue en ejecución.
 5. Revisa el contexto con `/mineclawd history` antes de tareas destructivas.
 
 ## Cómo usar bien `/mineclawd history`
 
-- El libro de historial muestra token de sesión, hora de actualización y turnos visibles de chat.
+- El libro de historial muestra token de sesión, hora de actualización y los turnos visibles del chat.
 - El comando solo funciona para jugadores, no para consola.
-- La interfaz de libro de historial requiere MineClawd en el cliente.
-- El historial muy largo se recorta a los límites de páginas del libro de Minecraft.
+- La interfaz del libro requiere MineClawd en el cliente.
+- Los historiales muy largos se recortan a los límites de páginas del libro de Minecraft.
 
-Si tu cliente no tiene MineClawd instalado, usa `sessions list` junto con logs recientes de chat como verificación de contexto alternativa.
+Si tu cliente no tiene MineClawd, usa `sessions list` y logs recientes de chat como verificación alternativa de contexto.
 
 ## Guía de recuperación
 
@@ -55,7 +55,7 @@ Si tu cliente no tiene MineClawd instalado, usa `sessions list` junto con logs r
 
 Usa `/mineclawd retry <token>` desde el último mensaje de fallo. Los tokens de reintento vencen después de 30 minutos.
 
-### Errores de desajuste en function-call de Vertex
+### Errores de desajuste de function-call de Vertex
 
 Ejecuta:
 
@@ -69,7 +69,7 @@ O apunta a una sesión específica:
 /mineclawd sessions repair <session>
 ```
 
-`repair` normaliza turnos de function-call de Vertex mal formados y guarda la sesión corregida.
+`repair` normaliza turnos mal formados de Vertex y guarda la sesión corregida.
 
 ## Ubicación de archivos de sesión
 
@@ -83,19 +83,20 @@ mineclawd/
       <id>.json
 ```
 
-- `active.json` guarda el id de sesión activa.
-- `<id>.json` guarda metadatos y ambos historiales de proveedor (`openAiHistory`, `vertexHistory`).
-- Si eliminas la sesión activa, MineClawd selecciona automáticamente la sesión restante más recientemente actualizada. Si no queda ninguna, se limpia la sesión activa.
+- `active.json` almacena el id de sesión activa.
+- `<id>.json` contiene metadatos y los historiales de ambos proveedores (`openAiHistory`, `vertexHistory`).
+- Si eliminas la sesión activa, MineClawd selecciona automáticamente la sesión restante más reciente. Si no queda ninguna, se limpia la sesión activa.
 
 ## Estrategia de respaldo y limpieza
 
-1. Haz respaldo de `mineclawd/sessions/` antes de una limpieza masiva.
+1. Haz copia de seguridad de `mineclawd/sessions/` antes de hacer limpiezas masivas.
 2. Elimina sesiones obsoletas con `/mineclawd sessions remove <session>`.
-3. Conserva una sesión conocida como estable por operador para rollback rápido.
-4. Usa `/resources/technical-details` cuando necesites inspeccionar internals de almacenamiento.
+3. Mantén una sesión conocida como estable por operador para rollback rápido.
+4. Usa `/resources/technical-details` cuando necesites inspeccionar los internals de almacenamiento.
 
 ## Páginas relacionadas
 
+- [Uso de la GUI](/tutorials/using-the-gui)
 - [/commands/sessions-list](/commands/sessions-list)
 - [/commands/sessions-resume](/commands/sessions-resume)
 - [/commands/sessions-repair](/commands/sessions-repair)

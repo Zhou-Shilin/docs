@@ -5,13 +5,13 @@ description: "Architecture, storage, limits, and runtime internals for MineClawd
 
 ## Request lifecycle
 
-1. You run `/mclawd ...` or `/mineclawd prompt ...`.
+1. You run `/mclawd ...`, `/mineclawd prompt ...`, or type a request in the overlay input bar.
 2. MineClawd validates provider config and OP access.
 3. MineClawd loads or creates active session state.
-4. MineClawd sends request to OpenAI-compatible or Vertex endpoint.
-5. Model responses can trigger tool calls.
-6. Tool results are fed back into the model loop.
-7. Final assistant output is rendered to chat and session history is saved.
+4. MineClawd sends a streaming request to the OpenAI-compatible or Vertex endpoint.
+5. Stream deltas are sent to the client in real time via the `AGENT_STREAM_EVENT` channel. The overlay renders each delta with a blinking cursor.
+6. Model responses can trigger tool calls. Tool results are fed back into the model loop.
+7. Final assistant output is rendered to chat (and the overlay) and session history is saved.
 
 ## Runtime tool families
 
@@ -27,6 +27,10 @@ description: "Architecture, storage, limits, and runtime internals for MineClawd
   - `sync-command-tree`
 - Clarification:
   - `ask-user-question`
+- Asset tracking:
+  - `list-assets`
+  - `upsert-asset-record`
+  - `remove-asset-record`
 - Dynamic placeholders (only when enabled):
   - `list-dynamic-content`
   - `register-dynamic-item`
@@ -49,6 +53,8 @@ gameDir/
       <owner>/
         active.json
         <id>.json
+    assets/
+      <owner>.json
     souls/
       default.md
       yuki.md
@@ -75,6 +81,22 @@ gameDir/
 - Vertex request path: `<endpoint>/<model>:generateContent?key=<api_key>`
 - Both paths use 60-second request timeout.
 - Both paths support function-style tool calling.
+- Both paths support streaming. Stream deltas are forwarded to the client via the `AGENT_STREAM_EVENT` network channel.
+
+## Streaming architecture
+
+Stream events use the `AGENT_STREAM_EVENT` channel with a request ID, event type byte, and payload string.
+
+| Event type | Byte | Payload |
+| --- | --- | --- |
+| `START` | `0` | JSON with `sessionId` and `request` text |
+| `DELTA` | `1` | Text fragment from the LLM |
+| `DONE` | `2` | Empty |
+| `ERROR` | `3` | Error message string |
+
+The overlay receives these events and renders deltas incrementally. A blinking cursor follows the latest text until `DONE` or `ERROR` arrives.
+
+Active requests are tracked server-side in `ACTIVE_REQUESTS` and `ACTIVE_NETWORK_REQUESTS` maps. The `/mineclawd stop` command marks the request ID in `CANCELLED_REQUEST_IDS` and cancels in-flight HTTP connections.
 
 ## Dynamic placeholder internals
 
@@ -91,12 +113,31 @@ gameDir/
 
 MineClawd defines these packet identifiers:
 
+- `mineclawd:client_ready`
+- `mineclawd:client_gui_pref`
 - `mineclawd:open_config`
 - `mineclawd:sync_broadcast_target`
+- `mineclawd:sync_assistive_touch`
 - `mineclawd:sync_dynamic_content`
 - `mineclawd:open_question`
 - `mineclawd:question_response`
+- `mineclawd:open_sessions`
+- `mineclawd:open_assets`
 - `mineclawd:open_history_book`
+- `mineclawd:agent_stream_event`
+
+## Asset tracking internals
+
+Asset records are stored per owner in `mineclawd/assets/<owner>.json`. Each record contains:
+
+- `id` -- unique identifier
+- `category` -- one of `ENTITIES`, `ITEMS_BLOCKS_FLUIDS`, `SPECIAL_ITEMS`, `COMMANDS`, `GAME_MECHANICS`
+- `name`, `summary`, `scriptPath`, `details`
+- Category-specific fields: `contentId`, `specialItemId`, `specialItemNbt`, `command`, `entityUuid`, `entityDimension`, `entityX`, `entityY`, `entityZ`
+- `sessionId` -- the session that created the asset
+- `createdAt`, `updatedAt` -- timestamps
+
+The system prompt includes an asset tracking appendix so the LLM automatically catalogs creations through `upsert-asset-record` tool calls.
 
 ## Limits and timers
 
@@ -111,6 +152,8 @@ MineClawd defines these packet identifiers:
 | Rate-limit retry count | `2` retries |
 | Rate-limit retry backoff | `1500ms * retry_index` |
 | History max entries for book build | `300` |
+| Overlay input bar max length | `600` characters |
+| Asset categories | `5` |
 
 ## Security model
 

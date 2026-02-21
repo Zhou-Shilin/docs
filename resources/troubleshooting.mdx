@@ -86,6 +86,35 @@ If MineClawd fails, find the closest symptom below and apply that fix first.
     For LLM provider: type `o` for OpenAI or `g` for Google Vertex AI.
     For Broadcast Requests To: type `on` for only-me, `a` for all, or `op` for ops.
   </Accordion>
+
+  <Accordion title="The overlay orb does not appear">
+    The AssistiveTouch orb requires:
+
+    - MineClawd installed on the client.
+    - OP permission level 2.
+    - **Enable GUI** set to ON in config (**Mod Menu** -> **MineClawd** -> **Configure**).
+    - AssistiveTouch not toggled off (`/mineclawd assistivetouch` to re-enable).
+
+    Check each of these. If the orb still does not appear, enable debug mode and check logs.
+  </Accordion>
+
+  <Accordion title="Typing in the overlay leaks into chat or inventory">
+    This was fixed in v1.4.0. Make sure you are running MineClawd 1.4.0 or later.
+
+    If the issue persists, it may be a mod conflict. Test with only MineClawd and its dependencies installed.
+  </Accordion>
+
+  <Accordion title="Stop button or /mineclawd stop does not cancel the request">
+    Stop sends a cancellation signal to the active request. If the LLM provider has already finished processing but the response is still being delivered, stop may not take effect immediately.
+
+    If the session remains locked after stopping, try creating a new session with `/mineclawd sessions new`.
+  </Accordion>
+
+  <Accordion title="Asset teleport says the entity cannot be found">
+    The entity may have been killed, despawned, or unloaded. Asset records store the last known location at creation time and do not track entity movement.
+
+    Teleport works only for entity-category assets with a stored UUID and dimension.
+  </Accordion>
 </AccordionGroup>
 
 

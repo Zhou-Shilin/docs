@@ -1,79 +1,77 @@
-﻿---
+---
 title: "セッション管理"
-description: "高度なセッション運用、履歴確認、ストレージ構成、復旧プレイブック。"
+description: "上級セッション運用、履歴確認、ストレージ構成、復旧手順のガイド。"
 ---
 
-## セッション運用が重要な理由
+## セッション運用を徹底する理由
 
-セッションは MineClawd の長期記憶です。整理されたセッション運用を行うと、応答品質が上がり、文脈ミスが減り、障害時の復旧も速くなります。
+セッションは MineClawd の長期的な記憶です。整ったセッションフローがあれば、回答の精度が上がり、文脈の誤りが減り、障害からの復旧が素早くなります。
 
-## セッションのスコープ
+## セッションのスコーピング
 
-- セッションは owner key ごとに分離されます。
-- プレイヤーコマンドはプレイヤー UUID を owner key として使います。
-- コンソールコマンドはコマンドソース名を owner key として使います。
-- 各 owner は 1 つのアクティブセッションポインタを持ちます。
-- すべてのセッションコマンドに OP 権限レベル `2` が必要です。
+- セッションはオーナーごとに分離されます。
+- プレイヤーコマンドはプレイヤーの UUID をオーナーキーに使います。
+- コンソールコマンドはコマンドソース名をオーナーキーに使います。
+- 各オーナーにアクティブなセッションポインタが一つだけあります。
+- すべてのセッションコマンドは OP 権限レベル `2` を要求します。
 
-## 日常のコマンド運用フロー
+## 毎日のコマンドワークフロー
 
-| 目的 | コマンド |
-| --- | --- |
-| 新しい文脈で開始 | `/mineclawd sessions new` |
-| 保存済みセッションを確認 | `/mineclawd sessions list` |
-| アクティブ文脈を切り替え | `/mineclawd sessions resume <session>` |
-| 古い文脈を削除 | `/mineclawd sessions remove <session>` |
-| 現在のチャット履歴を読む | `/mineclawd history` |
-| 破損した Vertex ターンを修復 | `/mineclawd sessions repair [session]` |
+| 目的 | コマンド | GUI での操作 |
+| --- | --- | --- |
+| クリーンな文脈を始める | `/mineclawd sessions new` | セッションビューで **New Session** をクリック |
+| 保存済みセッションを確認する | `/mineclawd sessions list` | オーバーレイメニューの **Sessions** を開く |
+| アクティブセッションを切り替える | `/mineclawd sessions resume <session>` | セッション一覧の行をクリック |
+| 古い文脈を削除する | `/mineclawd sessions remove <session>` | -- |
+| 現在のチャット履歴を見る | `/mineclawd history` | オーバーレイの会話をスクロール |
+| Vertex 関連の破損を修復する | `/mineclawd sessions repair [session]` | -- |
 
-`<session>` には `1a2b` のような短い ID か、`1a2b-my-build-plan` のような token を指定できます。
+`<session>` には `1a2b` のような短い ID か `1a2b-my-build-plan` のようなトークンを使えます。
 
 <Tip>
-メモ、スクリプト、ランブックでは短いセッション ID を優先してください。ID は安定しています。token のタイトル部分は MineClawd がより良いタイトルを生成した後に変わることがあります。
+短いセッション ID はメモやスクリプト、ランブックで使うのが便利です。ID は安定していますが、トークンのタイトル部は MineClawd がよりよいタイトルを生成すると変わることがあります。
 </Tip>
 
-## 長い作業のベストプラクティス
+## 長い作業向けのコツ
 
-1. 何でも 1 セッションに入れず、目的ごとに 1 セッションを使います。
-2. 古い履歴を引きずり続けるより、新しいセッションを作って文脈を更新します。
-3. `resume`、`remove`、`repair` の前に `/mineclawd sessions list` を実行します。
-4. リクエスト実行中のセッション変更を避けます。
-5. 破壊的作業の前に `/mineclawd history` で文脈を確認します。
+1. 目的ごとにセッションを分け、1 つのセッションにすべてを詰め込まない。
+2. 文脈をリネームしたいときは古い履歴を伸ばすより、新しいセッションを作って切り替える。
+3. `resume`、`remove`、`repair` を使う前に `/mineclawd sessions list` を実行する。
+4. リクエストがまだ実行中の状態でセッションを変更しない。
+5. 破壊的な作業を始める前に `/mineclawd history` で文脈を確認する。
 
-## `/mineclawd history` をうまく使う
+## `/mineclawd history` を有効に使う
 
-- 履歴本にはセッショントークン、更新時刻、表示可能なチャットターンが含まれます。
-- このコマンドはコンソールではなくプレイヤーでのみ動作します。
-- 履歴本 UI にはクライアント側 MineClawd が必要です。
-- 非常に長い履歴は Minecraft 本ページ上限に合わせて切り詰められます。
+- 履歴ブックにはセッショントークン、更新時間、表示可能なチャットターンが出ます。
+- このコマンドはプレイヤー専用で、コンソールからは使えません。
+- 履歴ブック UI にはクライアント側の MineClawd が必要です。
+- 非常に長い履歴は Minecraft 書物のページ制限でトリミングされます。
 
-クライアントに MineClawd が入っていない場合は、`sessions list` と直近チャットログを代替の文脈確認手段にしてください。
+クライアントに MineClawd が入っていない場合は、`sessions list` と最新のチャットログで代替してください。
 
-## 復旧プレイブック
+## 復旧手順
 
-### リクエスト失敗したが文脈は維持したい
+### リクエストに失敗したが文脈は残したい
 
-最新の失敗メッセージにある token を使って `/mineclawd retry <token>` を実行します。retry token は 30 分で期限切れです。
+最後の失敗メッセージにあるトークンを使って `/mineclawd retry <token>` を実行します。リトライトークンの有効期限は 30 分です。
 
-### Vertex function-call 不一致エラー
-
-次を実行します:
+### Vertex の function-call 不一致エラー
 
 ```bash
 /mineclawd sessions repair
 ```
 
-または特定セッションを対象にします:
+または、特定のセッションが対象なら:
 
 ```bash
 /mineclawd sessions repair <session>
 ```
 
-`repair` は破損した Vertex function-call ターンを正規化し、修復済みセッションを保存します。
+`repair` は壊れた Vertex 関連のターンを正規化し、修復後のセッションを保存します。
 
 ## セッションファイルの場所
 
-MineClawd はゲームディレクトリ配下にセッションを保存します:
+MineClawd はゲームフォルダーに次のようにセッションを保存します:
 
 ```text
 mineclawd/
@@ -83,19 +81,20 @@ mineclawd/
       <id>.json
 ```
 
-- `active.json` はアクティブセッション ID を保存します。
-- `<id>.json` はメタデータと両プロバイダー履歴（`openAiHistory`, `vertexHistory`）を保存します。
-- アクティブセッションを削除すると、MineClawd は最終更新が最も新しい残存セッションを自動選択します。残存がなければアクティブセッションは解除されます。
+- `active.json` がアクティブなセッション ID を保持します。
+- `<id>.json` にメタデータと OpenAI/Vertex の両方の履歴が入ります。
+- アクティブセッションを削除すると、MineClawd は直近で更新された残りを自動選択します。残りがなければアクティブポインタをクリアします。
 
-## バックアップとクリーンアップ戦略
+## バックアップと掃除の流れ
 
-1. 一括クリーンアップ前に `mineclawd/sessions/` をバックアップします。
-2. `/mineclawd sessions remove <session>` で古いセッションを削除します。
-3. オペレーターごとに既知の正常セッションを 1 つ残し、迅速なロールバックに備えます。
-4. ストレージ内部を確認したい場合は `/resources/technical-details` を参照します。
+1. 大量削除前に `mineclawd/sessions/` をバックアップします。
+2. 古いセッションは `/mineclawd sessions remove <session>` で削除します。
+3. 各オペレーターは既知の良好なセッションを 1 つ残しておくと即時リカバリできます。
+4. ストレージの内部を見たいときは `/resources/technical-details` を参照します。
 
 ## 関連ページ
 
+- [GUI の使い方](/tutorials/using-the-gui)
 - [/commands/sessions-list](/commands/sessions-list)
 - [/commands/sessions-resume](/commands/sessions-resume)
 - [/commands/sessions-repair](/commands/sessions-repair)

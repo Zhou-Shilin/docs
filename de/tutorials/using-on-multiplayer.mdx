@@ -1,78 +1,73 @@
 ---
 title: "Im Multiplayer verwenden"
-description: "MineClawd auf dedizierten Servern mit klaren Berechtigungen, Sichtbarkeitskontrollen und sicheren Rollout-Mustern betreiben."
+description: "MineClawd auf dedizierten Servern mit klaren Berechtigungen, Sichtbarkeit und sicherem Rollout betreiben."
 ---
 
 ## Bereitstellungsmodell
 
-- Installiere MineClawd auf dem Server, um `/mineclawd` und `/mclawd` zu aktivieren.
+- Installiere MineClawd auf dem Server, damit `/mineclawd` und `/mclawd` funktionieren.
 - Die Client-Installation ist für die Kernbefehle optional.
 - Die Client-Installation ist erforderlich für:
-  - GUI-Öffnungspaket von `/mineclawd config`
-  - Buch-UI von `/mineclawd history`
-  - Pop-up-Frage-UI für `ask-user-question`
+  - das GUI-Paket von `/mineclawd config`
+  - die History-Buch-UI von `/mineclawd history`
+  - Popup-Fragen für `ask-user-question`
+  - die Overlay-GUI (AssistiveTouch-Orb, Streaming-Anzeige, Sessions und Assets)
 
 <Info>
-Wenn ein Spieler den Client-Mod nicht hat, bietet MineClawd trotzdem einen Fallback-Frageablauf im Chat (`/mineclawd choose ...`).
-</Info>
-
-<Info>
-Ohne Client-Mod kannst du weiterhin `/mineclawd config <key> <value>` im Chat zur Konfiguration verwenden.
+Hat ein Spieler MineClawd nicht installiert, gibt es einen Chat-Fallback (`/mineclawd choose ...`). Alle Befehle funktionieren auch ohne Overlay.
 </Info>
 
 ## Berechtigungsmodell und Admin-Kontrolle
 
-- MineClawd-Befehlswurzeln sind durch Vanilla-Berechtigungsstufe `2` geschützt (`source.hasPermissionLevel(2)`).
-- Es gibt keine eingebauten benutzerdefinierten Berechtigungsknoten pro Unterbefehl.
-- Praktisches Ergebnis: OP nur an vertrauenswürdige Operatoren vergeben.
+- MineClawd-Befehle benötigen Vanilla-Berechtigungsstufe `2` (`source.hasPermissionLevel(2)`).
+- Es gibt keine zusätzlichen Berechtigungsknoten pro Unterbefehl.
+- Resultat: Gib OP nur an vertraute Operatoren.
 
-Wenn dein Server-Stack Berechtigungs-Remapping auf Befehlsebene unterstützt, gib `/mineclawd` und `/mclawd` nur für deine AI-Operator-Rolle frei.
+Unterstützt dein Stack eine Remappung auf Befehlsebene, beschränke `/mineclawd` und `/mclawd` auf deine AI-Operator-Rolle.
 
-## Sichtbarkeitskontrollen für volle Server
+## Sichtbarkeit auf ausgelasteten Servern
 
-MineClawd hat eine Sichtbarkeitseinstellung pro Spieler:
+MineClawd speichert pro Spieler eine Sichtbarkeitsoption:
 
 ```bash
 /mineclawd config broadcast-requests-to <self|all|ops>
 ```
 
-- `self`: nur der Anfragende sieht Prompt-Echo und Aufgabenstatus.
-- `all`: alle sehen es.
-- `ops`: nur Operatoren sehen es.
+- `self`: Nur du siehst Prompt-Echo und Status.
+- `all`: Jeder sieht es.
+- `ops`: Nur Operatoren sehen es.
 
-Diese Einstellung wird in `mineclawd/player-settings.json` gespeichert und gilt pro Spieler-UUID.
-
-Sie kann auch im GUI-Konfigurationsbildschirm im Abschnitt "Misc" als "Broadcast requests to" gesetzt werden.
+Die Einstellung liegt in `mineclawd/player-settings.json` und gilt pro Spieler-UUID. Du kannst sie auch im GUI-Konfigurationsbildschirm unter „Misc“ als „Broadcast requests to“ setzen.
 
 ## Session-Eigentum im Multiplayer
 
-- Session-Daten sind pro Owner-Key isoliert.
-- Spielerbefehle arbeiten mit dem eigenen Session-Set dieses Spielers.
+- Session-Daten bleiben pro Owner-Key.
+- Spielerbefehle arbeiten mit dem Session-Set des jeweiligen Spielers.
 - Konsolenbefehle nutzen einen separaten Owner-Namespace.
 
-Für Team-Betrieb solltest du früh entscheiden, ob jeder Operator persönliche Sessions behält oder alle ein gemeinsames Operator-Konto teilen.
+Entscheide früh, ob jeder Operator persönliche Sessions behält oder ob alle dasselbe Operator-Konto teilen.
 
 ## Dynamic Registry auf dedizierten Servern
 
-Standardmäßig ist `dynamic-registry-mode` auf `AUTO`. In `AUTO` ist die Runtime für dynamische Platzhalter auf dedizierten Servern deaktiviert.
+Standardmäßig steht `dynamic-registry-mode` auf `AUTO`. In diesem Modus ist die Laufzeit für dynamische Platzhalter auf dedizierten Servern deaktiviert.
 
-Zum erzwungenen Aktivieren:
+Um sie zu erzwingen:
 
 ```bash
 /mineclawd config dynamic-registry-mode enabled
 ```
 
-Danach den Server neu starten.
+Dann startet du den Server neu.
 
-### Was sich bei Aktivierung ändert
+### Was sich ändert, wenn sie aktiviert ist
 
-- Dynamische Platzhalter für Item-/Block-/Fluid-Slots werden zur Laufzeit verfügbar.
-- Dynamischer State-Sync wird an Clients gesendet.
-- Persistenter Weltzustand speichert dynamische Slot-Daten.
-- Clients müssen ebenfalls MineClawd installieren, um diesem dedizierten Server beizutreten.
+- Dynamische Item-/Block-/Fluid-Slots sind zur Laufzeit verfügbar.
+- Der dynamische State-Sync geht an die Clients.
+- Der persistente Weltzustand speichert die Slot-Daten.
+- Clients brauchen ebenfalls MineClawd, um dem Server beizutreten.
 
 <Warning>
-Aktiviere die Dynamic Registry auf Produktionsservern erst nach einem gestaffelten Test. Die Client-Pflicht ist eine harte Kompatibilitätsänderung für alle Spieler.
+Aktiviere die Dynamic Registry auf Produktionsservern nur nach gestaffeltem Test. Die Client-Pflicht stellt eine harte Kompatibilitätsänderung dar.
 </Warning>
 
 ## Empfohlene Operator-Baseline
@@ -81,16 +76,16 @@ Aktiviere die Dynamic Registry auf Produktionsservern erst nach einem gestaffelt
 | --- | --- |
 | Chat-Rauschen reduzieren | `broadcast-requests-to ops` |
 | Lange Tool-Loops verhindern | `limit-tool-calls true` |
-| Loops begrenzen | `tool-call-limit 8` bis `12` |
-| Nur Vorfälle debuggen | `debug-mode true` temporär |
+| Schleifen begrenzen | `tool-call-limit 8` bis `12` |
+| Nur Vorfälle debuggen | `debug-mode true` (vorübergehend) |
 
 ## Rollout-Checkliste für Server-Betreiber
 
 1. Lege zuerst deine Operator-Rolle und OP-Richtlinie fest.
 2. Setze Provider- und Modell-Zugangsdaten.
-3. Setze die Broadcast-Richtlinie (`self`, `ops` oder `all`).
-4. Entscheide, ob Dynamic Registry auf `auto` bleibt oder auf `enabled` geändert wird.
-5. Teste vor dem öffentlichen Start mit zwei echten Konten (Operator und Nicht-Operator).
+3. Bestimme die Broadcast-Richtlinie (`self`, `ops` oder `all`).
+4. Entscheide, ob die Dynamic Registry auf `auto` bleibt oder auf `enabled` wechselt.
+5. Teste mit zwei echten Accounts (Operator + Nicht-Operator), bevor du öffentlich gehst.
 
 ## Verwandte Seiten
 

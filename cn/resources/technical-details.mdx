@@ -1,19 +1,19 @@
----
+﻿---
 title: "技术细节"
 description: "MineClawd 的架构、存储、限制与运行时内部机制。"
 ---
 
 ## 请求生命周期
 
-1. 你运行 `/mclawd ...` 或 `/mineclawd prompt ...`。
-2. MineClawd 校验 provider 配置和 OP 权限。
+1. 你运行 `/mclawd ...`、`/mineclawd prompt ...` 或在覆盖层输入栏提交请求。
+2. MineClawd 验证提供商配置与 OP 权限。
 3. MineClawd 加载或创建活动会话状态。
-4. MineClawd 向 OpenAI 兼容或 Vertex endpoint 发送请求。
-5. 模型响应可能触发工具调用。
-6. 工具结果会回送进模型循环。
-7. 最终 assistant 输出会渲染到聊天中，并保存会话历史。
+4. MineClawd 向 OpenAI 兼容或 Vertex 端点发送流式请求。
+5. 流增量通过 `AGENT_STREAM_EVENT` 通道实时传输给客户端。覆盖层会跟着闪烁光标渲染。
+6. 模型响应可能触发工具调用，工具结果再饲入模型循环。
+7. 最终助理输出同步到聊天（和覆盖层），会话历史被保存。
 
-## 运行时工具分类
+## 运行时工具家族
 
 - 命令与脚本执行：
   - `execute-command`
@@ -25,9 +25,13 @@ description: "MineClawd 的架构、存储、限制与运行时内部机制。"
   - `delete-server-script`
   - `reload-game`
   - `sync-command-tree`
-- 澄清交互：
+- 澄清：
   - `ask-user-question`
-- 动态占位符（仅在启用时）：
+- 资产跟踪：
+  - `list-assets`
+  - `upsert-asset-record`
+  - `remove-asset-record`
+- 动态占位符（启用时）：
   - `list-dynamic-content`
   - `register-dynamic-item`
   - `register-dynamic-block`
@@ -49,6 +53,8 @@ gameDir/
       <owner>/
         active.json
         <id>.json
+    assets/
+      <owner>.json
     souls/
       default.md
       yuki.md
@@ -61,60 +67,97 @@ gameDir/
         ...
 ```
 
-## 会话内部机制
+## 会话内部结构
 
-- session id 是 4 位小写 token。
-- 命令 token 格式为 `<id>-<title-slug>`。
-- 会话文件分别存储 OpenAI 和 Vertex 历史。
-- 活动会话指针按 owner 存储在 `active.json` 中。
-- 会话标题在第一次成功轮次后由 summarize model 生成。
+- 会话 id 是四位小写字母数字组合。
+- 命令令牌格式为 `<id>-<title-slug>`。
+- 会话文件同时存储 OpenAI 与 Vertex 历史。
+- 活动会话指针为每个拥有者的 `active.json`。
+- 第一次成功轮后，使用 summarize 模型生成会话标题。
 
 ## LLM 传输细节
 
 - OpenAI 兼容请求路径：`<endpoint>/chat/completions`
 - Vertex 请求路径：`<endpoint>/<model>:generateContent?key=<api_key>`
-- 两种路径都使用 60 秒请求超时。
-- 两种路径都支持 function 风格工具调用。
+- 两条路径均使用 60 秒请求超时。
+- 两条路径都支持函数式工具调用。
+- 两条路径都支持流式，流增量通过 `AGENT_STREAM_EVENT` 网络通道转发。
 
-## Dynamic placeholder 内部机制
+## 流式架构
 
-- 容量：`30` 个 item 槽位、`30` 个 block 槽位、`30` 个 fluid 槽位。
-- 固定 id 包括：
+流事件使用 `AGENT_STREAM_EVENT` 通道，包含请求 ID、事件类型字节与负载字符串。
+
+| 事件类型 | 字节 | 负载 |
+| --- | --- | --- |
+| `START` | `0` | 包含 `sessionId` 与 `request` 文本的 JSON |
+| `DELTA` | `1` | LLM 返回的文本片段 |
+| `DONE` | `2` | 空 |
+| `ERROR` | `3` | 错误消息字符串 |
+
+覆盖层接收到这些事件后逐步渲染，直到 `DONE` 或 `ERROR` 出现前光标保持闪烁。
+
+活动请求在服务器端由 `ACTIVE_REQUESTS` 与 `ACTIVE_NETWORK_REQUESTS` 映射追踪。`/mineclawd stop` 会在 `CANCELLED_REQUEST_IDS` 中标记请求，并取消正在进行的 HTTP 连接。
+
+## 动态占位符内部工作
+
+- 容量：每类 30 个槽位（物品、方块、流体）。
+- 固定 ID 包括：
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- 状态同步使用 `sync_dynamic_content` 网络负载。
-- 状态持久化使用世界 `PersistentState` id `mineclawd_dynamic_content`。
-- `AUTO` 模式会在客户端运行时启用运行时占位符，并在专用服务器禁用。
+- 状态同步通过 `sync_dynamic_content` 网络负载。
+- 状态持久化使用世界 PersistentState ID `mineclawd_dynamic_content`。
+- `AUTO` 模式在客户端运行时启用，占位符；在专服上禁用。
 
 ## 网络通道
 
-MineClawd 定义了这些数据包标识符：
+MineClawd 定义了以下数据包标识符：
 
+- `mineclawd:client_ready`
+- `mineclawd:client_gui_pref`
 - `mineclawd:open_config`
 - `mineclawd:sync_broadcast_target`
+- `mineclawd:sync_assistive_touch`
 - `mineclawd:sync_dynamic_content`
 - `mineclawd:open_question`
 - `mineclawd:question_response`
+- `mineclawd:open_sessions`
+- `mineclawd:open_assets`
 - `mineclawd:open_history_book`
+- `mineclawd:agent_stream_event`
+
+## 资产跟踪内部机制
+
+资产记录按拥有者保存在 `mineclawd/assets/<owner>.json`。每条记录包含：
+
+- `id` —— 唯一标识符
+- `category` —— `ENTITIES`、`ITEMS_BLOCKS_FLUIDS`、`SPECIAL_ITEMS`、`COMMANDS`、`GAME_MECHANICS` 之一
+- `name`、`summary`、`scriptPath`、`details`
+- 分类字段：`contentId`、`specialItemId`、`specialItemNbt`、`command`、`entityUuid`、`entityDimension`、`entityX`、`entityY`、`entityZ`
+- `sessionId` —— 创建资产的会话
+- `createdAt`、`updatedAt` —— 时间戳
+
+系统提示中包含资产跟踪附录，因此 LLM 会通过 `upsert-asset-record` 自动记录创建内容。
 
 ## 限制与计时器
 
 | 设置或行为 | 值 |
 | --- | --- |
-| 工具调用上限范围 | `1` 到 `20` |
-| 工具调用上限默认值 | `16` |
-| 工具调用上限默认状态 | disabled |
-| Ask-user 最大选项数 | `5` |
-| Ask-user 超时时间 | `60` 秒 |
-| 失败请求 retry token TTL | `30` 分钟 |
-| 限流重试次数 | `2` 次重试 |
+| 工具调用限制范围 | `1` 到 `20` |
+| 默认工具调用限制值 | `16` |
+| 工具调用限制默认状态 | 关闭 |
+| ask-user 最大选项 | `5` |
+| ask-user 超时时间 | `60` 秒 |
+| 失败请求重试令牌 TTL | `30` 分钟 |
+| 限流重试次数 | `2` 次 |
 | 限流重试退避 | `1500ms * retry_index` |
-| 书本历史构建最大条目数 | `300` |
+| 历史书条目最大数量 | `300` |
+| 覆盖层输入栏最大长度 | `600` 字符 |
+| 资产类别数量 | `5` |
 
 ## 安全模型
 
-- 每条命令路径都受 OP 权限门控。
-- KubeJS 执行是真实服务器执行，不是模拟。
-- API keys 必须按密钥处理。
-- 只在可信环境中使用。
+- 所有命令通路都需 OP。
+- KubeJS 执行是真实服务器运行。
+- API 密钥必须保密。
+- 请仅在可信环境中使用。

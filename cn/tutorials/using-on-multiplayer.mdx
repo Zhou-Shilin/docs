@@ -1,60 +1,57 @@
----
-title: "在多人联机中使用"
-description: "在专用服务器上部署 MineClawd，建立清晰权限、可见性控制与安全上线流程。"
+﻿---
+title: "多人使用"
+description: "在专用服务器上清晰管理权限、可见性与安全上线 MineClawd。"
 ---
 
 ## 部署模型
 
-- 在服务器安装 MineClawd 才能启用 `/mineclawd` 和 `/mclawd`。
-- 核心命令使用不强制客户端安装。
-- 以下功能需要客户端安装：
-- `/mineclawd config` GUI open packet
-- `/mineclawd history` book UI
-  - `ask-user-question` 的弹窗提问 UI
+- 在服务器端安装 MineClawd，以启用 `/mineclawd` 与 `/mclawd`。
+- 客户端安装仅对核心命令不是必需的。
+- 客户端必须安装才能使用：
+  - `/mineclawd config` 的 GUI 数据包
+  - `/mineclawd history` 历史书 UI
+  - `ask-user-question` 的弹窗选项
+  - 覆盖层 GUI（AssistiveTouch 球体、流式视图、会话/资产管理）
 
 <Info>
-如果玩家没有客户端模组，MineClawd 仍可通过聊天兜底流程提问（`/mineclawd choose ...`）。
+若玩家未安装客户端模组，MineClawd 仍能在聊天中使用备用流程（如 `/mineclawd choose ...`）。所有命令都可通过聊天执行。
 </Info>
 
-<Info>
-没有客户端模组时，你仍可在聊天中用 `/mineclawd config <key> <value>` 配置。
-</Info>
+## 权限模型与管理员控制
 
-## 权限模型与管理控制
+- MineClawd 的命令根由原版权限等级 `2` (`source.hasPermissionLevel(2)`) 限制。
+- 各子命令没有额外的自定义权限节点。
+- 实际效果：只授予值得信任的操作者 OP 权限。
 
-- MineClawd 命令根由原版权限等级 `2` 控制（`source.hasPermissionLevel(2)`）。
-- 每个子命令没有内置自定义权限节点。
-- 实际结论：只给可信操作员授予 OP。
+若你的服务器栈支持命令级别权限映射，只让 AI 操作员角色访问 `/mineclawd` 与 `/mclawd`。
 
-如果你的服务器栈支持命令级权限重映射，请仅向 AI 操作员角色开放 `/mineclawd` 和 `/mclawd`。
+## 忙碌服务器的可见性控制
 
-## 高负载服务器的可见性控制
-
-MineClawd 提供按玩家设置的可见性选项：
+MineClawd 提供按玩家的可见性设置：
 
 ```bash
 /mineclawd config broadcast-requests-to <self|all|ops>
 ```
 
-- `self`：仅请求者看到 prompt 回显和任务状态。
+- `self`：仅请求者看到提示回显与任务状态。
 - `all`：所有人都能看到。
-- `ops`：仅操作员可见。
+- `ops`：只有运营者可见。
 
-该设置保存在 `mineclawd/player-settings.json`，并按玩家 UUID 隔离。
+该设置保存在 `mineclawd/player-settings.json` 中，按玩家 UUID 作用。
 
-也可在 GUI 配置页面的 “Misc” 分区中，通过 “Broadcast requests to” 设置。
+也可以在配置界面的 “Misc” 区段更改，名称为 “Broadcast requests to”。
 
-## 多人联机中的会话归属
+## 多人环境下的会话归属
 
-- 会话数据按 owner key 隔离。
-- 玩家命令只操作该玩家自己的会话集合。
-- 控制台命令使用独立 owner 命名空间。
+- 会话数据按拥有者密钥隔离。
+- 玩家命令操作其个人会话集。
+- 控制台命令使用独立的 owner 命名空间。
 
-团队协作时，请尽早决定是每位操作员维护个人会话，还是共享一个操作员账号。
+对于团队操作，提前决定每位运营者是保持个人会话还是共用一个账户。
 
-## 专用服务器上的 dynamic registry
+## 专用服务器上的动态注册表
 
-默认 `dynamic-registry-mode` 为 `AUTO`。在 `AUTO` 模式下，专用服务器会禁用动态占位符运行时。
+默认 `dynamic-registry-mode` 为 `AUTO`，此模式在专用服务器上禁用动态占位符。
 
 要强制启用：
 
@@ -64,33 +61,33 @@ MineClawd 提供按玩家设置的可见性选项：
 
 然后重启服务器。
 
-### 启用后会发生什么变化
+### 启用后的变化
 
-- item/block/fluid 槽位的动态占位符会在运行时可用。
-- 动态状态同步会下发到客户端。
-- 世界持久化状态会保存动态槽位数据。
-- 客户端必须安装 MineClawd 才能加入该专用服务器。
+- 运行时可使用物品/方块/流体槽的动态占位符。
+- 同步状态会发送给客户端。
+- 世界持久化状态记录动态槽数据。
+- 客户端也必须安装 MineClawd 才能加入该专服。
 
 <Warning>
-仅在分阶段测试后再在生产服务器启用 dynamic registry。客户端安装要求会对所有玩家产生硬性兼容性变化。
+只有在分阶段测试后再在生产服务器上启用动态注册表。该设置会强制所有玩家必须安装客户端。 
 </Warning>
 
-## 推荐操作员基线
+## 推荐的运营基线
 
 | 目标 | 建议设置 |
 | --- | --- |
-| 减少聊天噪音 | `broadcast-requests-to ops` |
-| 防止过长工具循环 | `limit-tool-calls true` |
-| 控制循环上限 | `tool-call-limit 8` 到 `12` |
-| 仅在故障时调试 | 临时启用 `debug-mode true` |
+| 降低聊天噪音 | `broadcast-requests-to ops` |
+| 避免无限工具循环 | `limit-tool-calls true` |
+| 保持循环次数 | `tool-call-limit` 设置为 `8` 到 `12` |
+| 仅调试事件 | 暂时设置 `debug-mode true` |
 
-## 服务器服主上线检查清单
+## 服务器上线检查表
 
-1. 先确定操作员角色和 OP 策略。
-2. 设置 provider 和 model 凭据。
-3. 设置广播策略（`self`、`ops` 或 `all`）。
-4. 决定 dynamic registry 保持 `auto` 还是改为 `enabled`。
-5. 公布前用两个真实账号（操作员和非操作员）测试。
+1. 先确定运营者角色与 OP 策略。
+2. 设置提供商与模型凭据。
+3. 设定广播策略（`self`、`ops` 或 `all`）。
+4. 决定 `dynamic-registry-mode` 维持 `auto` 还是切换为 `enabled`。
+5. 在两个真实账户（运营者与非运营者）上测试后再公开上线。
 
 ## 相关页面
 

@@ -8,29 +8,24 @@ description: "Opera MineClawd en servidores dedicados con permisos claros, contr
 - Instala MineClawd en el servidor para habilitar `/mineclawd` y `/mclawd`.
 - La instalación en cliente es opcional para el uso básico de comandos.
 - La instalación en cliente es obligatoria para:
-  - paquete de apertura de GUI de `/mineclawd config`
-  - interfaz de libro de `/mineclawd history`
-  - interfaz emergente de preguntas para `ask-user-question`
+  - El paquete de apertura de GUI de `/mineclawd config`
+  - La interfaz de libro de `/mineclawd history`
+  - La interfaz emergente de preguntas de `ask-user-question`
+  - La GUI de superposición (orbe AssistiveTouch, vista de streaming, sesiones y activos)
 
 <Info>
-Si un jugador no tiene el mod de cliente, MineClawd aún tiene un flujo alternativo de preguntas en el chat (`/mineclawd choose ...`).
-</Info>
-
-<Info>
-Sin mod de cliente, igualmente puedes usar `/mineclawd config <key> <value>` en el chat para configurar.
+Si un jugador no tiene el mod de cliente, MineClawd aún ofrece un flujo alternativo de preguntas en el chat (`/mineclawd choose ...`). Todos los comandos funcionan desde el chat sin la superposición.
 </Info>
 
 ## Modelo de permisos y control de administración
 
-- Las raíces de comando de MineClawd están protegidas por el nivel de permiso vanilla `2` (`source.hasPermissionLevel(2)`).
-- No hay nodos de permisos personalizados integrados por subcomando.
+- Las raíces de comando de MineClawd están protegidas por el permiso vanilla `2` (`source.hasPermissionLevel(2)`).
+- No existen nodos de permisos personalizados por subcomando.
 - Resultado práctico: da OP solo a operadores de confianza.
 
-Si tu stack de servidor soporta reasignación de permisos por comando, expón `/mineclawd` y `/mclawd` solo al rol de operador de IA.
+Si tu stack permite reasignación de permisos por comando, expón `/mineclawd` y `/mclawd` únicamente al rol de operador de IA.
 
 ## Controles de visibilidad para servidores concurridos
-
-MineClawd tiene un ajuste de visibilidad por jugador:
 
 ```bash
 /mineclawd config broadcast-requests-to <self|all|ops>
@@ -40,23 +35,23 @@ MineClawd tiene un ajuste de visibilidad por jugador:
 - `all`: todos lo ven.
 - `ops`: solo lo ven los operadores.
 
-Este ajuste se guarda en `mineclawd/player-settings.json` y se delimita por UUID de jugador.
+Este ajuste se guarda en `mineclawd/player-settings.json` y se aplica por UUID de jugador.
 
-También puede configurarse en la pantalla de configuración GUI, en la sección "Misc", como "Broadcast requests to".
+También puedes cambiarlo en la pantalla de configuración GUI, dentro de la sección “Misc”, como “Broadcast requests to”.
 
 ## Propiedad de sesiones en multijugador
 
 - Los datos de sesión están aislados por clave de propietario.
 - Los comandos de jugador operan sobre el conjunto de sesiones de ese jugador.
-- Los comandos de consola usan un namespace de propietario separado.
+- Los comandos de consola usan un espacio de nombres de propietario separado.
 
-Para operación en equipo, decide pronto si cada operador mantiene sesiones personales o si todos comparten una cuenta de operador.
+Para operaciones en equipo, decide pronto si cada operador mantiene sesiones personales o si todos comparten una cuenta.
 
 ## Registro dinámico en servidores dedicados
 
-Por defecto, `dynamic-registry-mode` es `AUTO`. En `AUTO`, el runtime de marcadores dinámicos está deshabilitado en servidores dedicados.
+Por defecto, `dynamic-registry-mode` está en `AUTO`. En `AUTO`, el runtime de marcadores dinámicos se deshabilita en servidores dedicados.
 
-Para habilitarlo de forma forzada:
+Para habilitarlo forzosamente:
 
 ```bash
 /mineclawd config dynamic-registry-mode enabled
@@ -66,13 +61,13 @@ Luego reinicia el servidor.
 
 ### Qué cambia cuando se habilita
 
-- Los marcadores dinámicos para slots de ítems/bloques/fluidos pasan a estar disponibles en runtime.
-- La sincronización de estado dinámico se envía a los clientes.
-- El estado persistente del mundo guarda datos de slots dinámicos.
-- Los clientes también deben instalar MineClawd para entrar a este servidor dedicado.
+- Los marcadores dinámicos para ítems, bloques y fluidos están disponibles en runtime.
+- Se envía la sincronización de estado dinámico a los clientes.
+- El estado persistente del mundo guarda los datos de las ranuras dinámicas.
+- Los clientes también deben instalar MineClawd para unirse al servidor dedicado.
 
 <Warning>
-Habilita el registro dinámico en servidores de producción solo después de una prueba por etapas. El requisito de cliente es un cambio de compatibilidad estricto para todos los jugadores.
+Habilita el registro dinámico en producción solo tras una prueba por etapas. El requisito de cliente introduce un cambio de compatibilidad estricto para todos los jugadores.
 </Warning>
 
 ## Base recomendada para operadores
@@ -81,15 +76,15 @@ Habilita el registro dinámico en servidores de producción solo después de una
 | --- | --- |
 | Reducir ruido en el chat | `broadcast-requests-to ops` |
 | Evitar bucles largos de herramientas | `limit-tool-calls true` |
-| Mantener bucles acotados | `tool-call-limit 8` a `12` |
+| Mantener los bucles acotados | `tool-call-limit 8` a `12` |
 | Depurar solo incidentes | `debug-mode true` temporalmente |
 
 ## Checklist de despliegue para propietarios de servidor
 
-1. Define primero tu rol de operador y política de OP.
+1. Define tu rol de operador y política de OP.
 2. Configura credenciales de proveedor y modelo.
-3. Configura la política de difusión (`self`, `ops` o `all`).
-4. Decide si el registro dinámico se queda en `auto` o cambia a `enabled`.
+3. Establece la política de difusión (`self`, `ops` o `all`).
+4. Decide si el registro dinámico se queda en `auto` o pasa a `enabled`.
 5. Prueba con dos cuentas reales (operador y no operador) antes del lanzamiento público.
 
 ## Páginas relacionadas

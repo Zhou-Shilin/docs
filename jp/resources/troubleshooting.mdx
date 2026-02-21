@@ -1,97 +1,123 @@
-﻿---
+---
 title: "トラブルシューティング"
-description: "MineClawd のセットアップと実行時によくある問題をすばやく解決します。"
+description: "MineClawd のセットアップやランタイムの問題をすばやく解決します。"
 ---
 
-MineClawd が失敗した場合、まず下の近い症状を見つけて、その対処を適用してください。
+MineClawd が動かない場合は、以下の症状から該当する項目を先に試してください。
 
 <AccordionGroup>
-  <Accordion title="MineClawd に「OP ユーザーのみ実行可能」と表示される">
-    プレイヤーに OP レベル 2 権限を付与してください。すべての `/mineclawd` と `/mclawd` コマンドに OP アクセスが必要です。
+  <Accordion title="MineClawd が OP 権限が必要だと言う">
+    プレイヤーに OP レベル 2 を付与してください。すべての `/mineclawd` と `/mclawd` コマンドは OP2 が必須です。
   </Accordion>
 
-  <Accordion title="MineClawd に「API キー または model が不足」と表示される">
-    config を開いてプロバイダー認証情報を設定してください。
+  <Accordion title="MineClawd が API キーまたはモデルを求めている">
+    設定を開き、プロバイダー資格情報を入力してください。
 
-    OpenAI の設定例:
+    OpenAI ルート:
     - `provider openai`
     - `api-key <key>`
     - `model <model>`
 
-    Vertex の設定例:
+    Vertex ルート:
     - `provider vertex-ai`
     - `vertex-api-key <key>`
     - `vertex-model <model>`
   </Accordion>
 
   <Accordion title="`/mineclawd config` で GUI が開かない">
-    クライアントに MineClawd が入っていない可能性が高いです。コマンド設定を使用してください:
+    クライアントに MineClawd が入っていない可能性があります。コマンドで設定してください:
 
     ```bash
     /mineclawd config <key> <value>
     ```
   </Accordion>
 
-  <Accordion title="`/mineclawd history` でクライアント Mod 必須と表示される">
-    クライアントに MineClawd をインストールしてください。履歴の本 UI はクライアントパケットチャンネルを使います。
+  <Accordion title="`/mineclawd history` でクライアントモッドが必要と言われる">
+    クライアントに MineClawd を導入してください。履歴ブック UI はクライアントパケットを要求します。
   </Accordion>
 
-  <Accordion title="このセッションでは別のリクエストがまだ実行中と表示される">
-    新しいリクエスト開始、セッション切り替え、persona 切り替えの前に、現在タスクの完了を待ってください。
+  <Accordion title="別のリクエストがまだ処理中と言われる">
+    現在のタスクが終わるまで待ってから、新しいリクエストやセッション操作を行ってください。
   </Accordion>
 
-  <Accordion title="retry token が無効または期限切れ">
-    retry token は 30 分で期限切れになります。
+  <Accordion title="リトライトークンが無効や期限切れ">
+    リトライトークンは 30 分で期限切れになります。
 
-    新しいリクエストを実行するか、直近の失敗メッセージにある最新の retry アクションを使ってください。
+    新しいリクエストを実行するか、失敗メッセージに表示される最新の再試行アクションを使ってください。
   </Accordion>
 
-  <Accordion title="resume/remove/repair で `session not found` が出る">
+  <Accordion title="resume/remove/repair の対象セッションが見つからない">
     まず `/mineclawd sessions list` を実行してください。
 
-    次に、その出力にある正確なセッション ID または token を使用してください。
+    出力のセッション ID またはトークンをそのまま使います。
   </Accordion>
 
-  <Accordion title="Persona not found が出る">
+  <Accordion title="ペルソナが見つからない">
     `/mineclawd persona` で利用可能な名前を確認してください。
 
-    必要であれば `mineclawd/souls/` 配下に新しい soul ファイルを作成してください。
+    必要であれば `mineclawd/souls/` に新しい soul ファイルを作成します。
   </Accordion>
 
-  <Accordion title="Dynamic placeholder registry is disabled と表示される">
-    モードを設定して再起動してください:
+  <Accordion title="動的プレースホルダーが無効と出る">
+    モードを変更して再起動してください:
 
     ```bash
     /mineclawd config dynamic-registry-mode enabled
     ```
 
-    専用サーバーでは、これを有効化した場合クライアント側にも MineClawd が必要です。
+    専用サーバーでは、この設定時にすべてのクライアントに MineClawd が必要です。
   </Accordion>
 
   <Accordion title="`reload-game` が KubeJS エラーを報告する">
-    表示された行を確認し、`kubejs/server_scripts/mineclawd/` のスクリプト構文または実行時問題を修正して、再読み込みしてください。
+    表示された行を読み、`kubejs/server_scripts/mineclawd/` 内のスクリプト構文や実行時問題を修正してから再読み込みします。
 
-    再読み込み出力で KubeJS エラーが出なくなるまで修正を続けてください。
+    エラーがなくなるまで繰り返してください。
   </Accordion>
 
-  <Accordion title="`/mineclawd choose` で no pending question と表示される">
-    MineClawd は回答待ち状態ではありません。
-
-    MineClawd が確認質問を出した後にのみ `choose` を実行してください。
+  <Accordion title="`/mineclawd choose` が保留質問なしと言う">
+    MineClawd が質問待ちになっていません。選ぶのは質問が出た後だけです。
   </Accordion>
 
-  <Accordion title="`LLM provider`/`Broadcast Requests To` の選択肢が 1 つしか出ない">
-    YACL の不具合です。値をクリックし、選びたいオプションの先頭 1〜2 文字を入力すると、表示されるドロップダウンから選択できます。
+  <Accordion title="LLM プロバイダー選択や Broadcast Requests To に選択肢が 1 つしかない">
+    YACL の奇妙な挙動です。値をクリックし、選びたいオプションの先頭 1〜2 文字を入力してから、表示された候補を選択してください。
 
-    `LLM provider`: OpenAI は `o`、Google Vertex AI は `g` を入力。
-    `Broadcast Requests To`: only-me は `on`、all は `a`、ops は `op` を入力。
+    - LLM プロバイダー: `o` で OpenAI、`g` で Google Vertex AI。
+    - Broadcast Requests To: `on`（自分のみ）、`a`（全員）、`op`（OP のみ）。
+  </Accordion>
+
+  <Accordion title="オーバーレイのオーブが表示されない">
+    Assistive Touch オーブには以下が必要です:
+
+    - クライアントに MineClawd がインストールされている。
+    - OP 権限レベル 2 を持っている。
+    - **Enable GUI** が ON（**Mod Menu** -> **MineClawd** -> **Configure**）。
+    - `/mineclawd assistivetouch` がオーブを有効のままにしている。
+
+    すべて満たしても表示されない場合はデバッグモードを ON にし、ログを確認してください。
+  </Accordion>
+
+  <Accordion title="オーバーレイ入力がチャットやインベントリに漏れる">
+    v1.4.0 で修正済みです。MineClawd 1.4.0 以降を使っているか確認してください。
+
+    問題が続く場合は MineClawd と依存関係だけを導入した状態でテストすると、競合 mod を特定しやすくなります。
+  </Accordion>
+
+  <Accordion title="Stop ボタンや `/mineclawd stop` でキャンセルできない">
+    Stop はアクティブリクエストにキャンセル信号を出します。プロバイダーが処理を終えてレスポンスを送っている場合、即座には効かないことがあります。
+
+    停止後もセッションがロックされる場合は、`/mineclawd sessions new` で新しいセッションを作成してください。
+  </Accordion>
+
+  <Accordion title="アセットテレポートでエンティティが見つからない">
+    エンティティが死んだかスポーン済みエリアを離れた可能性があります。アセット記録は作成時の情報しか保持せず、移動は追跡しません。
+
+    テレポートは UUID とディメンションと座標を持つエンティティアセットにのみ有効です。
   </Accordion>
 </AccordionGroup>
 
-
 ## 問題が続く場合
 
-- デバッグログを有効化: `/mineclawd config debug-mode true`
-- 1 回再現する
+- デバッグログを有効にする: `/mineclawd config debug-mode true`
+- 失敗を再現する
 - `logs/latest.log` を確認する
-- 問題報告を作成: `https://github.com/Zhou-Shilin/MineClawd/issues`
+- 問題を報告する: `https://github.com/Zhou-Shilin/MineClawd/issues`

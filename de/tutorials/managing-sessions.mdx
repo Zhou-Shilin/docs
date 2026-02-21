@@ -1,79 +1,79 @@
 ---
 title: "Sessions verwalten"
-description: "Fortgeschrittener Session-Workflow, Verlaufsprüfung, Speicherlayout und Recovery-Playbook."
+description: "Fortgeschrittener Session-Workflow, Verlaufsprüfung, Speicherstruktur und Wiederherstellungsplan."
 ---
 
 ## Warum Session-Disziplin wichtig ist
 
-Sessions sind MineClawds Langzeitgedächtnis. Ein sauberer Session-Workflow gibt dir bessere Antworten, weniger Kontextfehler und schnellere Wiederherstellung, wenn etwas kaputtgeht.
+Sessions sind MineClawds Langzeitgedächtnis. Eine saubere Session-Praxis liefert bessere Antworten, weniger Kontextfehler und schnellere Wiederherstellung, wenn etwas schiefgeht.
 
 ## Wie Sessions abgegrenzt sind
 
 - Sessions sind nach Owner-Key isoliert.
 - Spielerbefehle nutzen die Spieler-UUID als Owner-Key.
-- Konsolenbefehle nutzen den Namen der Befehlsquelle als Owner-Key.
+- Konsolenbefehle verwenden den Namen der Befehlsquelle als Owner-Key.
 - Jeder Owner hat einen aktiven Session-Zeiger.
-- Alle Session-Befehle benötigen OP-Berechtigungsstufe `2`.
+- Alle Session-Befehle setzen OP-Berechtigungsstufe `2` voraus.
 
-## Täglicher Befehls-Workflow
+## Täglicher Befehlsworkflow
 
-| Ziel | Befehl |
-| --- | --- |
-| Sauberen Kontext starten | `/mineclawd sessions new` |
-| Alle gespeicherten Sessions sehen | `/mineclawd sessions list` |
-| Aktiven Kontext wechseln | `/mineclawd sessions resume <session>` |
-| Veralteten Kontext entfernen | `/mineclawd sessions remove <session>` |
-| Aktuellen Chatverlauf lesen | `/mineclawd history` |
-| Fehlerhafte Vertex-Turns reparieren | `/mineclawd sessions repair [session]` |
+| Ziel | Befehl | GUI-Alternative |
+| --- | --- | --- |
+| Sauberen Kontext starten | `/mineclawd sessions new` | Klicke auf **New Session** in der Sessions-Ansicht. |
+| Alle gespeicherten Sessions sehen | `/mineclawd sessions list` | Öffne **Sessions** im Overlay-Menü. |
+| Aktiven Kontext wechseln | `/mineclawd sessions resume <session>` | Klicke auf eine Session-Zeile in der Sessions-Ansicht. |
+| Veralteten Kontext entfernen | `/mineclawd sessions remove <session>` | -- |
+| Aktuellen Chatverlauf lesen | `/mineclawd history` | Scrolle im Overlay auf die Unterhaltung. |
+| Fehlerhafte Vertex-Turns reparieren | `/mineclawd sessions repair [session]` | -- |
 
 `<session>` akzeptiert entweder eine kurze ID wie `1a2b` oder ein Token wie `1a2b-my-build-plan`.
 
 <Tip>
-Bevorzuge die kurze Session-ID für Notizen, Skripte und Runbooks. Die ID ist stabil. Der Titelteil des Tokens kann sich ändern, nachdem MineClawd einen besseren Titel erzeugt.
+Bevorzuge die kurze Session-ID für Notizen, Skripte und Runbooks. Die ID bleibt stabil. Der Token-Titel kann sich nach einer besseren Generierung ändern.
 </Tip>
 
-## Best Practices für lange Aufgaben
+## Best practices für lange Aufgaben
 
-1. Nutze eine Session pro Ziel, nicht eine Session für alles.
-2. Benenne den Kontext neu, indem du frische Sessions startest, statt alten Verlauf endlos mitzuschleppen.
-3. Führe vor `resume`, `remove` oder `repair` `/mineclawd sessions list` aus.
-4. Vermeide Session-Änderungen, solange noch eine Anfrage läuft.
-5. Prüfe den Kontext mit `/mineclawd history` vor destruktiven Aufgaben.
+1. Nutze pro Ziel eine eigene Session, nicht eine für alles.
+2. Starte frische Sessions statt alten Verlauf endlos mitzunehmen.
+3. Führe `/mineclawd sessions list` vor `resume`, `remove` oder `repair` aus.
+4. Vermeide Änderungen an der Session, solange eine Anfrage noch läuft.
+5. Prüfe den Kontext mit `/mineclawd history`, bevor du etwas mit potenziell destruktiven Folgen machst.
 
 ## `/mineclawd history` richtig nutzen
 
 - Das Verlauf-Buch zeigt Session-Token, Aktualisierungszeit und sichtbare Chat-Turns.
 - Der Befehl funktioniert nur für Spieler, nicht für die Konsole.
-- Die Verlauf-Buch-UI erfordert MineClawd auf dem Client.
-- Sehr langer Verlauf wird auf Minecraft-Buchseitenlimits gekürzt.
+- Die History-Buch-UI setzt MineClawd auf dem Client voraus.
+- Sehr lange Verläufe werden durch die Minecraft-Buchseiten begrenzt.
 
-Wenn dein Client MineClawd nicht installiert hat, nutze `sessions list` plus aktuelle Chat-Logs als Fallback-Kontrollpunkt für den Kontext.
+Wenn dein Client MineClawd nicht installiert hat, nutze `sessions list` plus aktuelle Chat-Logs als Fallback.
 
 ## Recovery-Playbook
 
-### Anfrage fehlgeschlagen, aber Kontext soll bleiben
+### Anfrage fehlgeschlagen, Kontext soll bleiben
 
-Nutze `/mineclawd retry <token>` aus der neuesten Fehlermeldung. Retry-Tokens laufen nach 30 Minuten ab.
+Nutze `/mineclawd retry <token>` aus der letzten Fehlermeldung. Retry-Tokens verfallen nach 30 Minuten.
 
-### Vertex-Function-Call-Mismatch-Fehler
+### Vertex-Function-Call-Mismatch
 
-Ausführen:
+Führe aus:
 
 ```bash
 /mineclawd sessions repair
 ```
 
-Oder eine bestimmte Session angeben:
+Oder ziele auf eine bestimmte Session:
 
 ```bash
 /mineclawd sessions repair <session>
 ```
 
-`repair` normalisiert fehlerhafte Vertex-Function-Call-Turns und speichert die reparierte Session.
+`repair` normalisiert fehlerhafte Vertex-Funktionsaufrufe und speichert die reparierte Session.
 
 ## Speicherorte der Session-Dateien
 
-MineClawd speichert Sessions unter deinem Spielverzeichnis:
+MineClawd speichert Sessions unter deinem Spielordner:
 
 ```text
 mineclawd/
@@ -84,18 +84,19 @@ mineclawd/
 ```
 
 - `active.json` speichert die aktive Session-ID.
-- `<id>.json` speichert Metadaten und beide Provider-Verläufe (`openAiHistory`, `vertexHistory`).
-- Wenn du die aktive Session entfernst, wählt MineClawd automatisch die zuletzt aktualisierte verbleibende Session. Wenn keine übrig bleibt, wird die aktive Session gelöscht.
+- `<id>.json` enthält Metadaten und beide Provider-Verläufe (`openAiHistory`, `vertexHistory`).
+- Entfernst du die aktive Session, wählt MineClawd automatisch die zuletzt aktualisierte verbleibende Session. Gibt es keine mehr, wird der aktive Zeiger gelöscht.
 
 ## Backup- und Bereinigungsstrategie
 
-1. Sichere `mineclawd/sessions/`, bevor du eine Massenbereinigung machst.
+1. Sichere `mineclawd/sessions/`, bevor du viele Sessions löschst.
 2. Entferne veraltete Sessions mit `/mineclawd sessions remove <session>`.
-3. Behalte pro Operator eine bekannte, funktionierende Session für schnelles Rollback.
-4. Nutze `/resources/technical-details`, wenn du Speicher-Interna prüfen musst.
+3. Behalte pro Operator eine bekannte funktionierende Session für schnelles Rollback.
+4. Nutze `/resources/technical-details`, wenn du die Speicher-Interna prüfen musst.
 
 ## Verwandte Seiten
 
+- [Die GUI verwenden](/tutorials/using-the-gui)
 - [/commands/sessions-list](/commands/sessions-list)
 - [/commands/sessions-resume](/commands/sessions-resume)
 - [/commands/sessions-repair](/commands/sessions-repair)

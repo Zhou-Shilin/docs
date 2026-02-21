@@ -1,19 +1,19 @@
-﻿---
+---
 title: "技術詳細"
-description: "MineClawd のアーキテクチャ、ストレージ、制限値、実行時内部仕様。"
+description: "MineClawd のアーキテクチャ、ストレージ、制限、ランタイムの挙動。"
 ---
 
 ## リクエストライフサイクル
 
-1. `/mclawd ...` または `/mineclawd prompt ...` を実行します。
+1. `/mclawd ...`、`/mineclawd prompt ...`、またはオーバーレイ入力バーでリクエストを送信します。
 2. MineClawd がプロバイダー設定と OP 権限を検証します。
-3. MineClawd がアクティブセッション状態を読み込むか新規作成します。
-4. MineClawd が OpenAI 互換または Vertex エンドポイントへリクエストを送信します。
-5. モデル応答によってツール呼び出しが発生することがあります。
-6. ツール結果はモデルループへ戻されます。
-7. 最終アシスタント出力がチャットに表示され、セッション履歴が保存されます。
+3. アクティブなセッション状態を読み込み、存在しなければ作成します。
+4. OpenAI 互換または Vertex エンドポイントにストリーミングリクエストを送信します。
+5. `AGENT_STREAM_EVENT` チャネルを通じてクライアントにデルタをリアルタイムで送ります。オーバーレイは点滅カーソル付きで文字を描画します。
+6. モデルの応答がツール呼び出しをトリガーすると、ツール結果を再度モデルへフィードバックします。
+7. 最終的なアシスタント出力をチャット（オーバーレイ含む）に表示し、セッション履歴を保存します。
 
-## 実行時ツールファミリー
+## ランタイムツールのカテゴリ
 
 - コマンドとスクリプト実行:
   - `execute-command`
@@ -25,8 +25,12 @@ description: "MineClawd のアーキテクチャ、ストレージ、制限値�
   - `delete-server-script`
   - `reload-game`
   - `sync-command-tree`
-- 確認質問:
+- 説明要求:
   - `ask-user-question`
+- アセット追跡:
+  - `list-assets`
+  - `upsert-asset-record`
+  - `remove-asset-record`
 - 動的プレースホルダー（有効時のみ）:
   - `list-dynamic-content`
   - `register-dynamic-item`
@@ -49,6 +53,8 @@ gameDir/
       <owner>/
         active.json
         <id>.json
+    assets/
+      <owner>.json
     souls/
       default.md
       yuki.md
@@ -61,60 +67,96 @@ gameDir/
         ...
 ```
 
-## セッション内部仕様
+## セッション内部
 
-- セッション ID は 4 文字の小文字トークンです。
-- コマンド token 形式は `<id>-<title-slug>` です。
-- セッションファイルは OpenAI と Vertex の履歴を別々に保存します。
-- アクティブセッションポインタは owner ごとの `active.json` に保存されます。
-- セッションタイトルは最初の正常ラウンド後に要約モデルで生成されます。
+- セッション ID は小文字 4 文字です。
+- コマンドトークンは `<id>-<title-slug>` 形式です。
+- セッションファイルには OpenAI 履歴と Vertex 履歴が別々に保存されます。
+- `active.json` にオーナー単位でアクティブセッションポインタを保持します。
+- 最初の成功したターン後にサマリーモデルでセッションタイトルを生成します。
 
-## LLM 転送詳細
+## LLM の通信先
 
-- OpenAI 互換リクエストパス: `<endpoint>/chat/completions`
-- Vertex リクエストパス: `<endpoint>/<model>:generateContent?key=<api_key>`
-- 両パスともリクエストタイムアウトは 60 秒です。
-- 両パスとも function 形式のツール呼び出しをサポートします。
+- OpenAI 互換: `<endpoint>/chat/completions`
+- Vertex: `<endpoint>/<model>:generateContent?key=<api_key>`
+- 双方とも 60 秒のタイムアウトを使います。
+- 両方ともツール呼び出しとストリーミングをサポートします。ストリームデルタは `AGENT_STREAM_EVENT` へ送られます。
 
-## 動的プレースホルダー内部仕様
+## ストリーミングアーキテクチャ
 
-- 容量: item スロット `30`、block スロット `30`、fluid スロット `30`。
-- 固定 id の例:
+ストリームイベントはリクエスト ID、イベントタイプバイト、ペイロード文字列で構成されます。
+
+| イベントタイプ | バイト | ペイロード |
+| --- | --- | --- |
+| `START` | `0` | `sessionId` と `request` テキストを含む JSON |
+| `DELTA` | `1` | LLM からのテキスト断片 |
+| `DONE` | `2` | 空 |
+| `ERROR` | `3` | エラーメッセージ文字列 |
+
+オーバーレイはこれらを受け取り、`DONE` または `ERROR` まで点滅カーソルとともにレンダリングします。
+
+アクティブリクエストはサーバー側で `ACTIVE_REQUESTS` と `ACTIVE_NETWORK_REQUESTS` で追跡されます。`/mineclawd stop` はリクエスト ID を `CANCELLED_REQUEST_IDS` にマークし、HTTP 接続をキャンセルします。
+
+## 動的プレースホルダーの内部
+
+- アイテム/ブロック/流体スロットそれぞれ 30 枠。
+- 固定 ID:
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- 状態同期は `sync_dynamic_content` ネットワークペイロードを使います。
-- 状態永続化はワールド `PersistentState` id `mineclawd_dynamic_content` を使います。
-- `AUTO` モードはクライアント実行環境で実行時プレースホルダーを有効化し、専用サーバーでは無効化します。
+- 状態同期は `sync_dynamic_content` ペイロードを使います。
+- 永続化はワールドの `PersistentState` ID `mineclawd_dynamic_content` を使います。
+- `AUTO` モードはクライアントランタイムで有効化し、専用サーバーでは無効化します。
 
-## ネットワークチャンネル
+## ネットワーキングチャネル
 
 MineClawd は次のパケット識別子を定義します:
 
+- `mineclawd:client_ready`
+- `mineclawd:client_gui_pref`
 - `mineclawd:open_config`
 - `mineclawd:sync_broadcast_target`
+- `mineclawd:sync_assistive_touch`
 - `mineclawd:sync_dynamic_content`
 - `mineclawd:open_question`
 - `mineclawd:question_response`
+- `mineclawd:open_sessions`
+- `mineclawd:open_assets`
 - `mineclawd:open_history_book`
+- `mineclawd:agent_stream_event`
 
-## 制限値とタイマー
+## アセット追跡の内部
 
-| 設定または動作 | 値 |
+アセット記録はオーナー単位で `mineclawd/assets/<owner>.json` に保存され、各記録に以下を含みます:
+
+- `id`
+- `category`: `ENTITIES`, `ITEMS_BLOCKS_FLUIDS`, `SPECIAL_ITEMS`, `COMMANDS`, `GAME_MECHANICS`
+- `name`, `summary`, `scriptPath`, `details`
+- カテゴリ固有フィールド: `contentId`, `specialItemId`, `specialItemNbt`, `command`, `entityUuid`, `entityDimension`, `entityX`, `entityY`, `entityZ`
+- `sessionId`
+- `createdAt`, `updatedAt`
+
+システムプロンプトにアセット追跡用の付録が入っているため、LLM は `upsert-asset-record` を呼んで自動で記録します。
+
+## 制限とタイマー
+
+| 設定または挙動 | 値 |
 | --- | --- |
-| `tool-call-limit` の範囲 | `1` から `20` |
-| `tool-call-limit` のデフォルト値 | `16` |
-| `tool-call-limit` のデフォルト状態 | 無効 |
-| `ask-user-question` の最大選択肢数 | `5` |
-| `ask-user-question` のタイムアウト | `60` 秒 |
-| 失敗リクエスト retry token TTL | `30` 分 |
-| レート制限時のリトライ回数 | `2` 回 |
-| レート制限時のバックオフ | `1500ms * retry_index` |
-| 本 UI 生成時の履歴最大件数 | `300` |
+| ツール呼び出し制限範囲 | `1` 〜 `20` |
+| ツール呼び出し制限のデフォルト | `16` |
+| ツール呼び出し制限の既定状態 | 無効 |
+| ask-user の最大選択肢 | `5` |
+| ask-user タイムアウト | `60` 秒 |
+| 失敗リクエストの再試行トークン TTL | `30` 分 |
+| レートリミット再試行回数 | `2` |
+| レートリミット再試行バックオフ | `1500ms × retry_index` |
+| 履歴書籍の最大エントリ数 | `300` |
+| オーバーレイ入力バーの最大長 | `600` 文字 |
+| アセットカテゴリ数 | `5` |
 
 ## セキュリティモデル
 
-- すべてのコマンド経路は OP で保護されます。
-- KubeJS 実行はシミュレーションではなく実サーバー実行です。
-- API キーは秘密情報として扱う必要があります。
-- 信頼できる環境でのみ使用してください。
+- すべてのコマンドパスは OP が必要です。
+- KubeJS の実行は実際のサーバー実行であり、エミュレーションではありません。
+- API キーは機密として扱います。
+- 信頼できる環境でのみ MineClawd を使ってください。

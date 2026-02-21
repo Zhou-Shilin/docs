@@ -55,7 +55,7 @@ Si MineClawd falla, busca abajo el síntoma más cercano y aplica primero esa so
   <Accordion title="No se encontró la personalidad">
     Comprueba los nombres disponibles con `/mineclawd persona`.
 
-    Si hace falta, crea un archivo soul nuevo en `mineclawd/souls/`.
+    Si falta un soul, crea un archivo nuevo en `mineclawd/souls/`.
   </Accordion>
 
   <Accordion title="El registro de marcadores dinámicos está deshabilitado">
@@ -65,13 +65,13 @@ Si MineClawd falla, busca abajo el síntoma más cercano y aplica primero esa so
     /mineclawd config dynamic-registry-mode enabled
     ```
 
-    En servidores dedicados, los clientes también deben instalar MineClawd cuando esto está habilitado.
+    En servidores dedicados, los clientes también deben instalar MineClawd cuando esto esté habilitado.
   </Accordion>
 
   <Accordion title="`reload-game` informa errores de KubeJS">
-    Lee las líneas reportadas, corrige errores de sintaxis o runtime en `kubejs/server_scripts/mineclawd/` y vuelve a recargar.
+    Lee las líneas reportadas y corrige errores de sintaxis o runtime en `kubejs/server_scripts/mineclawd/`, luego recarga.
 
-    Sigue corrigiendo hasta que la salida de recarga no informe errores de KubeJS.
+    Repite hasta que la salida no muestre errores de KubeJS.
   </Accordion>
 
   <Accordion title="`/mineclawd choose` dice que no hay pregunta pendiente">
@@ -81,13 +81,41 @@ Si MineClawd falla, busca abajo el síntoma más cercano y aplica primero esa so
   </Accordion>
 
   <Accordion title="Solo hay una opción en la selección de proveedor LLM/Broadcast Requests To">
-    Es un bug extraño de YACL. Haz clic en el valor e introduce la(s) primera(s) letra(s) de la opción que quieres, luego selecciónala en el desplegable que aparece.
+    Es un bug extraño de YACL. Haz clic en el valor e introduce la(s) primera(s) letra(s) de la opción, luego selecciónala del desplegable.
 
     Para proveedor LLM: escribe `o` para OpenAI o `g` para Google Vertex AI.
     Para Broadcast Requests To: escribe `on` para only-me, `a` para all u `op` para ops.
   </Accordion>
-</AccordionGroup>
 
+  <Accordion title="El orbe de la superposición no aparece">
+    El orbe AssistiveTouch requiere:
+
+    - MineClawd instalado en el cliente.
+    - Nivel de permiso OP 2.
+    - **Enable GUI** activado en configuración (**Mod Menu** -> **MineClawd** -> **Configure**).
+    - AssistiveTouch no está desactivado (`/mineclawd assistivetouch` para reactivarlo).
+
+    Revisa cada punto. Si sigue sin aparecer, activa debug y consulta los registros.
+  </Accordion>
+
+  <Accordion title="Escribir en la superposición se filtra al chat o al inventario">
+    Este problema se solucionó en v1.4.0. Asegúrate de usar MineClawd 1.4.0 o posterior.
+
+    Si persiste, puede ser un conflicto con otros mods. Prueba con solo MineClawd y sus dependencias.
+  </Accordion>
+
+  <Accordion title="El botón Stop o `/mineclawd stop` no cancela la solicitud">
+    Stop envía una señal de cancelación a la solicitud activa. Si el proveedor ya terminó pero aún se transmite la respuesta, puede tardar en cancelarse.
+
+    Si la sesión sigue bloqueada, crea una nueva con `/mineclawd sessions new`.
+  </Accordion>
+
+  <Accordion title="La teletransportación de activos dice que no se encuentra la entidad">
+    La entidad pudo haber muerto, desaparecido o descargado. Los registros guardan la última ubicación conocida al crear el activo y no rastrean movimientos.
+
+    Teletransportar solo funciona con activos de categoría entidad que tienen UUID y dimensión válidos.
+  </Accordion>
+</AccordionGroup>
 
 ## Si los problemas continúan
 

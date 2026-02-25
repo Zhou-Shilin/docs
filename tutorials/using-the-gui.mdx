@@ -4,7 +4,7 @@ description: "Send requests, view streaming responses, manage sessions, and brow
 tag: "NEW"
 ---
 
-MineClawd 1.4.0 adds a dedicated overlay window that sits on top of your game. You can type requests, watch responses stream in real time, switch sessions, and manage assets without ever touching the chat box.
+MineClawd includes a dedicated overlay window that sits on top of your game. You can type requests, watch responses stream in real time, switch sessions, and manage assets without ever touching the chat box.
 
 <Note>
 The GUI requires MineClawd installed on your client. On a dedicated server, install MineClawd on both the server and each player's client.
@@ -42,6 +42,7 @@ While MineClawd is working:
 
 - A blinking cursor follows the latest text.
 - The header shows **Streaming** status.
+- An animated tool status indicator appears when MineClawd calls a tool, showing the tool name in real time.
 - The **Send** button becomes a **Stop** button. Click it to cancel the active request (same as `/mineclawd stop`).
 - The AssistiveTouch orb shows a pulsing dot when the overlay is minimized.
 
@@ -66,7 +67,7 @@ Messages are color-coded for readability:
 - **You:** messages appear in blue tones.
 - **MineClawd:** messages appear in gold/white tones, with one prefix per assistant turn even when tool calls split the response.
 
-If MineClawd asks a clarification question (via `ask-user-question`), option buttons appear inline. Pick an option or click **Skip** to let the countdown expire.
+If MineClawd asks a clarification question (via `ask-user-question`), option buttons appear inline with a built-in **Other** option. Pick an option, type a custom answer via **Other**, or click **Skip** to let the countdown expire.
 
 ## Using the menu
 

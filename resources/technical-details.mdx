@@ -31,6 +31,13 @@ description: "Architecture, storage, limits, and runtime internals for MineClawd
   - `list-assets`
   - `upsert-asset-record`
   - `remove-asset-record`
+- Web search (requires Tavily API key):
+  - `search`
+- Mod information:
+  - `list_mods`
+  - `list_commands`
+  - `fetch_modrinth`
+  - `fetch_url`
 - Dynamic placeholders (only when enabled):
   - `list-dynamic-content`
   - `register-dynamic-item`
@@ -93,8 +100,10 @@ Stream events use the `AGENT_STREAM_EVENT` channel with a request ID, event type
 | `DELTA` | `1` | Text fragment from the LLM |
 | `DONE` | `2` | Empty |
 | `ERROR` | `3` | Error message string |
+| `TOOL_STATUS` | `4` | Name of the tool currently being called |
+| `TOOL_STATUS_CLEAR` | `5` | Empty (clears the tool status indicator) |
 
-The overlay receives these events and renders deltas incrementally. A blinking cursor follows the latest text until `DONE` or `ERROR` arrives.
+The overlay receives these events and renders deltas incrementally. A blinking cursor follows the latest text until `DONE` or `ERROR` arrives. During generation, `TOOL_STATUS` events display an animated indicator showing which tool MineClawd is calling in real time. The indicator clears when `TOOL_STATUS_CLEAR` arrives.
 
 Active requests are tracked server-side in `ACTIVE_REQUESTS` and `ACTIVE_NETWORK_REQUESTS` maps. The `/mineclawd stop` command marks the request ID in `CANCELLED_REQUEST_IDS` and cancels in-flight HTTP connections.
 

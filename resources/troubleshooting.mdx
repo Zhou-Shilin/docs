@@ -99,9 +99,19 @@ If MineClawd fails, find the closest symptom below and apply that fix first.
   </Accordion>
 
   <Accordion title="Typing in the overlay leaks into chat or inventory">
-    This was fixed in v1.4.0. Make sure you are running MineClawd 1.4.0 or later.
+    Make sure you are running the latest version of MineClawd.
 
     If the issue persists, it may be a mod conflict. Test with only MineClawd and its dependencies installed.
+  </Accordion>
+
+  <Accordion title="Web search says search tool is disabled">
+    The `search` tool requires a Tavily API key. Set one with:
+
+    ```bash
+    /mineclawd config tavily-api-key <your-tavily-key>
+    ```
+
+    Get a key from [tavily.com](https://tavily.com/). Once configured, MineClawd uses web search automatically when it needs external information.
   </Accordion>
 
   <Accordion title="Stop button or /mineclawd stop does not cancel the request">

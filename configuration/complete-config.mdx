@@ -20,13 +20,15 @@ This page gives you the full MineClawd configuration model, including file setti
   provider: "OPENAI",
   endpoint: "https://api.openai.com/v1",
   apiKey: "",
-  model: "gpt-4o-mini",
-  summarizeModel: "gpt-4o-mini",
+  model: "gpt-5.2",
+  summarizeModel: "gpt-5.2",
 
   vertexEndpoint: "https://aiplatform.googleapis.com/v1",
   vertexApiKey: "",
-  vertexModel: "publishers/google/models/gemini-3-pro-preview",
-  vertexSummarizeModel: "publishers/google/models/gemini-3-pro-preview",
+  vertexModel: "gemini-3.1-pro-preview",
+  vertexSummarizeModel: "gemini-3-flash-preview",
+
+  tavilyApiKey: "",
 
   debugMode: false,
   limitToolCalls: false,
@@ -52,12 +54,13 @@ In command form, values are lowercase (`openai`, `vertex-ai`, `auto`, `enabled`,
 | `provider` | `provider` | enum | `OPENAI` | Provider selection: OpenAI-compatible or Vertex AI. |
 | `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-compatible base URL, no trailing slash required. |
 | `apiKey` | `api-key` | string | empty | OpenAI API key. |
-| `model` | `model` | string | `gpt-4o-mini` | OpenAI chat model. |
-| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI model for first-turn session title generation. |
+| `model` | `model` | string | `gpt-5.2` | OpenAI chat model. |
+| `summarizeModel` | `summarize-model` | string | `gpt-5.2` | OpenAI model for first-turn session title generation. |
 | `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API base URL. |
 | `vertexApiKey` | `vertex-api-key` | string | empty | Vertex API key. |
-| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex model path or model name. |
-| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex summarize model for session titles. |
+| `vertexModel` | `vertex-model` | string | `gemini-3.1-pro-preview` | Vertex model path or model name. |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `gemini-3-flash-preview` | Vertex summarize model for session titles. |
+| `tavilyApiKey` | `tavily-api-key` | string | empty | Tavily API key for web search. When set, enables the `search` tool. |
 | `debugMode` | `debug-mode` | boolean | `false` | Logs detailed request and tool activity. |
 | `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Enables per-request tool-loop cap. |
 | `toolCallLimit` | `tool-call-limit` | integer | `16` | Allowed range is `1` to `20`. |
@@ -103,8 +106,8 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config provider openai
 /mineclawd config endpoint https://api.openai.com/v1
 /mineclawd config api-key <your-key>
-/mineclawd config model gpt-4o-mini
-/mineclawd config summarize-model gpt-4o-mini
+/mineclawd config model gpt-5.2
+/mineclawd config summarize-model gpt-5.2
 ```
 
 ### Baseline for first-time Vertex setup
@@ -113,8 +116,8 @@ If you force `ENABLED` on a dedicated server, joining clients must have MineClaw
 /mineclawd config provider vertex-ai
 /mineclawd config vertex-endpoint https://aiplatform.googleapis.com/v1
 /mineclawd config vertex-api-key <your-key>
-/mineclawd config vertex-model publishers/google/models/gemini-3-pro-preview
-/mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
+/mineclawd config vertex-model gemini-3.1-pro-preview
+/mineclawd config vertex-summarize-model gemini-3-flash-preview
 ```
 
 ## GUI path

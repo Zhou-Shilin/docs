@@ -1,123 +1,136 @@
 ---
 title: "トラブルシューティング"
-description: "MineClawd のセットアップやランタイムの問題をすばやく解決します。"
+description: "MineClawd のセットアップや実行時のよくある問題をすばやく解決します。"
 ---
 
-MineClawd が動かない場合は、以下の症状から該当する項目を先に試してください。
+MineClawd が動作しない場合は、まず最も近い症状を見つけて、その項目の対処から実施してください。
 
 <AccordionGroup>
-  <Accordion title="MineClawd が OP 権限が必要だと言う">
-    プレイヤーに OP レベル 2 を付与してください。すべての `/mineclawd` と `/mclawd` コマンドは OP2 が必須です。
+  <Accordion title="MineClawd に OP ユーザーのみ実行可能と言われる">
+    プレイヤーに OP レベル 2 の権限を付与してください。`/mineclawd` と `/mclawd` のすべてのコマンドは OP 権限が必要です。
   </Accordion>
 
-  <Accordion title="MineClawd が API キーまたはモデルを求めている">
-    設定を開き、プロバイダー資格情報を入力してください。
+  <Accordion title="MineClawd に API キーまたはモデルが未設定と言われる">
+    設定を開いてプロバイダー認証情報を入力してください。
 
-    OpenAI ルート:
+    OpenAI path:
     - `provider openai`
     - `api-key <key>`
     - `model <model>`
 
-    Vertex ルート:
+    Vertex path:
     - `provider vertex-ai`
     - `vertex-api-key <key>`
     - `vertex-model <model>`
   </Accordion>
 
   <Accordion title="`/mineclawd config` で GUI が開かない">
-    クライアントに MineClawd が入っていない可能性があります。コマンドで設定してください:
+    クライアントに MineClawd が入っていない可能性があります。コマンドで設定してください。
 
     ```bash
     /mineclawd config <key> <value>
     ```
   </Accordion>
 
-  <Accordion title="`/mineclawd history` でクライアントモッドが必要と言われる">
-    クライアントに MineClawd を導入してください。履歴ブック UI はクライアントパケットを要求します。
+  <Accordion title="`/mineclawd history` で client mod が必要と言われる">
+    クライアントに MineClawd をインストールしてください。history book UI はクライアント packet channel を使います。
   </Accordion>
 
-  <Accordion title="別のリクエストがまだ処理中と言われる">
-    現在のタスクが終わるまで待ってから、新しいリクエストやセッション操作を行ってください。
+  <Accordion title="この Session では別のリクエストがまだ実行中と言われる">
+    現在の処理完了まで待ってから、新しいリクエスト開始、Session 切替、persona 切替を行ってください。
   </Accordion>
 
-  <Accordion title="リトライトークンが無効や期限切れ">
-    リトライトークンは 30 分で期限切れになります。
+  <Accordion title="retry token が無効または期限切れ">
+    retry token の有効期限は 30 分です。
 
-    新しいリクエストを実行するか、失敗メッセージに表示される最新の再試行アクションを使ってください。
+    新しいリクエストを実行するか、直近の失敗メッセージから最新の retry アクションを使ってください。
   </Accordion>
 
-  <Accordion title="resume/remove/repair の対象セッションが見つからない">
+  <Accordion title="resume、remove、repair 用の Session が見つからない">
     まず `/mineclawd sessions list` を実行してください。
 
-    出力のセッション ID またはトークンをそのまま使います。
+    その出力にある正確な Session ID または token を使ってください。
   </Accordion>
 
-  <Accordion title="ペルソナが見つからない">
-    `/mineclawd persona` で利用可能な名前を確認してください。
+  <Accordion title="persona が見つからない">
+    `/mineclawd persona` で利用可能名を確認してください。
 
-    必要であれば `mineclawd/souls/` に新しい soul ファイルを作成します。
+    必要なら `mineclawd/souls/` 配下に新しい soul ファイルを作成してください。
   </Accordion>
 
-  <Accordion title="動的プレースホルダーが無効と出る">
-    モードを変更して再起動してください:
+  <Accordion title="動的プレースホルダー registry が無効と言われる">
+    mode を設定して再起動してください。
 
     ```bash
     /mineclawd config dynamic-registry-mode enabled
     ```
 
-    専用サーバーでは、この設定時にすべてのクライアントに MineClawd が必要です。
+    専用サーバーでこれを有効化する場合、クライアント側にも MineClawd の導入が必要です。
   </Accordion>
 
-  <Accordion title="`reload-game` が KubeJS エラーを報告する">
-    表示された行を読み、`kubejs/server_scripts/mineclawd/` 内のスクリプト構文や実行時問題を修正してから再読み込みします。
+  <Accordion title="`reload-game` で KubeJS エラーが出る">
+    報告された行を読み、`kubejs/server_scripts/mineclawd/` のスクリプト構文または実行時エラーを修正して再読み込みしてください。
 
-    エラーがなくなるまで繰り返してください。
+    `reload-game` の出力に KubeJS エラーが出なくなるまで修正を続けてください。
   </Accordion>
 
-  <Accordion title="`/mineclawd choose` が保留質問なしと言う">
-    MineClawd が質問待ちになっていません。選ぶのは質問が出た後だけです。
+  <Accordion title="`/mineclawd choose` で pending question がないと言われる">
+    MineClawd は現在回答待ちではありません。
+
+    `choose` は MineClawd が確認質問を出した後にのみ実行してください。
   </Accordion>
 
-  <Accordion title="LLM プロバイダー選択や Broadcast Requests To に選択肢が 1 つしかない">
-    YACL の奇妙な挙動です。値をクリックし、選びたいオプションの先頭 1〜2 文字を入力してから、表示された候補を選択してください。
+  <Accordion title="LLM provider selection または Broadcast Requests To で選択肢が 1 つしか出ない">
+    これは YACL の不具合です。値をクリックして、欲しい選択肢の先頭 1〜2 文字を入力し、表示されたドロップダウンから選択してください。
 
-    - LLM プロバイダー: `o` で OpenAI、`g` で Google Vertex AI。
-    - Broadcast Requests To: `on`（自分のみ）、`a`（全員）、`op`（OP のみ）。
+    For LLM provider: type `o` for OpenAI or `g` for Google Vertex AI.
+    For Broadcast Requests To: type `on` for only-me, `a` for all, or `op` for ops.
   </Accordion>
 
   <Accordion title="オーバーレイのオーブが表示されない">
-    Assistive Touch オーブには以下が必要です:
+    Assistive Touch オーブの表示には次が必要です。
 
     - クライアントに MineClawd がインストールされている。
-    - OP 権限レベル 2 を持っている。
-    - **Enable GUI** が ON（**Mod Menu** -> **MineClawd** -> **Configure**）。
-    - `/mineclawd assistivetouch` がオーブを有効のままにしている。
+    - OP 権限レベル 2 がある。
+    - 設定（**Mod Menu** -> **MineClawd** -> **Configure**）で **Enable GUI** が ON。
+    - Assistive Touch がオフに切り替えられていない（`/mineclawd assistivetouch` で再有効化）。
 
-    すべて満たしても表示されない場合はデバッグモードを ON にし、ログを確認してください。
+    これらを順に確認してください。表示されない場合は debug mode を有効化してログを確認してください。
   </Accordion>
 
   <Accordion title="オーバーレイ入力がチャットやインベントリに漏れる">
-    v1.4.0 で修正済みです。MineClawd 1.4.0 以降を使っているか確認してください。
+    MineClawd を最新バージョンに更新してください。
 
-    問題が続く場合は MineClawd と依存関係だけを導入した状態でテストすると、競合 mod を特定しやすくなります。
+    問題が続く場合は Mod 競合の可能性があります。MineClawd と依存 Mod だけの構成で再現確認してください。
   </Accordion>
 
-  <Accordion title="Stop ボタンや `/mineclawd stop` でキャンセルできない">
-    Stop はアクティブリクエストにキャンセル信号を出します。プロバイダーが処理を終えてレスポンスを送っている場合、即座には効かないことがあります。
+  <Accordion title="Web 検索で search tool が無効と言われる">
+    `search` ツールには Tavily API キーが必要です。次で設定してください。
 
-    停止後もセッションがロックされる場合は、`/mineclawd sessions new` で新しいセッションを作成してください。
+    ```bash
+    /mineclawd config tavily-api-key <your-tavily-key>
+    ```
+
+    キーは [tavily.com](https://tavily.com/) で取得できます。設定後は、外部情報が必要な場面で MineClawd が自動で Web 検索を使います。
   </Accordion>
 
-  <Accordion title="アセットテレポートでエンティティが見つからない">
-    エンティティが死んだかスポーン済みエリアを離れた可能性があります。アセット記録は作成時の情報しか保持せず、移動は追跡しません。
+  <Accordion title="Stop ボタンまたは /mineclawd stop でリクエストが止まらない">
+    stop はアクティブリクエストへキャンセル信号を送ります。LLM プロバイダー側の処理が既に終了しており、配信だけ続いている場合は、停止がすぐ反映されないことがあります。
 
-    テレポートは UUID とディメンションと座標を持つエンティティアセットにのみ有効です。
+    停止後も Session がロックされたままなら、`/mineclawd sessions new` で新しい Session を作成してください。
+  </Accordion>
+
+  <Accordion title="asset teleport で entity が見つからないと言われる">
+    エンティティが kill、despawn、または未ロードになっている可能性があります。asset レコードは作成時点の最終既知位置だけを保持し、移動追跡はしません。
+
+    teleport は UUID とディメンションを保存した entity-category asset でのみ機能します。
   </Accordion>
 </AccordionGroup>
 
+
 ## 問題が続く場合
 
-- デバッグログを有効にする: `/mineclawd config debug-mode true`
-- 失敗を再現する
+- debug ログを有効化: `/mineclawd config debug-mode true`
+- 1 回再現する
 - `logs/latest.log` を確認する
-- 問題を報告する: `https://github.com/Zhou-Shilin/MineClawd/issues`
+- Issue を報告する: `https://github.com/Zhou-Shilin/MineClawd/issues`

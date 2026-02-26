@@ -1,142 +1,143 @@
 ---
 title: "Uso de la GUI"
-description: "Envía solicitudes, mira respuestas en streaming, gestiona sesiones y explora activos desde la superposición en el juego."
+description: "Envía solicitudes, mira respuestas en streaming, gestiona Sessions y explora assets desde la superposición en el juego."
 tag: "NEW"
 ---
 
-MineClawd 1.4.0 añade una ventana de superposición dedicada sobre tu juego. Puedes escribir solicitudes, ver respuestas en streaming, cambiar sesiones y gestionar activos sin abrir el chat.
+MineClawd incluye una ventana de superposición dedicada que aparece sobre tu juego. Puedes escribir solicitudes, ver respuestas en streaming en tiempo real, cambiar Sessions y gestionar assets sin tocar el chat.
 
 <Note>
-La GUI requiere MineClawd en el cliente. En un servidor dedicado, instala MineClawd en el servidor y en cada cliente.
+La GUI requiere MineClawd instalado en tu cliente. En un servidor dedicado, instala MineClawd tanto en el servidor como en el cliente de cada jugador.
 </Note>
 
 ## Abrir la superposición
 
-La superposición aparece como un orbe flotante (AssistiveTouch) en el lado izquierdo. Haz clic para expandir la ventana completa.
+La superposición aparece como un orbe flotante (Assistive Touch) en el lado izquierdo de tu pantalla. Haz clic en el orbe para expandir la ventana completa.
 
-<Frame caption="El orbe AssistiveTouch cuando está inactivo">
-  <img src="/images/mineclawd-assistive-touch.png" alt="El orbe flotante AssistiveTouch de MineClawd en pantalla" />
+<Frame caption="Orbe Assistive Touch en reposo">
+  <img src="/images/mineclawd-assistive-touch.png" alt="Orbe flotante Assistive Touch de MineClawd en pantalla" />
 </Frame>
 
-El orbe solo lo ven los jugadores con OP 2. Si no aparece, verifica permisos y que **Enable GUI** esté activado en configuración (**Mod Menu** -> **MineClawd** -> **Configure**).
+El orbe solo es visible para jugadores con OP nivel 2. Si no lo ves, revisa permisos y confirma que `Enable GUI` esté activado en la pantalla de configuración (**Mod Menu** -> **MineClawd** -> **Configure**).
 
 ## Diseño de la superposición
 
-La ventana expandida tiene tres partes:
+La superposición expandida tiene tres partes:
 
-1. **Barra de encabezado** — muestra el modo activo (Response, Sessions o Assets), el nombre del soul activo y estados como “Streaming” o “Question”. En la derecha hay tres botones: menú, minimizar y cerrar.
-2. **Área de contenido** — muestra el historial de conversación, la lista de sesiones o el inventario de activos según el modo activo.
-3. **Barra de entrada** — campo de texto donde escribes solicitudes; el botón **Send** se convierte en **Stop** durante la generación.
+1. **Barra de encabezado** -- muestra el modo actual (Response, Sessions o Assets), el nombre del soul activo y estados como "Streaming" o "Question". A la derecha hay tres botones: icono de menú, minimizar y cerrar.
+2. **Área de contenido** -- muestra historial de conversación, lista de Sessions o inventario de assets según el modo activo.
+3. **Barra de entrada** -- campo de texto donde escribes solicitudes, con botón **Send** que se convierte en **Stop** durante la generación.
 
 Puedes arrastrar la superposición desde el encabezado y redimensionarla desde la esquina inferior derecha.
 
 ## Enviar una solicitud
 
-Escribe tu mensaje en la barra de entrada y haz clic en **Send** (o pulsa Enter). Funciona igual que `/mclawd <request>` sin abrir el chat.
+Escribe tu solicitud en la barra de entrada al fondo y haz clic en **Send** (o presiona Enter). Funciona igual que `/mclawd <request>`, pero sin abrir el chat.
 
 <Frame caption="MineClawd transmitiendo una respuesta en tiempo real">
-  <img src="/images/mineclawd-generating.png" alt="La superposición de MineClawd muestra una respuesta en streaming con cursor parpadeante" />
+  <img src="/images/mineclawd-generating.png" alt="Superposición de MineClawd mostrando una respuesta en streaming con cursor parpadeante" />
 </Frame>
 
 Mientras MineClawd trabaja:
 
 - Un cursor parpadeante sigue el texto más reciente.
-- El encabezado muestra el estado **Streaming**.
+- El encabezado muestra estado **Streaming**.
+- Aparece un indicador animado de estado de herramienta cuando MineClawd llama una herramienta, mostrando el nombre de la herramienta en tiempo real.
 - El botón **Send** se convierte en **Stop**. Haz clic para cancelar la solicitud activa (igual que `/mineclawd stop`).
-- El orbe AssistiveTouch muestra un punto pulsante cuando la superposición está minimizada.
+- El orbe Assistive Touch muestra un punto pulsante cuando la superposición está minimizada.
 
-<Frame caption="El orbe pulsa mientras se ejecuta una solicitud">
-  <img src="/images/mineclawd-assistive-touch-while-generating.png" alt="El orbe AssistiveTouch con indicador pulsante durante la generación" />
+<Frame caption="El orbe pulsa mientras una solicitud está en ejecución">
+  <img src="/images/mineclawd-assistive-touch-while-generating.png" alt="Orbe Assistive Touch con indicador pulsante durante la generación" />
 </Frame>
 
-<Frame caption="Otro ejemplo de generación multietapa en curso">
-  <img src="/images/mineclawd-generating-2.png" alt="La superposición de MineClawd muestra una respuesta más larga con llamadas a herramientas" />
+<Frame caption="Otro ejemplo de generación multietapa en progreso">
+  <img src="/images/mineclawd-generating-2.png" alt="Superposición de MineClawd mostrando una respuesta larga en streaming con llamadas a herramientas" />
 </Frame>
 
-Cuando MineClawd termina, el resultado aparece en el historial de la conversación.
+Cuando MineClawd termina, el resultado aparece en el historial de conversación.
 
-<Frame caption="El resultado completado de la solicitud anterior">
-  <img src="/images/mineclawd-result.png" alt="La superposición de MineClawd muestra el resultado final cuando la generación termina" />
+<Frame caption="Resultado final de la solicitud anterior">
+  <img src="/images/mineclawd-result.png" alt="Superposición de MineClawd mostrando el resultado final al completar la generación" />
 </Frame>
 
 ## Visualización de mensajes
 
-Los mensajes usan colores para distinguir:
+Los mensajes usan colores para facilitar lectura:
 
-- **Tú:** azul.
-- **MineClawd:** tonos dorados/blancos, con un prefijo por cada turno del asistente incluso si las llamadas a herramientas dividen la respuesta.
+- **Tú:** los mensajes aparecen en tonos azules.
+- **MineClawd:** los mensajes aparecen en tonos dorado/blanco, con un prefijo por turno del asistente incluso cuando llamadas de herramientas dividen la respuesta.
 
-Si MineClawd pregunta por aclaraciones (`ask-user-question`), aparecen botones de opción. Elige uno o haz clic en **Skip** para dejar que expire la cuenta regresiva.
+Si MineClawd hace una pregunta de aclaración (vía `ask-user-question`), aparecen botones de opciones en línea con una opción **Other** integrada. Elige una opción, escribe una respuesta personalizada con **Other** o haz clic en **Skip** para dejar expirar la cuenta regresiva.
 
 ## Usar el menú
 
-Haz clic en el icono de hamburguesa del encabezado para abrir el menú. Tiene cuatro entradas:
+Haz clic en el icono de menú (hamburguesa) del encabezado para abrir el desplegable. Tiene cuatro entradas:
 
 | Entrada | Qué hace |
 | --- | --- |
 | **Config** | Abre la pantalla de configuración de YACL. |
-| **Sessions** | Cambia la vista a la lista de sesiones. |
-| **Assets** | Cambia la vista al inventario de activos. |
-| **Persona** | Cicla entre los souls disponibles. |
+| **Sessions** | Cambia la superposición al modo de lista de Sessions. |
+| **Assets** | Cambia la superposición al modo de inventario de assets. |
+| **Persona** | Recorre las personas (souls) disponibles. |
 
-## Gestionar sesiones desde la superposición
+## Gestionar Sessions desde la superposición
 
-Haz clic en **Sessions** para ver todas las sesiones guardadas en una lista desplazable.
+Haz clic en **Sessions** en el menú para ver todas las Sessions guardadas en una lista desplazable.
 
-<Frame caption="Lista de sesiones en la superposición">
-  <img src="/images/mineclawd-sessions.png" alt="La superposición muestra la lista de sesiones con marcas de tiempo" />
+<Frame caption="Lista de Sessions en la superposición">
+  <img src="/images/mineclawd-sessions.png" alt="Superposición de Sessions de MineClawd mostrando lista de Sessions con marcas de tiempo" />
 </Frame>
 
 Desde esta vista puedes:
 
-- Hacer clic en **New Session** para crear y cambiar a una sesión nueva.
-- Hacer clic en cualquier fila para activarla. La sesión activa se resalta.
-- Ver títulos y últimos tiempos de actualización.
+- Hacer clic en **New Session** para crear y cambiar a una Session nueva.
+- Hacer clic en cualquier fila de Session para cambiar a esa Session. La Session activa se resalta.
+- Ver títulos de Session y marcas de última actualización de un vistazo.
 
-Haz clic en la flecha de retroceso o selecciona **Response** en el menú para volver a la vista de conversación.
+Haz clic en la flecha de regreso o selecciona **Response** en el menú para volver a la vista de conversación.
 
-## Explorar activos
+## Explorar assets
 
-Haz clic en **Assets** para abrir el inventario de activos. Consulta [Seguimiento de activos](/tutorials/tracking-assets) para la guía completa.
+Haz clic en **Assets** en el menú para abrir el inventario de assets. Revisa [seguimiento de assets](/tutorials/tracking-assets) para el recorrido completo.
 
-<Frame caption="Inventario de activos con pestañas de categoría y controles de acción">
-  <img src="/images/mineclawd-assets.png" alt="La superposición de MineClawd muestra una lista de activos con controles por categoría" />
+<Frame caption="Inventario de assets con pestañas de categoría y botones de acción">
+  <img src="/images/mineclawd-assets.png" alt="Superposición de Assets de MineClawd mostrando lista categorizada con controles de acción" />
 </Frame>
 
 ## Minimizar y restaurar
 
-Haz clic en el botón de minimizar (icono de guion) en el encabezado para colapsar la ventana de nuevo al orbe AssistiveTouch. Haz clic en el orbe para restaurarla.
+Haz clic en el botón minimizar (icono de guion) en el encabezado para colapsar la superposición al orbe Assistive Touch. Haz clic en el orbe para restaurarla.
 
-Puedes arrastrar el orbe para reposicionarlo. La posición se mantiene durante la sesión.
+Puedes arrastrar el orbe para mover su posición. La ubicación del orbe se conserva durante la Session.
 
 ## Aislamiento de entrada
 
-Mientras la superposición está expandida, el teclado y el ratón los captura la ventana. Escribir, desplazarte y clicar no afecta al chat, inventario ni otras pantallas.
+Mientras la superposición está expandida, teclado y ratón quedan capturados por la superposición. Escribir, desplazar y hacer clic no se filtra al chat, inventario ni otras pantallas.
 
-La edición de texto estándar funciona en la barra de entrada: Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+V, Home, End y Ctrl+flechas.
+La edición de texto estándar funciona en la barra de entrada: Ctrl+A (seleccionar todo), Ctrl+C (copiar), Ctrl+X (cortar), Ctrl+V (pegar), Home, End y Ctrl+flecha para saltos por palabra.
 
 ## Desactivar la GUI
 
-Si prefieres interactuar únicamente desde el chat, desactiva la superposición en la configuración:
+Si prefieres interacción solo por chat, desactiva la superposición en configuración:
 
 1. Abre **Mod Menu** -> **MineClawd** -> **Configure**.
-2. Pon **Enable GUI** en OFF.
+2. Cambia **Enable GUI** a OFF.
 3. Guarda.
 
-La GUI desactivada no impide usar los comandos por chat. La sincronización de contenido dinámico sigue activa para que los marcadores se rendericen correctamente.
+Cuando la GUI está desactivada, todos los comandos siguen funcionando por chat. La sincronización de contenido dinámico sigue activa para que los placeholders de runtime se rendericen correctamente.
 
-También puedes ocultar el orbe AssistiveTouch por jugador:
+También puedes alternar el orbe Assistive Touch por jugador:
 
 ```bash
 /mineclawd assistivetouch
 ```
 
-Esto oculta el orbe sin desactivar todo el sistema GUI. Vuelve a ejecutarlo para mostrarlo.
+Esto oculta el orbe sin desactivar todo el sistema GUI. Ejecuta el comando de nuevo para mostrarlo.
 
 ## Páginas relacionadas
 
-- [Seguimiento de activos](/tutorials/tracking-assets)
-- [Gestionar sesiones](/tutorials/managing-sessions)
+- [Seguimiento de assets](/tutorials/tracking-assets)
+- [Gestionar Sessions](/tutorials/managing-sessions)
 - [Referencia de configuración](/configuration/complete-config)
 - [Comando stop](/commands/stop)
-- [Comando AssistiveTouch](/commands/assistivetouch)
+- [Comando Assistive Touch](/commands/assistivetouch)

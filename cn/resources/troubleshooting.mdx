@@ -1,17 +1,17 @@
 ﻿---
 title: "故障排查"
-description: "快速修复常见 MineClawd 安装与运行问题。"
+description: "快速修复常见 MineClawd 安装和运行问题。"
 ---
 
-遇到 MineClawd 故障时，先定位最接近的症状并按下列步骤操作。
+如果 MineClawd 失败，请先在下方找到最接近的症状，并优先应用对应修复。
 
 <AccordionGroup>
-  <Accordion title="MineClawd 提示只有 OP 用户可以运行">
-    给你的玩家授予 OP 级别 2。所有 `/mineclawd` 与 `/mclawd` 命令都需要 OP 权限。
+  <Accordion title="MineClawd 提示只有 OP 用户可以运行此命令">
+    给你的玩家授予 OP 等级 2。所有 `/mineclawd` 和 `/mclawd` 命令都要求 OP 权限。
   </Accordion>
 
-  <Accordion title="MineClawd 提示缺少 API 密钥或模型">
-    打开配置并设置提供商凭据。
+  <Accordion title="MineClawd 提示缺少 API key 或 model">
+    打开配置并设置 provider 凭据。
 
     OpenAI 路径：
     - `provider openai`
@@ -25,7 +25,7 @@ description: "快速修复常见 MineClawd 安装与运行问题。"
   </Accordion>
 
   <Accordion title="`/mineclawd config` 无法打开 GUI">
-    说明客户端没有安装 MineClawd。使用命令配置：
+    你的客户端很可能没有安装 MineClawd。请改用命令配置：
 
     ```bash
     /mineclawd config <key> <value>
@@ -33,27 +33,29 @@ description: "快速修复常见 MineClawd 安装与运行问题。"
   </Accordion>
 
   <Accordion title="`/mineclawd history` 提示需要客户端模组">
-    安装客户端模组。历史书 UI 依赖客户端数据包通道。
+    在客户端安装 MineClawd。历史书 UI 使用客户端数据包通道。
   </Accordion>
 
-  <Accordion title="另一个请求仍在运行中">
-    在启动新请求、切换会话或切换 persona 前，等待当前任务完成。
+  <Accordion title="这个 Session 仍有请求在运行">
+    先等待当前任务完成，再开始新请求、切换 Session，或切换 persona。
   </Accordion>
 
-  <Accordion title="重试令牌无效或过期">
-    重试令牌有效期 30 分钟。
+  <Accordion title="重试 token 无效或已过期">
+    重试 token 在 30 分钟后过期。
 
-    重新触发一次请求或在最新失败提示里使用最新的重试操作。
+    请重新触发一次请求，或使用最新失败消息里的最新重试操作。
   </Accordion>
 
-  <Accordion title="恢复、删除或修复会话时提示找不到会话">
-    先运行 `/mineclawd sessions list`，再使用输出中显示的会话 id 或令牌。
+  <Accordion title="恢复、删除或修复时提示找不到 Session">
+    先运行 `/mineclawd sessions list`。
+
+    然后使用输出里的精确 Session id 或 token。
   </Accordion>
 
   <Accordion title="找不到 persona">
     用 `/mineclawd persona` 检查可用名称。
 
-    如有必要，在 `mineclawd/souls/` 下创建新的 soul 文件。
+    如有需要，在 `mineclawd/souls/` 下创建新的 persona 文件。
   </Accordion>
 
   <Accordion title="动态占位符注册表被禁用">
@@ -66,58 +68,69 @@ description: "快速修复常见 MineClawd 安装与运行问题。"
     在专用服务器上启用后，客户端也必须安装 MineClawd。
   </Accordion>
 
-  <Accordion title="`reload-game` 返回 KubeJS 错误">
-    阅读错误行，修复 `kubejs/server_scripts/mineclawd/` 中的脚本语法或运行时问题，然后再次重载。
+  <Accordion title="`reload-game` 报告 KubeJS 错误">
+    阅读报错行，修复 `kubejs/server_scripts/mineclawd/` 中的脚本语法或运行时问题，然后再次重载。
 
-    继续修复直到重载输出不再报告 KubeJS 错误。
+    持续修复，直到重载输出不再出现 KubeJS 错误。
   </Accordion>
 
-  <Accordion title="`/mineclawd choose` 提示没有待回答的问题">
-    MineClawd 当前没有等待你回答的问题。
+  <Accordion title="`/mineclawd choose` 提示没有待回答问题">
+    MineClawd 当前没有在等待答案。
 
-    只有在 MineClawd 提问之后再运行 `choose`。
+    仅在 MineClawd 发起澄清提问后再运行 `choose`。
   </Accordion>
 
-  <Accordion title="LLM 提供商选择或 Broadcast Requests To 只有一个选项">
-    这是 YACL 的奇怪问题。点击该值，输入首个（两个）字母，然后从弹出的下拉中选择。
+  <Accordion title="LLM provider 选择或 Broadcast Requests To 里只有一个选项">
+    这是 YACL 的异常行为。点击该值，输入你想要选项的首字母（或前两个字母），然后在弹出的下拉里选择。
 
-    提供商：输入 `o` 选择 OpenAI，输入 `g` 选择 Google Vertex AI。
-    Broadcast：输入 `on` 选择仅自己，输入 `a` 选择所有人，或输入 `op` 选择 ops。
+    对 LLM provider：输入 `o` 选 OpenAI，输入 `g` 选 Google Vertex AI。
+    对 Broadcast Requests To：输入 `on` 选 only-me，输入 `a` 选 all，输入 `op` 选 ops。
   </Accordion>
 
-  <Accordion title="覆盖层球体不出现">
-    AssistiveTouch 球体需满足以下条件：
+  <Accordion title="覆盖层球体不显示">
+    Assistive Touch 球体要求：
 
-    - 客户端安装 MineClawd。
-    - 拥有 OP 权限 2。
-    - 配置中的 **Enable GUI** 设为 ON（**Mod Menu** -> **MineClawd** -> **Configure**）。
-    - 没有通过 `/mineclawd assistivetouch` 关闭。
+    - 客户端已安装 MineClawd。
+    - OP 权限等级为 2。
+    - 配置中 **Enable GUI** 为 ON（**Mod Menu** -> **MineClawd** -> **Configure**）。
+    - Assistive Touch 未被关闭（可用 `/mineclawd assistivetouch` 重新启用）。
 
-    检查以上条件。如果仍未出现，开启调试模式并查看日志。
+    逐项检查以上条件。如果球体仍不显示，请启用调试模式并查看日志。
   </Accordion>
 
-  <Accordion title="在覆盖层输入会传到聊天或物品栏">
-    该问题在 v1.4.0 修复。确保你运行的是 MineClawd 1.4.0 或更新版本。
+  <Accordion title="在覆盖层输入时内容泄漏到聊天或背包">
+    请确认你运行的是 MineClawd 最新版本。
 
-    若问题仍旧，可能是模组冲突。仅安装 MineClawd 和其依赖进行测试。
+    若问题仍存在，可能是模组冲突。请只安装 MineClawd 和它的依赖做一次最小化测试。
   </Accordion>
 
-  <Accordion title="Stop 按钮或 `/mineclawd stop` 无法取消请求">
-    Stop 会向活动请求发送取消信号。如果 LLM 提供商已经完成处理但响应仍在传输中，取消可能无法立即生效。
+  <Accordion title="网页搜索提示 search 工具已禁用">
+    `search` 工具需要 Tavily API key。你可以用下面命令设置：
 
-    如果会话仍被锁定，尝试运行 `/mineclawd sessions new` 创建新会话。
+    ```bash
+    /mineclawd config tavily-api-key <your-tavily-key>
+    ```
+
+    在 [tavily.com](https://tavily.com/) 获取 key。配置完成后，MineClawd 会在需要外部信息时自动使用网页搜索。
+  </Accordion>
+
+  <Accordion title="Stop 按钮或 /mineclawd stop 无法取消请求">
+    Stop 会向当前活动请求发送取消信号。如果 LLM provider 已处理完成但响应仍在传输，Stop 可能不会立刻生效。
+
+    如果停止后 Session 仍被锁定，尝试运行 `/mineclawd sessions new` 创建新的 Session。
   </Accordion>
 
   <Accordion title="资产传送提示找不到实体">
-    该实体可能已死亡、消失或未加载。资产记录仅存储创建时位置，并不会追踪实体移动。
+    实体可能已被击杀、消失或未加载。资产记录保存的是创建时最后一次已知位置，不会追踪实体移动。
 
-    传送仅对拥有有效 UUID 和维度的实体类资产有效。
+    传送仅对保存了有效 UUID 和维度的实体类资产有效。
   </Accordion>
 </AccordionGroup>
 
-## 问题仍未解决？
+## 如果问题仍存在
 
 - 开启调试日志：`/mineclawd config debug-mode true`
-- 重现一次问题
+- 复现一次问题
 - 检查 `logs/latest.log`
-- 提交问题：`https://github.com/Zhou-Shilin/MineClawd/issues`
+- 提交 issue：`https://github.com/Zhou-Shilin/MineClawd/issues`
+

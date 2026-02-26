@@ -1,21 +1,21 @@
 ---
 title: "Technische Details"
-description: "Architektur, Speicher, Limits und Laufzeit-Interna für MineClawd."
+description: "Architektur, Speicher, Limits und Laufzeit-Interna fuer MineClawd."
 ---
 
-## Request-Lifecycle
+## Request-Lebenszyklus
 
-1. Du gibst `/mclawd ...`, `/mineclawd prompt ...` oder eine Anfrage im Overlay ein.
-2. MineClawd validiert Provider-Konfiguration und OP-Zugriff.
-3. MineClawd lädt oder erstellt den aktiven Session-Zustand.
+1. Du fuehrst `/mclawd ...`, `/mineclawd prompt ...` aus oder tippst eine Anfrage in die Overlay-Eingabeleiste.
+2. MineClawd prueft Provider-Konfiguration und OP-Zugriff.
+3. MineClawd laedt oder erstellt den aktiven session-Zustand.
 4. MineClawd sendet eine Streaming-Anfrage an den OpenAI-kompatiblen oder Vertex-Endpunkt.
-5. Stream-Deltas gehen in Echtzeit über den Kanal `AGENT_STREAM_EVENT` an den Client. Das Overlay rendert jedes Delta mit blinkendem Cursor.
-6. Modellausgaben können Tool-Aufrufe auslösen. Tool-Ergebnisse fließen zurück in die Modelloop.
-7. Die finale Assistant-Antwort erscheint im Chat (und Overlay) und der Session-Verlauf wird gespeichert.
+5. Stream-Deltas werden ueber den Kanal `AGENT_STREAM_EVENT` in Echtzeit an den Client gesendet. Das Overlay rendert jedes Delta mit blinkendem Cursor.
+6. Modellantworten koennen Tool-Aufrufe ausloesen. Tool-Ergebnisse werden in die Modell-Loop zurueckgefuehrt.
+7. Die finale Assistant-Ausgabe wird im Chat (und Overlay) angezeigt und der Session-Verlauf wird gespeichert.
 
 ## Runtime-Toolfamilien
 
-- Befehls- und Skriptausführung:
+- Befehls- und Skriptausfuehrung:
   - `execute-command`
   - `apply-instant-server-script`
 - Persistente Skriptdateien:
@@ -25,13 +25,20 @@ description: "Architektur, Speicher, Limits und Laufzeit-Interna für MineClawd.
   - `delete-server-script`
   - `reload-game`
   - `sync-command-tree`
-- Klärungen:
+- Rueckfragen:
   - `ask-user-question`
 - Asset-Tracking:
   - `list-assets`
   - `upsert-asset-record`
   - `remove-asset-record`
-- Dynamische Platzhalter (nur wenn aktiviert):
+- Websuche (erfordert Tavily API-Key):
+  - `search`
+- Mod-Informationen:
+  - `list_mods`
+  - `list_commands`
+  - `fetch_modrinth`
+  - `fetch_url`
+- Dynamische Placeholder (nur wenn aktiviert):
   - `list-dynamic-content`
   - `register-dynamic-item`
   - `register-dynamic-block`
@@ -41,7 +48,7 @@ description: "Architektur, Speicher, Limits und Laufzeit-Interna für MineClawd.
   - `update-dynamic-fluid`
   - `unregister-dynamic-content`
 
-## Speicherstruktur
+## Speicherlayout
 
 ```text
 gameDir/
@@ -69,49 +76,51 @@ gameDir/
 
 ## Session-Interna
 
-- Die Session-ID ist ein vierstelliger Kleinbuchstaben-Token.
-- Der Befehls-Token hat das Format `<id>-<title-slug>`.
-- Die Session-Datei speichert OpenAI- und Vertex-Verläufe separat.
-- Der aktive Session-Zeiger liegt pro Owner in `active.json`.
-- Der Session-Titel entsteht nach der ersten erfolgreichen Runde über das Zusammenfassungsmodell.
+- Session-ID ist ein 4-stelliger Kleinbuchstaben-Token.
+- Befehls-Token-Format ist `<id>-<title-slug>`.
+- Session-Dateien speichern OpenAI- und Vertex-Verlaeufe getrennt.
+- Der aktive Session-Zeiger wird pro owner in `active.json` gespeichert.
+- Der Session-Titel wird nach der ersten erfolgreichen Runde mit dem summarize-Modell erzeugt.
 
 ## LLM-Transportdetails
 
-- OpenAI-kompatible Anfrage: `<endpoint>/chat/completions`
-- Vertex-Anfrage: `<endpoint>/<model>:generateContent?key=<api_key>`
-- Beide Pfade nutzen 60 Sekunden Timeout.
-- Beide unterstützen Tool-Aufrufe im Stil von Funktionen.
-- Beide unterstützen Streaming. Stream-Deltas leiten wir über den Kanal `AGENT_STREAM_EVENT` an den Client weiter.
+- OpenAI-kompatibler Request-Pfad: `<endpoint>/chat/completions`
+- Vertex-Request-Pfad: `<endpoint>/<model>:generateContent?key=<api_key>`
+- Beide Pfade verwenden 60 Sekunden Request-Timeout.
+- Beide Pfade unterstuetzen function-style Tool-Calling.
+- Beide Pfade unterstuetzen Streaming. Stream-Deltas werden ueber den Netzwerkkanal `AGENT_STREAM_EVENT` an den Client weitergeleitet.
 
 ## Streaming-Architektur
 
-Stream-Ereignisse verwenden den Kanal `AGENT_STREAM_EVENT` mit einer Request-ID, einem Event-Typ-Byte und einem Payload-String.
+Stream-Events verwenden den Kanal `AGENT_STREAM_EVENT` mit Request-ID, Event-Typ-Byte und Payload-String.
 
-| Ereignistyp | Byte | Payload |
+| Event-Typ | Byte | Payload |
 | --- | --- | --- |
 | `START` | `0` | JSON mit `sessionId` und `request`-Text |
-| `DELTA` | `1` | Textfragment vom LLM |
+| `DELTA` | `1` | Textfragment aus dem LLM |
 | `DONE` | `2` | Leer |
-| `ERROR` | `3` | Fehlermeldung als String |
+| `ERROR` | `3` | Fehlermeldungs-String |
+| `TOOL_STATUS` | `4` | Name des aktuell aufgerufenen Tools |
+| `TOOL_STATUS_CLEAR` | `5` | Leer (loescht den Tool-Statusindikator) |
 
-Das Overlay empfängt diese Ereignisse und rendert die Deltas fortlaufend. Ein blinkender Cursor folgt dem neuesten Text, bis `DONE` oder `ERROR` eintrifft.
+Das Overlay empfaengt diese Events und rendert Deltas inkrementell. Ein blinkender Cursor folgt dem neuesten Text, bis `DONE` oder `ERROR` eintrifft. Waehrend der Generierung zeigen `TOOL_STATUS`-Events einen animierten Indikator, welches Tool MineClawd gerade aufruft. Der Indikator wird bei `TOOL_STATUS_CLEAR` entfernt.
 
-Aktive Anfragen verfolgt der Server in den Maps `ACTIVE_REQUESTS` und `ACTIVE_NETWORK_REQUESTS`. Der Befehl `/mineclawd stop` markiert die Request-ID in `CANCELLED_REQUEST_IDS` und bricht laufende HTTP-Verbindungen ab.
+Aktive Requests werden serverseitig in `ACTIVE_REQUESTS`- und `ACTIVE_NETWORK_REQUESTS`-Maps verfolgt. Der Befehl `/mineclawd stop` markiert die Request-ID in `CANCELLED_REQUEST_IDS` und bricht laufende HTTP-Verbindungen ab.
 
-## Dynamische Platzhalter-Interna
+## Dynamic Placeholder-Interna
 
-- Kapazität: `30` Item-Slots, `30` Block-Slots, `30` Fluid-Slots.
-- Fest eingerichtete IDs:
+- Kapazitaet: `30` Item-Slots, `30` Block-Slots, `30` Fluid-Slots.
+- Feste IDs:
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- State-Sync nutzt die Netzwerk-Nutzlast `sync_dynamic_content`.
-- State-Persistenz läuft über den Welt-`PersistentState` mit der ID `mineclawd_dynamic_content`.
-- Der Modus `AUTO` erlaubt Laufzeit-Platzhalter im Client, deaktiviert sie auf dedizierten Servern.
+- State-Sync verwendet `sync_dynamic_content` als Netzwerk-Payload.
+- State-Persistenz verwendet die Welt-`PersistentState`-ID `mineclawd_dynamic_content`.
+- `AUTO` aktiviert Runtime-Placeholder in Client-Runtimes und deaktiviert sie auf dedizierten Servern.
 
-## Netzwerkkanäle
+## Netzwerkkanaele
 
-MineClawd definiert folgende Packet-Identifier:
+MineClawd definiert diese Packet-Identifier:
 
 - `mineclawd:client_ready`
 - `mineclawd:client_gui_pref`
@@ -128,16 +137,16 @@ MineClawd definiert folgende Packet-Identifier:
 
 ## Asset-Tracking-Interna
 
-Asset-Einträge liegen pro Owner in `mineclawd/assets/<owner>.json`. Jeder Eintrag enthält:
+Asset-Eintraege werden pro owner in `mineclawd/assets/<owner>.json` gespeichert. Jeder Eintrag enthaelt:
 
-- `id` – eindeutiger Identifier
-- `category` – eine der Kategorien `ENTITIES`, `ITEMS_BLOCKS_FLUIDS`, `SPECIAL_ITEMS`, `COMMANDS`, `GAME_MECHANICS`
+- `id` - eindeutiger Identifier
+- `category` - eine von `ENTITIES`, `ITEMS_BLOCKS_FLUIDS`, `SPECIAL_ITEMS`, `COMMANDS`, `GAME_MECHANICS`
 - `name`, `summary`, `scriptPath`, `details`
 - Kategorie-spezifische Felder: `contentId`, `specialItemId`, `specialItemNbt`, `command`, `entityUuid`, `entityDimension`, `entityX`, `entityY`, `entityZ`
-- `sessionId` – die Session, die das Asset erstellt hat
-- `createdAt`, `updatedAt` – Zeitstempel
+- `sessionId` - die Session, die das Asset erstellt hat
+- `createdAt`, `updatedAt` - Zeitstempel
 
-Das Systemprompt enthält einen Asset-Tracking-Abschnitt, damit das LLM über `upsert-asset-record` automatisch seine Kreationen katalogisiert.
+Das Systemprompt enthaelt einen Asset-Tracking-Anhang, damit das LLM Kreationen automatisch ueber `upsert-asset-record`-Tool-Aufrufe katalogisiert.
 
 ## Limits und Timer
 
@@ -145,19 +154,19 @@ Das Systemprompt enthält einen Asset-Tracking-Abschnitt, damit das LLM über `u
 | --- | --- |
 | Tool-Call-Limitbereich | `1` bis `20` |
 | Standardwert Tool-Call-Limit | `16` |
-| Tool-Call-Begrenzung standardmäßig | deaktiviert |
-| Max. Optionen bei ask-user | `5` |
-| Timeout für ask-user | `60` Sekunden |
-| TTL für Retry-Token nach Fehlschlag | `30` Minuten |
-| Rate-Limit-Retry-Anzahl | `2` Retries |
-| Backoff für Rate-Limit-Retry | `1500ms * retry_index` |
-| Max. Einträge für History-Buch | `300` |
-| Maximale Länge der Overlay-Eingabe | `600` Zeichen |
+| Tool-Call-Limit Standardzustand | deaktiviert |
+| Ask-user max Optionen | `5` |
+| Ask-user Timeout | `60` Sekunden |
+| Failed-Request Retry-Token TTL | `30` Minuten |
+| Rate-Limit Retry-Anzahl | `2` Retries |
+| Rate-Limit Retry-Backoff | `1500ms * retry_index` |
+| History max Eintraege fuer Buchaufbau | `300` |
+| Overlay-Eingabeleiste max Laenge | `600` Zeichen |
 | Asset-Kategorien | `5` |
 
 ## Sicherheitsmodell
 
-- Jeder Befehlsweg ist OP-gesichert.
-- Die KubeJS-Ausführung erfolgt auf dem echten Server, nicht simuliert.
-- API-Keys sind geheim zu behandeln.
-- Nutze nur vertrauenswürdige Umgebungen.
+- Jeder Befehlspfad ist OP-geschuetzt.
+- KubeJS-Ausfuehrung ist echte Serverausfuehrung, keine Simulation.
+- API-Keys muessen als Geheimnisse behandelt werden.
+- Nutze nur vertrauenswuerdige Umgebungen.

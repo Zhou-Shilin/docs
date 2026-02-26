@@ -1,17 +1,17 @@
 ﻿---
 title: "完整配置"
-description: "MineClawd 的完整配置参考，含默认值、命令键与行为说明。"
+description: "MineClawd 完整配置参考，包含默认值、命令键和行为说明。"
 ---
 
-## 目的
+## 用途
 
-本页介绍 MineClawd 的完整配置模型，包含文件设置、命令键与重启行为。
+本页给出 MineClawd 的完整配置模型，包括文件键、命令键和重启行为。
 
 ## 设置存放位置
 
 - 全局配置文件：`config/mineclawd.json5`
 - 每位玩家的聊天可见性：`mineclawd/player-settings.json`
-- soul 文件与活动 soul 状态：`mineclawd/souls/` 与 `mineclawd/souls/.active/`
+- persona 文件与当前 persona 状态：`mineclawd/souls/` 和 `mineclawd/souls/.active/`
 
 ## 完整 `mineclawd.json5` 模板
 
@@ -20,13 +20,15 @@ description: "MineClawd 的完整配置参考，含默认值、命令键与行�
   provider: "OPENAI",
   endpoint: "https://api.openai.com/v1",
   apiKey: "",
-  model: "gpt-4o-mini",
-  summarizeModel: "gpt-4o-mini",
+  model: "gpt-5.2",
+  summarizeModel: "gpt-5.2",
 
   vertexEndpoint: "https://aiplatform.googleapis.com/v1",
   vertexApiKey: "",
-  vertexModel: "publishers/google/models/gemini-3-pro-preview",
-  vertexSummarizeModel: "publishers/google/models/gemini-3-pro-preview",
+  vertexModel: "gemini-3.1-pro-preview",
+  vertexSummarizeModel: "gemini-3-flash-preview",
+
+  tavilyApiKey: "",
 
   debugMode: false,
   limitToolCalls: false,
@@ -34,96 +36,99 @@ description: "MineClawd 的完整配置参考，含默认值、命令键与行�
   systemPrompt: "",
   dynamicRegistryMode: "AUTO",
 
-  // 客户端专用（不写入服务器配置）
+  // 客户端专用（不写入服务器配置文件）
   enableGui: true
 }
 ```
 
 <Info>
-文件中的枚举值为大写（`OPENAI`、`VERTEX_AI`、`AUTO`、`ENABLED`、`DISABLED`）。
-命令形式则为小写（`openai`、`vertex-ai`、`auto`、`enabled`、`disabled`）。
+文件形式中的枚举值为大写（`OPENAI`、`VERTEX_AI`、`AUTO`、`ENABLED`、`DISABLED`）。
+
+命令形式中的值为小写（`openai`、`vertex-ai`、`auto`、`enabled`、`disabled`）。
 </Info>
 
-## 键值参考
+## 键参考
 
-| 文件键 | 命令键 | 类型 | 默认 | 说明 |
+| 文件键 | 命令键 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- | --- |
-| `provider` | `provider` | 枚举 | `OPENAI` | 选择支持 OpenAI API 或 Vertex AI 的提供商。 |
-| `endpoint` | `endpoint` | 字符串 | `https://api.openai.com/v1` | OpenAI 兼容的基础 URL，无需尾部斜线。 |
-| `apiKey` | `api-key` | 字符串 | 空 | OpenAI 的 API 密钥。 |
-| `model` | `model` | 字符串 | `gpt-4o-mini` | OpenAI 聊天模型。 |
-| `summarizeModel` | `summarize-model` | 字符串 | `gpt-4o-mini` | 用于生成会话标题的模型。 |
-| `vertexEndpoint` | `vertex-endpoint` | 字符串 | `https://aiplatform.googleapis.com/v1` | Vertex API 的基础 URL。 |
-| `vertexApiKey` | `vertex-api-key` | 字符串 | 空 | Vertex API 密钥。 |
-| `vertexModel` | `vertex-model` | 字符串 | `publishers/google/models/gemini-3-pro-preview` | Vertex 模型路径或名称。 |
-| `vertexSummarizeModel` | `vertex-summarize-model` | 字符串 | `publishers/google/models/gemini-3-pro-preview` | Vertex 用于生成会话标题的模型。 |
-| `debugMode` | `debug-mode` | 布尔 | `false` | 记录详细请求与工具活动日志。 |
-| `limitToolCalls` | `limit-tool-calls` | 布尔 | `false` | 启用每次请求的工具循环上限。 |
-| `toolCallLimit` | `tool-call-limit` | 整数 | `16` | 允许范围为 `1` 到 `20`。 |
-| `systemPrompt` | `system-prompt` | 字符串 | 空 | 空值使用内置 system prompt。命令模式下使用 `default` 以重置。 |
-| `dynamicRegistryMode` | `dynamic-registry-mode` | 枚举 | `AUTO` | 控制动态占位符的运行模式。修改后需要重启。 |
-| `enableGui` | -- | 布尔 | `true` | 仅客户端。显示或隐藏覆盖层 GUI。通过 **Mod Menu** -> **MineClawd** -> **Configure** 设置。 |
+| `provider` | `provider` | enum | `OPENAI` | provider 选择：OpenAI 兼容或 Vertex AI。 |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI 兼容基础 URL，不要求尾部斜杠。 |
+| `apiKey` | `api-key` | string | 空 | OpenAI API key。 |
+| `model` | `model` | string | `gpt-5.2` | OpenAI chat model。 |
+| `summarizeModel` | `summarize-model` | string | `gpt-5.2` | OpenAI 用于首轮 Session 标题生成的模型。 |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API 基础 URL。 |
+| `vertexApiKey` | `vertex-api-key` | string | 空 | Vertex API key。 |
+| `vertexModel` | `vertex-model` | string | `gemini-3.1-pro-preview` | Vertex model 路径或 model 名称。 |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `gemini-3-flash-preview` | Vertex 用于 Session 标题的 summarize model。 |
+| `tavilyApiKey` | `tavily-api-key` | string | 空 | Tavily API key，用于网页搜索。设置后启用 `search` 工具。 |
+| `debugMode` | `debug-mode` | boolean | `false` | 记录详细请求和工具活动日志。 |
+| `limitToolCalls` | `limit-tool-calls` | boolean | `false` | 启用每次请求的工具循环上限。 |
+| `toolCallLimit` | `tool-call-limit` | integer | `16` | 允许范围 `1` 到 `20`。 |
+| `systemPrompt` | `system-prompt` | string | 空 | 空值表示使用内置 system prompt。命令模式用 `default` 重置。 |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | 控制动态占位符运行模式。修改后需重启。 |
+| `enableGui` | -- | boolean | `true` | 仅客户端。显示或隐藏覆盖层 GUI。通过 **Mod Menu** -> **MineClawd** -> **Configure** 设置。 |
 
 ## 每位玩家设置
 
 ### broadcast-requests-to
 
-命令专用，按玩家隔离。
+仅命令可设，按玩家保存。
 
 - 命令键：`broadcast-requests-to`
-- 取值：`self`、`all`、`ops`
-- 存储文件：`mineclawd/player-settings.json`
-- 作用：控制谁能看到提示回显与任务开始/结束行。
+- 允许值：`self`、`all`、`ops`
+- 存储位置：`mineclawd/player-settings.json`
+- 用途：控制谁能看到提示回显和任务开始/结束行。
 
 ### assistivetouch
 
-仅切换，可按玩家保存。
+仅切换，按玩家保存。
 
 - 命令：`/mineclawd assistivetouch`
-- 存储文件：`mineclawd/player-settings.json`
-- 默认：开启（可见）
-- 作用：在不禁用整个 GUI 的情况下显示或隐藏 AssistiveTouch 球体。
+- 存储位置：`mineclawd/player-settings.json`
+- 默认：启用（可见）
+- 用途：在不禁用完整 GUI 的情况下显示或隐藏浮动 Assistive Touch 球体。
 
 ## 动态注册表模式行为
 
-- `AUTO`：在客户端运行时启用，专用服务器禁用。
-- `ENABLED`：强制所有运行时启用。
-- `DISABLED`：完全禁用。
+- `AUTO`: 在客户端运行时（单人）启用，在专用服务器禁用。
+- `ENABLED`: 在所有运行时强制启用。
+- `DISABLED`: 完全禁用。
 
 <Warning>
-若在专用服务器上强制设置为 `ENABLED`，客户端也必须安装 MineClawd。
+如果你在专用服务器上强制 `ENABLED`，加入的客户端也必须安装 MineClawd。
 </Warning>
 
 ## 推荐基线
 
-### 初次使用 OpenAI 的基线
+### 首次 OpenAI 配置基线
 
 ```bash
 /mineclawd config provider openai
 /mineclawd config endpoint https://api.openai.com/v1
 /mineclawd config api-key <your-key>
-/mineclawd config model gpt-4o-mini
-/mineclawd config summarize-model gpt-4o-mini
+/mineclawd config model gpt-5.2
+/mineclawd config summarize-model gpt-5.2
 ```
 
-### 初次使用 Vertex 的基线
+### 首次 Vertex 配置基线
 
 ```bash
 /mineclawd config provider vertex-ai
 /mineclawd config vertex-endpoint https://aiplatform.googleapis.com/v1
 /mineclawd config vertex-api-key <your-key>
-/mineclawd config vertex-model publishers/google/models/gemini-3-pro-preview
-/mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
+/mineclawd config vertex-model gemini-3.1-pro-preview
+/mineclawd config vertex-summarize-model gemini-3-flash-preview
 ```
 
 ## GUI 路径
 
 - 游戏内：**Mod Menu** -> **MineClawd** -> **Configure**
-- 命令备选：`/mineclawd config ...`
+- 命令兜底：`/mineclawd config ...`
 - 覆盖层菜单：点击汉堡图标 -> **Config**
 
-如果客户端 GUI 打不开，使用命令键配置。
+如果客户端 GUI 打开失败，请通过命令键配置。
 
 <Info>
-`enableGui` 控制覆盖层窗口。将其设为 OFF 不会影响 YACL 配置屏幕 —— 仍可通过 **Mod Menu** 或 `/mineclawd config` 打开配置。
+`enableGui` 设置控制覆盖层窗口。把它设为 OFF 不会影响 YACL 配置界面，你仍可通过 **Mod Menu** 或 `/mineclawd config` 打开配置。
 </Info>
+

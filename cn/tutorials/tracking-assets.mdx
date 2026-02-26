@@ -1,64 +1,64 @@
 ﻿---
 title: "追踪资产"
-description: "使用资产追踪系统记录、定位和管理 MineClawd 在世界中创建的内容。"
+description: "使用资产追踪系统编目、定位并管理 MineClawd 在你的世界中创建的所有内容。"
 tag: "NEW"
 ---
 
-当 MineClawd 在你的世界中创建实体、物品、脚本或游戏机制时，资产追踪系统会记录这些内容。你可以在覆盖层或使用命令浏览、传送、给予、修改或删除任何追踪资产。
+当 MineClawd 在你的世界中创建实体、物品、脚本或游戏机制时，资产追踪系统会自动记录。你可以在覆盖层或命令中浏览、传送、获取、修改或删除任何已追踪资产。
 
-## 自动追踪的内容
+## 自动追踪内容
 
-MineClawd 的 LLM 工具会自动将创建内容归类到五大类别：
+MineClawd 的 LLM 工具会把创建内容自动归类为五个类别：
 
 | 类别 | 示例 |
 | --- | --- |
-| **实体** | 召唤的村民、自定义怪物、NPC |
-| **物品/方块/液体** | 动态物品、自定义方块、运行时液体 |
-| **特殊物品** | 带自定义 NBT 或附魔的工具 |
-| **命令** | 注册的自定义命令、脚本命令 |
+| **实体** | 召唤的村民、自定义生物、NPC |
+| **物品/方块/流体** | 动态物品（支持投掷）、自定义方块（含摩擦属性）、运行时流体（含颜色） |
+| **特殊物品** | 带自定义 NBT 数据的物品、附魔工具 |
+| **命令** | 注册的自定义命令、命令脚本 |
 | **游戏机制** | 定时事件、玩家加入监听、区域效果 |
 
-每个资产记录会保存名称、摘要、创建它的脚本路径以及分类特有的元数据（如实体 UUID/位置、内容 ID 或 NBT）。
+每条资产记录都会保存名称、摘要、创建它的脚本路径，以及分类专属元数据，例如实体 UUID/位置、内容 ID 或 NBT 数据。
 
 ## 在覆盖层浏览资产
 
-打开覆盖层菜单，点击 **Assets** 进入资产库存视图。
+打开覆盖层菜单并点击 **Assets**，切换到资产库存视图。
 
 <Frame caption="带分类过滤标签的资产库存">
-  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets 覆盖层显示分类资产列表与操作按钮" />
+  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets 覆盖层显示分类资产列表、分类筛选标签和操作按钮" />
 </Frame>
 
-视图分为两部分：
+这个视图有两部分：
 
-1. 顶部显示 **全部**、**实体**、**物品/方块/液体**、**特殊物品**、**命令** 和 **游戏机制** 的分类标签。点击标签即可过滤。
-2. 下方的资产行展示名称与摘要，点击某行可选中该资产并展示操作栏。
+1. 顶部的 **分类标签**：**All**、**Entities**、**Items/Blocks/Fluids**、**Special Items**、**Commands**、**Game Mechanics**。点击标签可过滤。
+2. 下方的 **资产行**：每行显示资产名称与摘要。点击资产可选中并显示操作栏。
 
 ## 资产操作
 
-选中资产后会显示上下文相关操作按钮：
+选中资产后，会出现按上下文显示的操作按钮：
 
-| 操作 | 可用范围 | 功能 |
+| 操作 | 适用范围 | 作用 |
 | --- | --- | --- |
-| **Teleport** | 具有 UUID 与位置的实体 | 传送到该实体创建时的位置。 |
-| **Give** | 具有内容 ID 的物品/方块/液体，或带特殊 ID 与 NBT 的特殊物品 | 通过命令给予你该物品。 |
-| **Modify** | 所有类别 | 启动新会话并填充修改请求。 |
-| **Delete** | 所有类别 | 启动新会话并填充移除请求。 |
+| **Teleport** | 存有 UUID 和位置的实体 | 传送到该实体最后一次记录的坐标。 |
+| **Give** | 具有内容 ID 的物品/方块/流体，或具有特殊物品 ID 的特殊物品 | 通过命令把该物品发给你。 |
+| **Modify** | 所有类别 | 新建一个 Session，并自动填入用于修改该资产的提示词。 |
+| **Delete** | 所有类别 | 新建一个 Session，并自动填入用于从世界移除该资产的提示词。 |
 
 <Tip>
-**Modify** 与 **Delete** 会发起新对话，让 MineClawd 推理依赖关系并正确清理脚本，而非立即执行世界修改。
+**Modify** 和 **Delete** 会启动新的对话，不会立刻改动世界。这样 MineClawd 可以先推理依赖关系并正确清理脚本。
 </Tip>
 
-## 通过命令使用
+## 使用命令
 
-你也可以在聊天中管理资产。
+你也可以不打开覆盖层，直接在聊天里管理资产。
 
-### 列出所有资产
+### 列出全部资产
 
 ```bash
 /mineclawd assets list
 ```
 
-显示当前拥有者的所有追踪记录。
+显示当前拥有者的全部追踪资产记录。
 
 ### 传送到资产
 
@@ -66,41 +66,41 @@ MineClawd 的 LLM 工具会自动将创建内容归类到五大类别：
 /mineclawd assets teleport <asset>
 ```
 
-传送到实体的存储位置，仅在实体类资产拥有有效 UUID 和维度时有效。
+传送到实体的已记录位置。仅对具有有效 UUID 和维度信息的实体类资产有效。
 
-### 获取资产
+### 给自己发放资产
 
 ```bash
 /mineclawd assets give <asset>
 ```
 
-给予与你的资产关联的物品或方块。支持物品/方块/液体（按内容 ID）和特殊物品（按特殊 ID 与 NBT）。
+把资产对应的物品或方块发给你。支持物品/方块/流体（按内容 ID）和特殊物品（按特殊物品 ID 与 NBT）。
 
-### 删除资产记录
+### 移除资产记录
 
 ```bash
 /mineclawd assets remove-record <asset>
 ```
 
-从存储中删除资产记录，但不会从世界中移除实体、物品或脚本。
+从存储中删除资产记录。此命令不会删除世界中的实体、物品或脚本，只会删除追踪记录。
 
 <Warning>
-删除记录不会撤销创建操作。如需 MineClawd 同时清理世界，请在覆盖层使用 **Delete** 操作。
+移除资产记录不会撤销创建结果。如果你希望 MineClawd 同时清理世界，请在覆盖层中使用 **Delete** 操作。
 </Warning>
 
-## 背后原理
+## 追踪机制的后台实现
 
-MineClawd 在请求过程中通过三种 LLM 工具管理资产记录：
+MineClawd 在请求过程中使用三个 LLM 工具管理资产记录：
 
-- `list-assets` —— 拉取当前拥有者的所有记录。
-- `upsert-asset-record` —— 凭元数据创建或更新记录。
-- `remove-asset-record` —— 根据 ID 删除记录。
+- `list-assets` -- 读取全部资产记录供上下文使用。
+- `upsert-asset-record` -- 按元数据创建或更新资产记录。
+- `remove-asset-record` -- 按 ID 删除资产记录。
 
-系统提示中每次请求都会附带资产追踪附录，因此你无需额外请求 MineClawd 记录，它会自动开启。
+每次请求的系统提示里都会附带资产追踪附录，因此模型知道要编目它创建的内容。你不需要额外要求 MineClawd 追踪资产，它会在系统启用时自动执行。
 
 ## 存储
 
-资产记录按拥有者保存在 JSON 文件里：
+资产记录会按拥有者存为 JSON 文件：
 
 ```text
 mineclawd/
@@ -108,10 +108,11 @@ mineclawd/
     <owner>.json
 ```
 
-文件包含 `AssetRecord` 对象数组，每项字段包括 `id`、`category`、`name`、`summary`、`scriptPath` 及分类特有字段（如 `entityUuid`、`entityX/Y/Z`、`contentId`、`specialItemId`、`specialItemNbt`、`command`）。
+每个文件包含 `AssetRecord` 对象数组，字段包括 `id`、`category`、`name`、`summary`、`scriptPath` 以及分类专属字段（`entityUuid`、`entityDimension`、`entityX/Y/Z`、`contentId`、`specialItemId`、`specialItemNbt`、`command`）。
 
 ## 相关页面
 
 - [使用 GUI](/tutorials/using-the-gui)
 - [Assets 命令](/commands/assets)
 - [技术细节](/resources/technical-details)
+

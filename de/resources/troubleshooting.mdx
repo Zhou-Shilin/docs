@@ -1,126 +1,135 @@
 ---
 title: "Fehlerbehebung"
-description: "Behebe häufige MineClawd-Setup- und Laufzeitprobleme schnell."
+description: "Behebe haeufige MineClawd-Setup- und Laufzeitprobleme schnell."
 ---
 
-Wenn MineClawd nicht funktioniert, findest du unten das passende Symptom und behebst es zuerst.
+Wenn MineClawd fehlschlaegt, finde unten zuerst das naechste passende Symptom und wende diese Loesung an.
 
 <AccordionGroup>
-  <Accordion title="MineClawd sagt, nur OP kann diesen Befehl ausführen">
-    Gib dir selbst die OP-Stufe 2. Jeder `/mineclawd`- und `/mclawd`-Befehl benötigt OP-Zugriff.
+  <Accordion title="MineClawd sagt, nur OP-Nutzer koennen diesen Befehl ausfuehren">
+    Gib deinem Spieler OP-Level 2. Jeder `/mineclawd`- und `/mclawd`-Befehl erfordert OP-Zugriff.
   </Accordion>
 
   <Accordion title="MineClawd sagt, API-Key oder Modell fehlt">
-    Öffne die Konfiguration und setze Provider-Zugangsdaten.
+    Oeffne die Konfiguration und setze die Provider-Zugangsdaten.
 
-    OpenAI-Weg:
+    OpenAI-Pfad:
     - `provider openai`
     - `api-key <key>`
     - `model <model>`
 
-    Vertex-Weg:
+    Vertex-Pfad:
     - `provider vertex-ai`
     - `vertex-api-key <key>`
     - `vertex-model <model>`
   </Accordion>
 
-  <Accordion title="`/mineclawd config` öffnet die GUI nicht">
-    Dein Client hat wahrscheinlich MineClawd nicht installiert. Nutze die Konfiguration per Befehl:
+  <Accordion title="`/mineclawd config` oeffnet die GUI nicht">
+    Dein Client hat MineClawd wahrscheinlich nicht installiert. Nutze die Konfiguration per Befehl:
 
     ```bash
     /mineclawd config <key> <value>
     ```
   </Accordion>
 
-  <Accordion title="`/mineclawd history` sagt, Client-Mod ist nötig">
-    Installiere MineClawd auf deinem Client. Die History-Buch-UI nutzt einen Client-Paketkanal.
+  <Accordion title="`/mineclawd history` sagt, Client-Mod ist erforderlich">
+    Installiere MineClawd auf deinem Client. Die History-Book-UI verwendet einen Client-Paketkanal.
   </Accordion>
 
-  <Accordion title="Für diese Session läuft noch eine andere Anfrage">
-    Warte, bis die aktuelle Aufgabe abgeschlossen ist, bevor du eine neue Anfrage schickst, Sessions wechselst oder Personas wechselst.
+  <Accordion title="Eine andere Anfrage laeuft noch fuer diese Session">
+    Warte, bis die aktuelle Aufgabe beendet ist, bevor du eine neue Anfrage startest, die Session wechselst oder die persona wechselst.
   </Accordion>
 
-  <Accordion title="Retry-Token ist ungültig oder abgelaufen">
+  <Accordion title="Retry-Token ist ungueltig oder abgelaufen">
     Retry-Tokens verfallen nach 30 Minuten.
 
-    Starte eine neue Anfrage oder nutze den neuesten Retry-Button aus der letzten Fehlermeldung.
+    Starte eine neue Anfrage oder nutze die letzte Retry-Aktion aus einer frischen Fehlermeldung.
   </Accordion>
 
-  <Accordion title="Session nicht gefunden für resume, remove oder repair">
-    Führe zuerst `/mineclawd sessions list` aus.
+  <Accordion title="Session nicht gefunden fuer resume, remove oder repair">
+    Fuehre zuerst `/mineclawd sessions list` aus.
 
-    Verwende danach exakt die Session-ID oder das Token aus der Ausgabe.
+    Nutze dann exakt die Session-ID oder das Token aus dieser Ausgabe.
   </Accordion>
 
   <Accordion title="Persona nicht gefunden">
-    Zeige verfügbare Namen mit `/mineclawd persona`.
+    Pruefe verfuegbare Namen mit `/mineclawd persona`.
 
-    Erstelle bei Bedarf eine neue Soul-Datei unter `mineclawd/souls/`.
+    Erstelle bei Bedarf eine neue persona-Datei unter `mineclawd/souls/`.
   </Accordion>
 
-  <Accordion title="Dynamic-Placeholder-Registry ist deaktiviert">
-    Setze Modus und starte neu:
+  <Accordion title="Dynamic placeholder registry ist deaktiviert">
+    Setze den Modus und starte neu:
 
     ```bash
     /mineclawd config dynamic-registry-mode enabled
     ```
 
-    Auf dedizierten Servern müssen auch die Clients MineClawd installieren, wenn das aktiviert ist.
+    Auf dedizierten Servern muessen Clients MineClawd ebenfalls installiert haben, wenn dies aktiviert ist.
   </Accordion>
 
   <Accordion title="`reload-game` meldet KubeJS-Fehler">
-    Lies die angezeigten Zeilen, behebe Syntax- oder Laufzeitfehler in `kubejs/server_scripts/mineclawd/` und lade erneut.
+    Lies die gemeldeten Zeilen, behebe Syntax- oder Laufzeitprobleme in `kubejs/server_scripts/mineclawd/` und lade erneut.
 
-    Wiederhole den Vorgang, bis `reload` keine Fehler mehr ausgibt.
+    Wiederhole das, bis die Reload-Ausgabe keine KubeJS-Fehler mehr zeigt.
   </Accordion>
 
   <Accordion title="`/mineclawd choose` sagt, es gibt keine offene Frage">
     MineClawd wartet nicht auf eine Antwort.
 
-    Nutze `choose` nur, nachdem MineClawd eine Klarfrage gestellt hat.
+    Fuehre `choose` nur aus, nachdem MineClawd eine Rueckfrage gestellt hat.
   </Accordion>
 
-  <Accordion title="Es gibt nur eine Option bei LLM-Provider-Auswahl/Broadcast Requests To">
-    Das ist ein YACL-Bug. Klicke auf den Wert und gib die ersten ein bis zwei Buchstaben der gewünschten Auswahl ein, dann wähle sie aus dem Dropdown.
+  <Accordion title="Es gibt nur eine Option bei LLM provider-Auswahl/Broadcast Requests To">
+    Das ist ein bekannter YACL-Bug. Klicke auf den Wert und gib die ersten ein bis zwei Buchstaben der gewuenschten Option ein. Waehle dann die Option im Dropdown.
 
-    Für LLM-Provider: tippe `o` für OpenAI oder `g` für Google Vertex AI.
-    Für Broadcast Requests To: tippe `on` für nur mich, `a` für alle oder `op` für Operatoren.
+    Fuer LLM provider: tippe `o` fuer OpenAI oder `g` fuer Google Vertex AI.
+    Fuer Broadcast Requests To: tippe `on` fuer only-me, `a` fuer all oder `op` fuer ops.
   </Accordion>
 
   <Accordion title="Der Overlay-Orb erscheint nicht">
-    Der AssistiveTouch-Orb benötigt:
+    Der Assistive Touch Orb erfordert:
 
-    - MineClawd auf dem Client
-    - OP-Stufe 2
-    - **Enable GUI** aktiviert in der Konfiguration (**Mod Menu** -> **MineClawd** -> **Configure**)
-    - AssistiveTouch nicht ausgeschaltet (`/mineclawd assistivetouch`, um ihn wieder einzuschalten)
+    - MineClawd auf dem Client.
+    - OP-Berechtigung Level 2.
+    - **Enable GUI** auf ON in der Konfiguration (**Mod Menu** -> **MineClawd** -> **Configure**).
+    - Assistive Touch nicht deaktiviert (`/mineclawd assistivetouch` zum Reaktivieren).
 
-    Prüfe alles davon. Wenn der Orb immer noch fehlt, aktiviere den Debug-Modus und untersuche die Logs.
+    Pruefe jeden Punkt. Wenn der Orb weiterhin fehlt, aktiviere den Debug-Modus und pruefe die Logs.
   </Accordion>
 
   <Accordion title="Tippen im Overlay landet im Chat oder Inventar">
-    Das wurde in v1.4.0 behoben. Stelle sicher, dass du MineClawd 1.4.0 oder neuer nutzt.
+    Stelle sicher, dass du die neueste MineClawd-Version nutzt.
 
-    Wenn der Fehler weiterhin auftritt, testest du mit nur MineClawd und seinen Abhängigkeiten.
+    Wenn das Problem bleibt, kann es ein Mod-Konflikt sein. Teste nur mit MineClawd und seinen Abhaengigkeiten.
+  </Accordion>
+
+  <Accordion title="Websuche sagt, das search-Tool ist deaktiviert">
+    Das `search`-Tool benoetigt einen Tavily API-Key. Setze ihn mit:
+
+    ```bash
+    /mineclawd config tavily-api-key <your-tavily-key>
+    ```
+
+    Du bekommst einen Key auf [tavily.com](https://tavily.com/). Sobald konfiguriert, nutzt MineClawd die Websuche automatisch, wenn externe Informationen noetig sind.
   </Accordion>
 
   <Accordion title="Stop-Button oder /mineclawd stop bricht die Anfrage nicht ab">
-    Stop sendet ein Abbruchsignal an die aktive Anfrage. Wenn der LLM-Anbieter bereits fertig ist, aber die Antwort noch geliefert wird, dauert es etwas, bis der Abbruch greift.
+    Stop sendet ein Abbruchsignal an die aktive Anfrage. Wenn der LLM-Provider bereits fertig gerechnet hat, die Antwort aber noch uebertragen wird, wirkt stop eventuell nicht sofort.
 
-    Bleibt die Session nach Stop gesperrt, erstelle eine neue Session mit `/mineclawd sessions new`.
+    Wenn die Session nach stop gesperrt bleibt, erstelle mit `/mineclawd sessions new` eine neue Session.
   </Accordion>
 
-  <Accordion title="Asset-Teleport meldet, die Entität fehlt">
-    Die Entität wurde möglicherweise getötet, ist despawned oder nicht geladen. Asset-Einträge speichern nur den letzten bekannten Ort bei Erstellung und verfolgen Bewegungen nicht.
+  <Accordion title="Asset teleport meldet, die Entity kann nicht gefunden werden">
+    Die Entity wurde eventuell getoetet, despawned oder entladen. Asset-Eintraege speichern den letzten bekannten Ort zum Erstellungszeitpunkt und verfolgen keine Bewegung.
 
-    Teleport funktioniert nur für Entity-Assets mit gültiger UUID und Dimension.
+    Teleport funktioniert nur fuer Entity-Kategorie-Assets mit gespeicherter UUID und Dimension.
   </Accordion>
 </AccordionGroup>
 
-
-## Wenn Probleme weiter bestehen
+## Wenn Probleme bleiben
 
 - Aktiviere Debug-Logs: `/mineclawd config debug-mode true`
 - Reproduziere das Problem einmal
-- Schaue in `logs/latest.log`
-- Melde einen Fehler: `https://github.com/Zhou-Shilin/MineClawd/issues`
+- Pruefe `logs/latest.log`
+- Erstelle ein Issue: `https://github.com/Zhou-Shilin/MineClawd/issues`

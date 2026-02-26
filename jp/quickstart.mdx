@@ -1,150 +1,200 @@
 ---
 title: "はじめに"
-description: "バニラランチャーから MineClawd を動かし、最初のチャットを送るまでの初心者向けルート。"
+description: "完全な初心者向け: バニラランチャーから最初の MineClawd チャットまで。"
 ---
 
 ## 目標
 
-このページを手順どおりに進めると、MineClawd から最初の正常な返信を受け取れます。
+このページを順番どおりに進めると、MineClawd から 1 回以上の正常な返答を受け取れます。
 
 ## ミニ用語集
 
 <CardGroup cols={2}>
   <Card title="Minecraft Java Edition">
-    公式 Minecraft Launcher を使う PC 版の Minecraft です。
+    公式 Minecraft Launcher で遊ぶ PC 版 Minecraft です。
   </Card>
   <Card title="Mod ローダー">
-    Minecraft に Mod をロードするソフトウェア。Fabric、Forge、NeoForge に対応します。
+    Minecraft で Mod を動かすためのソフトウェアです。MineClawd は Fabric、Forge、NeoForge に対応します。
   </Card>
   <Card title="Mod">
     Minecraft に機能を追加する `.jar` ファイルです。
   </Card>
   <Card title="API キー">
-    MineClawd がオンライン AI サービスと通信するための秘密鍵です。
+    MineClawd がオンライン AI サービスへ接続するための秘密キーです。
   </Card>
 </CardGroup>
 
-## プラットフォームを選択
+## プラットフォームを選ぶ
 
-MineClawd は NeoForge、Forge、Fabric それぞれに対応しています。環境に合うタブを選んでください。
+MineClawd は 3 種類のローダーとバージョンの組み合わせに対応しています。あなたの環境に合うタブを選んでください。
 
 <Tabs>
-  <Tab title="NeoForge 1.21.1（推奨）">
-    ### ステップ 1: NeoForge をインストール
+<Tab title="NeoForge 1.21.1 (推奨)">
+### Step 1: NeoForge をインストール
 
-    1. [neoforged.net](https://neoforged.net/) から NeoForge インストーラーをダウンロードします。
-    2. Minecraft バージョン **1.21.1** を選び、インストーラーを実行します。
-    3. Minecraft Launcher で **NeoForge 1.21.1** プロファイルを一度起動し、終了します。
+1. [neoforged.net](https://neoforged.net/) から NeoForge Installer をダウンロードします。
+2. Minecraft バージョン **1.21.1** を選んでインストーラーを実行します。
+3. Minecraft Launcher で **NeoForge 1.21.1** プロファイルを 1 回起動し、ゲームを閉じます。
 
-    ### ステップ 2: 必須 Mod をダウンロード
+### Step 2: 必須 Mod をダウンロード
 
-    Modrinth で次のファイルをダウンロードします。各ページで **NeoForge** と **1.21.1** に一致するファイルを選んでください。
+Modrinth から次のファイルを取得します。各ページで **NeoForge** と **1.21.1** に一致するファイルを選んでください。
 
-    | Mod | ダウンロードリンク |
-    | --- | --- |
-    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
-    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
-    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
-    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
-    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
-    | Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
-  </Tab>
-  <Tab title="Forge 1.20.1">
-    ### ステップ 1: Forge をインストール
+| Mod | ダウンロードリンク |
+| --- | --- |
+| MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+| KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+| Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+| Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+| YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+| Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
+</Tab>
+<Tab title="Forge 1.20.1">
+### Step 1: Forge をインストール
 
-    1. [files.minecraftforge.net](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html) から Forge インストーラーをダウンロードします。
-    2. インストーラーで **Install Client** を選択し、実行します。
-    3. Minecraft Launcher で **Forge 1.20.1** プロファイルを一度起動し、終了します。
+1. [files.minecraftforge.net](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html) から Forge Installer をダウンロードします。
+2. インストーラーを実行し、**Install Client** を選びます。
+3. Minecraft Launcher で **Forge 1.20.1** プロファイルを 1 回起動し、ゲームを閉じます。
 
-    ### ステップ 2: 必須 Mod をダウンロード
+### Step 2: 必須 Mod をダウンロード
 
-    Modrinth で次のファイルをダウンロードします。各ページで **Forge** と **1.20.1** に一致するファイルを選んでください。
+Modrinth から次のファイルを取得します。各ページで **Forge** と **1.20.1** に一致するファイルを選んでください。
 
-    | Mod | ダウンロードリンク |
-    | --- | --- |
-    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
-    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
-    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
-    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
-    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
-    | Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
-  </Tab>
-  <Tab title="Fabric 1.20.1">
-    ### ステップ 1: Fabric をインストール
+| Mod | ダウンロードリンク |
+| --- | --- |
+| MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+| KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+| Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+| Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+| YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+| Better ModList | [modrinth.com/mod/better-modlist](https://modrinth.com/mod/better-modlist) |
+</Tab>
+<Tab title="Fabric 1.20.1">
+### Step 1: Fabric をインストール
 
-    1. [fabricmc.net/use/installer](https://fabricmc.net/use/installer/) から Fabric Installer をダウンロードします。
-    2. インストーラーを起動し、クライアント用（Client）と Minecraft バージョン **1.20.1** を選びます。
-    3. **Install** をクリックします。
-    4. Minecraft Launcher で **Fabric Loader 1.20.1** を一度起動し、終了します。
+1. [fabricmc.net/use/installer](https://fabricmc.net/use/installer/) から Fabric Installer をダウンロードします。
+2. インストーラーを実行します。
+3. **Client** と Minecraft バージョン **1.20.1** を選びます。
+4. **Install** をクリックします。
+5. Minecraft Launcher で **Fabric Loader 1.20.1** を 1 回起動し、ゲームを閉じます。
 
-    ### ステップ 2: 必須 Mod をダウンロード
+### Step 2: 必須 Mod をダウンロード
 
-    Modrinth で次のファイルをダウンロードします。各ページで **Fabric** と **1.20.1** に一致するファイルを選んでください。
+Modrinth から次のファイルを取得します。各ページで **Fabric** と **1.20.1** に一致するファイルを選んでください。
 
-    | Mod | ダウンロードリンク |
-    | --- | --- |
-    | MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
-    | Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
-    | KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
-    | Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
-    | Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
-    | YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
-    | Mod Menu | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
-  </Tab>
+| Mod | ダウンロードリンク |
+| --- | --- |
+| MineClawd | [modrinth.com/mod/mineclawd](https://modrinth.com/mod/mineclawd) |
+| Fabric API | [modrinth.com/mod/fabric-api](https://modrinth.com/mod/fabric-api) |
+| KubeJS | [modrinth.com/mod/kubejs](https://modrinth.com/mod/kubejs) |
+| Architectury API | [modrinth.com/mod/architectury-api](https://modrinth.com/mod/architectury-api) |
+| Rhino | [modrinth.com/mod/rhino](https://modrinth.com/mod/rhino) |
+| YetAnotherConfigLib v3 (YACL) | [modrinth.com/mod/yacl](https://modrinth.com/mod/yacl) |
+| Mod Menu | [modrinth.com/mod/modmenu](https://modrinth.com/mod/modmenu) |
+</Tab>
 </Tabs>
 
-## ステップ 3: `mods` フォルダーにファイルを配置
+## Step 3: Mod ファイルを `mods` フォルダーに入れる
 
 1. Minecraft フォルダーを開きます。
 2. `mods` フォルダーを開きます。なければ作成します。
 3. ダウンロードした `.jar` ファイルをすべて `mods` に移動します。
-4. `.jar` ファイルは解凍しないでください。
+4. `.jar` ファイルは展開しないでください。
 
-## ステップ 4: 起動して MineClawd GUI を開く
+## Step 4: ゲームを起動して MineClawd の設定を開く
 
-1. 選んだローダーのプロファイルで Minecraft を起動します。
-2. シングルプレイのワールドを作成または開きます。
+1. 選んだ Mod ローダーのプロファイルで Minecraft を起動します。
+2. シングルプレイのワールドを作成するか開きます。
 3. そのワールドで **Allow Cheats** を ON にします。
-4. **Mod Menu** -> **MineClawd** -> **Configure** を開きます。
+4. **Better ModList** -> **MineClawd** -> **Configure** を開きます（Fabric の場合は **Mod Menu**）。
 
-## ステップ 5: AI サービスに接続
+<Frame caption="ゲーム内の MineClawd 設定 GUI">
+  <img src="/images/mineclawd-config.png" alt="ゲーム内の MineClawd 設定画面" />
+</Frame>
 
-AI アカウントがない場合は OpenRouter で無料モデルを使う方法が取り組みやすいです。
+## Step 5: AI サービスを接続する
 
-1. [openrouter.ai](https://openrouter.ai/) でアカウントを作成します。
-2. [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys) で API キーを発行します。
-3. MineClawd 設定画面で次を入力します:
+まだ AI アカウントがない場合は、OpenRouter で無料モデルを選ぶ方法が簡単です。
+
+1. アカウントを作成: [openrouter.ai](https://openrouter.ai/)
+2. API キーを作成: [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
+
+<Frame caption="OpenRouter の API キー管理ページ">
+  <img src="/images/openrouter.png" alt="API キー管理を表示している OpenRouter 設定ページ" />
+</Frame>
+
+3. MineClawd の設定画面で次を設定します。
    - **Provider**: `OpenAI`
    - **Endpoint**: `https://openrouter.ai/api/v1`
-   - **API Key**: OpenRouter のキーを貼り付け
-   - **Model**: [openrouter.ai/models](https://openrouter.ai/models) からモデル ID を 1 つ選択（無料モデルは `:free` を含むことが多いです）
-   - **Summarize Model**: モデル ID を同じにしておきます
+   - **API Key**: OpenRouter キーを貼り付け
+   - **Model**: [openrouter.ai/models](https://openrouter.ai/models) からモデル ID を 1 つ選択（無料モデルには `:free` が含まれることがあります）
+   - **Summarize Model**: いったん同じモデル ID を設定
 4. 設定を保存します。
 
 <Info>
-無料モデルと制限は変わります。1 つのモデルで失敗したら同じ models ページから別の ID に切り替えてください。
+無料モデルや制限は時間とともに変わります。1 つのモデルで失敗したら、同じ models ページから別のモデル ID を選んでください。
 </Info>
 
-## ステップ 6: 最初のメッセージを送る
+### Step 5b (任意): Web 検索を有効化
 
-### オプション A: オーバーレイ GUI
+MineClawd は会話中に Tavily を使って Web 検索できます。これは任意ですが、Mod ドキュメントやクラフトレシピなどのオンライン情報を参照したいときに便利です。
 
-画面の左に浮かぶ Assistive Touch オーブをクリックするとオーバーレイが開きます。入力バーにメッセージを入力し、**Send** を押します。
+1. Tavily アカウントを作成: [tavily.com](https://tavily.com/)
+2. Tavily ダッシュボードで API キーをコピーします。
 
-<Frame caption="Assistive Touch オーブをクリックしてオーバーレイを開く">
-  <img src="/images/mineclawd-assistive-touch.png" alt="MineClawd Assistive Touch 浮遊オーブ" />
+<Frame caption="Tavily の API キー管理ページ">
+  <img src="/images/tavily.png" alt="API キー管理インターフェースを表示する Tavily プラットフォーム" />
 </Frame>
 
-### オプション B: チャットコマンド
-
-チャットで次のコマンドを実行します:
+3. MineClawd の設定画面で **Search** グループ内の **Tavily API Key** フィールドにキーを貼り付けます。次のコマンドでも設定できます。
 
 ```bash
-/mclawd こんにちは
+/mineclawd config tavily-api-key <your-tavily-key>
 ```
 
-オーバーレイとチャットコマンドは同じように動作します。オーバーレイではストリーミング出力やセッション管理が使えます。
+設定すると、MineClawd に Web を検索して要点付きソース断片を返す `search` ツールが追加されます。キーが未設定の場合、search ツールは無効で、Web 検索を依頼するとその旨を MineClawd が通知します。
 
-## 動かないときは
+## Step 6: 最初のメッセージを送る
 
-[/resources/troubleshooting](/resources/troubleshooting) に進み、該当する症状の項目を確認してください。
+MineClawd と会話する方法は 2 つあります。
+
+### Option A: オーバーレイ GUI を使う
+
+画面左側のフローティングオーブ（Assistive Touch）を探してください。オーブをクリックしてオーバーレイを開き、入力バーにメッセージを入力して **Send** をクリックします。
+
+<Frame caption="Assistive Touch オーブを 1 回クリックするとオーバーレイが開きます">
+  <img src="/images/mineclawd-assistive-touch.png" alt="MineClawd Assistive Touch フローティングオーブ" />
+</Frame>
+
+### Option B: チャットコマンドを使う
+
+チャットを開いて次を実行します。
+
+```bash
+/mclawd hello
+```
+
+どちらの方法でも動作します。オーバーレイではストリーミング応答と Session 管理を 1 か所で扱えます。詳しくは [GUI の使い方](/tutorials/using-the-gui) を参照してください。
+
+## 動かない場合
+
+[/resources/troubleshooting](/resources/troubleshooting) に進み、症状に合う項目を確認してください。
+
+## 次のステップ
+
+最初の成功リクエストの後は、次のガイドで使い方を広げてください。
+
+<CardGroup cols={2}>
+  <Card title="GUI の使い方" icon="desktop" href="/tutorials/using-the-gui">
+    オーバーレイのレイアウト、ストリーミング状態、インライン質問を学びます。
+  </Card>
+  <Card title="Session の管理" icon="book-open" href="/tutorials/managing-sessions">
+    長時間作業向けに Session を作成、切替、修復します。
+  </Card>
+  <Card title="assets の追跡" icon="box" href="/tutorials/tracking-assets">
+    MineClawd がワールド内で作成したものを一覧して管理します。
+  </Card>
+  <Card title="コマンドリファレンス" icon="terminal" href="/commands/overview">
+    すべての `/mineclawd` コマンドを例付きで確認します。
+  </Card>
+</CardGroup>

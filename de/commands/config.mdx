@@ -1,11 +1,11 @@
 ---
 title: "config"
-description: "MineClawd-Einstellungen öffnen, lesen oder aktualisieren."
+description: "MineClawd-Einstellungen oeffnen, lesen oder aktualisieren."
 ---
 
 ## Zweck
 
-Nutze diesen Befehl, um die GUI-Konfiguration zu öffnen oder Einstellungen im Chat zu verwalten.
+Nutze diesen Befehl, um die GUI-Konfiguration zu oeffnen oder Einstellungen im Chat zu verwalten.
 
 ## Syntax
 
@@ -15,7 +15,7 @@ Nutze diesen Befehl, um die GUI-Konfiguration zu öffnen oder Einstellungen im C
 /mineclawd config <key> <value>
 ```
 
-## Häufige Schlüssel
+## Haeufige keys
 
 - `provider`: `openai` oder `vertex-ai`
 - `endpoint`, `api-key`, `model`, `summarize-model`
@@ -24,6 +24,7 @@ Nutze diesen Befehl, um die GUI-Konfiguration zu öffnen oder Einstellungen im C
 - `limit-tool-calls`: `true` oder `false`
 - `tool-call-limit`: `1` bis `20`
 - `system-prompt`
+- `tavily-api-key`: Tavily API-Key fuer Websuche
 - `broadcast-requests-to`: `self`, `all` oder `ops`
 - `dynamic-registry-mode`: `auto`, `enabled` oder `disabled`
 
@@ -39,13 +40,13 @@ Nutze diesen Befehl, um die GUI-Konfiguration zu öffnen oder Einstellungen im C
 
 ## Verhalten und Grenzen
 
-- `/mineclawd config` öffnet die GUI nur, wenn der Spieler-Client MineClawd installiert hat.
+- `/mineclawd config` oeffnet die GUI nur, wenn der Spieler-Client MineClawd installiert hat.
 - `broadcast-requests-to` gilt pro Spieler und muss im Spiel gesetzt werden.
 - Geheime Werte werden beim Auslesen maskiert.
-- Das Ändern von `dynamic-registry-mode` erfordert einen Neustart von Spiel oder Server.
+- Das Aendern von `dynamic-registry-mode` erfordert einen Neustart von Spiel oder Server.
 
-## Häufige Fehler
+## Haeufige Fehler
 
-- `unknown config key`: Rechtschreibung prüfen oder Tab-Vervollständigung nutzen.
+- `unknown config key`: Rechtschreibung pruefen oder Tab-Completion nutzen.
 - `invalid boolean`: nutze `true` oder `false`.
-- `tool-call-limit must be between 1 and 20`: im Bereich bleiben.
+- `tool-call-limit must be between 1 and 20`: im gueltigen Bereich bleiben.

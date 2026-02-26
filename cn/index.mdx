@@ -1,6 +1,6 @@
----
-title: "����"
-description: "�˽� MineClawd������ʹ��ʾ���������ٽ�����һ�¡�"
+﻿---
+title: "介绍"
+description: "了解 MineClawd、看到真实用例，并快速进入下一章。"
 ---
 
 <Frame>
@@ -8,61 +8,62 @@ description: "�˽� MineClawd������ʹ��ʾ���������ٽ�����һ�¡�"
     width="100%"
     height="315"
     src="https://www.youtube.com/embed/a_dkB-nYL14?si=fAlRMMR0J82D4BoK"
-    title="MineClawd ������Ƶ"
+    title="MineClawd 介绍视频"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerPolicy="strict-origin-when-cross-origin"
     allowFullScreen
   />
 </Frame>
 
-MineClawd ��һ�� Minecraft ģ�飬������ʹ����Ȼ��������޸�����MineClawd ������������������Щ������
+MineClawd 是一个 Minecraft 模组，可让你用自然语言提出修改请求。输入你想要的结果，MineClawd 会在你的世界中执行。
 
-�� v1.4.0 ��ʼ��MineClawd �ṩר�����ǲ� GUI������ʵʱ��ʽ���Ự�������ʲ����ٹ��ܡ�
+MineClawd 内置专用覆盖层 GUI，提供实时流式响应、Session 管理和资产追踪。
 
-<Frame caption="�ۿ� MineClawd �ڸ��ǲ�����ʽ���ɵ���Ӧ">
-  <img src="/images/mineclawd-generating.png" alt="MineClawd ���ǲ� GUI ��ʾ��ʽ��Ӧ" />
+<Frame caption="观看 MineClawd 在覆盖层中流式生成响应">
+  <img src="/images/mineclawd-generating.png" alt="MineClawd 覆盖层 GUI 显示流式响应" />
 </Frame>
 
 <Warning>
-MineClawd ��ǰ�Դ���ʵ��׶Ρ���������Ϸ��ִ�����ɵ� JavaScript���뽫 OP Ȩ�޺� API ��Կ��Ϊ������Ϣ��
+MineClawd 仍处于实验阶段。它会在游戏内执行生成的 JavaScript。请将 OP 权限和 API 密钥视为敏感信息。
 </Warning>
 
-## �����ڿ�����ʲô
+## 你现在可以做什么
 
-| ��������� | �����Ч |
+| 输入这句话 | 会发生什么 |
 | --- | --- |
-| `/mclawd �ٻ�һ���� 64 ���̱�ʯ�齻��ľ���Ĵ���` | MineClawd ���������д���һ������ NPC���ṩÿ��ľ���� 64 ���̱�ʯ��Ľ��ס� |
-| `/mclawd �Ի����ķ�ʽ����ȫ����Ҫ˯��` | MineClawd ���������������ҹ㲥һ��������Ϣ��˵����׼��˯���� |
-| `/mclawd ʼ��������Ҽ���ʱ���ͻ�ӭ��Ϣ` | MineClawd ���������л�ӭÿλ����ҡ� |
-| `/mclawd ÿ 5 ���������λ���ٻ�����` | MineClawd ��ÿ 5 ��������������������ٻ�һ��ǿ���׻�ʵ�塣 |
-| `/mclawd ÿ�����ҽ��°뾶 10 ���ɰ�ɫ��ë` | MineClawd ���������Χ�뾶 10 �ķ�Χ�ڳ������ɰ�ɫ��ë�� |
-| `/mclawd �� 100, 64, 100 λ�ý�һ��С��` | MineClawd ����ָ������ (100, 64, 100) ����һ��С���ӡ� |
+| `/mclawd 召唤一个用 64 个绿宝石块交换木剑的村民` | MineClawd 会创建一个村民 NPC，提供每把木剑需 64 个绿宝石块的交易。 |
+| `/mclawd 以华丽的方式告诉全服我要睡觉` | MineClawd 会向服务器所有玩家广播一条风格化消息，说明你要去睡觉。 |
+| `/mclawd 始终在新玩家加入时发送欢迎信息` | MineClawd 会在新玩家加入世界时自动发送欢迎消息。 |
+| `/mclawd 每 5 分钟在随机位置召唤雷神` | MineClawd 会每 5 分钟在随机位置召唤强力雷击实体。 |
+| `/mclawd 每秒在我脚下半径 10 生成白色羊毛` | MineClawd 会在你脚下周围半径 10 的范围持续生成白色羊毛。 |
+| `/mclawd 在 100, 64, 100 位置建一座小屋` | MineClawd 会在坐标 (100, 64, 100) 建造一座小房子。 |
 
-## ѡ�����·��
+## 选择你的路径
 
 <CardGroup cols={2}>
-  <Card title="��ʼ" icon="rocket" href="/quickstart">
-    ���㿪ʼ����ɵ�һ����Ч����
+  <Card title="开始使用" icon="rocket" href="/quickstart">
+    从零开始并发送你的第一条成功请求。
   </Card>
-  <Card title="ʹ�� GUI" icon="desktop" href="/tutorials/using-the-gui">
-    �Ը��ǲ㴰�ڡ�AssistiveTouch �������ʽ���ƽ�������������
+  <Card title="使用 GUI" icon="desktop" href="/tutorials/using-the-gui">
+    学习覆盖层窗口、Assistive Touch 球体和流式控制。
   </Card>
-  <Card title="�ʲ�����" icon="box" href="/tutorials/tracking-assets">
-    ��������Ͳ����� MineClawd ��������һ�����ݡ�
+  <Card title="追踪资产" icon="box" href="/tutorials/tracking-assets">
+    浏览、传送并管理 MineClawd 在世界中创建的所有内容。
   </Card>
-  <Card title="�̳�" icon="book-open" href="/tutorials/managing-sessions">
-    �����˽�Ự�����˺͸��Ի���ơ�
+  <Card title="教程" icon="book-open" href="/tutorials/managing-sessions">
+    深入学习 Session、多人协作和 persona 设计。
   </Card>
-  <Card title="����ο�" icon="terminal" href="/commands/overview">
-    ѧϰ���� `/mineclawd` ��������﷨��ʾ����
+  <Card title="命令参考" icon="terminal" href="/commands/overview">
+    学习每个 `/mineclawd` 子命令的语法和示例。
   </Card>
-  <Card title="����" icon="palette" href="/configuration/complete-config">
-    ��ϸ�����ṩ�̡�ģ�͡����ƺ�����ʱѡ�
+  <Card title="配置" icon="palette" href="/configuration/complete-config">
+    详细设置 provider、model、限制和运行时选项。
   </Card>
-  <Card title="Soul ����" icon="pen-to-square" href="/configuration/souls">
-    ʹ�� soul �ļ��Զ��� MineClawd ����������Ϊ��
+  <Card title="persona 个性" icon="pen-to-square" href="/configuration/souls">
+    使用 persona 文件自定义 MineClawd 的语气和行为。
   </Card>
-  <Card title="�����Ų�" icon="wrench" href="/resources/troubleshooting">
-    ���ٽ����װ���������⡣
+  <Card title="故障排查" icon="wrench" href="/resources/troubleshooting">
+    快速修复安装与运行问题。
   </Card>
 </CardGroup>
+

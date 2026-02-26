@@ -1,106 +1,106 @@
 ---
-title: "Seguimiento de activos"
-description: "Usa el sistema de seguimiento de activos para catalogar, localizar y gestionar todo lo que MineClawd crea."
+title: "Seguimiento de assets"
+description: "Usa el sistema de seguimiento de assets para catalogar, localizar y gestionar todo lo que MineClawd crea en tu mundo."
 tag: "NEW"
 ---
 
-Cuando MineClawd crea entidades, objetos, scripts o mecánicas de juego, el sistema de seguimiento las registra. Desde la superposición o los comandos puedes explorar, teletransportarte, darte, modificar o eliminar cualquier activo rastreado.
+Cuando MineClawd crea entidades, objetos, scripts o mecánicas de juego en tu mundo, el sistema de seguimiento de assets los registra. Puedes explorar, teletransportarte, obtener, modificar o eliminar cualquier asset rastreado desde la superposición o por comandos.
 
 ## Qué se rastrea
 
-Las herramientas del LLM catalogan automáticamente las creaciones en cinco categorías:
+Las herramientas LLM de MineClawd catalogan automáticamente las creaciones en cinco categorías:
 
 | Categoría | Ejemplos |
 | --- | --- |
 | **Entities** | Aldeanos invocados, mobs personalizados, NPCs |
-| **Items/Blocks/Fluids** | Objetos dinámicos, bloques personalizados, fluidos en runtime |
+| **Items/Blocks/Fluids** | Objetos dinámicos (con soporte lanzable), bloques personalizados (con fricción), fluidos en runtime (con color) |
 | **Special Items** | Objetos con NBT personalizado, herramientas encantadas |
 | **Commands** | Comandos personalizados registrados, scripts de comando |
-| **Game Mechanics** | Eventos programados, listeners de unión de jugadores, efectos de área |
+| **Game Mechanics** | Eventos programados, listeners al entrar jugadores, efectos de área |
 
-Cada registro almacena nombre, resumen, ruta del script que lo creó y metadatos específicos de categoría como UUID/ubicación de entidades, content IDs o datos NBT.
+Cada registro de asset guarda nombre, resumen, ruta del script que lo creó y metadatos por categoría como UUID/ubicación de entidad, content IDs o datos NBT.
 
-## Explorar activos en la superposición
+## Explorar assets en la superposición
 
-Abre el menú de la superposición y haz clic en **Assets** para pasar a la vista de inventario de activos.
+Abre el menú de la superposición y haz clic en **Assets** para cambiar a la vista de inventario de assets.
 
-<Frame caption="Inventario de activos con pestañas de categoría">
-  <img src="/images/mineclawd-assets.png" alt="La superposición de MineClawd muestra una lista de activos categorizados con filtros y botones por entrada" />
+<Frame caption="Inventario de assets con pestañas de filtro por categoría">
+  <img src="/images/mineclawd-assets.png" alt="Superposición de Assets de MineClawd mostrando lista categorizada con pestañas de filtro y botones de acción" />
 </Frame>
 
 La vista tiene dos partes:
 
-1. **Pestañas de categoría** en la parte superior: **All**, **Entities**, **Items/Blocks/Fluids**, **Special Items**, **Commands** y **Game Mechanics**. Haz clic para filtrar.
-2. **Filas de activos** debajo que muestran nombre y resumen. Selecciona uno para mostrar la barra de acciones.
+1. **Pestañas de categoría** arriba: **All**, **Entities**, **Items/Blocks/Fluids**, **Special Items**, **Commands** y **Game Mechanics**. Haz clic en una pestaña para filtrar.
+2. **Filas de assets** debajo, cada una con nombre y resumen. Haz clic en un asset para seleccionarlo y mostrar la barra de acciones.
 
-## Acciones sobre activos
+## Acciones de assets
 
-Cuando seleccionas un activo, aparece una barra de acciones con botones contextuales:
+Cuando seleccionas un asset, aparece una barra de acciones con botones según contexto:
 
 | Acción | Disponible para | Qué hace |
 | --- | --- | --- |
-| **Teleport** | Entidades con UUID y ubicación guardados | Te teletransporta a las coordenadas conocidas. |
+| **Teleport** | Entities con UUID y ubicación almacenados | Te teletransporta a las coordenadas conocidas más recientes de la entidad. |
 | **Give** | Items/Blocks/Fluids con content ID, Special Items con special item ID | Te da el objeto mediante ejecución de comando. |
-| **Modify** | Todas las categorías | Abre una nueva sesión con un prompt prellenado para modificar el activo. |
-| **Delete** | Todas las categorías | Abre una nueva sesión con un prompt prellenado para eliminar el activo del mundo. |
+| **Modify** | Todas las categorías | Abre una Session nueva con un prompt precargado para modificar el asset. |
+| **Delete** | Todas las categorías | Abre una Session nueva con un prompt precargado para eliminar el asset del mundo. |
 
 <Tip>
-**Modify** y **Delete** inician una conversación nueva con MineClawd en lugar de cambiar el mundo al instante. Esto permite que MineClawd razone dependencias y limpie scripts correctamente.
+**Modify** y **Delete** inician una conversación nueva con MineClawd en lugar de cambiar el mundo de inmediato. Esto permite que MineClawd razone dependencias y limpie scripts correctamente.
 </Tip>
 
 ## Usar comandos
 
-Puedes gestionar activos desde el chat sin la superposición.
+También puedes gestionar assets desde el chat sin la superposición.
 
-### Lista todos los activos
+### Listar todos los assets
 
 ```bash
 /mineclawd assets list
 ```
 
-Muestra todos los registros de activos rastreados para el propietario actual.
+Muestra todos los registros de assets rastreados para el propietario actual.
 
-### Teletransportarte a un activo
+### Teletransportarte a un asset
 
 ```bash
 /mineclawd assets teleport <asset>
 ```
 
-Te teletransporta a la ubicación almacenada de la entidad. Solo funciona con activos tipo entidad que tienen UUID y dimensión válidos.
+Te teletransporta a la ubicación almacenada de la entidad. Solo funciona para assets tipo entidad con UUID y dimensión válidos.
 
-### Obteniendo un activo
+### Obtener un asset
 
 ```bash
 /mineclawd assets give <asset>
 ```
 
-Te da el objeto o bloque asociado al activo. Funciona para Items/Blocks/Fluids (por content ID) y Special Items (por special item ID y NBT).
+Te da el objeto o bloque asociado al asset. Funciona para Items/Blocks/Fluids (por content ID) y Special Items (por special item ID y NBT).
 
-### Eliminar un registro de activo
+### Eliminar un registro de asset
 
 ```bash
 /mineclawd assets remove-record <asset>
 ```
 
-Elimina el registro del almacenamiento. No borra la entidad, el objeto o el script del mundo: solo elimina el seguimiento.
+Borra el registro de asset del almacenamiento. No elimina la entidad, objeto o script real del mundo; solo elimina el registro de seguimiento.
 
 <Warning>
-Eliminar un registro de activo no deshace su creación. Usa la acción **Delete** en la superposición si quieres que MineClawd limpie también el mundo.
+Eliminar un registro de asset no deshace la creación. Usa la acción **Delete** en la superposición si quieres que MineClawd también limpie el mundo.
 </Warning>
 
-## Cómo funciona el seguimiento detrás del escenario
+## Cómo funciona el seguimiento internamente
 
-MineClawd usa tres herramientas del LLM para gestionar registros durante las solicitudes:
+MineClawd usa tres herramientas LLM para gestionar registros de assets durante las solicitudes:
 
-- `list-assets` — recupera los registros para contexto.
-- `upsert-asset-record` — crea o actualiza registros con metadatos.
-- `remove-asset-record` — borra un registro por id.
+- `list-assets` -- recupera todos los registros de assets para contexto.
+- `upsert-asset-record` -- crea o actualiza un registro con metadatos.
+- `remove-asset-record` -- elimina un registro por ID.
 
-El LLM recibe un apéndice de seguimiento de activos en cada solicitud para que catalogue automáticamente sus creaciones. No necesitas pedirle a MineClawd que rastree activos: lo hace cuando el sistema está habilitado.
+El LLM recibe un apéndice de prompt para seguimiento de assets en cada solicitud, así que sabe que debe catalogar sus creaciones. No necesitas pedirle a MineClawd que rastree assets; lo hace automáticamente cuando el sistema está habilitado.
 
 ## Almacenamiento
 
-Los registros se guardan como JSON por propietario:
+Los registros de assets se guardan como archivos JSON por propietario:
 
 ```text
 mineclawd/
@@ -108,10 +108,10 @@ mineclawd/
     <owner>.json
 ```
 
-Cada archivo contiene un arreglo de objetos `AssetRecord` con campos como `id`, `category`, `name`, `summary`, `scriptPath` y campos específicos (`entityUuid`, `entityDimension`, `entityX/Y/Z`, `contentId`, `specialItemId`, `specialItemNbt`, `command`).
+Cada archivo contiene un arreglo de objetos `AssetRecord` con campos como `id`, `category`, `name`, `summary`, `scriptPath` y campos por categoría (`entityUuid`, `entityDimension`, `entityX/Y/Z`, `contentId`, `specialItemId`, `specialItemNbt`, `command`).
 
 ## Páginas relacionadas
 
 - [Uso de la GUI](/tutorials/using-the-gui)
-- [Comando Assets](/commands/assets)
+- [Comando assets](/commands/assets)
 - [Detalles técnicos](/resources/technical-details)

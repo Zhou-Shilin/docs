@@ -1,135 +1,138 @@
 ---
 title: "Die GUI verwenden"
-description: "Sende Anfragen, sieh Streaming-Antworten, verwalte Sessions und Assets aus dem In-Game-Overlay."
+description: "Sende Anfragen, sieh Streaming-Antworten, verwalte Sessions und durchsuche Assets im In-Game-Overlay."
 tag: "NEW"
 ---
 
-MineClawd 1.4.0 bringt ein Overlay-Fenster, das über dem Spiel schwebt. Du kannst Anfragen tippen, Streaming-Antworten beobachten, Sessions wechseln und Assets verwalten – alles ohne den Chat zu öffnen.
+MineClawd hat ein eigenes Overlay-Fenster ueber dem Spiel. Du kannst Anfragen tippen, Antworten in Echtzeit streamen sehen, Sessions wechseln und Assets verwalten, ohne die Chatbox zu nutzen.
 
 <Note>
-Die GUI braucht MineClawd auf deinem Client. Auf dedizierten Servern installierst du MineClawd auf Server und allen Clients.
+Die GUI setzt MineClawd auf deinem Client voraus. Auf einem dedizierten Server installierst du MineClawd auf dem Server und auf jedem Client.
 </Note>
 
-## Overlay öffnen
+## Overlay oeffnen
 
-Das Overlay erscheint als schwebender Orb (AssistiveTouch) links auf dem Bildschirm. Klicke den Orb, um das vollständige Fenster zu öffnen.
+Das Overlay erscheint als schwebender Orb (Assistive Touch) links auf deinem Bildschirm. Klicke den Orb, um das komplette Overlay-Fenster zu oeffnen.
 
-<Frame caption="Der AssistiveTouch-Orb im Leerlauf">
-  <img src="/images/mineclawd-assistive-touch.png" alt="MineClawd AssistiveTouch-Orb auf dem Bildschirm" />
+<Frame caption="Der Assistive Touch Orb im Leerlauf">
+  <img src="/images/mineclawd-assistive-touch.png" alt="MineClawd Assistive Touch Orb auf dem Bildschirm" />
 </Frame>
 
-Der Orb ist nur für Spieler mit OP-Stufe 2 sichtbar. Fehlt er, prüfst du deine Berechtigungen und stellst sicher, dass **Enable GUI** in der Konfiguration (**Mod Menu** -> **MineClawd** -> **Configure**) aktiviert ist.
+Der Orb ist nur fuer Spieler mit OP-Level 2 sichtbar. Wenn du ihn nicht siehst, pruefe deine Rechte und stelle sicher, dass `Enable GUI` im Konfigurationsbildschirm aktiviert ist (**Mod Menu** -> **MineClawd** -> **Configure**).
 
 ## Overlay-Aufbau
 
-Das ausgeklappte Overlay hat drei Bereiche:
+Das ausgeklappte Overlay hat drei Teile:
 
-1. **Header-Leiste** – zeigt den aktuellen Modus (Antwort, Sessions oder Assets), den aktiven Soul-Namen und Statusanzeigen wie „Streaming“ oder „Question“. Rechts sitzen ein Menü-Icon, eine Minimieren-Schaltfläche und ein Schließen-Button.
-2. **Inhaltsbereich** – zeigt Konversationsverlauf, Session-Liste oder Asset-Inventar, je nach Modus.
-3. **Eingabeleiste** – ein Textfeld für Anfragen mit einem **Send**-Button, der während einer Generierung zu **Stop** wird.
+1. **Header-Leiste** - zeigt den aktuellen Modus (Response, Sessions oder Assets), den aktiven persona-Namen und Statusanzeigen wie "Streaming" oder "Question". Rechts stehen drei Buttons: Menue-Icon, Minimieren und Schliessen.
+2. **Inhaltsbereich** - zeigt den Unterhaltungsverlauf, die Session-Liste oder das Asset-Inventar, je nach aktivem Modus.
+3. **Eingabeleiste** - ein Textfeld fuer Anfragen mit **Send**-Button, der waehrend der Generierung zu **Stop** wird.
 
-Du kannst das Overlay über die Header-Leiste ziehen und über die untere rechte Ecke in der Größe ändern.
+Du kannst das Overlay am Header ziehen und ueber die untere rechte Ecke in der Groesse aendern.
 
 ## Anfrage senden
 
-Tippe deine Anfrage in die Eingabeleiste und klicke **Send** (oder drücke Enter). Das funktioniert wie `/mclawd <request>`, ohne den Chat zu öffnen.
+Tippe unten in der Eingabeleiste deine Anfrage und klicke **Send** (oder druecke Enter). Das funktioniert genau wie `/mclawd <request>`, aber ohne die Chatbox zu oeffnen.
 
 <Frame caption="MineClawd streamt eine Antwort in Echtzeit">
-  <img src="/images/mineclawd-generating.png" alt="MineClawd-Overlay zeigt eine Streaming-Antwort mit blinkendem Cursor" />
+  <img src="/images/mineclawd-generating.png" alt="MineClawd Overlay mit gestreamter Antwort und blinkendem Cursor" />
 </Frame>
 
-Während MineClawd arbeitet:
+Waehrend MineClawd arbeitet:
 
 - Ein blinkender Cursor folgt dem neuesten Text.
-- Die Kopfzeile zeigt **Streaming**.
-- Der **Send**-Button wird zu **Stop**. Klick ihn, um die Anfrage abzubrechen (entspricht `/mineclawd stop`).
-- Der AssistiveTouch-Orb pulsiert, wenn das Overlay minimiert ist.
+- Der Header zeigt den Status **Streaming**.
+- Ein animierter Tool-Statusindikator erscheint bei Tool-Aufrufen und zeigt den Tool-Namen in Echtzeit.
+- Der **Send**-Button wird zu **Stop**. Klicke ihn, um die aktive Anfrage abzubrechen (wie `/mineclawd stop`).
+- Der Assistive Touch Orb zeigt einen pulsierenden Punkt, wenn das Overlay minimiert ist.
 
-<Frame caption="Der Orb pulsiert während einer Anfrage">
-  <img src="/images/mineclawd-assistive-touch-while-generating.png" alt="AssistiveTouch-Orb mit pulsierendem Indikator während einer Generierung" />
+<Frame caption="Der Orb pulsiert waehrend eine Anfrage laeuft">
+  <img src="/images/mineclawd-assistive-touch-while-generating.png" alt="Assistive Touch Orb mit pulsierendem Indikator waehrend der Generierung" />
 </Frame>
 
-<Frame caption="Mehrschrittige Generierung im Overlay">
-  <img src="/images/mineclawd-generating-2.png" alt="MineClawd-Overlay mit längerer Streaming-Antwort und Tool-Aufrufen" />
+<Frame caption="Weiteres Beispiel fuer eine laufende Mehrschritt-Generierung">
+  <img src="/images/mineclawd-generating-2.png" alt="MineClawd Overlay mit laengerer Streaming-Antwort und Tool-Aufrufen" />
 </Frame>
 
-Wenn MineClawd fertig ist, erscheint die Antwort im Verlauf.
+Wenn MineClawd fertig ist, erscheint das Ergebnis im Unterhaltungsverlauf.
 
-<Frame caption="Das fertige Ergebnis der oben gezeigten Anfrage">
-  <img src="/images/mineclawd-result.png" alt="MineClawd-Overlay zeigt das finale Ergebnis nach abgeschlossener Generierung" />
+<Frame caption="Das fertige Ergebnis der Anfrage von oben">
+  <img src="/images/mineclawd-result.png" alt="MineClawd Overlay mit finalem Ergebnis nach Abschluss der Generierung" />
 </Frame>
 
 ## Nachrichtenanzeige
 
-Nachrichten sind farblich unterschieden:
+Nachrichten sind zur besseren Lesbarkeit farblich codiert:
 
-- **Du:** Nachrichten in Blautönen.
-- **MineClawd:** Nachrichten in Gold/Weiß mit je einem Prefix pro Assistant-Turn, auch wenn Tool-Aufrufe dazwischenliegen.
+- **Du:** Nachrichten erscheinen in blauen Toenen.
+- **MineClawd:** Nachrichten erscheinen in Gold/Weiss, mit einem Prefix pro Assistant-Turn, auch wenn Tool-Aufrufe die Antwort aufteilen.
 
-Fragt MineClawd eine Klarfrage (`ask-user-question`), erscheinen Options-Buttons. Wähle eine Option oder klicke **Skip**, damit der Countdown ausläuft.
+Wenn MineClawd eine Rueckfrage stellt (ueber `ask-user-question`), erscheinen Optionen direkt im Verlauf inklusive integriertem **Other**-Button. Waehle eine Option, gib mit **Other** eine freie Antwort ein oder klicke **Skip**, damit der Countdown ablaeuft.
 
-## Menü verwenden
+## Menue verwenden
 
-Klicke das Hamburger-Icon in der Header-Leiste. Dort findest du:
+Klicke das Hamburger-Icon im Header, um das Menue zu oeffnen. Es hat vier Eintraege:
 
-| Eintrag | Funktion |
+| Eintrag | Was es macht |
 | --- | --- |
-| **Config** | Öffnet den YACL-Konfigurationsbildschirm. |
-| **Sessions** | Wechselt zur Session-Liste. |
-| **Assets** | Wechselt zum Asset-Inventar. |
-| **Persona** | Wechselt durch verfügbare Souls. |
+| **Config** | Oeffnet den YACL-Konfigurationsbildschirm. |
+| **Sessions** | Wechselt das Overlay in den Session-Listenmodus. |
+| **Assets** | Wechselt das Overlay in den Asset-Inventarmodus. |
+| **Persona** | Wechselt durch verfuegbare personas. |
 
-## Sessions über das Overlay verwalten
+## Sessions im Overlay verwalten
 
-Klicke **Sessions** im Menü, um eine scrollbare Liste aller gespeicherten Sessions zu sehen.
+Klicke im Menue **Sessions**, um alle gespeicherten Sessions in einer scrollbaren Liste zu sehen.
 
 <Frame caption="Session-Liste im Overlay">
-  <img src="/images/mineclawd-sessions.png" alt="MineClawd Sessions Overlay zeigt Liste mit Sessions und Zeitstempeln" />
+  <img src="/images/mineclawd-sessions.png" alt="MineClawd Sessions Overlay mit Session-Liste und Zeitstempeln" />
 </Frame>
 
-Dort kannst du:
+In dieser Ansicht kannst du:
 
-- **New Session** klicken, um eine frische Session zu erstellen und zu wechseln.
-- Eine Session-Zeile anklicken, um sie zu aktivieren. Die aktive Session ist markiert.
-- Titel und letzte Aktualisierung auf einen Blick sehen.
+- **New Session** klicken, um eine neue Session zu erstellen und zu aktivieren.
+- Auf eine Session-Zeile klicken, um zu ihr zu wechseln. Die aktive Session ist hervorgehoben.
+- Session-Titel und Zeitstempel der letzten Aktualisierung auf einen Blick sehen.
 
-Klicke zurück oder wähle **Response** im Menü, um zur Unterhaltung zurückzukehren.
+Klicke den Zurueck-Pfeil oder waehle **Response** im Menue, um zur Unterhaltungsansicht zurueckzukehren.
 
 ## Assets durchsuchen
 
-Klicke **Assets** im Menü, um das Asset-Inventar zu öffnen. Sieh dir [Assets verfolgen](/tutorials/tracking-assets) für das komplette Vorgehen an.
+Klicke im Menue **Assets**, um das Asset-Inventar zu oeffnen. Sieh [Assets verfolgen](/tutorials/tracking-assets) fuer die komplette Anleitung.
 
 <Frame caption="Asset-Inventar mit Kategorie-Tabs und Aktionsbuttons">
-  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets Overlay zeigt kategorisierte Liste mit Bedienfeldern" />
+  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets Overlay mit kategorisierter Asset-Liste und Aktionssteuerung" />
 </Frame>
 
-## Minimieren und Wiederherstellen
+## Minimieren und wiederherstellen
 
-Klicke die Minimieren-Schaltfläche (Bindestrich-Icon) in der Header-Leiste, um das Overlay auf den AssistiveTouch-Orb zu reduzieren. Klick den Orb, um es wiederherzustellen.
+Klicke im Header den Minimieren-Button (Strich-Icon), um das Overlay wieder auf den Assistive Touch Orb zu reduzieren. Klicke den Orb, um es wiederherzustellen.
 
-Du kannst den Orb ziehen. Die Position bleibt während der Session erhalten.
+Du kannst den Orb ziehen, um ihn neu zu platzieren. Die Position bleibt fuer die Session erhalten.
 
-## Eingabe-Isolierung
+## Eingabe-Isolation
 
-Während das Overlay offen ist, fängt es Tastatur- und Maus-Eingaben ab. Tippen, Scrollen und Klicken gelangen nicht in Chat, Inventar oder andere Bildschirme.
+Waehrend das Overlay geoeffnet ist, faengt es Tastatur- und Maus-Eingaben ab. Tippen, Scrollen und Klicken gelangen nicht in Chat, Inventar oder andere Screens.
 
-Standard-Textbearbeitung funktioniert: Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+V, Home, End und Ctrl+Pfeiltasten für Wortsprünge.
+Standard-Textbearbeitung funktioniert in der Eingabeleiste: Ctrl+A (alles auswaehlen), Ctrl+C (kopieren), Ctrl+X (ausschneiden), Ctrl+V (einfuegen), Home, End und Ctrl+Pfeil fuer Wortspruenge.
 
 ## GUI deaktivieren
 
-Wenn du nur den Chat nutzen willst, schaltest du die Overlay-Einstellungen aus:
+Wenn du nur ueber den Chat arbeiten willst, deaktiviere das Overlay in der Konfiguration:
 
-1. Öffne **Mod Menu** -> **MineClawd** -> **Configure**.
+1. Oeffne **Mod Menu** -> **MineClawd** -> **Configure**.
 2. Setze **Enable GUI** auf OFF.
-3. Speichere die Konfiguration.
+3. Speichere.
 
-Die Befehle funktionieren weiterhin.
+Wenn die GUI deaktiviert ist, funktionieren alle Befehle weiter im Chat. Dynamic content sync bleibt aktiv, damit Runtime-Placeholder korrekt gerendert werden.
+
+Du kannst den Assistive Touch Orb auch pro Spieler umschalten:
 
 ```bash
 /mineclawd assistivetouch
 ```
 
-Dieser Befehl blendet den Orb für deinen Spieler aus, ohne das gesamte GUI-System abzuschalten. Ein weiterer Lauf zeigt den Orb wieder.
+Damit blendest du den Orb aus, ohne das komplette GUI-System zu deaktivieren. Fuehre den Befehl erneut aus, um den Orb wieder einzublenden.
 
 ## Verwandte Seiten
 
@@ -137,4 +140,4 @@ Dieser Befehl blendet den Orb für deinen Spieler aus, ohne das gesamte GUI-Syst
 - [Sessions verwalten](/tutorials/managing-sessions)
 - [Konfigurationsreferenz](/configuration/complete-config)
 - [Stop-Befehl](/commands/stop)
-- [AssistiveTouch-Befehl](/commands/assistivetouch)
+- [Assistive Touch-Befehl](/commands/assistivetouch)

@@ -1,11 +1,11 @@
----
+﻿---
 title: "config"
 description: "打开、读取或更新 MineClawd 设置。"
 ---
 
 ## 用途
 
-用这个命令打开 GUI 配置，或在聊天中管理设置。
+使用这个命令打开 GUI 配置，或在聊天中管理设置。
 
 ## 语法
 
@@ -15,17 +15,18 @@ description: "打开、读取或更新 MineClawd 设置。"
 /mineclawd config <key> <value>
 ```
 
-## 常用 key
+## 常用键
 
-- `provider`: `openai` or `vertex-ai`
-- `endpoint`, `api-key`, `model`, `summarize-model`
-- `vertex-endpoint`, `vertex-api-key`, `vertex-model`, `vertex-summarize-model`
-- `debug-mode`: `true` or `false`
-- `limit-tool-calls`: `true` or `false`
-- `tool-call-limit`: `1` to `20`
+- `provider`: `openai` 或 `vertex-ai`
+- `endpoint`、`api-key`、`model`、`summarize-model`
+- `vertex-endpoint`、`vertex-api-key`、`vertex-model`、`vertex-summarize-model`
+- `debug-mode`: `true` 或 `false`
+- `limit-tool-calls`: `true` 或 `false`
+- `tool-call-limit`: `1` 到 `20`
 - `system-prompt`
-- `broadcast-requests-to`: `self`, `all`, or `ops`
-- `dynamic-registry-mode`: `auto`, `enabled`, or `disabled`
+- `tavily-api-key`: 用于网页搜索的 Tavily API key
+- `broadcast-requests-to`: `self`、`all` 或 `ops`
+- `dynamic-registry-mode`: `auto`、`enabled` 或 `disabled`
 
 ## 示例
 
@@ -37,15 +38,16 @@ description: "打开、读取或更新 MineClawd 设置。"
 /mineclawd config dynamic-registry-mode enabled
 ```
 
-## 行为和限制
+## 行为与限制
 
-- 只有玩家客户端安装了 MineClawd 时，`/mineclawd config` 才会打开 GUI。
-- `broadcast-requests-to` 是按玩家保存的，必须在游戏内设置。
+- 仅当玩家客户端安装了 MineClawd 时，`/mineclawd config` 才会打开 GUI。
+- `broadcast-requests-to` 是按玩家保存，必须在游戏内设置。
 - 读取敏感值时会自动脱敏。
-- 修改 `dynamic-registry-mode` 后需要重启游戏或服务器。
+- 修改 `dynamic-registry-mode` 需要重启游戏或服务器。
 
 ## 常见失败
 
-- `unknown config key`：请检查拼写，或使用 Tab 补全。
-- `invalid boolean`：请使用 `true` 或 `false`。
-- `tool-call-limit must be between 1 and 20`：请保持在范围内。
+- `unknown config key`: 检查拼写，或使用 Tab 补全。
+- `invalid boolean`: 使用 `true` 或 `false`。
+- `tool-call-limit must be between 1 and 20`: 将值保持在范围内。
+

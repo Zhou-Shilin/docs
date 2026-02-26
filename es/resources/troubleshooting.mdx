@@ -1,17 +1,17 @@
 ---
 title: "Solución de problemas"
-description: "Resuelve rápido problemas comunes de configuración y ejecución de MineClawd."
+description: "Corrige rápido problemas comunes de setup y runtime de MineClawd."
 ---
 
-Si MineClawd falla, busca abajo el síntoma más cercano y aplica primero esa solución.
+Si MineClawd falla, busca el síntoma más cercano abajo y aplica primero esa solución.
 
 <AccordionGroup>
-  <Accordion title="MineClawd dice que solo los usuarios OP pueden ejecutar este comando">
-    Da a tu jugador permisos OP de nivel 2. Todos los comandos `/mineclawd` y `/mclawd` requieren acceso OP.
+  <Accordion title="MineClawd dice que solo usuarios OP pueden ejecutar este comando">
+    Dale a tu jugador permisos OP nivel 2. Todos los comandos `/mineclawd` y `/mclawd` requieren acceso OP.
   </Accordion>
 
-  <Accordion title="MineClawd dice que falta la clave API o el modelo">
-    Abre la configuración y define las credenciales del proveedor.
+  <Accordion title="MineClawd dice que falta API key o modelo">
+    Abre configuración y define credenciales del proveedor.
 
     Ruta OpenAI:
     - `provider openai`
@@ -32,34 +32,34 @@ Si MineClawd falla, busca abajo el síntoma más cercano y aplica primero esa so
     ```
   </Accordion>
 
-  <Accordion title="`/mineclawd history` dice que se requiere el mod de cliente">
-    Instala MineClawd en tu cliente. La interfaz de libro de historial usa un canal de paquetes de cliente.
+  <Accordion title="`/mineclawd history` dice que se requiere mod de cliente">
+    Instala MineClawd en tu cliente. La UI del libro de historial usa un canal de paquetes de cliente.
   </Accordion>
 
-  <Accordion title="Otra solicitud sigue ejecutándose para esta sesión">
-    Espera a que termine la tarea actual antes de iniciar otra, cambiar de sesión o cambiar de personalidad.
+  <Accordion title="Otra solicitud sigue en ejecución para esta Session">
+    Espera a que termine la tarea actual antes de iniciar una nueva, cambiar de Session o cambiar de persona.
   </Accordion>
 
-  <Accordion title="El token de reintento no es válido o está vencido">
-    Los tokens de reintento vencen a los 30 minutos.
+  <Accordion title="El token de reintento no es válido o expiró">
+    Los tokens de reintento expiran tras 30 minutos.
 
-    Lanza una nueva solicitud o usa la acción de reintento más reciente desde un mensaje de error nuevo.
+    Lanza una solicitud nueva o usa la acción de reintento más reciente de un mensaje de error fresco.
   </Accordion>
 
-  <Accordion title="No se encontró la sesión para reanudar, eliminar o reparar">
+  <Accordion title="Session no encontrada para resume, remove o repair">
     Ejecuta primero `/mineclawd sessions list`.
 
-    Luego usa el id de sesión o token exacto que aparece en esa salida.
+    Después usa el id de Session exacto o el token de esa salida.
   </Accordion>
 
-  <Accordion title="No se encontró la personalidad">
-    Comprueba los nombres disponibles con `/mineclawd persona`.
+  <Accordion title="Persona no encontrada">
+    Revisa los nombres disponibles con `/mineclawd persona`.
 
-    Si falta un soul, crea un archivo nuevo en `mineclawd/souls/`.
+    Si hace falta, crea un archivo soul nuevo en `mineclawd/souls/`.
   </Accordion>
 
-  <Accordion title="El registro de marcadores dinámicos está deshabilitado">
-    Configura el modo y reinicia:
+  <Accordion title="El registro de placeholders dinámicos está deshabilitado">
+    Define el modo y reinicia:
 
     ```bash
     /mineclawd config dynamic-registry-mode enabled
@@ -68,10 +68,10 @@ Si MineClawd falla, busca abajo el síntoma más cercano y aplica primero esa so
     En servidores dedicados, los clientes también deben instalar MineClawd cuando esto esté habilitado.
   </Accordion>
 
-  <Accordion title="`reload-game` informa errores de KubeJS">
-    Lee las líneas reportadas y corrige errores de sintaxis o runtime en `kubejs/server_scripts/mineclawd/`, luego recarga.
+  <Accordion title="`reload-game` reporta errores de KubeJS">
+    Lee las líneas reportadas, corrige errores de sintaxis o runtime en `kubejs/server_scripts/mineclawd/` y luego recarga.
 
-    Repite hasta que la salida no muestre errores de KubeJS.
+    Sigue corrigiendo hasta que la salida de recarga no reporte errores de KubeJS.
   </Accordion>
 
   <Accordion title="`/mineclawd choose` dice que no hay pregunta pendiente">
@@ -81,45 +81,55 @@ Si MineClawd falla, busca abajo el síntoma más cercano y aplica primero esa so
   </Accordion>
 
   <Accordion title="Solo hay una opción en la selección de proveedor LLM/Broadcast Requests To">
-    Es un bug extraño de YACL. Haz clic en el valor e introduce la(s) primera(s) letra(s) de la opción, luego selecciónala del desplegable.
+    Es un bug raro de YACL. Haz clic en el valor e introduce la primera (o primeras dos) letra(s) de la opción, luego selecciónala del desplegable que aparece.
 
     Para proveedor LLM: escribe `o` para OpenAI o `g` para Google Vertex AI.
-    Para Broadcast Requests To: escribe `on` para only-me, `a` para all u `op` para ops.
+    Para Broadcast Requests To: escribe `on` para only-me, `a` para all o `op` para ops.
   </Accordion>
 
-  <Accordion title="El orbe de la superposición no aparece">
-    El orbe AssistiveTouch requiere:
+  <Accordion title="El orbe de superposición no aparece">
+    El orbe Assistive Touch requiere:
 
     - MineClawd instalado en el cliente.
-    - Nivel de permiso OP 2.
-    - **Enable GUI** activado en configuración (**Mod Menu** -> **MineClawd** -> **Configure**).
-    - AssistiveTouch no está desactivado (`/mineclawd assistivetouch` para reactivarlo).
+    - Permiso OP nivel 2.
+    - `Enable GUI` en ON en configuración (**Mod Menu** -> **MineClawd** -> **Configure**).
+    - Assistive Touch no desactivado (`/mineclawd assistivetouch` para volver a activarlo).
 
-    Revisa cada punto. Si sigue sin aparecer, activa debug y consulta los registros.
+    Revisa cada punto. Si el orbe todavía no aparece, habilita modo debug y revisa logs.
   </Accordion>
 
   <Accordion title="Escribir en la superposición se filtra al chat o al inventario">
-    Este problema se solucionó en v1.4.0. Asegúrate de usar MineClawd 1.4.0 o posterior.
+    Asegúrate de estar en la versión más reciente de MineClawd.
 
-    Si persiste, puede ser un conflicto con otros mods. Prueba con solo MineClawd y sus dependencias.
+    Si el problema continúa, puede ser un conflicto entre mods. Prueba con solo MineClawd y sus dependencias instaladas.
   </Accordion>
 
-  <Accordion title="El botón Stop o `/mineclawd stop` no cancela la solicitud">
-    Stop envía una señal de cancelación a la solicitud activa. Si el proveedor ya terminó pero aún se transmite la respuesta, puede tardar en cancelarse.
+  <Accordion title="Búsqueda web dice que la herramienta search está deshabilitada">
+    La herramienta `search` requiere una Tavily API key. Configúrala con:
 
-    Si la sesión sigue bloqueada, crea una nueva con `/mineclawd sessions new`.
+    ```bash
+    /mineclawd config tavily-api-key <your-tavily-key>
+    ```
+
+    Obtén una clave en [tavily.com](https://tavily.com/). Cuando se configura, MineClawd usa búsqueda web automáticamente cuando necesita información externa.
   </Accordion>
 
-  <Accordion title="La teletransportación de activos dice que no se encuentra la entidad">
-    La entidad pudo haber muerto, desaparecido o descargado. Los registros guardan la última ubicación conocida al crear el activo y no rastrean movimientos.
+  <Accordion title="El botón Stop o /mineclawd stop no cancela la solicitud">
+    Stop envía una señal de cancelación a la solicitud activa. Si el proveedor LLM ya terminó de procesar pero la respuesta todavía se está entregando, stop puede no surtir efecto de inmediato.
 
-    Teletransportar solo funciona con activos de categoría entidad que tienen UUID y dimensión válidos.
+    Si la Session sigue bloqueada después de detener, intenta crear una Session nueva con `/mineclawd sessions new`.
+  </Accordion>
+
+  <Accordion title="Asset teleport dice que no se puede encontrar la entidad">
+    Puede que la entidad haya muerto, desaparecido o quedado descargada. Los registros de assets guardan la última ubicación conocida al crearse y no siguen el movimiento de la entidad.
+
+    Teleport solo funciona para assets de categoría entidad con UUID y dimensión almacenados.
   </Accordion>
 </AccordionGroup>
 
 ## Si los problemas continúan
 
-- Activa logs de depuración: `/mineclawd config debug-mode true`
+- Habilita logs de debug: `/mineclawd config debug-mode true`
 - Reproduce el problema una vez
 - Revisa `logs/latest.log`
 - Abre un issue: `https://github.com/Zhou-Shilin/MineClawd/issues`

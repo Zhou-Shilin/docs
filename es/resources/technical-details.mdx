@@ -3,17 +3,17 @@ title: "Detalles técnicos"
 description: "Arquitectura, almacenamiento, límites e internals de runtime de MineClawd."
 ---
 
-## Ciclo de vida de una solicitud
+## Ciclo de vida de solicitudes
 
 1. Ejecutas `/mclawd ...`, `/mineclawd prompt ...` o escribes una solicitud en la barra de entrada de la superposición.
 2. MineClawd valida la configuración del proveedor y el acceso OP.
-3. MineClawd carga o crea el estado de sesión activa.
+3. MineClawd carga o crea el estado de Session activa.
 4. MineClawd envía una solicitud en streaming al endpoint compatible con OpenAI o Vertex.
-5. Los deltas de streaming se envían al cliente en tiempo real vía el canal `AGENT_STREAM_EVENT`. La superposición renderiza cada delta con un cursor parpadeante.
-6. Las respuestas del modelo pueden activar llamadas de herramientas. Los resultados regresan al ciclo del modelo.
-7. La salida final se muestra en el chat (y en la superposición) y se guarda el historial de sesión.
+5. Los deltas de streaming se envían al cliente en tiempo real por el canal `AGENT_STREAM_EVENT`. La superposición renderiza cada delta con cursor parpadeante.
+6. Las respuestas del modelo pueden activar llamadas de herramientas. Los resultados de las herramientas se vuelven a inyectar en el ciclo del modelo.
+7. La salida final del asistente se muestra en chat (y en la superposición) y se guarda el historial de Session.
 
-## Familias de herramientas en runtime
+## Familias de herramientas de runtime
 
 - Ejecución de comandos y scripts:
   - `execute-command`
@@ -27,11 +27,18 @@ description: "Arquitectura, almacenamiento, límites e internals de runtime de M
   - `sync-command-tree`
 - Aclaración:
   - `ask-user-question`
-- Seguimiento de activos:
+- Seguimiento de assets:
   - `list-assets`
   - `upsert-asset-record`
   - `remove-asset-record`
-- Marcadores dinámicos (solo cuando están habilitados):
+- Búsqueda web (requiere Tavily API key):
+  - `search`
+- Información de mods:
+  - `list_mods`
+  - `list_commands`
+  - `fetch_modrinth`
+  - `fetch_url`
+- Placeholders dinámicos (solo cuando están habilitados):
   - `list-dynamic-content`
   - `register-dynamic-item`
   - `register-dynamic-block`
@@ -67,47 +74,49 @@ gameDir/
         ...
 ```
 
-## Internals de sesión
+## Internals de Session
 
-- El id de sesión es un token de 4 caracteres en minúsculas.
-- El token de comando tiene formato `<id>-<title-slug>`.
-- El archivo de sesión almacena por separado los historiales de OpenAI y Vertex.
-- El puntero de sesión activa se guarda en `active.json` por propietario.
-- El título de la sesión se genera tras la primera ronda exitosa usando el modelo de resumen.
+- El id de Session es un token de 4 caracteres en minúsculas.
+- El formato del token de comando es `<id>-<title-slug>`.
+- El archivo de Session guarda historiales de OpenAI y Vertex por separado.
+- El puntero de Session activa se guarda en `active.json` por propietario.
+- El título de Session se genera después de la primera ronda exitosa con el modelo de resumen.
 
 ## Detalles de transporte LLM
 
-- Ruta compatible con OpenAI: `<endpoint>/chat/completions`
-- Ruta de Vertex: `<endpoint>/<model>:generateContent?key=<api_key>`
+- Ruta de solicitud compatible con OpenAI: `<endpoint>/chat/completions`
+- Ruta de solicitud Vertex: `<endpoint>/<model>:generateContent?key=<api_key>`
 - Ambas rutas usan timeout de solicitud de 60 segundos.
-- Ambas rutas permiten llamadas de herramientas con estilo función.
-- Ambas rutas soportan streaming; los deltas se reenvían al cliente mediante el canal `AGENT_STREAM_EVENT`.
+- Ambas rutas soportan llamadas de herramientas tipo función.
+- Ambas rutas soportan streaming. Los deltas se reenvían al cliente por el canal de red `AGENT_STREAM_EVENT`.
 
 ## Arquitectura de streaming
 
-Los eventos de streaming usan `AGENT_STREAM_EVENT` con un id de solicitud, tipo de evento y texto:
+Los eventos de streaming usan el canal `AGENT_STREAM_EVENT` con un request ID, byte de tipo de evento y payload string.
 
 | Tipo de evento | Byte | Payload |
 | --- | --- | --- |
-| `START` | `0` | JSON con `sessionId` y texto de la solicitud |
-| `DELTA` | `1` | Fragmento de texto generado por el LLM |
+| `START` | `0` | JSON con `sessionId` y texto de `request` |
+| `DELTA` | `1` | Fragmento de texto del LLM |
 | `DONE` | `2` | Vacío |
-| `ERROR` | `3` | Cadena con mensaje de error |
+| `ERROR` | `3` | String con mensaje de error |
+| `TOOL_STATUS` | `4` | Nombre de la herramienta que se está llamando |
+| `TOOL_STATUS_CLEAR` | `5` | Vacío (limpia el indicador de estado de herramienta) |
 
-La superposición recibe estos eventos y renderiza los deltas de forma incremental. Un cursor parpadeante sigue el texto hasta que llega `DONE` o `ERROR`.
+La superposición recibe estos eventos y renderiza deltas de forma incremental. Un cursor parpadeante sigue el texto más reciente hasta que llega `DONE` o `ERROR`. Durante la generación, eventos `TOOL_STATUS` muestran un indicador animado con la herramienta que MineClawd está llamando en tiempo real. El indicador se limpia cuando llega `TOOL_STATUS_CLEAR`.
 
-Las solicitudes activas se rastrean en los mapas `ACTIVE_REQUESTS` y `ACTIVE_NETWORK_REQUESTS`. El comando `/mineclawd stop` marca el id en `CANCELLED_REQUEST_IDS` y cancela las conexiones HTTP en curso.
+Las solicitudes activas se rastrean del lado servidor en los mapas `ACTIVE_REQUESTS` y `ACTIVE_NETWORK_REQUESTS`. El comando `/mineclawd stop` marca el request ID en `CANCELLED_REQUEST_IDS` y cancela conexiones HTTP en vuelo.
 
-## Internals de marcadores dinámicos
+## Internals de placeholders dinámicos
 
-- Capacidad: `30` ranuras de ítems, `30` de bloques y `30` de fluidos.
-- Ids fijos incluidos:
+- Capacidad: `30` slots de item, `30` slots de block, `30` slots de fluid.
+- IDs fijos incluyen:
   - `mineclawd:dynamic_item_001`
   - `mineclawd:dynamic_block_001`
   - `mineclawd:dynamic_fluid_001`
-- La sincronización de estado usa la carga `sync_dynamic_content`.
-- La persistencia guarda datos en el `PersistentState` del mundo `mineclawd_dynamic_content`.
-- El modo `AUTO` habilita marcadores en el cliente y los deshabilita en servidores dedicados.
+- La sincronización de estado usa payload de red `sync_dynamic_content`.
+- La persistencia de estado usa `PersistentState` del mundo con id `mineclawd_dynamic_content`.
+- El modo `AUTO` habilita placeholders de runtime en cliente y los deshabilita en servidores dedicados.
 
 ## Canales de red
 
@@ -126,38 +135,38 @@ MineClawd define estos identificadores de paquetes:
 - `mineclawd:open_history_book`
 - `mineclawd:agent_stream_event`
 
-## Internals de seguimiento de activos
+## Internals de seguimiento de assets
 
-Los registros de activos se guardan por propietario en `mineclawd/assets/<owner>.json`. Cada registro incluye:
+Los registros de assets se guardan por propietario en `mineclawd/assets/<owner>.json`. Cada registro contiene:
 
-- `id` — identificador único
-- `category` — una de `ENTITIES`, `ITEMS_BLOCKS_FLUIDS`, `SPECIAL_ITEMS`, `COMMANDS`, `GAME_MECHANICS`
+- `id` -- identificador único
+- `category` -- una de `ENTITIES`, `ITEMS_BLOCKS_FLUIDS`, `SPECIAL_ITEMS`, `COMMANDS`, `GAME_MECHANICS`
 - `name`, `summary`, `scriptPath`, `details`
 - Campos por categoría: `contentId`, `specialItemId`, `specialItemNbt`, `command`, `entityUuid`, `entityDimension`, `entityX`, `entityY`, `entityZ`
-- `sessionId` — sesión que creó el activo
-- `createdAt`, `updatedAt` — marcas de tiempo
+- `sessionId` -- la Session que creó el asset
+- `createdAt`, `updatedAt` -- marcas de tiempo
 
-El prompt del sistema incluye un apéndice de seguimiento de activos para que el LLM los catalogue automáticamente mediante llamadas `upsert-asset-record`.
+El system prompt incluye un apéndice de seguimiento de assets para que el LLM catalogue automáticamente creaciones mediante llamadas a `upsert-asset-record`.
 
 ## Límites y temporizadores
 
 | Ajuste o comportamiento | Valor |
 | --- | --- |
-| Rango del límite de llamadas de herramientas | `1` a `20` |
-| Valor por defecto del límite | `16` |
-| Estado inicial del límite | desactivado |
-| Máximo de opciones en ask-user | `5` |
+| Rango de límite de llamadas a herramientas | `1` a `20` |
+| Valor por defecto del límite de llamadas a herramientas | `16` |
+| Estado por defecto del límite de llamadas a herramientas | deshabilitado |
+| Máximo de opciones de ask-user | `5` |
 | Timeout de ask-user | `60` segundos |
-| TTL del token de reintento | `30` minutos |
-| Reintentos por rate limit | `2` |
+| TTL del token de reintento de solicitud fallida | `30` minutos |
+| Reintentos por rate limit | `2` reintentos |
 | Backoff por rate limit | `1500ms * retry_index` |
-| Máximo de entradas de historial para el libro | `300` |
+| Máximo de entradas de historial para construir el libro | `300` |
 | Longitud máxima de la barra de entrada de la superposición | `600` caracteres |
-| Categorías de activos | `5` |
+| Categorías de assets | `5` |
 
 ## Modelo de seguridad
 
-- Todas las rutas de comando requieren OP.
-- La ejecución de KubeJS se ejecuta de verdad en el servidor, no es simulada.
-- Las claves API deben tratarse como secretos.
-- Usa solo entornos confiables.
+- Todas las rutas de comando están protegidas por OP.
+- La ejecución de KubeJS es ejecución real de servidor, no simulación.
+- Las API keys deben tratarse como secretos.
+- Usa solo entornos de confianza.

@@ -1,56 +1,56 @@
 ---
 title: "Assets verfolgen"
-description: "Nutze das Asset-Tracking, um alles, was MineClawd erstellt, zu katalogisieren, zu lokalisieren und zu verwalten."
+description: "Nutze das Asset-Tracking-System, um alles zu katalogisieren, zu finden und zu verwalten, was MineClawd in deiner Welt erstellt."
 tag: "NEW"
 ---
 
-Wenn MineClawd Entitäten, Items, Skripte oder Spielmechaniken erstellt, legt das Asset-Tracking-System Einträge dafür an. Du kannst die Assets im Overlay durchsuchen, zu ihnen teleportieren, sie dir geben lassen, ändern oder löschen – alternativ nutzt du die Befehle.
+Wenn MineClawd Entitaeten, Items, Skripte oder Spielmechaniken in deiner Welt erstellt, zeichnet das Asset-Tracking-System sie auf. Du kannst jedes getrackte Asset im Overlay oder per Befehl durchsuchen, zu ihm teleportieren, dir geben lassen, aendern oder loeschen.
 
 ## Was getrackt wird
 
-Die LLM-Tools von MineClawd katalogisieren Kreationen automatisch in fünf Kategorien:
+Die LLM-Tools von MineClawd katalogisieren Kreationen automatisch in fuenf Kategorien:
 
 | Kategorie | Beispiele |
 | --- | --- |
-| **Entitäten** | Beschworene Dorfbewohner, benutzerdefinierte Mobs, NPCs |
-| **Items/Blocks/Fluids** | Dynamische Items, eigene Blöcke, Laufzeit-Fluids |
-| **Spezielle Items** | Items mit custom NBT, verzauberte Werkzeuge |
-| **Befehle** | Registrierte Custom Commands, Skriptbefehle |
-| **Spielmechaniken** | Geplante Events, Join-Listener, Bereichseffekte |
+| **Entities** | Beschworene Dorfbewohner, benutzerdefinierte Mobs, NPCs |
+| **Items/Blocks/Fluids** | Dynamische Items (mit Throw-Unterstuetzung), benutzerdefinierte Bloecke (mit Reibung), Runtime-Fluids (mit Farbe) |
+| **Special Items** | Items mit benutzerdefinierten NBT-Daten, verzauberte Werkzeuge |
+| **Commands** | Registrierte benutzerdefinierte Befehle, Befehlsskripte |
+| **Game Mechanics** | Geplante Events, Player-Join-Listener, Bereichseffekte |
 
-Jeder Asset-Eintrag speichert Name, Zusammenfassung, Pfad zum Skript und kategorie-spezifische Metadaten wie Entity-UUID/Position, Content-IDs oder NBT-Daten.
+Jeder Asset-Eintrag speichert einen Namen, eine Zusammenfassung, den Skriptpfad, der das Asset erstellt hat, und kategorie-spezifische Metadaten wie Entity UUID/Position, Content IDs oder NBT-Daten.
 
 ## Assets im Overlay durchsuchen
 
-Öffne das Overlay-Menü und klicke auf **Assets**, um zum Inventar mit Kategorie-Filtern zu wechseln.
+Oeffne das Overlay-Menue und klicke **Assets**, um zur Asset-Inventaransicht zu wechseln.
 
-<Frame caption="Asset-Inventar mit Kategorie-Tabs">
-  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets Overlay zeigt kategorisierte Liste mit Filter-Tabs und Aktionsbuttons" />
+<Frame caption="Asset-Inventar mit Kategorie-Filter-Tabs">
+  <img src="/images/mineclawd-assets.png" alt="MineClawd Assets Overlay mit kategorisierter Asset-Liste, Kategorie-Tabs und Aktionsbuttons" />
 </Frame>
 
-Die Ansicht besteht aus zwei Bereichen:
+Die Ansicht hat zwei Teile:
 
-1. **Kategorie-Tabs** oben: **All**, **Entities**, **Items/Blocks/Fluids**, **Special Items**, **Commands**, **Game Mechanics**. Klicke auf einen Tab, um zu filtern.
-2. **Asset-Zeilen** unten, jede zeigt Name und Zusammenfassung. Wähle ein Asset, um die Aktionsleiste einzublenden.
+1. **Kategorie-Tabs** oben: **All**, **Entities**, **Items/Blocks/Fluids**, **Special Items**, **Commands** und **Game Mechanics**. Klicke einen Tab zum Filtern.
+2. **Asset-Zeilen** unten, jede mit Name und Zusammenfassung. Klicke ein Asset, um es auszuwaehlen und die Aktionsleiste anzuzeigen.
 
 ## Asset-Aktionen
 
-Wenn du ein Asset auswählst, erscheint eine Aktionsleiste mit kontextabhängigen Buttons:
+Wenn du ein Asset auswaehlst, erscheint eine Aktionsleiste mit kontextabhaengigen Buttons:
 
-| Aktion | Verfügbar für | Was sie macht |
+| Aktion | Verfuegbar fuer | Was es macht |
 | --- | --- | --- |
-| **Teleport** | Entitäten mit gespeicherter UUID und Position | Teleportiert dich zu den letzten bekannten Koordinaten. |
-| **Give** | Items/Blocks/Fluids mit Content-ID, Special Items mit ID + NBT | Gibt dir den Eintrag per Command. |
-| **Modify** | Alle Kategorien | Öffnet eine neue Session mit vorausgefüllter Anfrage zur Änderung. |
-| **Delete** | Alle Kategorien | Startet eine neue Session mit Anfrage zum Entfernen des Assets aus der Welt. |
+| **Teleport** | Entities mit gespeicherter UUID und Position | Teleportiert dich zu den zuletzt bekannten Koordinaten der Entity. |
+| **Give** | Items/Blocks/Fluids mit Content ID, Special Items mit special item ID | Gibt dir das Item per Befehlsausfuehrung. |
+| **Modify** | Alle Kategorien | Oeffnet eine neue Session mit vorausgefuelltem Prompt, um das Asset zu aendern. |
+| **Delete** | Alle Kategorien | Oeffnet eine neue Session mit vorausgefuelltem Prompt, um das Asset aus der Welt zu entfernen. |
 
 <Tip>
-**Modify** und **Delete** öffnen eine neue Unterhaltung mit MineClawd, statt sofort zu handeln. So kann MineClawd Abhängigkeiten prüfen und Skripte sauber bereinigen.
+**Modify** und **Delete** starten eine neue Unterhaltung mit MineClawd, statt die Welt sofort zu aendern. So kann MineClawd Abhaengigkeiten beruecksichtigen und Skripte sauber aufraeumen.
 </Tip>
 
-## Befehle nutzen
+## Befehle verwenden
 
-Du kannst Assets auch über den Chat verwalten.
+Du kannst Assets auch ohne Overlay ueber den Chat verwalten.
 
 ### Alle Assets auflisten
 
@@ -58,7 +58,7 @@ Du kannst Assets auch über den Chat verwalten.
 /mineclawd assets list
 ```
 
-Zeigt alle Asset-Einträge für den aktuellen Owner an.
+Zeigt alle getrackten Asset-Eintraege fuer den aktuellen owner.
 
 ### Zu einem Asset teleportieren
 
@@ -66,15 +66,15 @@ Zeigt alle Asset-Einträge für den aktuellen Owner an.
 /mineclawd assets teleport <asset>
 ```
 
-Teleportiert dich zur gespeicherten Position. Funktioniert nur für Entity-Assets mit gültiger UUID und Dimension.
+Teleportiert dich zur gespeicherten Position der Entity. Funktioniert nur fuer Entity-Assets mit gueltiger UUID und Dimension.
 
-### Dir ein Asset geben lassen
+### Dir ein Asset geben
 
 ```bash
 /mineclawd assets give <asset>
 ```
 
-Gibt dir den dem Asset zugeordneten Block oder Gegenstand. Funktioniert für Items/Blocks/Fluids (Content-ID) sowie Special Items (special item ID + NBT).
+Gibt dir das Item oder den Block, der mit dem Asset verknuepft ist. Funktioniert fuer Items/Blocks/Fluids (per Content ID) und Special Items (per special item ID und NBT).
 
 ### Einen Asset-Eintrag entfernen
 
@@ -82,25 +82,25 @@ Gibt dir den dem Asset zugeordneten Block oder Gegenstand. Funktioniert für Ite
 /mineclawd assets remove-record <asset>
 ```
 
-Löscht den Tracking-Eintrag. Das Spielobjekt bleibt bestehen.
+Loescht den Asset-Eintrag aus dem Speicher. Das entfernt nicht die echte Entity, das Item oder das Skript aus der Welt, sondern nur den Tracking-Eintrag.
 
 <Warning>
-Das Löschen eines Asset-Eintrags macht die Erstellung nicht rückgängig. Nutze im Overlay die **Delete**-Aktion, wenn MineClawd auch die Welt aufräumen soll.
+Das Entfernen eines Asset-Eintrags macht die Erstellung nicht rueckgaengig. Nutze die **Delete**-Aktion im Overlay, wenn MineClawd auch die Welt aufraeumen soll.
 </Warning>
 
-## So funktioniert das Tracking intern
+## Wie Tracking intern funktioniert
 
-MineClawd nutzt drei LLM-Tools während Anfragen:
+MineClawd nutzt waehrend Anfragen drei LLM-Tools zur Verwaltung von Asset-Eintraegen:
 
-- `list-assets` – ruft alle Asset-Einträge für den Kontext ab.
-- `upsert-asset-record` – erstellt oder aktualisiert einen Eintrag mit Metadaten.
-- `remove-asset-record` – löscht einen Eintrag per ID.
+- `list-assets` - holt alle Asset-Eintraege fuer den Kontext.
+- `upsert-asset-record` - erstellt oder aktualisiert einen Asset-Eintrag mit Metadaten.
+- `remove-asset-record` - loescht einen Asset-Eintrag per ID.
 
-Der LLM-Systemprompt enthält einen Asset-Tracking-Anhang, damit das Modell ohne deine Aufforderung katalogisiert. Du musst nichts weiter tun.
+Das LLM erhaelt in jeder Anfrage einen Asset-Tracking-Anhang im Prompt. So weiss es, dass es seine Kreationen katalogisieren soll. Du musst MineClawd nicht extra auffordern, Assets zu tracken.
 
 ## Speicher
 
-Asset-Einträge liegen pro Owner in JSON-Dateien:
+Asset-Eintraege werden als JSON-Dateien pro owner gespeichert:
 
 ```text
 mineclawd/
@@ -108,7 +108,7 @@ mineclawd/
     <owner>.json
 ```
 
-Jede Datei enthält ein Array von `AssetRecord`-Objekten mit Feldern wie `id`, `category`, `name`, `summary`, `scriptPath` und kategorie-spezifischen Feldern (`entityUuid`, `entityDimension`, `entityX/Y/Z`, `contentId`, `specialItemId`, `specialItemNbt`, `command`).
+Jede Datei enthaelt ein Array aus `AssetRecord`-Objekten mit Feldern wie `id`, `category`, `name`, `summary`, `scriptPath` und kategorie-spezifischen Feldern (`entityUuid`, `entityDimension`, `entityX/Y/Z`, `contentId`, `specialItemId`, `specialItemNbt`, `command`).
 
 ## Verwandte Seiten
 

@@ -5,7 +5,7 @@ description: "Abre, consulta o actualiza la configuración de MineClawd."
 
 ## Propósito
 
-Usa este comando para abrir la configuración en la GUI o gestionar ajustes desde el chat.
+Usa este comando para abrir la configuración de la GUI o gestionar ajustes desde chat.
 
 ## Sintaxis
 
@@ -22,8 +22,9 @@ Usa este comando para abrir la configuración en la GUI o gestionar ajustes desd
 - `vertex-endpoint`, `vertex-api-key`, `vertex-model`, `vertex-summarize-model`
 - `debug-mode`: `true` o `false`
 - `limit-tool-calls`: `true` o `false`
-- `tool-call-limit`: `1` to `20`
+- `tool-call-limit`: `1` a `20`
 - `system-prompt`
+- `tavily-api-key`: Tavily API key para búsqueda web
 - `broadcast-requests-to`: `self`, `all` u `ops`
 - `dynamic-registry-mode`: `auto`, `enabled` o `disabled`
 
@@ -40,12 +41,12 @@ Usa este comando para abrir la configuración en la GUI o gestionar ajustes desd
 ## Comportamiento y límites
 
 - `/mineclawd config` abre la GUI solo cuando el cliente del jugador tiene MineClawd instalado.
-- `broadcast-requests-to` es por jugador y debe configurarse dentro del juego.
-- Los valores secretos se ocultan cuando los consultas.
-- Cambiar `dynamic-registry-mode` requiere reiniciar el juego o el servidor.
+- `broadcast-requests-to` es por jugador y debe definirse dentro del juego.
+- Los valores secretos se enmascaran cuando los consultas.
+- Cambiar `dynamic-registry-mode` requiere reiniciar juego o servidor.
 
-## Errores comunes
+## Fallos comunes
 
-- `unknown config key`: revisa la ortografía o usa autocompletado con tabulación.
+- `unknown config key`: revisa ortografía o usa autocompletado con tab.
 - `invalid boolean`: usa `true` o `false`.
-- `tool-call-limit must be between 1 and 20`: mantente dentro del rango.
+- `tool-call-limit must be between 1 and 20`: mantente en el rango.

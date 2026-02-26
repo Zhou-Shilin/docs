@@ -1,32 +1,34 @@
 ---
-title: "Vollständige Konfiguration"
-description: "Vollständige MineClawd-Konfigurationsreferenz mit Defaults, Befehlschlüsseln und Verhaltenserläuterungen."
+title: "Vollstaendige Konfiguration"
+description: "Vollstaendige MineClawd-Konfigurationsreferenz mit Defaults, Befehls-keys und Verhaltenshinweisen."
 ---
 
 ## Zweck
 
-Diese Seite zeigt dir das komplette MineClawd-Konfigurationsmodell, inklusive Dateieinstellungen, Befehlschlüsseln und Neustartverhalten.
+Diese Seite zeigt dir das komplette MineClawd-Konfigurationsmodell, inklusive Datei-Einstellungen, Befehls-keys und Neustartverhalten.
 
 ## Wo Einstellungen liegen
 
 - Globale Konfigurationsdatei: `config/mineclawd.json5`
-- Sichtbarkeit im Chat pro Spieler: `mineclawd/player-settings.json`
-- Soul-Dateien und aktiver Soul-State: `mineclawd/souls/` und `mineclawd/souls/.active/`
+- Chat-Sichtbarkeit pro Spieler: `mineclawd/player-settings.json`
+- persona-Dateien und aktiver persona-Status: `mineclawd/souls/` und `mineclawd/souls/.active/`
 
-## Vollständige `mineclawd.json5`-Vorlage
+## Vollstaendige `mineclawd.json5`-Vorlage
 
 ```json5
 {
   provider: "OPENAI",
   endpoint: "https://api.openai.com/v1",
   apiKey: "",
-  model: "gpt-4o-mini",
-  summarizeModel: "gpt-4o-mini",
+  model: "gpt-5.2",
+  summarizeModel: "gpt-5.2",
 
   vertexEndpoint: "https://aiplatform.googleapis.com/v1",
   vertexApiKey: "",
-  vertexModel: "publishers/google/models/gemini-3-pro-preview",
-  vertexSummarizeModel: "publishers/google/models/gemini-3-pro-preview",
+  vertexModel: "gemini-3.1-pro-preview",
+  vertexSummarizeModel: "gemini-3-flash-preview",
+
+  tavilyApiKey: "",
 
   debugMode: false,
   limitToolCalls: false,
@@ -34,91 +36,98 @@ Diese Seite zeigt dir das komplette MineClawd-Konfigurationsmodell, inklusive Da
   systemPrompt: "",
   dynamicRegistryMode: "AUTO",
 
-  // Client-only (nicht in der Serverkonfiguration)
+  // Nur Client (nicht in der Server-Konfigurationsdatei)
   enableGui: true
 }
 ```
 
 <Info>
-In Dateiform sind Enum-Werte großgeschrieben (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`). In Befehlsform sind sie kleingeschrieben (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
+In Dateiform sind Enum-Werte gross geschrieben (`OPENAI`, `VERTEX_AI`, `AUTO`, `ENABLED`, `DISABLED`).
+
+In Befehlsform sind Werte klein geschrieben (`openai`, `vertex-ai`, `auto`, `enabled`, `disabled`).
 </Info>
 
-## Schlüsselreferenz
+## Key-Referenz
 
-| Dateischlüssel | Befehlschlüssel | Typ | Vorgabe | Hinweise |
+| Datei-key | Befehls-key | Typ | Default | Hinweise |
 | --- | --- | --- | --- | --- |
 | `provider` | `provider` | enum | `OPENAI` | Provider-Auswahl: OpenAI-kompatibel oder Vertex AI. |
-| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-kompatible Basis-URL, ohne abschließenden Slash. |
-| `apiKey` | `api-key` | string | leer | OpenAI-API-Key. |
-| `model` | `model` | string | `gpt-4o-mini` | OpenAI-Chatmodell. |
-| `summarizeModel` | `summarize-model` | string | `gpt-4o-mini` | OpenAI-Modell für die erste Session-Titelerstellung. |
-| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex-API-URL. |
-| `vertexApiKey` | `vertex-api-key` | string | leer | Vertex-API-Key. |
-| `vertexModel` | `vertex-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex-Modellpfad oder Modellname. |
-| `vertexSummarizeModel` | `vertex-summarize-model` | string | `publishers/google/models/gemini-3-pro-preview` | Vertex-Zusammenfassungsmodell für Session-Titel. |
-| `debugMode` | `debug-mode` | boolean | `false` | Zeichnet detaillierte Request- und Tool-Aktivitäten auf. |
+| `endpoint` | `endpoint` | string | `https://api.openai.com/v1` | OpenAI-kompatible Basis-URL, kein abschliessender Slash noetig. |
+| `apiKey` | `api-key` | string | leer | OpenAI API-Key. |
+| `model` | `model` | string | `gpt-5.2` | OpenAI Chat-Modell. |
+| `summarizeModel` | `summarize-model` | string | `gpt-5.2` | OpenAI-Modell fuer Session-Titelerstellung nach der ersten Runde. |
+| `vertexEndpoint` | `vertex-endpoint` | string | `https://aiplatform.googleapis.com/v1` | Vertex API-Basis-URL. |
+| `vertexApiKey` | `vertex-api-key` | string | leer | Vertex API-Key. |
+| `vertexModel` | `vertex-model` | string | `gemini-3.1-pro-preview` | Vertex-Modellpfad oder Modellname. |
+| `vertexSummarizeModel` | `vertex-summarize-model` | string | `gemini-3-flash-preview` | Vertex summarize-Modell fuer Session-Titel. |
+| `tavilyApiKey` | `tavily-api-key` | string | leer | Tavily API-Key fuer Websuche. Wenn gesetzt, wird das `search`-Tool aktiviert. |
+| `debugMode` | `debug-mode` | boolean | `false` | Loggt detaillierte Request- und Tool-Aktivitaeten. |
 | `limitToolCalls` | `limit-tool-calls` | boolean | `false` | Aktiviert ein Tool-Loop-Limit pro Anfrage. |
 | `toolCallLimit` | `tool-call-limit` | integer | `16` | Erlaubter Bereich: `1` bis `20`. |
-| `systemPrompt` | `system-prompt` | string | leer | Leer bedeutet eingebaute Systemprompt. Verwende `default`, um den Wert im Befehlsmodus zurückzusetzen. |
-| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Steuert den Runtime-Modus für dynamische Platzhalter. Neustart erforderlich nach Änderung. |
-| `enableGui` | -- | boolean | `true` | Nur Client-seitig. Zeigt das Overlay oder nicht. Über **Mod Menu** -> **MineClawd** -> **Configure** steuerbar. |
+| `systemPrompt` | `system-prompt` | string | leer | Leer bedeutet eingebauter Systemprompt. Nutze im Befehlsmodus den Wert `default` zum Zuruecksetzen. |
+| `dynamicRegistryMode` | `dynamic-registry-mode` | enum | `AUTO` | Steuert den Runtime-Modus fuer dynamische Placeholder. Nach Aenderung ist ein Neustart noetig. |
+| `enableGui` | -- | boolean | `true` | Nur Client-seitig. Zeigt oder versteckt die Overlay-GUI. Setze es ueber **Mod Menu** -> **MineClawd** -> **Configure**. |
 
 ## Einstellungen pro Spieler
 
 ### broadcast-requests-to
 
-- Befehlschlüssel: `broadcast-requests-to`
-- Zulässige Werte: `self`, `all`, `ops`
+Nur per Befehl, pro Spieler.
+
+- Befehls-key: `broadcast-requests-to`
+- Erlaubte Werte: `self`, `all`, `ops`
 - Gespeichert in: `mineclawd/player-settings.json`
-- Zweck: Steuert, wer Prompt-Echo und Statusmeldungen sieht.
+- Zweck: steuert, wer Prompt-Echo und Task-Start- oder Task-Ende-Zeilen sieht.
 
 ### assistivetouch
 
+Nur Toggle, pro Spieler.
+
 - Befehl: `/mineclawd assistivetouch`
 - Gespeichert in: `mineclawd/player-settings.json`
-- Standard: aktiviert (sichtbar)
-- Zweck: Zeigt oder versteckt den schwebenden AssistiveTouch-Orb ohne komplette GUI-Abschaltung.
+- Default: aktiviert (sichtbar)
+- Zweck: zeigt oder versteckt den schwebenden Assistive Touch Orb, ohne die komplette GUI zu deaktivieren.
 
 ## Verhalten von dynamic registry mode
 
-- `AUTO`: Aktiviert im Client-Runtime (Einzelspieler), deaktiviert auf dedizierten Servern.
-- `ENABLED`: Erzwingt Aktivierung in allen Laufzeiten.
-- `DISABLED`: Deaktiviert vollständig.
+- `AUTO`: aktiviert in Client-Runtimes (Einzelspieler), deaktiviert auf dedizierten Servern.
+- `ENABLED`: erzwingt Aktivierung in allen Runtimes.
+- `DISABLED`: vollstaendig deaktiviert.
 
 <Warning>
-Wenn du `ENABLED` auf einem dedizierten Server erzwingst, müssen alle Clients MineClawd installiert haben.
+Wenn du `ENABLED` auf einem dedizierten Server erzwingst, muessen beitretende Clients MineClawd installiert haben.
 </Warning>
 
 ## Empfohlene Baselines
 
-### OpenAI-Erstsetup
+### Baseline fuer erstes OpenAI-Setup
 
 ```bash
 /mineclawd config provider openai
 /mineclawd config endpoint https://api.openai.com/v1
 /mineclawd config api-key <your-key>
-/mineclawd config model gpt-4o-mini
-/mineclawd config summarize-model gpt-4o-mini
+/mineclawd config model gpt-5.2
+/mineclawd config summarize-model gpt-5.2
 ```
 
-### Vertex-Erstsetup
+### Baseline fuer erstes Vertex-Setup
 
 ```bash
 /mineclawd config provider vertex-ai
 /mineclawd config vertex-endpoint https://aiplatform.googleapis.com/v1
 /mineclawd config vertex-api-key <your-key>
-/mineclawd config vertex-model publishers/google/models/gemini-3-pro-preview
-/mineclawd config vertex-summarize-model publishers/google/models/gemini-3-pro-preview
+/mineclawd config vertex-model gemini-3.1-pro-preview
+/mineclawd config vertex-summarize-model gemini-3-flash-preview
 ```
 
 ## GUI-Pfad
 
 - Im Spiel: **Mod Menu** -> **MineClawd** -> **Configure**
-- Als Befehl: `/mineclawd config ...`
-- Im Overlay-Menü: Hamburger-Icon klicken -> **Config**
+- Befehls-Fallback: `/mineclawd config ...`
+- Overlay-Menue: Hamburger-Icon klicken -> **Config**
 
-Wenn das GUI nicht öffnet, nutze die Befehls-Schlüssel.
+Wenn das Oeffnen der Client-GUI fehlschlaegt, konfiguriere ueber Befehls-keys.
 
 <Info>
-Die Einstellung `enableGui` steuert das Overlay. Wenn du sie auf OFF setzt, bleibt der YACL-Konfigurationsbildschirm erreichbar – du kannst **Mod Menu** oder `/mineclawd config` weiterhin verwenden.
+Die Einstellung `enableGui` steuert das Overlay-Fenster. OFF beeinflusst den YACL-Konfigurationsbildschirm nicht. Du kannst die Konfiguration weiterhin ueber **Mod Menu** oder `/mineclawd config` oeffnen.
 </Info>

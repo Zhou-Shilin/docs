@@ -1,11 +1,11 @@
-﻿---
+---
 title: "config"
-description: "MineClawd の設定を開く・確認する・更新する。"
+description: "MineClawd 設定を開く、確認する、更新する。"
 ---
 
 ## 目的
 
-このコマンドで GUI 設定を開くか、チャットから設定を管理します。
+このコマンドで GUI 設定を開くか、チャットから設定値を管理します。
 
 ## 構文
 
@@ -24,6 +24,7 @@ description: "MineClawd の設定を開く・確認する・更新する。"
 - `limit-tool-calls`: `true` または `false`
 - `tool-call-limit`: `1` から `20`
 - `system-prompt`
+- `tavily-api-key`: Web 検索用の Tavily API キー
 - `broadcast-requests-to`: `self`, `all`, または `ops`
 - `dynamic-registry-mode`: `auto`, `enabled`, または `disabled`
 
@@ -40,12 +41,12 @@ description: "MineClawd の設定を開く・確認する・更新する。"
 ## 動作と制限
 
 - `/mineclawd config` は、プレイヤークライアントに MineClawd が入っている場合のみ GUI を開きます。
-- `broadcast-requests-to` はプレイヤーごとの設定で、ゲーム内で設定する必要があります。
+- `broadcast-requests-to` はプレイヤー単位の設定で、ゲーム内で設定する必要があります。
 - 秘密値は読み取り時にマスクされます。
-- `dynamic-registry-mode` の変更後はゲームまたはサーバー再起動が必要です。
+- `dynamic-registry-mode` を変更した後は、ゲームまたはサーバー再起動が必要です。
 
 ## よくある失敗
 
 - `unknown config key`: スペルを確認するかタブ補完を使ってください。
-- `invalid boolean`: `true` か `false` を使ってください。
-- `tool-call-limit must be between 1 and 20`: 範囲内の値を指定してください。
+- `invalid boolean`: `true` または `false` を使ってください。
+- `tool-call-limit must be between 1 and 20`: 範囲内の値を使ってください。
